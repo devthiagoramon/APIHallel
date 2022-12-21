@@ -5,25 +5,31 @@ import java.sql.Date;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Administrador extends MembroMarketing{
+public class Administrador extends Membro{
 
-    private String especialidade;
+    private String senhaAcesso;
+    private String cargo;
 
-    public Administrador(String ip, String nome, String senha, Date dataAniversario, String filiacao,
-            String senhaAcesso, Integer quantidadeAnuncio, String especialidade) {
-        super(ip, nome, senha, dataAniversario, filiacao, senhaAcesso, quantidadeAnuncio);
-        this.especialidade = especialidade;
+    public Administrador(String nome, String senha, String email, Date dataAniversario, StatusMembro status,
+            String senhaAcesso, String cargo) {
+        super(nome, senha, email, dataAniversario, status);
+        this.senhaAcesso = senhaAcesso;
+        this.cargo = cargo;
     }
 
-    public Administrador() {
+    public String getSenhaAcesso() {
+        return senhaAcesso;
+    }
+    public void setSenhaAcesso(String senhaAcesso) {
+        this.senhaAcesso = senhaAcesso;
+    }
+    public String getCargo() {
+        return cargo;
+    }
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
-    public String getEspecialidade() {
-        return especialidade;
-    }
-
-    public void setEspecialidade(String especialidade) {
-        this.especialidade = especialidade;
-    }
+    
 
 }
