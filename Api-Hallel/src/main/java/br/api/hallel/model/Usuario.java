@@ -2,18 +2,22 @@ package br.api.hallel.model;
 
 import java.sql.Date;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Usuario {
     
     public String id;
     public Date dataAcesso;
 
     public Usuario(){
-
     }
 
-    public Usuario(Date dataAcesso) {
+
+    public Usuario(Date dataAcesso, String ip) {
         this.dataAcesso = dataAcesso;
     }
+
 
     public String getId() {
         return id;
