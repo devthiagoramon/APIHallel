@@ -2,11 +2,13 @@ package br.api.hallel.model;
 
 import java.sql.Date;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Usuario {
     
+    @Id
     public String id;
     public Date dataAcesso;
 
