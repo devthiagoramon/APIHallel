@@ -15,7 +15,7 @@ public class Membro extends Usuario{
     private Date dataAniversario;
     private StatusMembro status;
     private Integer idade;
-    private ImageIcon image;
+    private String image;
     private String funcao;
     private Boolean doador;
     private Integer quantidadeDoacoes;
@@ -52,11 +52,11 @@ public class Membro extends Usuario{
         this.idade = idade;
     }
 
-    public ImageIcon getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(ImageIcon image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

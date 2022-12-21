@@ -9,9 +9,7 @@ public interface UsuarioInterface {
     
     public String inserirUsuario(Usuario usuario);
     public List<Usuario> listarTodosUsuarios();
-    public Usuario listarUsuarioPorId(String id);
-    public String alterarUsuarioDataAcesso(String id, Usuario usuarioNovo);
-    public String deletarAluno(String id);
-    public Usuario encontrarPorId(String ip);
-    public Membro solicitarCadastro(Membro membro);
+    public Boolean solicitarCadastro(Membro membro);
+    public Long quantidadeUsuario();
+
 }
