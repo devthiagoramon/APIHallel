@@ -3,22 +3,23 @@ package br.api.hallel.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.api.hallel.model.Membro;
+import br.api.hallel.model.StatusMembro;
+import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.service.MembroService;
 
 @RestController
 @RequestMapping(value = "/membros")
+@CrossOrigin("*")
 public class MembroController {
 
     @Autowired
     private MembroService service;
+
+    @Autowired
+    private MembroRepository repository;
 
     @PostMapping("/create")
     public Membro createMembro(@RequestBody Membro membro) {
@@ -28,6 +29,11 @@ public class MembroController {
     @GetMapping("")
     public List<Membro> listAllMembros() {
         return this.service.listAllMembros();
+    }
+
+    @GetMapping("/pendentes")
+    public List<Membro> listMembrosPendentes(StatusMembro statusMembro){
+        return repository.findByStatusEquals(statusMembro.PENDENTE);
     }
 
     @GetMapping("/{id}")
