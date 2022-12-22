@@ -1,6 +1,7 @@
 package br.api.hallel.repository;
 
 import java.lang.Enum;
+import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

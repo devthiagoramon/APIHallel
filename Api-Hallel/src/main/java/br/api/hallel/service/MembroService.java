@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.api.hallel.model.Membro;
+import br.api.hallel.model.StatusMembro;
 import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.service.interfaces.MembroInterface;
 
@@ -25,6 +26,10 @@ public class MembroService implements MembroInterface {
     public List<Membro> listAllMembros() {
         List<Membro> membros = this.repository.findAll();
         return membros;
+    }
+
+    public List<Membro> listMembrosPendentes(StatusMembro statusMembro){
+        return this.repository.findByStatusEquals(statusMembro.PENDENTE);
     }
 
     @Override
