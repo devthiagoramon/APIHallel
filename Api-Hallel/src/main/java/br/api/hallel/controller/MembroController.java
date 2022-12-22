@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import br.api.hallel.model.Membro;
 import br.api.hallel.model.StatusMembro;
-import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.service.MembroService;
 
 @RestController
@@ -18,8 +17,6 @@ public class MembroController {
     @Autowired
     private MembroService service;
 
-    @Autowired
-    private MembroRepository repository;
 
     @PostMapping("/create")
     public Membro createMembro(@RequestBody Membro membro) {
@@ -33,7 +30,7 @@ public class MembroController {
 
     @GetMapping("/pendentes")
     public List<Membro> listMembrosPendentes(StatusMembro statusMembro){
-        return repository.findByStatusEquals(statusMembro.PENDENTE);
+        return this.service.listMembrosPendentes(statusMembro);
     }
 
     @GetMapping("/{id}")
