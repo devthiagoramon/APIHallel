@@ -13,7 +13,7 @@ public class MembroMarketing extends Membro {
     public MembroMarketing() {
     }
 
-    public MembroMarketing(String nome, String senha, String email, Date dataAniversario,
+    public MembroMarketing(String nome, String senha, String email, String dataAniversario,
             StatusMembro status, String senhaAcesso) {
         super(nome, senha, email, dataAniversario, status);
         this.senhaAcesso = senhaAcesso;

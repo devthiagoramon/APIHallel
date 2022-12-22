@@ -10,13 +10,13 @@ public class Usuario {
     
     @Id
     public String id;
-    public Date dataAcesso;
+    public String dataAcesso;
 
     public Usuario(){
     }
 
 
-    public Usuario(Date dataAcesso, String ip) {
+    public Usuario(String dataAcesso, String ip) {
         this.dataAcesso = dataAcesso;
     }
 
@@ -27,10 +27,10 @@ public class Usuario {
     public void setId(String id) {
         this.id = id;
     }
-    public Date getDataAcesso() {
+    public String getDataAcesso() {
         return dataAcesso;
     }
-    public void setDataAcesso(Date dataAcesso) {
+    public void setDataAcesso(String dataAcesso) {
         this.dataAcesso = dataAcesso;
     }
 

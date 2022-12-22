@@ -2,8 +2,6 @@ package br.api.hallel.model;
 
 import java.sql.Date;
 
-import javax.swing.ImageIcon;
-
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -12,7 +10,7 @@ public class Membro extends Usuario{
     private String nome;
     private String senha;
     private String email;
-    private Date dataAniversario;
+    private String dataNascimento;
     private StatusMembro status;
     private Integer idade;
     private String image;
@@ -20,11 +18,11 @@ public class Membro extends Usuario{
     private Boolean doador;
     private Integer quantidadeDoacoes;
 
-    public Membro(String nome, String senha, String email, Date dataAniversario, StatusMembro status) {
+    public Membro(String nome, String senha, String email, String dataNascimento, StatusMembro status) {
         this.nome = nome;
         this.senha = senha;
         this.email = email;
-        this.dataAniversario = dataAniversario;
+        this.dataNascimento = dataNascimento;
         this.status = status;
     }
 
@@ -84,12 +82,12 @@ public class Membro extends Usuario{
         this.quantidadeDoacoes = quantidadeDoacoes;
     }
 
-    public Date getDataAniversario() {
-        return this.dataAniversario;
+    public String getDataNascimento() {
+        return this.dataNascimento;
     }
 
-    public void setDataAniversario(Date dataAniversario) {
-        this.dataAniversario = dataAniversario;
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public Membro(){}

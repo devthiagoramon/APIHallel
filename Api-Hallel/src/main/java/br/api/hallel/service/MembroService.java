@@ -18,6 +18,7 @@ public class MembroService implements MembroInterface {
 
     @Override
     public Membro createMembro(Membro membro) {
+        System.out.println("Criando membro");
         return this.repository.insert(membro);
     }
 
@@ -42,7 +43,7 @@ public class MembroService implements MembroInterface {
             membro.setIdade(membroModel.getIdade());
             membro.setEmail(membroModel.getEmail());
             membro.setSenha(membroModel.getSenha());
-            membro.setDataAniversario(membroModel.getDataAniversario());
+            membro.setDataNascimento(membroModel.getDataNascimento());
 
             return this.repository.save(membroModel);
         }
