@@ -1,5 +1,6 @@
 package br.api.hallel.service;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +61,19 @@ public class MembroService implements MembroInterface {
 
         }
 
+    }
+
+    @Override
+    public Membro findByEmailAndPassword(String email, String senha) {
+        
+        Optional<Membro> optional = this.repository.findByEmailAndSenha(email,senha);
+
+        if(optional.isPresent()){
+            Membro membro = optional.get();
+            return membro;
+        }else{
+            throw new IllegalArgumentException("Usuario com email "+email+ " não foi encontrado");
+        }
     }
 
 }

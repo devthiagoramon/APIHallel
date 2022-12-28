@@ -9,6 +9,7 @@ public interface UsuarioInterface {
     
     public String inserirUsuario(Usuario usuario);
     public List<Usuario> listarTodosUsuarios();
+    public Membro logar(Membro membro);
     public Boolean solicitarCadastro(Membro membro);
     public Long quantidadeUsuario();
 

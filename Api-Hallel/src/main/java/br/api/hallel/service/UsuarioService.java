@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -51,9 +52,6 @@ public class UsuarioService implements UsuarioInterface {
         if (membro.getNome() == null) {
             throw new IllegalArgumentException("Nome não preenchido");
         }
-        if (membro.getDataNascimento() == null) {
-            throw new IllegalArgumentException("Data de aniversario não foi preenchida");
-        }
         if (membro.getEmail() == null) {
             throw new IllegalArgumentException("Email não preenchido");
         }
@@ -79,4 +77,15 @@ public class UsuarioService implements UsuarioInterface {
         return this.repository.count();
     }
 
+    @Override
+    public Membro logar(Membro membro) {
+
+        Membro membroEncontrado = membroService.findByEmailAndPassword(membro.getEmail(), membro.getSenha());
+        
+        if(membroEncontrado.getStatus().equals(StatusMembro.PENDENTE)){
+            throw new IllegalArgumentException("Membro está pendente ainda");
+        }
+        
+        return membroEncontrado;
+    }
 }

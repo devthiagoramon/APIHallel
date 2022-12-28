@@ -1,10 +1,97 @@
 package br.api.hallel.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.api.hallel.model.Administrador;
+import br.api.hallel.model.StatusMembro;
+import br.api.hallel.repository.AdministradorRepository;
 import br.api.hallel.service.interfaces.AdministradorInterface;
 
 @Service
-public class AdministradorService implements AdministradorInterface{
-    
+public class AdministradorService implements AdministradorInterface {
+
+    @Autowired
+    private AdministradorRepository repository;
+
+    @Override
+    public String inserirAdministrador(Administrador administrador) {
+        this.repository.insert(administrador);
+        return "Professor inserido";
+    }
+
+    @Override
+    public List<Administrador> listarTodosAdministradores() {
+        return this.repository.findAll();
+    }
+
+    @Override
+    public Administrador findAdministrador(String id) {
+
+        Optional<Administrador> optional = this.repository.findById(id);
+
+        if (optional.isPresent()) {
+            Administrador administrador = optional.get();
+            administrador.setSenhaAcesso("");
+            return administrador;
+        } else {
+            throw new IllegalArgumentException("Administrador não encontrado");
+        }
+
+    }
+
+    @Override
+    public Administrador acessarAdministrador(String id, String senhaAcesso) {
+
+        Optional<Administrador> optional = this.repository.findById(id);
+
+        if (!optional.isPresent()) {
+            throw new IllegalArgumentException("Administrador não encontrado");
+        }
+        if (!optional.get().getSenhaAcesso().equals(senhaAcesso)) {
+            throw new IllegalAccessError("Senha de acesso ilegal");
+        }
+        Administrador administrador = optional.get();
+        return administrador;
+    }
+
+    @Override
+    public String deletarAdministrador(String id) {
+
+        Administrador administrador = findAdministrador(id);
+
+        this.repository.delete(administrador);
+
+        return "Professor deletado com sucesso";
+    }
+
+    @Override
+    public String alterarAdministrador(String id, Administrador administradorNovo) {
+
+        Administrador administrador = findAdministrador(id);
+
+        Administrador administradorAlterado = alterarAtributos(administrador, administradorNovo);        
+
+        this.repository.save(administradorAlterado);
+
+        return "Administrador alterado com sucesso";
+    }
+
+    private Administrador alterarAtributos(Administrador administrador, Administrador administradorNovo){
+        if(administradorNovo.getNome()==null){
+            throw new IllegalArgumentException("Nome não preenchido");
+        }
+        if(administradorNovo.getSenhaAcesso()==null){
+            throw new IllegalArgumentException("Senha de acesso não preenchida");
+        }
+        if(administradorNovo.getStatus() != StatusMembro.ATIVO){
+            throw new IllegalArgumentException("Status invalido para um administrador, deve ser ativo");
+        }
+        administrador = administradorNovo;
+        return administrador;
+    }
+
 }

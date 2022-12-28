@@ -16,4 +16,6 @@ public interface MembroInterface {
 
     public void deleteMembroById(String id);
 
+    public Membro findByEmailAndPassword(String email, String senha);
+
 }

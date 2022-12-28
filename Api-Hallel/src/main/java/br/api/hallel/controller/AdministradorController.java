@@ -37,7 +37,7 @@ public class AdministradorController {
         return this.service.findAdministrador(id);
     }
 
-    @GetMapping("/{id}/{senhaAcesso}}")
+    @GetMapping("/{id}/{senhaAcesso}")
     public Administrador acessarAdministrador(@PathVariable(value = "id") String id,
             @PathVariable(value = "senhaAcesso") String senhaAcesso) {
         return this.service.acessarAdministrador(id, senhaAcesso);
