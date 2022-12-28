@@ -18,4 +18,6 @@ public interface MembroInterface {
 
     public Membro findByEmailAndPassword(String email, String senha);
 
+    public Boolean validatePass(Membro membro);
+
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.api.hallel.model.Membro;
@@ -17,9 +19,15 @@ public class MembroService implements MembroInterface {
     @Autowired
     private MembroRepository repository;
 
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     public Membro createMembro(Membro membro) {
         System.out.println("Criando membro");
+        String encoder = this.passwordEncoder().encode(membro.getSenha());
+        membro.setSenha(encoder);
         return this.repository.insert(membro);
     }
 
@@ -43,7 +51,8 @@ public class MembroService implements MembroInterface {
             membro.setNome(membroModel.getNome());
             membro.setIdade(membroModel.getIdade());
             membro.setEmail(membroModel.getEmail());
-            membro.setSenha(membroModel.getSenha());
+            String encoder = this.passwordEncoder().encode(membro.getSenha());
+            membro.setSenha(encoder);
             membro.setDataNascimento(membroModel.getDataNascimento());
 
             return this.repository.save(membroModel);
@@ -65,15 +74,28 @@ public class MembroService implements MembroInterface {
 
     @Override
     public Membro findByEmailAndPassword(String email, String senha) {
-        
-        Optional<Membro> optional = this.repository.findByEmailAndSenha(email,senha);
 
-        if(optional.isPresent()){
+        Optional<Membro> optional = this.repository.findByEmailAndSenha(email, senha);
+
+        if (optional.isPresent()) {
             Membro membro = optional.get();
             return membro;
-        }else{
-            throw new IllegalArgumentException("Usuario com email "+email+ " não foi encontrado");
+        } else {
+            throw new IllegalArgumentException("Usuario com email " + email + " não foi encontrado");
         }
+    }
+
+    public Boolean validatePass(Membro membro) {
+        Optional<Membro> optional = this.repository.findById(membro.getId());
+
+        if(optional.isPresent()){
+            Membro membro2 = optional.get();
+            String senha = membro2.getSenha();
+            Boolean valid = passwordEncoder().matches(membro.getSenha(), senha);
+            return valid;
+        }
+
+        return false ;
     }
 
 }
