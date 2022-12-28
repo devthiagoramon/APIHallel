@@ -2,6 +2,7 @@ package br.api.hallel.service.interfaces;
 
 import java.util.List;
 
+import br.api.hallel.dto.MembroDTO;
 import br.api.hallel.model.Membro;
 
 public interface MembroInterface {
@@ -17,7 +18,5 @@ public interface MembroInterface {
     public void deleteMembroById(String id);
 
     public Membro findByEmailAndPassword(String email, String senha);
-
-    public Boolean validatePass(Membro membro);
 
 }

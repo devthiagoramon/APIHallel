@@ -15,5 +15,6 @@ public interface MembroRepository extends MongoRepository<Membro, String>{
     
     public List<Membro> findByStatusEquals(Enum<StatusMembro> status);
     public Optional<Membro> findByEmailAndSenha(String email, String senha);
+    public Optional<Membro> findByEmail(String email);
 
 }

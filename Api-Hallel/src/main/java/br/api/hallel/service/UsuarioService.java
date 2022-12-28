@@ -77,15 +77,4 @@ public class UsuarioService implements UsuarioInterface {
         return this.repository.count();
     }
 
-    @Override
-    public Membro logar(Membro membro) {
-
-        Membro membroEncontrado = membroService.findByEmailAndPassword(membro.getEmail(), membro.getSenha());
-        
-        if(membroEncontrado.getStatus().equals(StatusMembro.PENDENTE)){
-            throw new IllegalArgumentException("Membro está pendente ainda");
-        }
-        
-        return membroEncontrado;
-    }
 }

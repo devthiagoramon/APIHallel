@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import br.api.hallel.dto.MembroDTO;
 import br.api.hallel.model.Membro;
+import br.api.hallel.security.Token;
 import br.api.hallel.service.MembroService;
 
 @RestController
@@ -47,16 +49,12 @@ public class MembroController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Membro> validatePass(@RequestBody Membro membro) {
-        Boolean valid = this.service.validatePass(membro);
-
-        if (!valid) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        } else {
-            return ResponseEntity.status(200).build();
-
+    public ResponseEntity<Token> validatePass(@RequestBody MembroDTO membro) {
+        Token token = this.service.gerarToken(membro);
+        if (token != null) {
+            return ResponseEntity.ok(token);
         }
-
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 }
