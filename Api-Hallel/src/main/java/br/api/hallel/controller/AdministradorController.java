@@ -3,7 +3,10 @@ package br.api.hallel.controller;
 import java.util.List;
 
 import br.api.hallel.dto.AdministradorDTO;
+import br.api.hallel.security.Token;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,14 +41,13 @@ public class AdministradorController {
         return this.service.findAdministrador(id);
     }
 
-    @GetMapping("/{email}")
-    public boolean isAdministrador(@PathVariable String email){
-        return this.service.findAdministradorEmail(email) != null ? true : false;
-    }
-
     @PostMapping("/login")
-    public Administrador logarAdministrador(@RequestBody AdministradorDTO administradorDTO) {
-        return this.service.acessarAdministrador(administradorDTO.getEmail(), administradorDTO.getSenhaAcesso());
+    public ResponseEntity<Token> logarAdministrador(@RequestBody AdministradorDTO administradorDTO) {
+        Token token = this.service.gerarToken(administradorDTO);
+        if(token!=null){
+            return ResponseEntity.ok(token);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping("/{id}/update")

@@ -4,6 +4,7 @@ import java.security.Key;
 import java.util.Collections;
 import java.util.Date;
 
+import br.api.hallel.model.Administrador;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
@@ -30,6 +31,19 @@ public class TokenUtil {
 
         String token = Jwts.builder()
                 .setSubject(membro.getEmail())
+                .setIssuer(EMISSOR)
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
+                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .compact();
+
+        return PREFIX + token;
+    }
+
+    public static String createToken(Administrador administrador) {
+        Key secretKey = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+
+        String token = Jwts.builder()
+                .setSubject(administrador.getSenhaAcesso())
                 .setIssuer(EMISSOR)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(secretKey, SignatureAlgorithm.HS256)

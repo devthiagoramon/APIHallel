@@ -3,6 +3,9 @@ package br.api.hallel.service;
 import java.util.List;
 import java.util.Optional;
 
+import br.api.hallel.dto.AdministradorDTO;
+import br.api.hallel.security.Token;
+import br.api.hallel.security.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,4 +102,16 @@ public class AdministradorService implements AdministradorInterface {
         return administrador;
     }
 
+
+    public Token gerarToken(AdministradorDTO administradorDTO) {
+
+        Optional<Administrador> optional = this.repository.findByEmailAndSenhaAcesso(administradorDTO.getEmail(), administradorDTO.getSenhaAcesso());
+
+        if(optional.isPresent()){
+            return new Token(TokenUtil.createToken(administradorDTO.toAdministrador()));
+        }else{
+            return null;
+        }
+
+    }
 }

@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface AdministradorRepository extends MongoRepository<Administrador,String>{
 
     public Optional<Administrador> findByEmail(String email);
+    public Optional<Administrador> findByEmailAndSenhaAcesso(String email, String senhaAcesso);
 
 }
