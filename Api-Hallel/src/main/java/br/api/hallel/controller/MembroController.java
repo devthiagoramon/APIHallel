@@ -36,6 +36,26 @@ public class MembroController {
         return ResponseEntity.status(201).body(service.listMembroId(id));
     }
 
+    @GetMapping("/email")
+    public ResponseEntity<Membro> listMembroEmail(@RequestParam("email") String email){
+        return ResponseEntity.status(201).body(this.service.findByEmail(email));
+    }
+
+    @GetMapping("/ativo")
+    public ResponseEntity<List<Membro>> listMembroAtivo(){
+        return ResponseEntity.status(200).body(service.findByStatusAtivo());
+    }
+
+    @GetMapping("/pendente")
+    public ResponseEntity<List<Membro>> listMembroPendente(){
+        return ResponseEntity.status(200).body(service.findByStatusPendente());
+    }
+
+    @GetMapping("/inativo")
+    public ResponseEntity<List<Membro>> listMembroInativo(){
+        return ResponseEntity.status(200).body(service.findByStatusInativo());
+    }
+
     @GetMapping("/edit/{id}")
     public ResponseEntity<Membro> updateMembrobyId(@PathVariable String id, @RequestBody Membro membroModel) {
         return ResponseEntity.status(200).body(service.updatePerfilMembro(id, membroModel));

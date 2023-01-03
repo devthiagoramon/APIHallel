@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.api.hallel.dto.MembroDTO;
 import br.api.hallel.model.Membro;
+import br.api.hallel.model.StatusMembro;
 import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.security.Token;
 import br.api.hallel.security.TokenUtil;
@@ -36,8 +39,7 @@ public class MembroService implements MembroInterface {
 
     @Override
     public List<Membro> listAllMembros() {
-        List<Membro> membros = this.repository.findAll();
-        return membros;
+        return this.repository.findAll(Sort.by(Direction.ASC, "status"));
     }
 
     @Override
@@ -101,6 +103,25 @@ public class MembroService implements MembroInterface {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Membro> findByStatusAtivo() {
+        return this.repository.findByStatusEquals(StatusMembro.ATIVO);
+    }
+
+    @Override
+    public List<Membro> findByStatusPendente() {
+        return this.repository.findByStatusEquals(StatusMembro.PENDENTE);
+    }
+
+    @Override
+    public Membro findByEmail(String email) {
+        return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
+    }
+
+    public List<Membro> findByStatusInativo() {
+        return this.repository.findByStatusEquals(StatusMembro.INATIVO);
     }
 
 }

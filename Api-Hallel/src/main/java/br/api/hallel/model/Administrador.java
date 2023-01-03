@@ -17,6 +17,10 @@ public class Administrador extends Membro{
         this.cargo = cargo;
     }
 
+    public Administrador(){
+
+    }
+
     public String getSenhaAcesso() {
         return senhaAcesso;
     }

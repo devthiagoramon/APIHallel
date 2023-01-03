@@ -35,13 +35,4 @@ public class UsuarioController {
         return this.usuarioService.quantidadeUsuario();
     }
 
-    @GetMapping("/entrar")
-    public Membro logar(@RequestParam(value = "email") String email, @RequestParam(value = "senha") String senha) {
-
-        Membro membro = new Membro();
-        membro.setEmail(email);
-        membro.setSenha(senha);
-
-        return this.usuarioService.logar(membro);
-    }
 }

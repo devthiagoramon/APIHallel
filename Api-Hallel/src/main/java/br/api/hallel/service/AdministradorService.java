@@ -20,7 +20,7 @@ public class AdministradorService implements AdministradorInterface {
     @Override
     public String inserirAdministrador(Administrador administrador) {
         this.repository.insert(administrador);
-        return "Professor inserido";
+        return "Administrador inserido";
     }
 
     @Override
@@ -44,15 +44,20 @@ public class AdministradorService implements AdministradorInterface {
     }
 
     @Override
-    public Administrador acessarAdministrador(String id, String senhaAcesso) {
+    public Administrador findAdministradorEmail(String email) {
+        return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
+    }
 
-        Optional<Administrador> optional = this.repository.findById(id);
+    @Override
+    public Administrador acessarAdministrador(String email, String senhaAcesso) {
+
+        Optional<Administrador> optional = this.repository.findByEmail(email);
 
         if (!optional.isPresent()) {
-            throw new IllegalArgumentException("Administrador não encontrado");
+            return null;
         }
         if (!optional.get().getSenhaAcesso().equals(senhaAcesso)) {
-            throw new IllegalAccessError("Senha de acesso ilegal");
+            return null;
         }
         Administrador administrador = optional.get();
         return administrador;

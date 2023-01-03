@@ -2,6 +2,7 @@ package br.api.hallel.controller;
 
 import java.util.List;
 
+import br.api.hallel.dto.AdministradorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,8 @@ public class AdministradorController {
     private AdministradorService service;
 
     @PostMapping("/create")
-    public String inserirAdministrador(@RequestBody Administrador administrador) {
-        return this.service.inserirAdministrador(administrador);
+    public String inserirAdministrador(@RequestBody AdministradorDTO administrador) {
+        return this.service.inserirAdministrador(administrador.toAdministrador());
     }
 
     @GetMapping("")
@@ -37,10 +38,14 @@ public class AdministradorController {
         return this.service.findAdministrador(id);
     }
 
-    @GetMapping("/{id}/{senhaAcesso}")
-    public Administrador acessarAdministrador(@PathVariable(value = "id") String id,
-            @PathVariable(value = "senhaAcesso") String senhaAcesso) {
-        return this.service.acessarAdministrador(id, senhaAcesso);
+    @GetMapping("/{email}")
+    public boolean isAdministrador(@PathVariable String email){
+        return this.service.findAdministradorEmail(email) != null ? true : false;
+    }
+
+    @PostMapping("/login")
+    public Administrador logarAdministrador(@RequestBody AdministradorDTO administradorDTO) {
+        return this.service.acessarAdministrador(administradorDTO.getEmail(), administradorDTO.getSenhaAcesso());
     }
 
     @PostMapping("/{id}/update")
