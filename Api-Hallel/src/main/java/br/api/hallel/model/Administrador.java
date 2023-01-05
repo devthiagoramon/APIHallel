@@ -10,11 +10,15 @@ public class Administrador extends Membro{
     private String senhaAcesso;
     private String cargo;
 
-    public Administrador(String nome, String senha, String email, Date dataAniversario, StatusMembro status,
+    public Administrador(String nome, String senha, String email, String dataAniversario, StatusMembro status,
             String senhaAcesso, String cargo) {
         super(nome, senha, email, dataAniversario, status);
         this.senhaAcesso = senhaAcesso;
         this.cargo = cargo;
+    }
+
+    public Administrador(){
+
     }
 
     public String getSenhaAcesso() {
@@ -30,6 +34,5 @@ public class Administrador extends Membro{
         this.cargo = cargo;
     }
 
-    
 
 }

@@ -3,35 +3,35 @@ package br.api.hallel.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.api.hallel.model.Membro;
 import br.api.hallel.model.Usuario;
 import br.api.hallel.service.UsuarioService;
+import jakarta.websocket.server.PathParam;
 
 @RestController
-@RequestMapping("/usuario")
+@CrossOrigin("*")
+@RequestMapping("/api/usuario")
 public class UsuarioController {
 
     @Autowired
     public UsuarioService usuarioService;
 
-    @GetMapping("/solicitarCadastro")
-    public String solicitarCadastro(@RequestBody Membro membro){
+    @PostMapping("/solicitarCadastro")
+    public String solicitarCadastro(@RequestBody Membro membro) {
 
-        if(this.usuarioService.solicitarCadastro(membro)){
+        if (this.usuarioService.solicitarCadastro(membro)) {
+            System.out.println("Solitação enviada");
             return "Solicitação enviada";
-        }else{
+        } else {
+            System.out.println("Solitação não enviada");
             return "Solicitação recusada, tente novamente";
         }
     }
 
     @GetMapping("/quantidade")
-    public Long quantidadeUsuarios(){
+    public Long quantidadeUsuarios() {
         return this.usuarioService.quantidadeUsuario();
     }
 

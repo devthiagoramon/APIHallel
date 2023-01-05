@@ -4,8 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.api.hallel.dto.MembroDTO;
 import br.api.hallel.model.Membro;
 import br.api.hallel.model.StatusMembro;
 import br.api.hallel.repository.MembroRepository;
@@ -17,19 +21,21 @@ public class MembroService implements MembroInterface {
     @Autowired
     private MembroRepository repository;
 
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     public Membro createMembro(Membro membro) {
+        System.out.println("Criando membro");
+        String encoder = this.passwordEncoder().encode(membro.getSenha());
+        membro.setSenha(encoder);
         return this.repository.insert(membro);
     }
 
     @Override
     public List<Membro> listAllMembros() {
-        List<Membro> membros = this.repository.findAll();
-        return membros;
-    }
-
-    public List<Membro> listMembrosPendentes(StatusMembro statusMembro){
-        return this.repository.findByStatusEquals(statusMembro.PENDENTE);
+        return this.repository.findAll(Sort.by(Direction.ASC, "status"));
     }
 
     @Override
@@ -46,8 +52,9 @@ public class MembroService implements MembroInterface {
             membro.setNome(membroModel.getNome());
             membro.setIdade(membroModel.getIdade());
             membro.setEmail(membroModel.getEmail());
-            membro.setSenha(membroModel.getSenha());
-            membro.setDataAniversario(membroModel.getDataAniversario());
+            String encoder = this.passwordEncoder().encode(membro.getSenha());
+            membro.setSenha(encoder);
+            membro.setDataNascimento(membroModel.getDataNascimento());
 
             return this.repository.save(membroModel);
         }
@@ -64,6 +71,39 @@ public class MembroService implements MembroInterface {
 
         }
 
+    }
+
+    @Override
+    public Membro findByEmailAndPassword(String email, String senha) {
+
+        Optional<Membro> optional = this.repository.findByEmailAndSenha(email, senha);
+
+        if (optional.isPresent()) {
+            Membro membro = optional.get();
+            return membro;
+        } else {
+            throw new IllegalArgumentException("Usuario com email " + email + " não foi encontrado");
+        }
+    }
+
+
+    @Override
+    public List<Membro> findByStatusAtivo() {
+        return this.repository.findByStatusEquals(StatusMembro.ATIVO);
+    }
+
+    @Override
+    public List<Membro> findByStatusPendente() {
+        return this.repository.findByStatusEquals(StatusMembro.PENDENTE);
+    }
+
+    @Override
+    public Membro findByEmail(String email) {
+        return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
+    }
+
+    public List<Membro> findByStatusInativo() {
+        return this.repository.findByStatusEquals(StatusMembro.INATIVO);
     }
 
 }
