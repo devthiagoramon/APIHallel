@@ -1,6 +1,10 @@
 package br.api.hallel.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -47,9 +51,6 @@ public class UsuarioService implements UsuarioInterface {
     private Membro validarMembro(Membro membro) {
         if (membro.getNome() == null) {
             throw new IllegalArgumentException("Nome não preenchido");
-        }
-        if (membro.getDataAniversario() == null) {
-            throw new IllegalArgumentException("Data de aniversario não foi preenchida");
         }
         if (membro.getEmail() == null) {
             throw new IllegalArgumentException("Email não preenchido");
