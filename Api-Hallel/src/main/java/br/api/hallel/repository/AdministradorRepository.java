@@ -13,4 +13,7 @@ public interface AdministradorRepository extends MongoRepository<Administrador,S
     public Optional<Administrador> findByEmail(String email);
     public Optional<Administrador> findByEmailAndSenhaAcesso(String email, String senhaAcesso);
 
+    public boolean existsByEmail(String email);
+
+    public Optional<Administrador> findByNome(String username);
 }

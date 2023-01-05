@@ -1,11 +1,13 @@
-package br.api.hallel.dto;
+package br.api.hallel.payload.requerimento;
 
 import br.api.hallel.model.Administrador;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 
-public class AdministradorDTO {
+import java.util.List;
+import java.util.Set;
+
+public class CadAdministradorRequerimento {
 
     @NotBlank
     private String nome;
@@ -17,7 +19,9 @@ public class AdministradorDTO {
     @NotBlank
     private String senhaAcesso;
 
-    public AdministradorDTO() {
+    private Set<String> roles;
+
+    public CadAdministradorRequerimento() {
     }
 
     public String getNome() {
@@ -52,12 +56,12 @@ public class AdministradorDTO {
         this.senhaAcesso = senhaAcesso;
     }
 
-    public Administrador toAdministrador(){
-        Administrador administrador = new Administrador();
-        administrador.setNome(this.getNome());
-        administrador.setEmail(this.getEmail());
-        administrador.setSenhaAcesso(this.getSenhaAcesso());
-        administrador.setSenha(this.getSenha());
-        return administrador;
+    public Set<String> getRoles() {
+        return roles;
     }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
 }

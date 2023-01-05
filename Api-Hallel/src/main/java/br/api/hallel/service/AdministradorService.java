@@ -1,12 +1,20 @@
 package br.api.hallel.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import br.api.hallel.dto.AdministradorDTO;
-import br.api.hallel.security.Token;
-import br.api.hallel.security.TokenUtil;
+import br.api.hallel.model.ERole;
+import br.api.hallel.model.Role;
+import br.api.hallel.payload.requerimento.CadAdministradorRequerimento;
+import br.api.hallel.payload.resposta.MessageResposta;
+import br.api.hallel.repository.RoleRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.api.hallel.model.Administrador;
@@ -20,11 +28,55 @@ public class AdministradorService implements AdministradorInterface {
     @Autowired
     private AdministradorRepository repository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private PasswordEncoder encoder;
+
     @Override
-    public String inserirAdministrador(Administrador administrador) {
-        this.repository.insert(administrador);
-        return "Administrador inserido";
+    public ResponseEntity<?> inserirAdministrador(@Valid CadAdministradorRequerimento administradorReq) {
+        if(repository.existsByEmail(administradorReq.getEmail())){
+            return ResponseEntity.badRequest().body(new MessageResposta("Error: email já existente"));
+        }
+
+        Administrador administrador = new Administrador();
+
+        administrador.setNome(administradorReq.getNome());
+        administrador.setEmail(administradorReq.getEmail());
+        administrador.setSenha(encoder.encode(administradorReq.getSenha()));
+        administrador.setSenhaAcesso(administradorReq.getSenhaAcesso());
+        administrador.setStatus(StatusMembro.ATIVO);
+
+        Set<String> strRoles = administradorReq.getRoles();
+        Set<Role> roles = new HashSet<>();
+
+        if(strRoles==null){
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        }else{
+            strRoles.forEach(role -> {
+                switch (role){
+                    case "admin":
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+                        roles.add(adminRole);
+                        break;
+                    case "user":
+                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+                        roles.add(userRole);
+                        break;
+                }
+            });
+        }
+
+        administrador.setRoles(roles);
+        repository.save(administrador);
+        return ResponseEntity.ok().body(new MessageResposta("Administrador adicionado com sucesso!"));
     }
+
 
     @Override
     public List<Administrador> listarTodosAdministradores() {
@@ -103,15 +155,4 @@ public class AdministradorService implements AdministradorInterface {
     }
 
 
-    public Token gerarToken(AdministradorDTO administradorDTO) {
-
-        Optional<Administrador> optional = this.repository.findByEmailAndSenhaAcesso(administradorDTO.getEmail(), administradorDTO.getSenhaAcesso());
-
-        if(optional.isPresent()){
-            return new Token(TokenUtil.createToken(administradorDTO.toAdministrador()));
-        }else{
-            return null;
-        }
-
-    }
 }

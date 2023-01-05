@@ -34,6 +34,5 @@ public class Administrador extends Membro{
         this.cargo = cargo;
     }
 
-    
 
 }

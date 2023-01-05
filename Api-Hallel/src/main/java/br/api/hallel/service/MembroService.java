@@ -1,6 +1,5 @@
 package br.api.hallel.service;
 
-import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,15 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.api.hallel.dto.MembroDTO;
 import br.api.hallel.model.Membro;
 import br.api.hallel.model.StatusMembro;
 import br.api.hallel.repository.MembroRepository;
-import br.api.hallel.security.Token;
-import br.api.hallel.security.TokenUtil;
 import br.api.hallel.service.interfaces.MembroInterface;
 
 @Service
@@ -90,20 +86,6 @@ public class MembroService implements MembroInterface {
         }
     }
 
-    public Token gerarToken(MembroDTO membroDTO) {
-        Optional<Membro> optional = this.repository
-                    .findByEmail(membroDTO.getEmail());
-
-        if(optional.isPresent()){
-
-            Boolean valid = passwordEncoder().matches(membroDTO.getSenha(), optional.get().getSenha());
-            if(valid){
-                return new Token(TokenUtil.createToken(membroDTO.toMembro()));
-            }
-        }
-
-        return null;
-    }
 
     @Override
     public List<Membro> findByStatusAtivo() {

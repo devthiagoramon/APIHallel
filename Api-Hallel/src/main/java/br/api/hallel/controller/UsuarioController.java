@@ -12,7 +12,7 @@ import jakarta.websocket.server.PathParam;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/usuario")
+@RequestMapping("/api/usuario")
 public class UsuarioController {
 
     @Autowired
