@@ -3,7 +3,12 @@ package br.api.hallel.service;
 import br.api.hallel.model.Eventos;
 import br.api.hallel.repository.EventosRepository;
 import br.api.hallel.service.interfaces.EventosInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +20,11 @@ public class EventosService implements EventosInterface {
     @Autowired
     private EventosRepository repository;
 
+    private Logger logger = LoggerFactory.getLogger(EventosService.class);
+
     @Override
     public List<Eventos> listarAllEventos() {
-        System.out.println("Listando Eventos...");
+        logger.info("Listando todos os eventos! -- Administrador: "+getLogado());
         return this.repository.findAll();
     }
 
@@ -27,9 +34,12 @@ public class EventosService implements EventosInterface {
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
+            logger.info("Eventos: "+eventos.getNome()+" listado -- Administrador: "+getLogado());
+
             return eventos;
         } else {
-            System.out.println("Evento não encontrado!");
+            logger.error("Evento não encontrado! -- Administrador: "+getLogado());
+
             return null;
         }
     }
@@ -40,9 +50,12 @@ public class EventosService implements EventosInterface {
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
+            logger.info("Eventos: "+eventos.getNome()+" listado -- Administrador: "+getLogado());
+
             return eventos;
         } else {
-            System.out.println("Evento não encontrado!");
+            logger.error("Evento não encontrado! -- Administrador: "+getLogado());
+
             return null;
         }
 
@@ -50,6 +63,8 @@ public class EventosService implements EventosInterface {
 
     @Override
     public Eventos createEvento(Eventos evento) {
+        logger.info("Evento criado! -- Administrador: "+getLogado());
+
         return this.repository.insert(evento);
     }
 
@@ -60,10 +75,12 @@ public class EventosService implements EventosInterface {
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
+            logger.info("Eventos: "+eventos.getNome()+" Alterado! -- Administrador: "+getLogado());
 
             return this.repository.save(eventos);
         } else {
-            System.out.println("Evento não encontrado!");
+            logger.error("Eventos não encontrado listado! -- Administrador: "+getLogado());
+
             return null;
         }
 
@@ -75,10 +92,21 @@ public class EventosService implements EventosInterface {
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
+            logger.info("Evento: "+eventos.getNome()+" deletado -- Administrador: "+getLogado());
+
             this.repository.deleteById(id);
         } else {
-            System.out.println("Evento não encontrado!");
+            logger.error("Evento não encontrado! -- Administrador: "+getLogado());
         }
+    }
+
+    private String getLogado() {
+        Authentication adminLogado = SecurityContextHolder.getContext().getAuthentication();
+        if (!(adminLogado instanceof AnonymousAuthenticationToken)) {
+            return adminLogado.getName();
+        }
+        return "null";
+
     }
 
 

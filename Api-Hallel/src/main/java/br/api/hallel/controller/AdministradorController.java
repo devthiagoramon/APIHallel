@@ -77,7 +77,6 @@ public class AdministradorController {
     }
 
     @GetMapping("/membros")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Membro>> listAllMembros() {
         return ResponseEntity.status(200).body(membroService.listAllMembros());
     }
