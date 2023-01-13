@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.api.hallel.dto.MembroDTO;
 import br.api.hallel.model.Membro;
 import br.api.hallel.model.StatusMembro;
 import br.api.hallel.repository.MembroRepository;

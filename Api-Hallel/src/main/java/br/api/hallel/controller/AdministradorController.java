@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/administrador")
 public class AdministradorController {
 
@@ -42,27 +42,27 @@ public class AdministradorController {
     }
 
     @PostMapping("/{id}/update")
-    public String alterarAdministrador(@PathVariable(value = "id") String id, @RequestBody Administrador administradorNovo){
+    public String alterarAdministrador(@PathVariable(value = "id") String id, @RequestBody Administrador administradorNovo) {
         return this.service.alterarAdministrador(id, administradorNovo);
     }
 
     @PostMapping("/{id}/delete")
-    public String deletarAdministrador(@PathVariable String id){
+    public String deletarAdministrador(@PathVariable String id) {
         return this.service.deletarAdministrador(id);
     }
 
     @GetMapping("/membros/ativo")
-    public ResponseEntity<List<Membro>> listMembroAtivo(){
+    public ResponseEntity<List<Membro>> listMembroAtivo() {
         return ResponseEntity.status(200).body(membroService.findByStatusAtivo());
     }
 
     @GetMapping("/membros/pendente")
-    public ResponseEntity<List<Membro>> listMembroPendente(){
+    public ResponseEntity<List<Membro>> listMembroPendente() {
         return ResponseEntity.status(200).body(membroService.findByStatusPendente());
     }
 
     @GetMapping("/membros/inativo")
-    public ResponseEntity<List<Membro>> listMembroInativo(){
+    public ResponseEntity<List<Membro>> listMembroInativo() {
         return ResponseEntity.status(200).body(membroService.findByStatusInativo());
     }
 
@@ -71,18 +71,23 @@ public class AdministradorController {
         return ResponseEntity.status(200).body(membroService.listAllMembros());
     }
 
+    @GetMapping("/membros/{id}")
+    public ResponseEntity<Membro> listMembroId(@PathVariable String id) {
+        return ResponseEntity.status(201).body(membroService.listMembroId(id));
+    }
+
     @GetMapping("/eventos")
-    public ResponseEntity<List<Eventos>> listAllEventos(){
+    public ResponseEntity<List<Eventos>> listAllEventos() {
         return ResponseEntity.status(200).body(eventosService.listarAllEventos());
     }
 
-    @PostMapping("/{id}/edit")
-    public Eventos updateEventos(@PathVariable(value = "id") String id){
+    @PostMapping("/evento/{id}/edit")
+    public Eventos updateEventos(@PathVariable(value = "id") String id) {
         return this.eventosService.updateEventoById(id);
     }
 
-    @PostMapping("/{id}/delete")
-    public void deleteEvento(@PathVariable(value = "id") String id){
+    @PostMapping("/evento/{id}/delete")
+    public void deleteEvento(@PathVariable(value = "id") String id) {
         this.eventosService.deleteEventoById(id);
     }
 }

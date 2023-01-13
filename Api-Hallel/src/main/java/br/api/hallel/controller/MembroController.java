@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.api.hallel.dto.MembroDTO;
 import br.api.hallel.model.Membro;
 import br.api.hallel.service.MembroService;
 

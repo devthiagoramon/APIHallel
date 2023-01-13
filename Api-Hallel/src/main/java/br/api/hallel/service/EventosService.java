@@ -36,7 +36,7 @@ public class EventosService implements EventosInterface {
 
     @Override
     public Eventos listarEventosByNome(String nome) {
-        Optional<Eventos> optional = this.repository.findByNome(nome);
+        Optional<Eventos> optional = this.repository.findByTitulo(nome);
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
