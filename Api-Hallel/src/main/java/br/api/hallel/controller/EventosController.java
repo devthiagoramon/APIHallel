@@ -1,7 +1,11 @@
 package br.api.hallel.controller;
 
 import br.api.hallel.model.Eventos;
+import br.api.hallel.payload.requerimento.CadEventoRequerimento;
 import br.api.hallel.service.EventosService;
+import lombok.extern.log4j.Log4j2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,16 +13,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/eventos")
+@RequestMapping(value = "/api/eventos")
 @CrossOrigin("*")
+@Log4j2
 public class EventosController {
+
+    Logger logger = LoggerFactory.getLogger(EventosController.class);
 
     @Autowired
     private EventosService service;
 
     @PostMapping("/create")
-    public ResponseEntity<Eventos> createEventos(@RequestBody Eventos eventos){
-        return ResponseEntity.status(201).body(service.createEvento(eventos));
+    public ResponseEntity<Eventos> createEventos(@RequestBody CadEventoRequerimento cadEvento){
+
+        logger.info("Create eventos acessado infos:\n{\n titulo:"+cadEvento.getTitulo()+"\n" +
+                "descricao:"+cadEvento.getDescricao()+"\n" +
+                "local: "+cadEvento.getLocal());
+
+        return ResponseEntity.status(201).body(service.createEvento(cadEvento.toEventos()));
     }
 
     @GetMapping("")

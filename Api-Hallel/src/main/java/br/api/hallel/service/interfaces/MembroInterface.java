@@ -2,7 +2,6 @@ package br.api.hallel.service.interfaces;
 
 import java.util.List;
 
-import br.api.hallel.dto.MembroDTO;
 import br.api.hallel.model.Membro;
 import br.api.hallel.model.StatusMembro;
 

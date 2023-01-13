@@ -11,7 +11,7 @@ public class Eventos {
     private String descricao;
     private Long quantidadeMembros;
     private Long maxMembros;
-    private String nome;
+    private String titulo;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
     private String dataInicio;
@@ -24,7 +24,7 @@ public class Eventos {
     public Eventos(String descricao, Long quantidadeMembros, String nome, String dataInicio, String dataFim, String localidade) {
         this.descricao = descricao;
         this.quantidadeMembros = quantidadeMembros;
-        this.nome = nome;
+        this.titulo = nome;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.localidade = localidade;
@@ -54,12 +54,12 @@ public class Eventos {
         this.quantidadeMembros = quantidadeMembros;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getDataInicio() {

@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface EventosRepository extends MongoRepository<Eventos, String> {
-    Optional<Eventos> findByNome(String nome);
+    Optional<Eventos> findByTitulo(String titulo);
 }

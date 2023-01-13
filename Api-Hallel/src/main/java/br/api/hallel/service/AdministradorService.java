@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import br.api.hallel.dto.AdministradorDTO;
 import br.api.hallel.model.ERole;
 import br.api.hallel.model.Role;
 import br.api.hallel.payload.requerimento.CadAdministradorRequerimento;
