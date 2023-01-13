@@ -17,17 +17,49 @@ public class Eventos {
     private String dataInicio;
     private String dataFim;
     private String localidade;
+    private String horarioInicio;
+    private String horarioFim;
+    private Long participantesEspeciais;
 
     public Eventos() {
     }
 
-    public Eventos(String descricao, Long quantidadeMembros, String nome, String dataInicio, String dataFim, String localidade) {
+    public Eventos(String descricao, Long quantidadeMembros, String nome, String dataInicio, String dataFim, String localidade
+            , String horarioInicio, String horarioFim, Long participantesEspeciais ) {
         this.descricao = descricao;
         this.quantidadeMembros = quantidadeMembros;
         this.titulo = nome;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.localidade = localidade;
+        this.horarioInicio = horarioInicio;
+        this.horarioFim = horarioFim;
+        this.participantesEspeciais = participantesEspeciais;
+    }
+
+
+    public String getHorarioInicio() {
+        return horarioInicio;
+    }
+
+    public void setHorarioInicio(String horarioInicio) {
+        this.horarioInicio = horarioInicio;
+    }
+
+    public String getHorarioFim() {
+        return horarioFim;
+    }
+
+    public void setHorarioFim(String horarioFim) {
+        this.horarioFim = horarioFim;
+    }
+
+    public Long getParticipantesEspeciais() {
+        return participantesEspeciais;
+    }
+
+    public void setParticipantesEspeciais(Long participantesEspeciais) {
+        this.participantesEspeciais = participantesEspeciais;
     }
 
     public String getId() {

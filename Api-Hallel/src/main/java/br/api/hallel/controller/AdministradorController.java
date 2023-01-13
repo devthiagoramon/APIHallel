@@ -1,7 +1,6 @@
 package br.api.hallel.controller;
 
 import br.api.hallel.model.Administrador;
-import br.api.hallel.model.Eventos;
 import br.api.hallel.model.Membro;
 import br.api.hallel.payload.requerimento.CadAdministradorRequerimento;
 import br.api.hallel.service.AdministradorService;
