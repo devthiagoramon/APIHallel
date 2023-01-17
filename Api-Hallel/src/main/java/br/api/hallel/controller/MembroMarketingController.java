@@ -2,6 +2,7 @@ package br.api.hallel.controller;
 
 import java.util.List;
 
+import br.api.hallel.model.Eventos;
 import br.api.hallel.service.EventosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
