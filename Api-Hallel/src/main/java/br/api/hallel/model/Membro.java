@@ -1,10 +1,8 @@
 package br.api.hallel.model;
 
 import java.sql.Date;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import lombok.Builder;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -130,19 +128,25 @@ public class Membro extends Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(roles
-                .stream()
-                .map(Role::getName).toString()));
+
+        ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+
+        getRoles().stream()
+                .map(Role::getName)
+                .forEach(eRole ->
+                        authorities.add(new SimpleGrantedAuthority(eRole.toString())));
+
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return getSenha();
+        return this.getSenha();
     }
 
     @Override
     public String getUsername() {
-        return getEmail();
+        return this.getEmail();
     }
 
     @Override

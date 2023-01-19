@@ -28,7 +28,8 @@ public class EventosController {
 
         logger.info("Create eventos acessado infos:\n{\n titulo:"+cadEvento.getTitulo()+"\n" +
                 "descricao:"+cadEvento.getDescricao()+"\n" +
-                "local: "+cadEvento.getLocal());
+                "local: "+cadEvento.getLocal()+
+                "\nimagem: "+cadEvento.getImagem());
 
         return ResponseEntity.status(201).body(service.createEvento(cadEvento.toEventos()));
     }

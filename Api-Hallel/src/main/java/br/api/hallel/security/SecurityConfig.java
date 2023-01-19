@@ -31,29 +31,15 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
 
-    @Bean
-    public SecurityFilterChain filterChainGoogle(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/google").permitAll()
-                .anyRequest().authenticated()
-                .and().oauth2Login();
-
-
-        return http.build();
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/login").permitAll()
-                .requestMatchers("/api/isTokenExpired").permitAll()
-                .requestMatchers("/api/google").permitAll()
-                .requestMatchers("/api/solicitarCadastro").permitAll()
-                .requestMatchers("/api/administrador/create").permitAll()
-                .requestMatchers("/api/administrador/").hasRole("ADMIN")
-                .requestMatchers("/api/eventos/").hasRole("ADMIN")
+                .requestMatchers("/api/login", "/api/isTokenExpired", "/api/solicitarCadastro",
+                        "/api/administrador/create", "/api/google").permitAll()
+                .requestMatchers("/api/administrador/**").hasRole("ADMIN")
+                .requestMatchers("/api/eventos/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
