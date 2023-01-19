@@ -19,6 +19,7 @@ public class Eventos {
     private String localidade;
     private String horarioInicio;
     private String horarioFim;
+    private String imagem;
     private Long participantesEspeciais;
 
     public Eventos() {
@@ -60,6 +61,14 @@ public class Eventos {
 
     public void setParticipantesEspeciais(Long participantesEspeciais) {
         this.participantesEspeciais = participantesEspeciais;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
     public String getId() {

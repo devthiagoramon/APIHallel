@@ -5,6 +5,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.log4j.Log4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,7 +21,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-
+    Logger logger = LoggerFactory.getLogger(JwtService.class);
     private static String secretKey = "5266556A586E3272357538782F413F4428472B4B6250655368566B5970337336763979244226452948404D635166546A576E5A7134743777217A25432A462D4A";
 
     private static Long expirationTime = 86400000L;
@@ -66,8 +70,6 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token){
-
-
         return Jwts.parserBuilder()
                 .setSigningKey(getSingKey())
                 .build()

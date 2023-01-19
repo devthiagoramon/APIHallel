@@ -1,5 +1,6 @@
 package br.api.hallel.security;
 
+import br.api.hallel.model.Role;
 import br.api.hallel.repository.AdministradorRepository;
 import br.api.hallel.repository.MembroRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,21 +27,19 @@ public class ApplicationConfig {
     private MembroRepository membroRepository;
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return username -> {
-            if(membroRepository.findByEmail(username).isPresent()){
+            if (membroRepository.findByEmail(username).isPresent()) {
                 return membroRepository.findByEmail(username).get();
-            }
-            if(administradorRepository.findByEmail(username).isPresent()){
+            } else if (administradorRepository.findByEmail(username).isPresent()) {
                 return administradorRepository.findByEmail(username).get();
             }
-
             throw new UsernameNotFoundException("Usuario não encontrado");
         };
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEnconder());
@@ -48,7 +47,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 

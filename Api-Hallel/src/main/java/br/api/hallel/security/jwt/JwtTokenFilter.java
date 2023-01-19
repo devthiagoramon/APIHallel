@@ -1,5 +1,6 @@
 package br.api.hallel.security.jwt;
 
+import br.api.hallel.model.Role;
 import br.api.hallel.security.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -38,21 +39,25 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         final String userEmail;
 
         if(authHeader==null || !authHeader.startsWith("Bearer ")){
-            filterChain.doFilter(request,response);
+            logger.warn(authHeader);
             logger.warn("Incorrect Header or Invalid Token");
+            filterChain.doFilter(request,response);
             return;
         }
 
         jwt = authHeader.replace("Bearer ", "");
         userEmail = jwtService.extractUsername(jwt);
         if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
+
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             if(jwtService.isTokenValid(jwt,userDetails)){
+
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
                         userDetails.getAuthorities()
                 );
+
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
