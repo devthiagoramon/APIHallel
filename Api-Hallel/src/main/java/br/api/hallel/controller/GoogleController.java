@@ -17,7 +17,7 @@ public class GoogleController {
     }
 
     @GetMapping("/logar")
-    public Principal user(Principal principal) {
+    public Principal userGoogle(Principal principal) {
         return principal;
     }
 }
