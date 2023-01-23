@@ -36,12 +36,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/login").permitAll()
-                .requestMatchers("/api/isTokenExpired").permitAll()
-                .requestMatchers("/api/solicitarCadastro").permitAll()
-                .requestMatchers("/api/administrador/create").permitAll()
-                .requestMatchers("/api/administrador/").hasRole("ADMIN")
-                .requestMatchers("/api/eventos/").hasRole("ADMIN")
+                .requestMatchers("/api/login", "/api/isTokenExpired", "/api/solicitarCadastro", "/api/administrador/create").permitAll()
+                .requestMatchers("/api/administrador/**").hasRole("ADMIN")
+                .requestMatchers("/api/eventos/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
@@ -55,7 +52,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    @Order(2)
     protected SecurityFilterChain filterChainGoogle(HttpSecurity http) throws Exception {
         http.securityMatcher("/api/google/logar").authorizeHttpRequests(authConfig -> {
 

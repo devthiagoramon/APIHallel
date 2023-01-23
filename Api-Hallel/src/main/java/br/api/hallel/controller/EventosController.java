@@ -18,21 +18,9 @@ import java.util.List;
 @Log4j2
 public class EventosController {
 
-    Logger logger = LoggerFactory.getLogger(EventosController.class);
 
     @Autowired
     private EventosService service;
-
-    @PostMapping("/create")
-    public ResponseEntity<Eventos> createEventos(@RequestBody CadEventoRequerimento cadEvento){
-
-        logger.info("Create eventos acessado infos:\n{\n titulo:"+cadEvento.getTitulo()+"\n" +
-                "descricao:"+cadEvento.getDescricao()+"\n" +
-                "local: "+cadEvento.getLocal()+
-                "\nimagem: "+cadEvento.getImagem());
-
-        return ResponseEntity.status(201).body(service.createEvento(cadEvento.toEventos()));
-    }
 
     @GetMapping("")
     public ResponseEntity<List<Eventos>> listAllEventos(){

@@ -14,45 +14,33 @@ public class Eventos {
     private String titulo;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
-    private String dataInicio;
-    private String dataFim;
+    private String date;
     private String localidade;
-    private String horarioInicio;
-    private String horarioFim;
+    private String horario;
     private String imagem;
     private Long participantesEspeciais;
 
     public Eventos() {
     }
 
-    public Eventos(String descricao, Long quantidadeMembros, String nome, String dataInicio, String dataFim, String localidade
-            , String horarioInicio, String horarioFim, Long participantesEspeciais ) {
+    public Eventos(String descricao, Long quantidadeMembros, String nome, String date, String localidade
+            , String horario, Long participantesEspeciais ) {
         this.descricao = descricao;
         this.quantidadeMembros = quantidadeMembros;
         this.titulo = nome;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
+        this.date = date;
         this.localidade = localidade;
-        this.horarioInicio = horarioInicio;
-        this.horarioFim = horarioFim;
+        this.horario = horario;
         this.participantesEspeciais = participantesEspeciais;
     }
 
 
-    public String getHorarioInicio() {
-        return horarioInicio;
+    public String getHorario() {
+        return horario;
     }
 
-    public void setHorarioInicio(String horarioInicio) {
-        this.horarioInicio = horarioInicio;
-    }
-
-    public String getHorarioFim() {
-        return horarioFim;
-    }
-
-    public void setHorarioFim(String horarioFim) {
-        this.horarioFim = horarioFim;
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 
     public Long getParticipantesEspeciais() {
@@ -103,20 +91,12 @@ public class Eventos {
         this.titulo = titulo;
     }
 
-    public String getDataInicio() {
-        return dataInicio;
+    public String getDate() {
+        return date;
     }
 
-    public void setDataInicio(String dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public String getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(String dataFim) {
-        this.dataFim = dataFim;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Administrador getAdministrador() {
