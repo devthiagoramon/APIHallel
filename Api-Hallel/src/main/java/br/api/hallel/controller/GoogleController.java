@@ -12,8 +12,7 @@ public class GoogleController {
 
     @GetMapping("")
     public String user() {
-
-        return "AAAAAAAAAAAAAA";
+        return "";
     }
 
     @GetMapping("/logar")

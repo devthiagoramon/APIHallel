@@ -4,7 +4,7 @@ import br.api.hallel.model.Eventos;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.util.Base64;
+import java.text.SimpleDateFormat;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,15 +22,19 @@ public class CadEventoRequerimento {
     @NotBlank
     private String imagem;
 
+    @NotBlank
+    private String date;
+    @NotBlank
+    private String horario;
+
     public Eventos toEventos(){
         Eventos eventos = new Eventos();
         eventos.setTitulo(this.getTitulo());
         eventos.setDescricao(this.getDescricao());
         eventos.setLocalidade(this.getLocal());
-        imagem = imagem.substring(23);
-        byte[] imageBytes = Base64.getDecoder().decode(imagem);
-        String imageB64 = Base64.getEncoder().encodeToString(imageBytes);
-        eventos.setImagem(imageB64);
+        eventos.setImagem(this.getImagem());
+        eventos.setDate(this.getDate());
+        eventos.setHorario(this.getHorario());
         return eventos;
     }
 

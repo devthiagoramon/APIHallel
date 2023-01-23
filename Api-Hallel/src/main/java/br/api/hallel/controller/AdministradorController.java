@@ -4,10 +4,13 @@ import br.api.hallel.model.Administrador;
 import br.api.hallel.model.Eventos;
 import br.api.hallel.model.Membro;
 import br.api.hallel.payload.requerimento.CadAdministradorRequerimento;
+import br.api.hallel.payload.requerimento.CadEventoRequerimento;
 import br.api.hallel.service.AdministradorService;
 import br.api.hallel.service.EventosService;
 import br.api.hallel.service.MembroService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/administrador")
 public class AdministradorController {
+
+    Logger logger = LoggerFactory.getLogger(AdministradorController.class);
 
     @Autowired
     private AdministradorService service;
@@ -76,9 +81,14 @@ public class AdministradorController {
         return ResponseEntity.status(201).body(membroService.listMembroId(id));
     }
 
-    @GetMapping("/eventos")
-    public ResponseEntity<List<Eventos>> listAllEventos() {
-        return ResponseEntity.status(200).body(eventosService.listarAllEventos());
+    @PostMapping("/evento/create")
+    public ResponseEntity<Eventos> createEventos(@RequestBody CadEventoRequerimento cadEvento){
+
+        logger.info("Create eventos acessado infos:\n{\n titulo:"+cadEvento.getTitulo()+"\n" +
+                "descricao:"+cadEvento.getDescricao()+"\n" +
+                "local: "+cadEvento.getLocal());
+
+        return ResponseEntity.status(201).body(eventosService.createEvento(cadEvento.toEventos()));
     }
 
     @PostMapping("/evento/{id}/edit")
