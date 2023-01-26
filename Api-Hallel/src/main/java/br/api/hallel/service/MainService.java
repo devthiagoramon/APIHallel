@@ -6,7 +6,9 @@ import br.api.hallel.model.Role;
 import br.api.hallel.model.StatusMembro;
 import br.api.hallel.payload.requerimento.LoginRequerimento;
 import br.api.hallel.payload.requerimento.SolicitarCadastroRequerimento;
+import br.api.hallel.payload.resposta.AdministradorResponse;
 import br.api.hallel.payload.resposta.AuthenticationResponse;
+import br.api.hallel.payload.resposta.MembroResponse;
 import br.api.hallel.repository.AdministradorRepository;
 import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.repository.RoleRepository;
@@ -52,18 +54,31 @@ public class MainService implements MainInterface {
         if (membroRepository.findByEmail(loginRequerimento.getEmail()).isPresent()) {
             var membro = membroRepository.findByEmail(loginRequerimento.getEmail()).get();
             System.out.println("Membro");
-            var jwtToken = jwtService.generateToken(membro);
-            return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .build();
+            if (membro.getStatus().equals(StatusMembro.ATIVO)) {
+                var jwtToken = jwtService.generateToken(membro);
+                MembroResponse membroResponse = new MembroResponse();
+                membroResponse.setId(membro.getId());
+                membroResponse.setNome(membro.getNome());
+                membroResponse.setRoles(membro.getRoles());
+                AuthenticationResponse<MembroResponse> membroAuthResponse = new AuthenticationResponse<>();
+                membroAuthResponse.setToken(jwtToken);
+                membroAuthResponse.setObjeto(membroResponse);
+            }
         }
         if (administradorRepository.findByEmail(loginRequerimento.getEmail()).isPresent()) {
             var administrador = administradorRepository.findByEmail(loginRequerimento.getEmail()).get();
-            System.out.println("ADm");
+            System.out.println("Adm");
             var jwtToken = jwtService.generateToken(administrador);
-            return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .build();
+            var administradorResponse = new AdministradorResponse();
+            administradorResponse.setId(administrador.getId());
+            administradorResponse.setNome(administrador.getNome());
+            administradorResponse.setRoles(administrador.getRoles());
+            AuthenticationResponse<AdministradorResponse> administradorAuthResponse =
+                    new AuthenticationResponse<>();
+            administradorAuthResponse.setToken(jwtToken);
+            administradorAuthResponse.setObjeto(administradorResponse);
+            return administradorAuthResponse;
+
         }
         return null;
     }

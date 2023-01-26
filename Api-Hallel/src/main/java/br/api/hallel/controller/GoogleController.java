@@ -1,6 +1,10 @@
 package br.api.hallel.controller;
 
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,13 +14,18 @@ import java.security.Principal;
 @RequestMapping("/api/google")
 public class GoogleController {
 
-    @GetMapping("")
-    public String user() {
-        return "";
+
+    @PostMapping("/login")
+    public void loginGoogle(){
+
     }
 
-    @GetMapping("/logar")
-    public Principal userGoogle(Principal principal) {
-        return principal;
+    @PostMapping("/logout")
+    public void logoutGoogle(){
+    }
+
+    @PostMapping("/callback/{registrationId}")
+    public void callbackGoogle(){
+
     }
 }

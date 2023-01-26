@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @Document
 public class Membro extends Usuario implements UserDetails {
@@ -24,6 +25,8 @@ public class Membro extends Usuario implements UserDetails {
     private String funcao;
     private Boolean doador;
     private Integer quantidadeDoacoes;
+
+    private Map<String, Object> atributtes;
 
     @DBRef
     private Set<Role> roles = new HashSet<>();
@@ -126,6 +129,7 @@ public class Membro extends Usuario implements UserDetails {
         this.roles = roles;
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
@@ -168,4 +172,5 @@ public class Membro extends Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
