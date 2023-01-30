@@ -20,4 +20,6 @@ public interface MembroRepository extends MongoRepository<Membro, String>{
     public boolean existsByEmail(String email);
 
     public boolean existsByNome(String nome);
+
+    public Optional<Membro> findByNomeAndEmail(String nome, String email);
 }

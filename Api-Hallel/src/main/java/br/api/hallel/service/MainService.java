@@ -6,7 +6,9 @@ import br.api.hallel.model.Role;
 import br.api.hallel.model.StatusMembro;
 import br.api.hallel.payload.requerimento.LoginRequerimento;
 import br.api.hallel.payload.requerimento.SolicitarCadastroRequerimento;
+import br.api.hallel.payload.resposta.AdministradorResponse;
 import br.api.hallel.payload.resposta.AuthenticationResponse;
+import br.api.hallel.payload.resposta.MembroResponse;
 import br.api.hallel.repository.AdministradorRepository;
 import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.repository.RoleRepository;
@@ -54,9 +56,13 @@ public class MainService implements MainInterface {
             System.out.println("Membro");
             if(membro.getStatus().equals(StatusMembro.ATIVO)) {
                 var jwtToken = jwtService.generateToken(membro);
+                MembroResponse membroResponse = new MembroResponse();
+                membroResponse.setNome(membro.getNome());
+                membroResponse.setEmail(membro.getEmail());
+                membroResponse.setRoles(membro.getRoles());
                 return AuthenticationResponse.builder()
                         .token(jwtToken)
-                        .objeto(membro)
+                        .objeto(membroResponse)
                         .build();
             }
         }
@@ -64,9 +70,13 @@ public class MainService implements MainInterface {
             var administrador = administradorRepository.findByEmail(loginRequerimento.getEmail()).get();
             System.out.println("Adm");
             var jwtToken = jwtService.generateToken(administrador);
+            AdministradorResponse administradorResponse = new AdministradorResponse();
+            administradorResponse.setEmail(administrador.getEmail());
+            administradorResponse.setNome(administrador.getNome());
+            administradorResponse.setRoles(administrador.getRoles());
             return AuthenticationResponse.builder()
                     .token(jwtToken)
-                    .objeto(administrador)
+                    .objeto(administradorResponse)
                     .build();
         }
         return null;
