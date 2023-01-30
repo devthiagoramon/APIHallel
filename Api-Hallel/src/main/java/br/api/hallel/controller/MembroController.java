@@ -2,6 +2,7 @@ package br.api.hallel.controller;
 
 import java.util.List;
 
+import br.api.hallel.payload.resposta.PerfilResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +46,10 @@ public class MembroController {
         return ResponseEntity.status(204).build();
     }
 
+    @GetMapping("/perfil")
+    public ResponseEntity<PerfilResponse> visualizarPerfil(@RequestParam(name = "nome") String nome, @RequestParam(name = "email") String email) throws IllegalAccessException {
+        PerfilResponse perfil = this.service.visualizarPerfil(nome, email);
+        return ResponseEntity.status(200).body(perfil);
+    }
 
 }

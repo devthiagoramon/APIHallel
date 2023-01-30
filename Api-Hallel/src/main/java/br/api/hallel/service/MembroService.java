@@ -3,6 +3,7 @@ package br.api.hallel.service;
 import java.util.List;
 import java.util.Optional;
 
+import br.api.hallel.payload.resposta.PerfilResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -99,6 +100,21 @@ public class MembroService implements MembroInterface {
     @Override
     public Membro findByEmail(String email) {
         return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
+    }
+
+    @Override
+    public PerfilResponse visualizarPerfil(String nome, String email) throws IllegalAccessException {
+        Optional<Membro> optional = this.repository.findByNomeAndEmail(nome, email);
+        if(optional.isPresent()){
+            PerfilResponse perfil = new PerfilResponse();
+            perfil.setNome(optional.get().getNome());
+            perfil.setEmail(optional.get().getEmail());
+            perfil.setStatus(optional.get().getStatus());
+            perfil.setIdade(optional.get().getIdade());
+            perfil.setDataAniversario(optional.get().getDataNascimento());
+            return perfil;
+        }
+        throw new IllegalAccessException("Usuario não encontrado para carregar o perfil");
     }
 
     public List<Membro> findByStatusInativo() {

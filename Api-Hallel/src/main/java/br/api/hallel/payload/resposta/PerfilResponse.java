@@ -1,23 +1,19 @@
 package br.api.hallel.payload.resposta;
 
-import br.api.hallel.model.Role;
+import br.api.hallel.model.StatusMembro;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MembroResponse {
+public class PerfilResponse {
 
     private String nome;
+    private String dataAniversario;
     private String email;
-    private Set<Role> roles;
+    private StatusMembro status;
 
-
-
+    private Integer idade;
 }

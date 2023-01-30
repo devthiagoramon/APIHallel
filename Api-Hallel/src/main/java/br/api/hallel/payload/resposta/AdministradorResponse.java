@@ -14,7 +14,7 @@ import java.util.Set;
 @Data
 public class AdministradorResponse {
 
-    private String id;
     private String nome;
+    private String email;
     private Set<Role> roles;
 }

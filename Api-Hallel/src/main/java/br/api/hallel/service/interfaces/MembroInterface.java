@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.api.hallel.model.Membro;
 import br.api.hallel.model.StatusMembro;
+import br.api.hallel.payload.resposta.PerfilResponse;
 
 public interface MembroInterface {
 
@@ -25,4 +26,5 @@ public interface MembroInterface {
 
     public Membro findByEmail(String email);
 
+    PerfilResponse visualizarPerfil(String nome, String email) throws IllegalAccessException;
 }
