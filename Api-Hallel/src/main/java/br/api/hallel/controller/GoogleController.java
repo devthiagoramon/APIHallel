@@ -1,8 +1,7 @@
 package br.api.hallel.controller;
 
-import br.api.hallel.payload.requerimento.LoginRequerimento;
-import br.api.hallel.payload.requerimento.SolicitarCadastroRequerimento;
-import br.api.hallel.payload.resposta.AuthenticationResponse;
+import br.api.hallel.payload.requerimento.LoginRequerimentoGoogle;
+import br.api.hallel.payload.requerimento.SolicitarCadastroGoogle;
 import br.api.hallel.service.MainService;
 import br.api.hallel.service.MembroService;
 import jakarta.validation.Valid;
@@ -20,16 +19,22 @@ public class GoogleController {
     private MainService mainService;
 
     @GetMapping("/cadastro")
-    public AuthenticationResponse cadastroGoogle(@Valid @RequestBody SolicitarCadastroRequerimento solicitarCadastroRequerimento, OAuth2AuthenticationToken token) {
-        solicitarCadastroRequerimento.setNome(token.getPrincipal().getAttribute("name"));
-        solicitarCadastroRequerimento.setEmail(token.getPrincipal().getAttribute("email"));
+    public String cadastroGoogle(@RequestBody @Valid SolicitarCadastroGoogle cadastroGoogle, OAuth2AuthenticationToken token) {
+        cadastroGoogle.setNome(token.getPrincipal().getAttribute("name"));
+        cadastroGoogle.setEmail(token.getPrincipal().getAttribute("email"));
 
-        return this.mainService.solicitarCadastro(solicitarCadastroRequerimento);
+        System.out.println(this.mainService.solicitarCadastroGoogle(cadastroGoogle));
+
+        return cadastroGoogle.getNome() + " | " + cadastroGoogle.getEmail();
     }
 
     @GetMapping("/login")
-    public AuthenticationResponse loginGoogle(@Valid @RequestBody LoginRequerimento loginRequerimento){
-        return this.mainService.logar(loginRequerimento);
+    public String loginGoogle(@RequestBody @Valid LoginRequerimentoGoogle loginGoogle, OAuth2AuthenticationToken token) {
+        loginGoogle.setEmail(token.getPrincipal().getAttribute("email"));
+        loginGoogle.setNome(token.getPrincipal().getAttribute("name"));
+
+        this.mainService.logarGoogle(loginGoogle);
+        return "Logado";
     }
 
     @PostMapping("/logout")
