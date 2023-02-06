@@ -1,6 +1,7 @@
 package br.api.hallel.service.interfaces;
 
 import br.api.hallel.model.Eventos;
+import br.api.hallel.model.Membro;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface EventosInterface {
     Eventos updateEventoById(String id);
     void deleteEventoById(String id);
 
+    String adicionarMembro(String titulo, String emailUser);
 }

@@ -1,11 +1,13 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.Eventos;
+import br.api.hallel.model.Membro;
 import br.api.hallel.repository.EventosRepository;
 import br.api.hallel.service.interfaces.EventosInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +16,9 @@ public class EventosService implements EventosInterface {
 
     @Autowired
     private EventosRepository repository;
+
+    @Autowired
+    private MembroService membroService;
 
     @Override
     public List<Eventos> listarAllEventos() {
@@ -79,6 +84,26 @@ public class EventosService implements EventosInterface {
         } else {
             System.out.println("Evento não encontrado!");
         }
+    }
+
+    @Override
+    public String adicionarMembro(String titulo, String emailUser) {
+        Optional<Eventos> optional = this.repository.findByTitulo(titulo);
+
+        if(optional.isPresent()){
+            Eventos evento = optional.get();
+            if(evento.getIntegrantes() != null){
+                evento.getIntegrantes().add(membroService.findByEmail(emailUser));
+            }else{
+                ArrayList<Membro> integrantes = new ArrayList<>();
+                integrantes.add(membroService.findByEmail(emailUser));
+                evento.setIntegrantes(integrantes);
+            }
+            this.repository.save(evento);
+            return "Membro cadastrado no evento com sucesso";
+        }
+
+        return "Evento não encontrado";
     }
 
 

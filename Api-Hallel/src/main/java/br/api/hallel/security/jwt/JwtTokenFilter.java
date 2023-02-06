@@ -39,8 +39,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         final String userEmail;
 
         if(authHeader==null || !authHeader.startsWith("Bearer ")){
-            logger.warn(authHeader);
-            logger.warn("Incorrect Header or Invalid Token");
             filterChain.doFilter(request,response);
             return;
         }
