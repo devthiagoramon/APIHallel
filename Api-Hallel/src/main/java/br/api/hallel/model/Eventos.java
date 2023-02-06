@@ -3,6 +3,8 @@ package br.api.hallel.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+
 @Document
 public class Eventos {
 
@@ -12,6 +14,8 @@ public class Eventos {
     private Long quantidadeMembros;
     private Long maxMembros;
     private String titulo;
+
+    private ArrayList<Membro> integrantes;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
     private String date;
@@ -129,5 +133,13 @@ public class Eventos {
 
     public void setMaxMembros(Long maxMembros) {
         this.maxMembros = maxMembros;
+    }
+
+    public ArrayList<Membro> getIntegrantes() {
+        return integrantes;
+    }
+
+    public void setIntegrantes(ArrayList<Membro> integrantes) {
+        this.integrantes = integrantes;
     }
 }

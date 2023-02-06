@@ -48,5 +48,9 @@ public class EventosController {
         return ResponseEntity.status(204).build();
     }
 
-
+    @PostMapping("/adicionarMembro")
+    public ResponseEntity<String> adicionarMembro(@RequestParam(value = "titulo") String titulo,
+                                             @RequestParam(value = "emailUser") String emailUser){
+        return ResponseEntity.ok().body(this.service.adicionarMembro(titulo,emailUser));
+    }
 }
