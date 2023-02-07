@@ -3,16 +3,13 @@ package br.api.hallel.service;
 import br.api.hallel.model.Associado;
 import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.service.interfaces.AssociadoInterface;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
 public class AssociadoService implements AssociadoInterface {
 
-    @Autowired
     private AssociadoRepository repository;
-
 
     @Override
     public List<Associado> listAllAssociado() {
@@ -28,10 +25,26 @@ public class AssociadoService implements AssociadoInterface {
     public void deleteAssociado(String id) {
         Optional<Associado> optional = this.repository.findById(id);
 
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             Associado associado = optional.get();
             this.repository.delete(associado);
         }
 
     }
+
+    @Override
+    public Associado updateAssociadoById(String id) {
+        Optional<Associado> optional = this.repository.findById(id);
+
+        if (optional.isPresent()) {
+            Associado associado = optional.get();
+
+            System.out.println("Associado atualizado");
+            return this.repository.save(associado);
+        }else{
+            return null;
+        }
+
+    }
+
 }

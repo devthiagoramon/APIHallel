@@ -17,6 +17,7 @@ public class Associado extends Membro{
     private Eventos eventoParticipando;
     private Boolean mensalidadePaga;
     private Transacao transacao;
+    private Boolean isAssociado;
 
     public Boolean setMensalidadePaga(){
 
