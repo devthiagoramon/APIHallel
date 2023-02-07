@@ -17,7 +17,7 @@ public class Transacao {
     @Id
     private String id;
     private String nomeTransacao;
-    private String data;
+    private String dataExp;
     private MetodoPagamento metodoPagamento;
     private Double mensalidade;
     private Boolean pago;

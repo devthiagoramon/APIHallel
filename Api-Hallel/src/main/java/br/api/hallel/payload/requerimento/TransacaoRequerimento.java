@@ -36,7 +36,7 @@ public class TransacaoRequerimento {
         transacao.setMensalidade(this.getMensalidade());
         transacao.setMetodoPagamento(this.getMetodoPagamento());
         transacao.setAssociado(this.getAssociado());
-        transacao.setData(this.getDataAtual());
+        transacao.setDataExp(this.getDataAtual());
 
         return transacao;
     }
