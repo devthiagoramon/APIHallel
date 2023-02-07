@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Api-Hallel/Api-Hallel.iml" filepath="$PROJECT_DIR$/Api-Hallel/Api-Hallel.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/HallelV10.iml" filepath="$PROJECT_DIR$/.idea/HallelV10.iml" />
     </modules>
   </component>
 </project>
