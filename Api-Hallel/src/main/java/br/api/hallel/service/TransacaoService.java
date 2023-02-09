@@ -58,7 +58,7 @@ public class TransacaoService implements TransacaoInterface {
                 }
             }else{
                 System.out.println("Mensalidade em pendência");
-
+                associado.setIsAssociado(false);
             }
 
         } else {
@@ -67,7 +67,7 @@ public class TransacaoService implements TransacaoInterface {
 
         }
 
-        System.out.println("ua");
+        System.out.println("Final do método");
         return this.associadoRepository.save(associado);
     }
 
@@ -80,7 +80,7 @@ public class TransacaoService implements TransacaoInterface {
             Date date = format.parse(associado.getTransacao().getDataExp());
             Date dateAtual = format.parse(getDataAtual());
 
-            if(date.compareTo(dateAtual) > 0){
+            if(date.compareTo(dateAtual) < 0){
                 return false;
             }else {
                 return true;
