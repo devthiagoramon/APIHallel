@@ -23,14 +23,17 @@ public class AssociadoController {
     private TransacaoService transacaoService;
 
     @PostMapping("/criar")
-    public String createAssociado(){
+    public String createAssociado(@RequestBody Associado associado, @RequestBody Transacao transacao){
 
         //PARA OCORRER A CRIAÇÃO DE ASSOCIADO, DEVE TER UMA TRANSAÇÃO
 
-        Transacao transacao = new Transacao();
+        //EXEMPLO DE COMO TAVA FUNCIONANDO
+
+
+        /*Transacao transacao = new Transacao();
         transacao.setNomeTransacao("Transação muhaha");
         transacao.setMetodoPagamento(MetodoPagamento.CARTAO_CREDITO);
-        transacao.setDataExp("23/12/2023");
+        transacao.setDataExp("07/02/2023");
 
 
        Associado associado = new Associado();
@@ -41,6 +44,7 @@ public class AssociadoController {
         associado.getTransacao().setDataExp(transacao.getDataExp());
         this.transacaoService.createAssociado(associado);
 
+*/
 
         return associado.toString();
     }
