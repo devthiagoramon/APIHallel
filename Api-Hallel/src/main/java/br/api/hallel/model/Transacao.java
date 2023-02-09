@@ -8,8 +8,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 // Transacao para um membro se tornar associado
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class Transacao {
@@ -22,6 +20,10 @@ public class Transacao {
     private Double mensalidade;
     private Boolean pago;
     private Associado associado;
+
+    public Transacao(){
+
+    }
 
 
     public Associado setPagamentoEfetivo(Boolean isPago){

@@ -1,8 +1,6 @@
 package br.api.hallel.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,14 +8,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Associado extends Membro{
 
     private Eventos eventoParticipando;
     private Boolean mensalidadePaga;
     private Transacao transacao;
     private Boolean isAssociado;
+
+    public Associado(){
+
+    }
 
     public Boolean setMensalidadePaga(){
 
@@ -29,4 +29,13 @@ public class Associado extends Membro{
 
     }
 
+    @Override
+    public String toString() {
+        return "Associado{" +
+                "eventoParticipando=" + eventoParticipando +
+                ", mensalidadePaga=" + mensalidadePaga +
+                ", transacao=" + transacao +
+                ", isAssociado=" + isAssociado +
+                '}';
+    }
 }

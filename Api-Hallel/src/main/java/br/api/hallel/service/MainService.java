@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -86,25 +87,6 @@ public class MainService implements MainInterface {
     }
 
     @Override
-    public AuthenticationResponse solicitarCadastro(SolicitarCadastroRequerimento solicitarCadastroRequerimento) {
-        HashSet<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByName(ERole.ROLE_USER).isPresent() ?
-                roleRepository.findByName(ERole.ROLE_USER).get() : null);
-        var membro = new Membro();
-        membro.setNome(solicitarCadastroRequerimento.getNome());
-        membro.setEmail(solicitarCadastroRequerimento.getEmail());
-        membro.setSenha(encoder.encode(solicitarCadastroRequerimento.getSenha()));
-        membro.setRoles(roles);
-        membro.setStatus(StatusMembro.PENDENTE);
-
-        membroRepository.save(membro);
-        var jwtToken = jwtService.generateToken(membro);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
-    }
-
-    @Override
     public AuthenticationResponse logarGoogle(@Valid LoginRequerimentoGoogle loginRequerimentoGoogle) {
         System.out.println("COMEÇO");
 
@@ -121,17 +103,17 @@ public class MainService implements MainInterface {
 
             System.out.println("FAZENDO O IF ELSE ");
 
-            var membro = googleRepository.findByEmail(loginRequerimentoGoogle.getEmail()).get();
+            var membroGoogle = googleRepository.findByEmail(loginRequerimentoGoogle.getEmail()).get();
             System.out.println("Membro Google" );
 
-            if (membro.getStatus().equals(StatusMembro.ATIVO)) {
-                var jwtToken = jwtService.generateToken(membro);
+            if (membroGoogle.getStatus().equals(StatusMembro.ATIVO)) {
+                var jwtToken = jwtService.generateToken(membroGoogle);
 
                 System.out.println("CERTO");
 
                 return AuthenticationResponse.builder()
                         .token(jwtToken)
-                        .objeto(membro)
+                        .objeto(membroGoogle)
                         .build();
             }
         }
@@ -150,6 +132,26 @@ public class MainService implements MainInterface {
 
         return  null;
     }
+
+    @Override
+    public AuthenticationResponse solicitarCadastro(SolicitarCadastroRequerimento solicitarCadastroRequerimento) {
+        HashSet<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName(ERole.ROLE_USER).isPresent() ?
+                roleRepository.findByName(ERole.ROLE_USER).get() : null);
+        var membro = new Membro();
+        membro.setNome(solicitarCadastroRequerimento.getNome());
+        membro.setEmail(solicitarCadastroRequerimento.getEmail());
+        membro.setSenha(encoder.encode(solicitarCadastroRequerimento.getSenha()));
+        membro.setRoles(roles);
+        membro.setStatus(StatusMembro.PENDENTE);
+
+        membroRepository.save(membro);
+        var jwtToken = jwtService.generateToken(membro);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
 
     @Override
     public AuthenticationResponse solicitarCadastroGoogle(SolicitarCadastroGoogle solicitarCadastroGoogle) {

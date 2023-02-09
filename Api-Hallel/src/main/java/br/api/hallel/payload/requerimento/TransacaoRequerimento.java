@@ -36,14 +36,8 @@ public class TransacaoRequerimento {
         transacao.setMensalidade(this.getMensalidade());
         transacao.setMetodoPagamento(this.getMetodoPagamento());
         transacao.setAssociado(this.getAssociado());
-        transacao.setDataExp(this.getDataAtual());
 
         return transacao;
-    }
-
-    public String getDataAtual(){
-        String dataFormatada = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        return dataFormatada;
     }
 
 }

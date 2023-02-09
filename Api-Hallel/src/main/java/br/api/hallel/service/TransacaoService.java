@@ -6,14 +6,20 @@ import br.api.hallel.payload.requerimento.TransacaoRequerimento;
 import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.repository.TransacaoRepository;
 import br.api.hallel.service.interfaces.TransacaoInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
+@Service
 public class TransacaoService implements TransacaoInterface {
 
+    @Autowired
     private TransacaoRepository repository;
+    @Autowired
     private AssociadoRepository associadoRepository;
 
     @Override
@@ -25,50 +31,72 @@ public class TransacaoService implements TransacaoInterface {
     public Associado createAssociado(Associado associado) {
 
 
-        if(associado.getMensalidadePaga()) {
-
-        if(compareDates(associado)){
+        if (associado.getMensalidadePaga()) {
 
             System.out.println("Mensalidade paga");
 
             Optional<Associado> optional = this.associadoRepository.findById(associado.getId());
 
-            if (optional.isPresent()) {
-                Associado associadoOptional = optional.get();
-                associado.setIsAssociado(true);
-                System.out.println("Mantém como Associado");
+            if(compareDates(associado)) {
 
-            } else {
+                if (optional.isPresent()) {
 
-                System.out.println("Inserir como novo Associado");
-                return this.associadoRepository.insert(associado);
+                    Associado associadoOptional = optional.get();
+                    associadoOptional.setIsAssociado(true);
+                    associado.setIsAssociado(associadoOptional.getIsAssociado());
+                    System.out.println("" + associadoOptional.getIsAssociado());
+                    System.out.println("" + associado.getIsAssociado());
+
+                    System.out.println("Mantém como Associado");
+
+                } else {
+                    associado.setIsAssociado(true);
+
+                    System.out.println("Inserir como novo Associado");
+                    return this.associadoRepository.insert(associado);
+
+                }
+            }else{
+                System.out.println("Mensalidade em pendência");
 
             }
-        }else{
-            System.out.println("Mensalidade em pendência");
-        }
+
+        } else {
+            System.out.println("Mensalidade não paga");
+            associado.setIsAssociado(false);
 
         }
 
-        associado.setIsAssociado(false);
-        System.out.println("Mensalidade não paga");
-        return null;
-
+        System.out.println("ua");
+        return this.associadoRepository.save(associado);
     }
+
 
     private Boolean compareDates(Associado associado){
 
-        if(associado.getTransacao().getDataExp().compareTo(getDataAtual()) == 1){
-            return false;
-        }else {
-            return true;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Date date = format.parse(associado.getTransacao().getDataExp());
+            Date dateAtual = format.parse(getDataAtual());
+
+            if(date.compareTo(dateAtual) > 0){
+                return false;
+            }else {
+                return true;
+            }
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
 
     }
 
     private String getDataAtual(){
-        String dataFormatada = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        return dataFormatada;
+        Date dataAtual = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        return format.format(dataAtual);
     }
 
 }

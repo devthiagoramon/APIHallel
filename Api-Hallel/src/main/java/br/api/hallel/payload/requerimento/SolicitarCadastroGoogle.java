@@ -2,6 +2,7 @@ package br.api.hallel.payload.requerimento;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.Set;
 
@@ -11,6 +12,7 @@ public class SolicitarCadastroGoogle {
     private String nome;
     @NotBlank
     @Email
+    @UniqueElements
     private String email;
 
     private Set<String> roles;
