@@ -5,14 +5,15 @@ import br.api.hallel.model.Doacao;
 import br.api.hallel.repository.ComunidadeRepository;
 import br.api.hallel.service.interfaces.ComunidadeInterface;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
-@RequiredArgsConstructor
 public class ComunidadeService implements ComunidadeInterface {
 
+    @Autowired
     private ComunidadeRepository repository;
 
     @Override
