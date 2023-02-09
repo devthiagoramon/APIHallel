@@ -10,6 +10,6 @@ public interface AssociadoInterface {
     Associado listAssociadoById(String id);
     void deleteAssociado(String id);
 
-    Associado updateAssociadoById(String id);
+    Associado updateAssociadoById(String id, Associado associado);
 
 }

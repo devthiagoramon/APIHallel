@@ -2,6 +2,7 @@ package br.api.hallel.security;
 
 import br.api.hallel.model.Role;
 import br.api.hallel.repository.AdministradorRepository;
+import br.api.hallel.repository.MembroGoogleRepository;
 import br.api.hallel.repository.MembroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class ApplicationConfig {
     private AdministradorRepository administradorRepository;
     @Autowired
     private MembroRepository membroRepository;
+    @Autowired
+    private MembroGoogleRepository googleRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -41,6 +44,8 @@ public class ApplicationConfig {
                 return membroRepository.findByEmail(username).get();
             } else if (administradorRepository.findByEmail(username).isPresent()) {
                 return administradorRepository.findByEmail(username).get();
+            } else if(this.googleRepository.findByEmail(username).isPresent()){
+                return this.googleRepository.findByEmail(username).get();
             }
             throw new UsernameNotFoundException("Usuario não encontrado");
         };

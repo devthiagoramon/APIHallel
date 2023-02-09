@@ -3,22 +3,16 @@ package br.api.hallel.security;
 import br.api.hallel.security.jwt.AuthEntryPointJwt;
 import br.api.hallel.security.jwt.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
@@ -27,9 +21,6 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.AuthenticatedPrincipalOAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -46,8 +37,6 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
 
-
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -60,19 +49,35 @@ public class SecurityConfig {
                 .requestMatchers("/api/eventos/").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login(Customizer.withDefaults())
-                .logout()
-                .logoutUrl("/api/google/logout")
-                .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessHandler(this.oidcLogoutSuccessHandler())
-                .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
+    protected SecurityFilterChain filterChainGoogle(HttpSecurity http) throws Exception {
+
+        http
+                .cors()
+                .and()
+                .csrf().disable()
+                .authorizeHttpRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .oauth2Login(Customizer.withDefaults())
+                .logout()
+                .logoutUrl("/api/google/logout")
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessHandler(this.oidcLogoutSuccessHandler());
+
 
         return http.build();
     }
@@ -108,4 +113,6 @@ public class SecurityConfig {
                 .clientSecret("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")
                 .build();
     }
+
+
 }

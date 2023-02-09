@@ -14,6 +14,5 @@ public class PerfilResponse {
     private String dataAniversario;
     private String email;
     private StatusMembro status;
-
     private Integer idade;
 }
