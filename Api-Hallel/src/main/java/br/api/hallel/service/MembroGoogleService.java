@@ -1,6 +1,7 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.MembroGoogle;
+import br.api.hallel.payload.resposta.PerfilResponseGoogle;
 import br.api.hallel.repository.MembroGoogleRepository;
 import br.api.hallel.service.interfaces.GoogleInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +53,23 @@ public class MembroGoogleService implements GoogleInterface {
         return this.googleRepository.findByEmail(email).isPresent() ? this.googleRepository.findByEmail(email).get() : null;
 
     }
+
+    @Override
+    public PerfilResponseGoogle visualizarPerfil(String email, String nome) throws IllegalAccessException {
+
+        Optional<MembroGoogle> optional = this.googleRepository.findByEmailAndNome(email,nome);
+
+        if(optional.isPresent()){
+            PerfilResponseGoogle google = new PerfilResponseGoogle();
+            google.setNome(optional.get().getNome());
+            google.setEmail(optional.get().getEmail());
+            google.setSenha(optional.get().getSenha());
+            google.setImage(optional.get().getImage());
+
+            return google;
+        }
+        throw new IllegalAccessException("Usuario não encontrado para carregar o perfil");
+
+    }
+
 }

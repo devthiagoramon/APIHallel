@@ -3,9 +3,16 @@ package br.api.hallel.service.interfaces;
 import br.api.hallel.model.Comunidade;
 import br.api.hallel.model.Doacao;
 
+import java.util.List;
+
 public interface ComunidadeInterface {
 
-    public void atualizarDoacao(Doacao doacao);
+    void atualizarDoacao(Doacao doacao);
 
-    public Comunidade getComunidade();
+    Comunidade getComunidade();
+
+    List<Comunidade> visualizarLucroMensal();
+
+    List<Comunidade> visualizarGastoMensal();
+
 }

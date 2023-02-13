@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Document
 @NoArgsConstructor
@@ -22,6 +23,9 @@ public class Comunidade {
 
     private String nome = "Comunidade Hallel";
     private double caixaTotal;
+    private double lucroMensal;
+    private double gastoMensal;
+    private Date date;
     private ArrayList<Doacao> doacaoTotal;
     private ArrayList<Doacao> doacaoMensais;
     private ArrayList<Transacao> transacoes;

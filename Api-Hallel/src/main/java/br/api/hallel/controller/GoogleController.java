@@ -26,24 +26,30 @@ public class GoogleController {
     private MembroGoogleRepository googleRepository;
 
     @GetMapping("/login")
-    public String cadastroGoogle(OAuth2AuthenticationToken token) {
+    public String cadastroGoogle(OAuth2AuthenticationToken token, String senha) {
+
+
 
         SolicitarCadastroGoogle cadastroGoogle = new SolicitarCadastroGoogle();
 
+
         cadastroGoogle.setNome(token.getPrincipal().getAttribute("name"));
         cadastroGoogle.setEmail(token.getPrincipal().getAttribute("email"));
+        cadastroGoogle.setSenha(senha);
+
+
 
         Optional<MembroGoogle> optional = this.googleRepository.findByEmail(cadastroGoogle.getEmail());
 
         if(optional.isPresent()){
 
-            return "Email já registrado";
+            return "Email já registrado"+ token.getPrincipal().getAttribute("picture");
 
         }else{
+
             this.mainService.solicitarCadastroGoogle(cadastroGoogle);
             return "Cadastrado! Bem vindo "+cadastroGoogle.getNome();
         }
-
 
     }
 

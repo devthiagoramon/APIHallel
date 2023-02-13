@@ -163,6 +163,7 @@ public class MainService implements MainInterface {
 
         membro.setNome(solicitarCadastroGoogle.getNome());
         membro.setEmail(solicitarCadastroGoogle.getEmail());
+        membro.setSenha(encoder.encode(solicitarCadastroGoogle.getSenha()));
         membro.setRoles(roles);
         membro.setStatus(StatusMembro.PENDENTE);
 

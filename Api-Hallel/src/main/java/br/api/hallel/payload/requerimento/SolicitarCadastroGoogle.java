@@ -14,6 +14,7 @@ public class SolicitarCadastroGoogle {
     @Email
     @UniqueElements
     private String email;
+    private String senha;
 
     private Set<String> roles;
 
@@ -40,5 +41,8 @@ public class SolicitarCadastroGoogle {
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+    public void setSenha (String senha){ this.senha = senha;}
+
+    public String getSenha(){return senha;}
 
 }
