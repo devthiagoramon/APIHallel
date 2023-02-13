@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface MembroGoogleRepository extends MongoRepository<MembroGoogle, String> {
 
-    public Optional<MembroGoogle> findByEmail(String email);
+    Optional<MembroGoogle> findByEmail(String email);
 
+    Optional<MembroGoogle> findByEmailAndNome(String email, String nome);
 }
