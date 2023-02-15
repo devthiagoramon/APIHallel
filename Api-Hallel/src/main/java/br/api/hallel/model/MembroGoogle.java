@@ -12,7 +12,6 @@ public class MembroGoogle extends  Membro{
     private String nomeGoogle;
     private String emailGoogle;
     private String senhaGoogle;
-    private String image;
     public MembroGoogle(){
 
     }
