@@ -54,22 +54,5 @@ public class MembroGoogleService implements GoogleInterface {
 
     }
 
-    @Override
-    public PerfilResponseGoogle visualizarPerfil(String email, String nome) throws IllegalAccessException {
-
-        Optional<MembroGoogle> optional = this.googleRepository.findByEmailAndNome(email,nome);
-
-        if(optional.isPresent()){
-            PerfilResponseGoogle google = new PerfilResponseGoogle();
-            google.setNome(optional.get().getNome());
-            google.setEmail(optional.get().getEmail());
-            google.setSenha(optional.get().getSenha());
-            google.setImage(optional.get().getImage());
-
-            return google;
-        }
-        throw new IllegalAccessException("Usuario não encontrado para carregar o perfil");
-
-    }
 
 }

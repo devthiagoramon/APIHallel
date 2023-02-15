@@ -31,5 +31,11 @@ public class ComunidadeController {
         return this.service.visualizarLucroMensal();
     }
 
+    @GetMapping("/saldo")
+    public void saldoTotal(){
+
+    }
+
+
 
 }

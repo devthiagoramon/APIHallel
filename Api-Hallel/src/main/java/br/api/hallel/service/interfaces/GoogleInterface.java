@@ -17,6 +17,5 @@ public interface GoogleInterface {
 
     MembroGoogle findByEmail(String email);
 
-    PerfilResponseGoogle visualizarPerfil(String email, String nome) throws IllegalAccessException;
 
 }

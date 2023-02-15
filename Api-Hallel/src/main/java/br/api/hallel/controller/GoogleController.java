@@ -43,7 +43,7 @@ public class GoogleController {
 
         if(optional.isPresent()){
 
-            return "Email já registrado"+ token.getPrincipal().getAttribute("picture");
+            return "Email já registrado";
 
         }else{
 
