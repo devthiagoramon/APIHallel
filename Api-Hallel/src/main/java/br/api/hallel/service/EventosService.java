@@ -7,10 +7,7 @@ import br.api.hallel.service.interfaces.EventosInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +16,10 @@ public class EventosService implements EventosInterface {
 
     @Autowired
     private EventosRepository repository;
-
     @Autowired
     private MembroService membroService;
+    @Autowired
+    private ComunidadeService comunidadeService;
 
     @Override
     public List<Eventos> listarAllEventos() {
@@ -131,5 +129,35 @@ public class EventosService implements EventosInterface {
         }
     }
 
+    @Override
+    public Eventos despesasEvento(String id, Double despesa) {
+        Optional<Eventos> optional = this.repository.findById(id);
+
+        if (optional.isPresent()) {
+            Eventos eventos = optional.get();
+
+            eventos.setDespesas(despesa);
+            this.comunidadeService.salvarDespesaEventos(eventos);
+
+            return this.repository.save(eventos);
+        }
+        return null;
+    }
+
+    @Override
+    public Eventos lucroEvento(String id, Double lucro) {
+        Optional<Eventos> optional = this.repository.findById(id);
+
+        if (optional.isPresent()) {
+            Eventos eventos = optional.get();
+
+            eventos.setLucro(lucro);
+            this.comunidadeService.salvarLucroEventos(eventos);
+
+            return this.repository.save(eventos);
+        }
+
+        return null;
+    }
 
 }

@@ -23,6 +23,7 @@ public class DoacaoService implements DoacaoInterface {
     @Override
     public Doacao doar(DoacaoReq doacaoReq) {
         doacaoService.atualizarDoacao(doacaoReq.toDoacao());
+
         return repository.insert(doacaoReq.toDoacao());
     }
 

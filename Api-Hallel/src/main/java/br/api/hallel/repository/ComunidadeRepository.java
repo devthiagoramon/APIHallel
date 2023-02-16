@@ -17,4 +17,5 @@ public interface ComunidadeRepository extends MongoRepository<Comunidade, String
     List<Comunidade> findByDespesaEventos();
     List<Comunidade> findByDoacaoTotal();
 
+
 }
