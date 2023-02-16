@@ -24,8 +24,8 @@ public class Eventos {
     private Long quantidadeMembros;
     private Long maxMembros;
     private String titulo;
-    private Double despesas;
     private Double totalDespesas;
+    private Double despesas;
     private Double lucro;
 
     private ArrayList<Membro> integrantes;

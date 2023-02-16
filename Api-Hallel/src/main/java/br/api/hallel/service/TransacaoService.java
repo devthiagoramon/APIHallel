@@ -28,7 +28,6 @@ public class TransacaoService implements TransacaoInterface {
     @Override
     public Transacao transacao(TransacaoRequerimento requerimento){
 
-
         return this.repository.insert(requerimento.toTransacao());
     }
 
@@ -49,11 +48,10 @@ public class TransacaoService implements TransacaoInterface {
                     Associado associadoOptional = optional.get();
                     associadoOptional.setIsAssociado(true);
                     associado.setIsAssociado(associadoOptional.getIsAssociado());
-                    System.out.println("" + associadoOptional.getIsAssociado());
-                    System.out.println("" + associado.getIsAssociado());
 
                     System.out.println("Mantém como Associado");
 
+                    this.comunidadeService.salvarTransacao();
                 } else {
                     associado.setIsAssociado(true);
 
