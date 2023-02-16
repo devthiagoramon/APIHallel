@@ -53,14 +53,12 @@ public class ComunidadeService implements ComunidadeInterface {
                 null;
     }
 
-
-
     @Override
     public void salvarLucroEventos(Eventos eventos) {
         Comunidade comunidade = getComunidade();
 
         if (comunidade.getLucroEventos() != null) {
-            comunidade.getLucroEventos().add(eventos);
+            comunidade.getLucroEventos().add(eventos.getDespesas());
         }
 
         this.repository.save(comunidade);
@@ -71,7 +69,7 @@ public class ComunidadeService implements ComunidadeInterface {
         Comunidade comunidade = getComunidade();
 
         if (comunidade.getLucroEventos() != null) {
-            comunidade.getDespesaEventos().add(eventos);
+            comunidade.getDespesaEventos().add(eventos.getDespesas());
         }
 
         this.repository.save(comunidade);

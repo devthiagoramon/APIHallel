@@ -31,8 +31,8 @@ public class Comunidade {
     private ArrayList<Doacao> doacaoMensais;
     private ArrayList<Transacao> transacoes;
     private ArrayList<Transacao> transacoesMensais;
-    private ArrayList<Eventos> lucroEventos;
-    private ArrayList<Eventos> despesaEventos;
+    private ArrayList<Double> lucroEventos;
+    private ArrayList<Double> despesaEventos;
 
     public void setDoacaoMensais(ArrayList<Doacao> doacaoMensais) {
         this.doacaoMensais = doacaoMensais;

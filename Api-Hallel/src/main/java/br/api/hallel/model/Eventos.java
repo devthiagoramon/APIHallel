@@ -26,6 +26,7 @@ public class Eventos {
     private String titulo;
     private Double despesas;
     private Double totalDespesas;
+    private Double lucro;
 
     private ArrayList<Membro> integrantes;
     private MembroMarketing membroMarketing;

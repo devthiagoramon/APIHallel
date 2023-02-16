@@ -1,6 +1,7 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.Associado;
+import br.api.hallel.model.Comunidade;
 import br.api.hallel.model.Transacao;
 import br.api.hallel.payload.requerimento.TransacaoRequerimento;
 import br.api.hallel.repository.AssociadoRepository;
@@ -21,9 +22,13 @@ public class TransacaoService implements TransacaoInterface {
     private TransacaoRepository repository;
     @Autowired
     private AssociadoRepository associadoRepository;
+    @Autowired
+    private ComunidadeService comunidadeService;
 
     @Override
     public Transacao transacao(TransacaoRequerimento requerimento){
+
+
         return this.repository.insert(requerimento.toTransacao());
     }
 
