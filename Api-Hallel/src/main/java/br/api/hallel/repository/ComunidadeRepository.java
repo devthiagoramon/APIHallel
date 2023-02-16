@@ -13,9 +13,5 @@ import java.util.Optional;
 @Repository
 public interface ComunidadeRepository extends MongoRepository<Comunidade, String> {
 
-    List<Comunidade> findByLucroEventos();
-    List<Comunidade> findByDespesaEventos();
-    List<Comunidade> findByDoacaoTotal();
-
 
 }

@@ -130,7 +130,7 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public Eventos despesasEvento(String id, Double despesa) {
+    public void despesasEvento(String id, Double despesa) {
         Optional<Eventos> optional = this.repository.findById(id);
 
         if (optional.isPresent()) {
@@ -139,13 +139,12 @@ public class EventosService implements EventosInterface {
             eventos.setDespesas(despesa);
             this.comunidadeService.salvarDespesaEventos(eventos);
 
-            return this.repository.save(eventos);
+            this.repository.save(eventos);
         }
-        return null;
     }
 
     @Override
-    public Eventos lucroEvento(String id, Double lucro) {
+    public void lucroEvento(String id, Double lucro) {
         Optional<Eventos> optional = this.repository.findById(id);
 
         if (optional.isPresent()) {
@@ -154,10 +153,9 @@ public class EventosService implements EventosInterface {
             eventos.setLucro(lucro);
             this.comunidadeService.salvarLucroEventos(eventos);
 
-            return this.repository.save(eventos);
+            this.repository.save(eventos);
         }
 
-        return null;
     }
 
 }

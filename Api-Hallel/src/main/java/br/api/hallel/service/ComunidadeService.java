@@ -5,11 +5,8 @@ import br.api.hallel.model.Doacao;
 import br.api.hallel.model.Eventos;
 import br.api.hallel.repository.ComunidadeRepository;
 import br.api.hallel.service.interfaces.ComunidadeInterface;
-import com.mongodb.BasicDBObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,8 +18,6 @@ public class ComunidadeService implements ComunidadeInterface {
 
     @Autowired
     private ComunidadeRepository repository;
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
     @Override
     public void atualizarDoacao(Doacao doacao) {
@@ -35,14 +30,15 @@ public class ComunidadeService implements ComunidadeInterface {
             doacoes.add(doacao);
             comunidade.setDoacaoTotal(doacoes);
         }
+
         if (comunidade.getDoacaoMensais() != null) {
             comunidade.getDoacaoMensais().add(doacao);
         } else {
             ArrayList<Doacao> doacoes = new ArrayList<>();
             doacoes.add(doacao);
             comunidade.setDoacaoMensais(doacoes);
-        }
 
+        }
         repository.save(comunidade);
     }
 
@@ -58,9 +54,12 @@ public class ComunidadeService implements ComunidadeInterface {
         Comunidade comunidade = getComunidade();
 
         if (comunidade.getLucroEventos() != null) {
-            comunidade.getLucroEventos().add(eventos.getDespesas());
+            comunidade.getLucroEventos().add(eventos.getLucro());
+        } else {
+            ArrayList<Double> eventosArrayList = new ArrayList<>();
+            eventosArrayList.add(eventos.getLucro());
+            comunidade.setLucroEventos(eventosArrayList);
         }
-
         this.repository.save(comunidade);
     }
 
@@ -70,24 +69,65 @@ public class ComunidadeService implements ComunidadeInterface {
 
         if (comunidade.getLucroEventos() != null) {
             comunidade.getDespesaEventos().add(eventos.getDespesas());
+        } else {
+            ArrayList<Double> eventosArrayList = new ArrayList<>();
+            eventosArrayList.add(eventos.getDespesas());
+            comunidade.setDespesaEventos(eventosArrayList);
         }
 
         this.repository.save(comunidade);
     }
 
     @Override
+    public void saveDoacao(Doacao doacao) {
+        Comunidade comunidade = getComunidade();
+
+        if (comunidade.getLucroDoacao() != null) {
+            comunidade.getLucroDoacao().add(doacao.getValorDoacao());
+        } else {
+            ArrayList<Double> doacoes = new ArrayList<>();
+            doacoes.add(doacao.getValorDoacao());
+            comunidade.setLucroDoacao(doacoes);
+
+        }
+        this.repository.save(comunidade);
+    }
+
+    @Override
+    public void salvarTransacao() {
+        Comunidade comunidade = getComunidade();
+
+        if (comunidade.getLucroTransacao() != null) {
+            comunidade.getLucroTransacao().add(50.0);
+        } else {
+            ArrayList<Double> transacoes = new ArrayList<>();
+            transacoes.add(50.0);
+            comunidade.setLucroTransacao(transacoes);
+
+        }
+        this.repository.save(comunidade);
+    }
+
+    @Override
     public List<Comunidade> getLucroEvento() {
-        return this.repository.findByLucroEventos();
+
+        return this.repository.findAll();
     }
 
     @Override
     public List<Comunidade> getDepesaEventos() {
-        return this.repository.findByDespesaEventos();
+        return this.repository.findAll();
     }
 
     @Override
     public List<Comunidade> getDoacaoTotal() {
-        return this.repository.findByDoacaoTotal();
+        return this.repository.findAll();
     }
+
+    @Override
+    public List<Comunidade> getLucroTransacao() {
+        return this.repository.findAll();
+    }
+
 
 }
