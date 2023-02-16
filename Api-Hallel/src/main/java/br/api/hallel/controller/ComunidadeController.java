@@ -2,7 +2,9 @@ package br.api.hallel.controller;
 
 
 import br.api.hallel.model.Comunidade;
+import br.api.hallel.model.Eventos;
 import br.api.hallel.service.ComunidadeService;
+import br.api.hallel.service.EventosService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,19 +25,14 @@ public class ComunidadeController {
 
     @GetMapping("/gastoMensal")
     public List<Comunidade> listGastoMensal(){
-        return this.service.visualizarGastoMensal();
+        return null;
     }
 
     @GetMapping("/lucroMensal")
-    public List<Comunidade> listLucroMensal(){
-        return this.service.visualizarLucroMensal();
+    public Double listLucroMensal(){
+
+        return null;
     }
-
-    @GetMapping("/saldo")
-    public void saldoTotal(){
-
-    }
-
 
 
 }

@@ -1,15 +1,18 @@
 package br.api.hallel.controller;
 
 import br.api.hallel.model.Associado;
+import br.api.hallel.model.Membro;
 import br.api.hallel.model.MetodoPagamento;
 import br.api.hallel.model.Transacao;
+import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.service.AssociadoService;
+import br.api.hallel.service.MembroService;
 import br.api.hallel.service.TransacaoService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/associado")
@@ -21,30 +24,42 @@ public class AssociadoController {
     private AssociadoService service;
     @Autowired
     private TransacaoService transacaoService;
+    @Autowired
+    private MembroRepository repository;
 
-    @PostMapping("/criar")
-    public String createAssociado(@RequestBody Associado associado, @RequestBody Transacao transacao){
+    @GetMapping("/criar/{email}")
+    public String createAssociado(@RequestBody Associado associado, @RequestBody Transacao transacao,
+                                  @PathVariable String email ) {
 
         //PARA OCORRER A CRIAÇÃO DE ASSOCIADO, DEVE TER UMA TRANSAÇÃO
 
         //EXEMPLO DE COMO TAVA FUNCIONANDO
 
+    /*
 
-        /*Transacao transacao = new Transacao();
+        Transacao transacao = new Transacao();
         transacao.setNomeTransacao("Transação muhaha");
         transacao.setMetodoPagamento(MetodoPagamento.CARTAO_CREDITO);
-        transacao.setDataExp("07/02/2023");
+        transacao.setDataExp("08/02/2023");
 
 
-       Associado associado = new Associado();
-        associado.setId("123");
-        associado.setNome("Migas");
-        associado.setTransacao(transacao);
-        associado.setMensalidadePaga(true);
-        associado.getTransacao().setDataExp(transacao.getDataExp());
-        this.transacaoService.createAssociado(associado);
+        Associado associado = new Associado();
+        Optional<Membro> optional = this.repository.findByEmail("miguel@gmail.com");
 
-*/
+        if(optional.isPresent()){
+            Membro membro = optional.get();
+            associado.setId(membro.getId());
+            associado.setNome(membro.getNome());
+            associado.setEmail(membro.getEmail());
+            associado.setStatus(membro.getStatus());
+
+            associado.setTransacao(transacao);
+            associado.setMensalidadePaga(true);
+            associado.getTransacao().setDataExp(transacao.getDataExp());
+            this.transacaoService.createAssociado(associado);
+
+        }
+    */
 
         return associado.toString();
     }

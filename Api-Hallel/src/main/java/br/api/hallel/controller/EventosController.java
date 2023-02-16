@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -53,4 +54,15 @@ public class EventosController {
                                              @RequestParam(value = "emailUser") String emailUser){
         return ResponseEntity.ok().body(this.service.adicionarMembro(titulo,emailUser));
     }
+
+    @GetMapping("/despesa")
+    public Double getDespesas(){
+        return this.service.getDespesaMensal();
+    }
+
+    @GetMapping("/updateDespesa")
+    public Eventos updateDespesa(){
+        return this.service.updateValorTotal("63cb12090b1f317bbd76f99a");
+    }
+
 }

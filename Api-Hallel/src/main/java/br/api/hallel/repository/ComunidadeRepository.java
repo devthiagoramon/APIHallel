@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 public interface ComunidadeRepository extends MongoRepository<Comunidade, String> {
 
-    @Aggregation("{ $group: { _id: { month: { $month: '$date' }, year: { $year: '$date' } }, lucroMensal: { $sum: '$profit' } } }")
-    List<Comunidade> getLucroMensal();
-    @Aggregation("{ $group: { _id: { month: { $month: '$date' }, year: { $year: '$date' } }, gastoMensal: { $sum: '$profit' } } }")
-    List<Comunidade> getGastoMensal();
+    List<Comunidade> findByLucroEventos();
+    List<Comunidade> findByDespesaEventos();
+    List<Comunidade> findByDoacaoTotal();
+
 }

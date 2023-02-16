@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.repository.Aggregation;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class Comunidade {
     private ArrayList<Doacao> doacaoMensais;
     private ArrayList<Transacao> transacoes;
     private ArrayList<Transacao> transacoesMensais;
+    private ArrayList<Eventos> lucroEventos;
+    private ArrayList<Eventos> despesaEventos;
 
     public void setDoacaoMensais(ArrayList<Doacao> doacaoMensais) {
         this.doacaoMensais = doacaoMensais;
@@ -38,4 +41,6 @@ public class Comunidade {
     public void setTransacoesMensais(ArrayList<Transacao> transacoesMensais) {
         this.transacoesMensais = transacoesMensais;
     }
+
+
 }
