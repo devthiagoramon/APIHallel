@@ -2,17 +2,24 @@ package br.api.hallel.service.interfaces;
 
 import br.api.hallel.model.Comunidade;
 import br.api.hallel.model.Doacao;
+import br.api.hallel.model.Eventos;
+import com.mongodb.BasicDBObject;
 
 import java.util.List;
 
 public interface ComunidadeInterface {
 
-    void atualizarDoacao(Doacao doacao);
+    public void atualizarDoacao(Doacao doacao);
 
-    Comunidade getComunidade();
+    public Comunidade getComunidade();
 
-    List<Comunidade> visualizarLucroMensal();
+    void salvarLucroEventos(Eventos eventos);
 
-    List<Comunidade> visualizarGastoMensal();
+    void salvarDespesaEventos(Eventos eventos);
+
+    List<Comunidade> getLucroEvento();
+
+    List<Comunidade> getDepesaEventos();
+    List<Comunidade> getDoacaoTotal();
 
 }

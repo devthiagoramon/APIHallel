@@ -8,16 +8,24 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
+@RequiredArgsConstructor
 public class DoacaoService implements DoacaoInterface {
 
     @Autowired
     private DoacaoRepository repository;
     @Autowired
     private ComunidadeService doacaoService;
+
     @Override
     public Doacao doar(DoacaoReq doacaoReq) {
         doacaoService.atualizarDoacao(doacaoReq.toDoacao());
         return repository.insert(doacaoReq.toDoacao());
     }
+
+
+
 }

@@ -1,7 +1,6 @@
 package br.api.hallel.service.interfaces;
 
 import br.api.hallel.model.MembroGoogle;
-import br.api.hallel.payload.resposta.PerfilResponseGoogle;
 
 import java.util.List;
 

@@ -33,8 +33,6 @@ public class SecurityConfig {
 
     private AuthEntryPointJwt unauthorizedHandler;
 
-    private String[] requisicoesPermitidas = {"/api/login", "/api/isTokenExpired", "/api/solicitarCadastro", "/api/administrador/create", "/api/doacao/doar"};
-
     private final JwtTokenFilter jwtTokenFilter;
 
     private final AuthenticationProvider authenticationProvider;
@@ -43,9 +41,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(requisicoesPermitidas).permitAll()
-                .requestMatchers("/api/administrador/**").hasRole("ADMIN")
-                .requestMatchers("/api/eventos/**").hasRole("ADMIN")
+                .requestMatchers("/api/login").permitAll()
+                .requestMatchers("/api/isTokenExpired").permitAll()
+                .requestMatchers("/api/solicitarCadastro").permitAll()
+                .requestMatchers("/api/administrador/create").permitAll()
+                .requestMatchers("/api/administrador/").hasRole("ADMIN")
+                .requestMatchers("/api/eventos/").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
@@ -67,7 +68,6 @@ public class SecurityConfig {
                 .and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(requisicoesPermitidas).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

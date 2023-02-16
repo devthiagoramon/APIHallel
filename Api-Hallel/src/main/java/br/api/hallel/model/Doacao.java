@@ -21,5 +21,6 @@ public class Doacao {
     private TipoDoacao tipo;
     private String dataDoacao;
     private double valorDoacao;
+    private Double totalDoacao;
 
 }

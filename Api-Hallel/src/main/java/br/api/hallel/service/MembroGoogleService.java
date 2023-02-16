@@ -1,7 +1,6 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.MembroGoogle;
-import br.api.hallel.payload.resposta.PerfilResponseGoogle;
 import br.api.hallel.repository.MembroGoogleRepository;
 import br.api.hallel.service.interfaces.GoogleInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +52,7 @@ public class MembroGoogleService implements GoogleInterface {
         return this.googleRepository.findByEmail(email).isPresent() ? this.googleRepository.findByEmail(email).get() : null;
 
     }
+
 
 
 }

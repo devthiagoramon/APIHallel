@@ -7,7 +7,10 @@ import br.api.hallel.service.interfaces.EventosInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,6 +90,11 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
+    public Double getDespesaMensal() {
+        return this.repository.getDespesas();
+    }
+
+    @Override
     public String adicionarMembro(String titulo, String emailUser) {
         Optional<Eventos> optional = this.repository.findByTitulo(titulo);
 
@@ -104,6 +112,23 @@ public class EventosService implements EventosInterface {
         }
 
         return "Evento não encontrado";
+    }
+
+    @Override
+    public Eventos updateValorTotal(String id) {
+
+        Optional<Eventos> optional = this.repository.findById(id);
+
+        if (optional.isPresent()) {
+            Eventos eventos = optional.get();
+            eventos.setTotalDespesas(this.repository.getDespesas());
+            return this.repository.save(eventos);
+
+        } else {
+            System.out.println("NÃO EXISTE ESSA BOMBA");
+
+            return null;
+        }
     }
 
 
