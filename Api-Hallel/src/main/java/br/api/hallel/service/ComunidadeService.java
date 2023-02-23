@@ -66,8 +66,7 @@ public class ComunidadeService implements ComunidadeInterface {
     @Override
     public void salvarDespesaEventos(Eventos eventos) {
         Comunidade comunidade = getComunidade();
-
-        if (comunidade.getLucroEventos() != null) {
+        if (comunidade.getDespesaEventos() != null) {
             comunidade.getDespesaEventos().add(eventos.getDespesas());
         } else {
             ArrayList<Double> eventosArrayList = new ArrayList<>();
