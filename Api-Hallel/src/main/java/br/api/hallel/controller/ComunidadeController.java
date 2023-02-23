@@ -2,7 +2,9 @@ package br.api.hallel.controller;
 
 
 import br.api.hallel.model.Comunidade;
+import br.api.hallel.model.Doacao;
 import br.api.hallel.model.Eventos;
+import br.api.hallel.model.Transacao;
 import br.api.hallel.service.ComunidadeService;
 import com.mongodb.client.DistinctIterable;
 import lombok.RequiredArgsConstructor;
@@ -100,14 +102,15 @@ public class ComunidadeController {
     @GetMapping("/lucro/eventos/save")
     public String saveLucroEventos(){
 
-        Eventos eventos = new Eventos();
-        eventos.setId("12");
-        eventos.setTitulo("Teu pai de teste2");
-        eventos.setDate("23/12/2006");
-        eventos.setLucro(50.0);
-        this.service.salvarLucroEventos(eventos);
+        Transacao transacao = new Transacao();
+        transacao.setId("123");
+        transacao.setNomeTransacao("Teu pai jr 2");
+        transacao.setMensalidade(40.0);
+        this.service.salvarTransacao();
 
         return "deu bom";
     }
+
+
 
 }
