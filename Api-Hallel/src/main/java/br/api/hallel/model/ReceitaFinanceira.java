@@ -18,9 +18,8 @@ public class ReceitaFinanceira {
     private String id;
     private String descricaoReceita;
     private Double valor;
-    private String finalidadeReceita;
     private String dataReceita;
     private String usuarioReceita;
-    private String finalidadeReceita;
+    private boolean isObjeto;
 
 }
