@@ -45,9 +45,18 @@ public class SecurityConfig {
                 .requestMatchers("/api/isTokenExpired").permitAll()
                 .requestMatchers("/api/solicitarCadastro").permitAll()
                 .requestMatchers("/api/administrador/create").permitAll()
-                .requestMatchers("/api/administrador/").hasRole("ADMIN")
+                .requestMatchers("/api/eventos/listar").hasRole("USER")
+                .requestMatchers("/api/financeiro/**").hasRole("ADMIN")
+                .requestMatchers("/api/administrador/**").hasRole("ADMIN")
                 .requestMatchers("/api/eventos/").hasRole("ADMIN")
                 .anyRequest().authenticated()
+                .and()
+                .oauth2Login(Customizer.withDefaults())
+                .logout()
+                .logoutUrl("/api/google/logout")
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessHandler(this.oidcLogoutSuccessHandler())
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
@@ -55,29 +64,6 @@ public class SecurityConfig {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
-
-    @Bean
-    @Order(2)
-    protected SecurityFilterChain filterChainGoogle(HttpSecurity http) throws Exception {
-
-        http
-                .cors()
-                .and()
-                .csrf().disable()
-                .authorizeHttpRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .oauth2Login(Customizer.withDefaults())
-                .logout()
-                .logoutUrl("/api/google/logout")
-                .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessHandler(this.oidcLogoutSuccessHandler());
-
 
         return http.build();
     }

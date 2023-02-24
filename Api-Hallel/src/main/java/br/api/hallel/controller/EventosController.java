@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/eventos")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @Log4j2
 public class EventosController {
 
@@ -23,7 +23,7 @@ public class EventosController {
     @Autowired
     private EventosService service;
 
-    @GetMapping("")
+    @GetMapping("/listar")
     public ResponseEntity<List<Eventos>> listAllEventos(){
         return ResponseEntity.status(200).body(service.listarAllEventos());
     }

@@ -30,8 +30,8 @@ public class FinanceiroService implements FinanceiroInterface {
 
     @Override
     public Financeiro getFinanceiro() {
-        return repository.findById("63e28aa8543a7bca82109218").get() != null ?
-                repository.findById("63e28aa8543a7bca82109218").get() :
+        return repository.findById("63f80b6ed5f23b6d7597b46a").get() != null ?
+                repository.findById("63f80b6ed5f23b6d7597b46a").get() :
                 null;
     }
 
@@ -42,7 +42,14 @@ public class FinanceiroService implements FinanceiroInterface {
 
         if (financeiro.getGastos() != null) {
             financeiro.getGastos().add(gastoFinanceiro);
-            valor.getValorGastos().add(gastoFinanceiro.getValor());
+            if(valor.getValorGastos()!=null) {
+                valor.getValorGastos().add(gastoFinanceiro.getValor());
+            }else{
+                ArrayList<Double> gastos = new ArrayList<>();
+                gastos.add(gastoFinanceiro.getValor());
+                valor.setValorGastos(gastos);
+            }
+            somaGasto(financeiro, gastoFinanceiro.getValor());
         } else {
             ArrayList<GastoFinanceiro> gastoArray = new ArrayList<>();
             ArrayList<Double> valorArray = new ArrayList<>();
@@ -63,8 +70,21 @@ public class FinanceiroService implements FinanceiroInterface {
         Financeiro valor = getFinanceiro();
 
         if (financeiro.getGastos() != null) {
-            financeiro.getReceita().add(receitaFinanceira);
-            valor.getValorReceitas().add(receitaFinanceira.getValor());
+            if(financeiro.getReceita() != null) {
+                financeiro.getReceita().add(receitaFinanceira);
+            }else{
+                ArrayList<ReceitaFinanceira> receita = new ArrayList<>();
+                receita.add(receitaFinanceira);
+                financeiro.setReceita(receita);
+            }
+            if(valor.getValorReceitas() != null){
+                valor.getValorReceitas().add(receitaFinanceira.getValor());
+            }else{
+                ArrayList<Double> receitas = new ArrayList<>();
+                receitas.add(receitaFinanceira.getValor());
+                valor.setValorReceitas(receitas);
+            }
+            somaReceita(financeiro, receitaFinanceira.getValor());
         } else {
 
             ArrayList<ReceitaFinanceira> receitaArray = new ArrayList<>();
@@ -101,5 +121,46 @@ public class FinanceiroService implements FinanceiroInterface {
     @Override
     public void deleteFinanceiro(String id) {
         this.repository.deleteById(id);
+    }
+
+    public void somaReceita(Financeiro financeiro, Double somaTotal) {
+
+        List<Double> receita = new ArrayList<>();
+
+        if(financeiro.getValorReceitas() != null) {
+            receita.addAll(financeiro.getValorReceitas());
+        }else{
+            List<Double> receitaNew = new ArrayList<>();
+            receita.addAll(receitaNew);
+        }
+
+        for (int i = 0; i < receita.size(); i++) {
+            somaTotal += receita.get(i);
+        }
+
+        financeiro.setReceitaProvisoria(somaTotal);
+
+        update(financeiro);
+
+    }
+
+    public void somaGasto(Financeiro financeiro, Double somaTotal) {
+
+        List<Double> gasto = new ArrayList<>();
+
+        if(financeiro.getValorGastos() != null) {
+            gasto.addAll(financeiro.getValorReceitas());
+        }else{
+            List<Double> gastoNew = new ArrayList<>();
+            gasto.addAll(gastoNew);
+        }
+
+        for (int i = 0; i < gasto.size(); i++) {
+            somaTotal += gasto.get(i);
+        }
+
+        financeiro.setGastoProvisorio(somaTotal);
+
+        update(financeiro);
     }
 }

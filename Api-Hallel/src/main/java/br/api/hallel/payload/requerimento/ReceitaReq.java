@@ -32,7 +32,6 @@ public class ReceitaReq {
         receitaDTO.setDescricaoReceita(this.getDescricaoReceita());
         receitaDTO.setUsuarioReceita(this.getUsuarioReceita());
         receitaDTO.setDataReceita(this.getDataGasto());
-        receitaDTO.setFinalidadeReceita(this.finalidadeReceita);
 
         return receitaDTO;
     }

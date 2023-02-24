@@ -31,21 +31,21 @@ public class FinanceiroController {
 
     //FINANCEIRO
 
-    @GetMapping("/financeiro/criar")
+    @PostMapping("/criar")
     public Financeiro createFinanceiro(@RequestBody Financeiro financeiro) {
         return this.financeiroService.createFinanceiro(financeiro);
     }
 
-    @GetMapping("/financeiro/delete/{id}")
+    @GetMapping("/delete/{id}")
     public void deleteFinanceiro(@PathVariable String id) {
         this.financeiroService.deleteFinanceiro(id);
     }
 
-    @GetMapping("/financeiro/update")
+    @GetMapping("/update")
     public Financeiro update(@RequestBody Financeiro financeiro) {
         return this.financeiroService.update(financeiro);
     }
-    @GetMapping("/financeiro/lucro")
+    @GetMapping("/lucro")
     public Double lucro(){
         return this.financeiroService.lucro();
     }
@@ -57,7 +57,7 @@ public class FinanceiroController {
         return this.gastoService.listAll();
     }
 
-    @GetMapping("/gasto/criar")
+    @PostMapping("/gasto/criar")
     public GastoFinanceiro createGasto(@RequestBody GastoFinanceiro gastoFinanceiro) {
         return this.gastoService.createGasto(gastoFinanceiro);
     }
@@ -72,18 +72,19 @@ public class FinanceiroController {
         return this.gastoService.listById(id);
     }
 
-    @GetMapping("/gasto/update/{id}")
+    @PostMapping("/gasto/update/{id}")
     public GastoFinanceiro updateGasto(@PathVariable String id, @RequestBody GastoReq gasto) {
         return this.gastoService.update(id, gasto);
     }
 
+    // Receitas
 
     @GetMapping("/receita")
     public List<ReceitaFinanceira> listReceitas() {
         return this.receitaService.listAll();
     }
 
-    @GetMapping("/receita/criar")
+    @PostMapping("/receita/criar")
     public ReceitaFinanceira createReceita(@RequestBody ReceitaFinanceira receitaFinanceira) {
         return this.receitaService.createReceita(receitaFinanceira);
     }
@@ -101,51 +102,6 @@ public class FinanceiroController {
     @GetMapping("/receita/update/{id}")
     public ReceitaFinanceira updateReceita(@PathVariable String id, @RequestBody ReceitaReq receita) {
         return this.receitaService.update(id, receita);
-    }
-
-    public Double somaReceita() {
-
-        List<Financeiro> financeiros = financeiroService.getReceitas();
-        List<Double> receita = new ArrayList<>();
-
-        Double soma = 0.0;
-        for (Financeiro f : financeiros) {
-            receita.addAll(f.getValorReceitas());
-        }
-
-        for (int i = 0; i < receita.size(); i++) {
-            soma += receita.get(i);
-        }
-
-        Financeiro financeiro = new Financeiro();
-        financeiro.setId("1");
-        financeiro.setReceitaProvisoria(soma);
-
-        this.financeiroService.update(financeiro);
-        return soma;
-
-    }
-
-    public Double somaGasto() {
-
-        List<Financeiro> financeiros = financeiroService.getGastos();
-        List<Double> gasto = new ArrayList<>();
-
-        Double soma = 0.0;
-        for (Financeiro f : financeiros) {
-            gasto.addAll(f.getValorGastos());
-        }
-
-        for (int i = 0; i < gasto.size(); i++) {
-            soma += gasto.get(i);
-        }
-
-        Financeiro financeiro = new Financeiro();
-        financeiro.setGastoProvisorio(soma);
-
-        this.financeiroService.update(financeiro);
-        return soma;
-
     }
 
 }
