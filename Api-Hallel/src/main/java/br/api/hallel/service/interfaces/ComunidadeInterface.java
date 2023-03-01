@@ -13,19 +13,6 @@ public interface ComunidadeInterface {
 
     Comunidade getComunidade();
 
-    void salvarLucroEventos(Eventos eventos);
-
-    void salvarDespesaEventos(Eventos eventos);
-
-    void salvarTransacao();
-
-    void saveDoacao(Doacao doacao);
-    List<Comunidade> getLucroEvento();
-
-    List<Comunidade> getDepesaEventos();
-
-    List<Comunidade> getDoacaoTotal();
-    List<Comunidade> getLucroTransacao();
 
 
 }

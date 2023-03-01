@@ -35,7 +35,6 @@ public class FinanceiroController {
     public Financeiro createFinanceiro(@RequestBody Financeiro financeiro) {
         return this.financeiroService.createFinanceiro(financeiro);
     }
-
     @GetMapping("/delete/{id}")
     public void deleteFinanceiro(@PathVariable String id) {
         this.financeiroService.deleteFinanceiro(id);
@@ -50,28 +49,34 @@ public class FinanceiroController {
         return this.financeiroService.lucro();
     }
 
+
     //GASTOS
 
+    //LISTA DESPESAS
     @GetMapping("/gastos")
     public List<GastoFinanceiro> listGastos() {
         return this.gastoService.listAll();
     }
 
+    //CRIA DESPESAS
     @PostMapping("/gasto/criar")
     public GastoFinanceiro createGasto(@RequestBody GastoFinanceiro gastoFinanceiro) {
         return this.gastoService.createGasto(gastoFinanceiro);
     }
 
+    //DELETA DESPESAS
     @GetMapping("/gasto/deletar/{id}")
     public void deleteGasto(@PathVariable String id) {
         this.gastoService.deleteGasto(id);
     }
 
+    //SELECIONA SOMENTE UMA DESPESA
     @GetMapping("/gasto/{id}")
     public GastoFinanceiro listGastoById(@PathVariable String id) {
         return this.gastoService.listById(id);
     }
 
+    //ATUALIZA INFORMAÇÕES DESSA DESPESA
     @PostMapping("/gasto/update/{id}")
     public GastoFinanceiro updateGasto(@PathVariable String id, @RequestBody GastoReq gasto) {
         return this.gastoService.update(id, gasto);
@@ -79,26 +84,31 @@ public class FinanceiroController {
 
     // Receitas
 
+    //LISTA RECEITAS
     @GetMapping("/receita")
     public List<ReceitaFinanceira> listReceitas() {
         return this.receitaService.listAll();
     }
 
+    //CRIA RECEITAS
     @PostMapping("/receita/criar")
     public ReceitaFinanceira createReceita(@RequestBody ReceitaFinanceira receitaFinanceira) {
         return this.receitaService.createReceita(receitaFinanceira);
     }
 
+    //DELETE RECEITAS
     @GetMapping("/receita/deletar/{id}")
     public void deleteReceita(@PathVariable String id) {
         this.receitaService.deleteReceita(id);
     }
 
+    //SELECIONA SOMENTE UMA RECEITA
     @GetMapping("/receita/{id}")
     public ReceitaFinanceira listReceitaById(@PathVariable String id) {
         return this.receitaService.listById(id);
     }
 
+    //ATUALIZA INFORMAÇÕES DESSA RECEITA
     @GetMapping("/receita/update/{id}")
     public ReceitaFinanceira updateReceita(@PathVariable String id, @RequestBody ReceitaReq receita) {
         return this.receitaService.update(id, receita);

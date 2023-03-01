@@ -5,12 +5,14 @@ import br.api.hallel.model.GastoFinanceiro;
 import br.api.hallel.model.ReceitaFinanceira;
 import br.api.hallel.repository.FinanceiroRepository;
 import br.api.hallel.service.interfaces.FinanceiroInterface;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class FinanceiroService implements FinanceiroInterface {
@@ -28,6 +30,11 @@ public class FinanceiroService implements FinanceiroInterface {
         return this.repository.save(financeiro);
     }
 
+    Logger logger =(Logger) LoggerFactory.getLogger(FinanceiroService.class);
+
+
+
+    //RESGATA DO BANCO DE DADOS, O FINANCEIRO DA COMUNIDADE
     @Override
     public Financeiro getFinanceiro() {
         return repository.findById("63f80b6ed5f23b6d7597b46a").get() != null ?
@@ -35,6 +42,8 @@ public class FinanceiroService implements FinanceiroInterface {
                 null;
     }
 
+    //REALIZA UMA LÓGICA PARA VER SE ESTÁ CRIADO OU NÃO
+    //ADICIONA OS DESPESAS FINANCEIROS À COMUNIDADE
     @Override
     public void salvarGasto(GastoFinanceiro gastoFinanceiro) {
         Financeiro financeiro = getFinanceiro();
@@ -64,6 +73,8 @@ public class FinanceiroService implements FinanceiroInterface {
     }
 
 
+    //ADICIONA RECEITAS FINANCEIRA À COMUNIDADE
+    //REALIZA UMA LÓGICA PARA VER SE ESTÁ CRIADO OU NÃO
     @Override
     public void salvarReceita(ReceitaFinanceira receitaFinanceira) {
         Financeiro financeiro = getFinanceiro();
@@ -100,16 +111,19 @@ public class FinanceiroService implements FinanceiroInterface {
         this.repository.save(financeiro);
     }
 
+    //LISTA TODAS AS RECEITAS DA COMUNIDADE
     @Override
     public List<Financeiro> getReceitas() {
         return this.repository.findAll();
     }
 
+    //LISTA TODOS AS DESPESAS DA COMUNIDADE
     @Override
     public List<Financeiro> getGastos() {
         return this.repository.findAll();
     }
 
+    //MÉTODO SIMPLES PARA OBTER O LUCRO
     @Override
     public Double lucro() {
         Financeiro financeiro = getFinanceiro();
@@ -117,12 +131,13 @@ public class FinanceiroService implements FinanceiroInterface {
         return lucro;
     }
 
-
+    //REMOVER FINANCEIRO
     @Override
     public void deleteFinanceiro(String id) {
         this.repository.deleteById(id);
     }
 
+    //SOIMA DE RECEITA
     public void somaReceita(Financeiro financeiro, Double somaTotal) {
 
         List<Double> receita = new ArrayList<>();
@@ -144,6 +159,7 @@ public class FinanceiroService implements FinanceiroInterface {
 
     }
 
+    //SOMA DE DESPESAS
     public void somaGasto(Financeiro financeiro, Double somaTotal) {
 
         List<Double> gasto = new ArrayList<>();

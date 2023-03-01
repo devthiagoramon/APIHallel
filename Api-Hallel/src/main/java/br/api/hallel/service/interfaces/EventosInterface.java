@@ -14,11 +14,6 @@ public interface EventosInterface {
     Eventos createEvento(Eventos evento);
     Eventos updateEventoById(String id);
     void deleteEventoById(String id);
-    Double getDespesaMensal();
-    Eventos updateValorTotal(String id);
-    void despesasEvento(String id, Double despesa);
-    void lucroEvento(String id, Double lucro);
-
 
     String adicionarMembro(String titulo, String emailUser);
 }

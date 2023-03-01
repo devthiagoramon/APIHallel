@@ -13,21 +13,13 @@ public class Associado extends Membro{
     private Eventos eventoParticipando;
     private Boolean mensalidadePaga;
     private Transacao transacao;
-    private Boolean isAssociado;
+    private AssociadoRole isAssociado;
+
 
     public Associado(){
 
     }
 
-    public Boolean setMensalidadePaga(){
-
-        if(transacao.getPago()){
-            return true;
-        }
-
-        return false;
-
-    }
 
     @Override
     public String toString() {

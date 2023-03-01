@@ -27,6 +27,11 @@ public class AssociadoController {
     @Autowired
     private MembroRepository repository;
 
+    @GetMapping("")
+    public List<Associado> listAllAssociados(){
+        return this.service.listAllAssociado();
+    }
+
     @GetMapping("/criar/{email}")
     public String createAssociado(@RequestBody Associado associado, @RequestBody Transacao transacao,
                                   @PathVariable String email ) {
@@ -37,16 +42,25 @@ public class AssociadoController {
 
     /*
 
+        //CRIANDO UAM TRANSAÇÃO
+
         Transacao transacao = new Transacao();
         transacao.setNomeTransacao("Transação muhaha");
         transacao.setMetodoPagamento(MetodoPagamento.CARTAO_CREDITO);
         transacao.setDataExp("08/02/2023");
 
+        //CRIANDO OBJ DE ASSOCIADO
 
         Associado associado = new Associado();
+
+        //VERIFICANDO SE O MEMBRO EXISTE NO SISTEMA
+
         Optional<Membro> optional = this.repository.findByEmail("miguel@gmail.com");
 
         if(optional.isPresent()){
+
+            //SE EXISTE, PEGA AS INFORMAÇÕES E BOTA NA DE ASSOCIADO, E SALVA NO 'createAssociado()'
+
             Membro membro = optional.get();
             associado.setId(membro.getId());
             associado.setNome(membro.getNome());
@@ -62,11 +76,6 @@ public class AssociadoController {
     */
 
         return associado.toString();
-    }
-
-    @GetMapping("")
-    public List<Associado> listAllAssociados(){
-        return this.service.listAllAssociado();
     }
 
     @GetMapping("/{id}")

@@ -18,10 +18,14 @@ public class ReceitaService implements ReceitaInterface {
     @Autowired
     FinanceiroService service;
 
+    //CRUD DE RECEITAS FINANCEIRO DA COMUNIDADE
     @Override
     public ReceitaFinanceira createReceita(ReceitaFinanceira receitaFinanceira) {
 
+        //SALVA A RECEITA NUM ARRAY DE FINANCEIRO
         this.service.salvarReceita(receitaFinanceira);
+
+        //SALVA A RECEITA NA TABELA 'RECEITA' DO BD
         return this.repository.insert(receitaFinanceira);
     }
 

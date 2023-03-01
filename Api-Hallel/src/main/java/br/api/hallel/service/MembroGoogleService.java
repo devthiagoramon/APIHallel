@@ -20,6 +20,8 @@ public class MembroGoogleService implements GoogleInterface {
         return this.googleRepository.insert(membroGoogle);
     }
 
+    //POSSUI O CRUD PARA MEMBRO QUE FOR LOGAR COM O GOOGLE (OAUTH2)
+
     @Override
     public void deleteMembroGoogle(String id) {
         Optional<MembroGoogle> optional = this.googleRepository.findById(id);

@@ -22,6 +22,4 @@ public class GastoFinanceiro {
     private String dataGasto;
     private String usuarioGasto;
 
-
-
 }
