@@ -23,7 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +47,10 @@ public class MainService implements MainInterface {
     @Autowired
     private MembroGoogleRepository googleRepository;
 
+    /*MÉTODO PARA REALIZAR O LOGIN BASEADO NO TOKEN DO USUARIO,
+        ELE PODE LOGAR COMO MEMBRO OU COMO ADMISTRADOR
+    * */
+
     @Override
     public AuthenticationResponse logar(@Valid LoginRequerimento loginRequerimento) {
         authenticationManager.authenticate(
@@ -55,10 +58,17 @@ public class MainService implements MainInterface {
                         loginRequerimento.getEmail(), loginRequerimento.getSenha()
                 )
         );
+
         if (membroRepository.findByEmail(loginRequerimento.getEmail()).isPresent()) {
+
+            //VERIFICAÇÃO PARA VER SE EXISTE UM MEMBRO COM ESSE EMAIL
+
             var membro = membroRepository.findByEmail(loginRequerimento.getEmail()).get();
             System.out.println("Membro");
-            if(membro.getStatus().equals(StatusMembro.ATIVO)) {
+
+            if (membro.getStatus().equals(StatusMembro.ATIVO)) {
+
+                //SE EXISTE, O MEMBRO VEM COMO ATIVO, POIS ESTÁ ACESSANDO AO SITE
                 var jwtToken = jwtService.generateToken(membro);
                 MembroResponse membroResponse = new MembroResponse();
                 membroResponse.setNome(membro.getNome());
@@ -70,7 +80,10 @@ public class MainService implements MainInterface {
                         .build();
             }
         }
+
+        //VERIFICA SE É UM ADM
         if (administradorRepository.findByEmail(loginRequerimento.getEmail()).isPresent()) {
+            //SE EXISTE, ELE FAZ LOGIN COMO MEMBRO
             var administrador = administradorRepository.findByEmail(loginRequerimento.getEmail()).get();
             System.out.println("Adm");
             var jwtToken = jwtService.generateToken(administrador);
@@ -86,6 +99,10 @@ public class MainService implements MainInterface {
         return null;
     }
 
+
+    /*MÉTODO PARA REALIZAR O LOGIN COM GOOGLE (OAUTH2)
+        (MESMA COISA DO MÉTODO ANTERIOR)
+     */
     @Override
     public AuthenticationResponse logarGoogle(@Valid LoginRequerimentoGoogle loginRequerimentoGoogle) {
         System.out.println("COMEÇO");
@@ -130,14 +147,21 @@ public class MainService implements MainInterface {
 
         System.out.println("FUCK RETORNOU NULL");
 
-        return  null;
+        return null;
     }
 
+    /*
+        MÉTODO PARA REALIZAR A SOLITAÇÃO DO CADASTRO
+        (O ADMIN DEVE ACEITAR O CADASTRO DO MEMBRO)
+     */
     @Override
     public AuthenticationResponse solicitarCadastro(SolicitarCadastroRequerimento solicitarCadastroRequerimento) {
+        //ADICIONA A ROLE (FUNÇÃO) QUE O USUÁRIO É, NO CASO, DE MEMBRO.
+
         HashSet<Role> roles = new HashSet<>();
         roles.add(roleRepository.findByName(ERole.ROLE_USER).isPresent() ?
                 roleRepository.findByName(ERole.ROLE_USER).get() : null);
+
         var membro = new Membro();
         membro.setNome(solicitarCadastroRequerimento.getNome());
         membro.setEmail(solicitarCadastroRequerimento.getEmail());
@@ -145,6 +169,7 @@ public class MainService implements MainInterface {
         membro.setRoles(roles);
         membro.setStatus(StatusMembro.PENDENTE);
 
+        //SALVA NO BD E GERA O TOKEN PARA O USUARIO
         membroRepository.save(membro);
         var jwtToken = jwtService.generateToken(membro);
         return AuthenticationResponse.builder()
@@ -153,6 +178,11 @@ public class MainService implements MainInterface {
     }
 
 
+    /*
+      MÉTODO PARA REALIZAR A SOLITAÇÃO DO CADASTRO COM GOOGLE (OAUTH2)
+      (O ADMIN DEVE ACEITAR O CADASTRO DO MEMBRO)
+      (MESMA LÓGICA DO MÉTODO ANTERIOR)
+   */
     @Override
     public AuthenticationResponse solicitarCadastroGoogle(SolicitarCadastroGoogle solicitarCadastroGoogle) {
 

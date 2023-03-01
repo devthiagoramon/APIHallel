@@ -55,14 +55,5 @@ public class EventosController {
         return ResponseEntity.ok().body(this.service.adicionarMembro(titulo,emailUser));
     }
 
-    @GetMapping("/despesa")
-    public Double getDespesas(){
-        return this.service.getDespesaMensal();
-    }
-
-    @GetMapping("/updateDespesa")
-    public Eventos updateDespesa(){
-        return this.service.updateValorTotal("63cb12090b1f317bbd76f99a");
-    }
 
 }

@@ -4,6 +4,8 @@ import br.api.hallel.model.Eventos;
 import br.api.hallel.model.Membro;
 import br.api.hallel.repository.EventosRepository;
 import br.api.hallel.service.interfaces.EventosInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,45 +22,64 @@ public class EventosService implements EventosInterface {
     private MembroService membroService;
     @Autowired
     private ComunidadeService comunidadeService;
+    Logger logger = (Logger) LoggerFactory.getLogger(EventosService.class);
 
+
+    //LISTA OS EVENTOS JÁ CRIADOS
     @Override
     public List<Eventos> listarAllEventos() {
-        System.out.println("Listando Eventos...");
+        logger.info("LISTANDO EVENTOS!");
+
         return this.repository.findAll();
     }
 
+    //LISTA APENAS UM EVENTO PELO SEU ID
     @Override
     public Eventos listarEventoById(String id) {
         Optional<Eventos> optional = this.repository.findById(id);
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
+
+            logger.info("EVENTO LISTADO!");
+
             return eventos;
         } else {
-            System.out.println("Evento não encontrado!");
+            logger.warn("EVENTOS NÃO ENCONTRADO!");
+
             return null;
         }
     }
 
+    //LISTA O EVENTO PELO SEU NOME
     @Override
     public Eventos listarEventosByNome(String nome) {
         Optional<Eventos> optional = this.repository.findByTitulo(nome);
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
+
+            logger.info("EVENTO LISTADO!");
+
             return eventos;
         } else {
-            System.out.println("Evento não encontrado!");
+            logger.warn("EVENTO NÃO ENCONTRADO!");
+
             return null;
         }
 
     }
 
+    //CRIA EVENTOS
     @Override
     public Eventos createEvento(Eventos evento) {
+        logger.info("EVENT0 CRIADO!");
+
         return this.repository.insert(evento);
     }
 
+
+    //ATUALIZA AS INFORMAÇÕES DO EVENTO
     @Override
     public Eventos updateEventoById(String id) {
 
@@ -66,15 +87,18 @@ public class EventosService implements EventosInterface {
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
+            logger.info("EVENTO ATUALZIADO!");
 
             return this.repository.save(eventos);
         } else {
-            System.out.println("Evento não encontrado!");
+            logger.warn("EVENTO NÃO ENCONTRADO!");
+
             return null;
         }
 
     }
 
+    //REMOVE UM EVENTO
     @Override
     public void deleteEventoById(String id) {
         Optional<Eventos> optional = this.repository.findById(id);
@@ -82,16 +106,16 @@ public class EventosService implements EventosInterface {
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
             this.repository.deleteById(id);
+            logger.info("EVENTO DELETADO!");
+
         } else {
-            System.out.println("Evento não encontrado!");
+            logger.warn("EVENTO NÃO ENCONTRADO, ENTÃO NAO FOI REMOVIDO!");
+
         }
     }
 
-    @Override
-    public Double getDespesaMensal() {
-        return this.repository.getDespesas();
-    }
 
+    //ADICIONA UM MEMBRO AO EVENTO
     @Override
     public String adicionarMembro(String titulo, String emailUser) {
         Optional<Eventos> optional = this.repository.findByTitulo(titulo);
@@ -105,57 +129,17 @@ public class EventosService implements EventosInterface {
                 integrantes.add(membroService.findByEmail(emailUser));
                 evento.setIntegrantes(integrantes);
             }
+            logger.info("MEMBRO CADASTRADO AO EVENTO!");
             this.repository.save(evento);
+
             return "Membro cadastrado no evento com sucesso";
         }
+        logger.info("EVENTO NÃO ECONTRADO!");
 
         return "Evento não encontrado";
     }
 
-    @Override
-    public Eventos updateValorTotal(String id) {
 
-        Optional<Eventos> optional = this.repository.findById(id);
 
-        if (optional.isPresent()) {
-            Eventos eventos = optional.get();
-            eventos.setTotalDespesas(this.repository.getDespesas());
-            return this.repository.save(eventos);
-
-        } else {
-            System.out.println("NÃO EXISTE ESSA BOMBA");
-
-            return null;
-        }
-    }
-
-    @Override
-    public void despesasEvento(String id, Double despesa) {
-        Optional<Eventos> optional = this.repository.findById(id);
-
-        if (optional.isPresent()) {
-            Eventos eventos = optional.get();
-
-            eventos.setDespesas(despesa);
-            this.comunidadeService.salvarDespesaEventos(eventos);
-
-            this.repository.save(eventos);
-        }
-    }
-
-    @Override
-    public void lucroEvento(String id, Double lucro) {
-        Optional<Eventos> optional = this.repository.findById(id);
-
-        if (optional.isPresent()) {
-            Eventos eventos = optional.get();
-
-            eventos.setLucro(lucro);
-            this.comunidadeService.salvarLucroEventos(eventos);
-
-            this.repository.save(eventos);
-        }
-
-    }
 
 }

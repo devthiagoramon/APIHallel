@@ -21,5 +21,6 @@ public class ReceitaFinanceira {
     private String dataReceita;
     private String usuarioReceita;
     private boolean isObjeto;
+    private TipoDoacao tipoDoacao;
 
 }

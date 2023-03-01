@@ -21,6 +21,8 @@ public class MembroMarketingService implements MembroMarketingInterface {
         return new BCryptPasswordEncoder();
     }
 
+    //CRUD PARA MEMBRO MARKETING
+
     @Override
     public MembroMarketing createMembroMarketing(MembroMarketing membroMarketing) {
         String encoder = this.passwordEncoder().encode(membroMarketing.getSenha());

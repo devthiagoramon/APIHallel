@@ -3,11 +3,13 @@ package br.api.hallel.service;
 import br.api.hallel.model.Associado;
 import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.service.interfaces.AssociadoInterface;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class AssociadoService implements AssociadoInterface {
@@ -20,22 +22,34 @@ public class AssociadoService implements AssociadoInterface {
         return this.repository.findAll();
     }
 
+    Logger logger = (Logger) LoggerFactory.getLogger(AssociadoService.class);
+
+
+    //LISTA TODOS OS ASSOCIADOS
     @Override
     public Associado listAssociadoById(String id) {
+
+        logger.info("ASSOCIADO LISTADO!");
+
         return this.repository.findById(id).isPresent() ? this.repository.findById(id).get() : null;
     }
 
+    //DELETA UM ASSOCIADO PELO ID DELE
     @Override
     public void deleteAssociado(String id) {
         Optional<Associado> optional = this.repository.findById(id);
 
         if (optional.isPresent()) {
             Associado associado = optional.get();
+
+            logger.info("ASSOCIADO REMOVIDO!");
+
             this.repository.delete(associado);
         }
 
     }
 
+    //ATUALIZA INFORMAÇÕES SOBRE O ASSOCIADO
     @Override
     public Associado updateAssociadoById(String id, Associado associado) {
 
@@ -46,9 +60,13 @@ public class AssociadoService implements AssociadoInterface {
 
             associadoOptional = associado;
 
+            logger.info("ASSOCIADO ATUALIZADO!");
+
             System.out.println("Associado atualizado");
             return this.repository.save(associado);
         }else{
+            logger.warning("ASSOCIADO NÃO ENCONTRADO!");
+
             return null;
         }
 

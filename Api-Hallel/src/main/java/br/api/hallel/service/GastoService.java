@@ -21,6 +21,7 @@ public class GastoService implements GastoInterface {
     @Autowired
     FinanceiroService service;
 
+    //ADICONA GASTO À COMUNIDADE
     @Override
     public GastoFinanceiro createGasto(GastoFinanceiro gastoFinanceiro) {
 
@@ -28,6 +29,7 @@ public class GastoService implements GastoInterface {
         return this.repository.insert(gastoFinanceiro);
     }
 
+    //LISTA UMA DESPESA PELO ID
     @Override
     public GastoFinanceiro listById(String id) {
         Optional<GastoFinanceiro> optional = this.repository.findById(id);
@@ -39,11 +41,13 @@ public class GastoService implements GastoInterface {
         return null;
     }
 
+    //LISTA TODAS AS DESPESAS
     @Override
     public List<GastoFinanceiro> listAll() {
         return this.repository.findAll();
     }
 
+    //ATUALIZA INFORMAÇÕES SOBRE UMA DESPESA
     @Override
     public GastoFinanceiro update(String id, GastoReq gasto) {
         Optional<GastoFinanceiro> optional = this.repository.findById(id);
@@ -55,6 +59,7 @@ public class GastoService implements GastoInterface {
         return null;
     }
 
+    //REMOVE UMA DESPESA
     @Override
     public void deleteGasto(String id) {
         Optional<GastoFinanceiro> optional = this.repository.findById(id);

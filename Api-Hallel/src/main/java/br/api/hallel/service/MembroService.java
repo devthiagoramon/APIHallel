@@ -25,10 +25,12 @@ public class MembroService implements MembroInterface {
         return new BCryptPasswordEncoder();
     }
 
+    //CRUD DE MEMBRO
+
     @Override
     public Membro createMembro(Membro membro) {
         System.out.println("Criando membro");
-        String encoder = this.passwordEncoder().encode(membro.getSenha());
+        String encoder = this.passwordEncoder().encode(membro.getSenha()); //CRIPTOGRAFA A SENHA
         membro.setSenha(encoder);
         return this.repository.insert(membro);
     }
@@ -102,10 +104,15 @@ public class MembroService implements MembroInterface {
         return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
     }
 
+    //INFORMAÇÕES PARA PODER O USUÁRIO VISUALIZAR SEU PERFIL
     @Override
     public PerfilResponse visualizarPerfil(String nome, String email) throws IllegalAccessException {
+
+        //FAZ A BUSCA DO MEMBRO PELO BD, UTILIZANDO SEU ID
         Optional<Membro> optional = this.repository.findByNomeAndEmail(nome, email);
         if(optional.isPresent()){
+
+            //SE EXISTE, EXIBE AS INFORMAÇÕES DO PERFIL
             PerfilResponse perfil = new PerfilResponse();
             perfil.setNome(optional.get().getNome());
             perfil.setEmail(optional.get().getEmail());

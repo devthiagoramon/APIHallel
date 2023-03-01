@@ -26,7 +26,7 @@ public class GoogleController {
     @Autowired
     private MembroGoogleRepository googleRepository;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String cadastroGoogle(OAuth2AuthenticationToken token, String senha) {
 
 
@@ -51,7 +51,7 @@ public class GoogleController {
 
         }else{
 
-            // CRIAR CONTA E REDIRECIONAR PARA A PÁGINA PRINCIPAL
+            // CRIAR CONTA E REDIRECIONAR PARA A PÁGINA PRINCIPAL (HOMEPAGE)
             this.mainService.solicitarCadastroGoogle(cadastroGoogle);
             return "Cadastrado! Bem vindo "+cadastroGoogle.getNome();
         }

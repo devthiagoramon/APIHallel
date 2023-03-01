@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import br.api.hallel.controller.AdministradorController;
 import br.api.hallel.model.ERole;
 import br.api.hallel.model.Role;
 import br.api.hallel.payload.requerimento.CadAdministradorRequerimento;
 import br.api.hallel.payload.resposta.MessageResposta;
 import br.api.hallel.repository.RoleRepository;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,9 +36,15 @@ public class AdministradorService implements AdministradorInterface {
     @Autowired
     private PasswordEncoder encoder;
 
+    Logger logger = LoggerFactory.getLogger(AdministradorService.class);
+
+
+
+    //FAZ O CADASTRO DE UM ADIMISTRADOR
     @Override
     public ResponseEntity<?> inserirAdministrador(@Valid CadAdministradorRequerimento administradorReq) {
         if(repository.existsByEmail(administradorReq.getEmail())){
+            logger.error("EMAIL JÁ EXISTE!");
             return ResponseEntity.badRequest().body(new MessageResposta("Error: email já existente"));
         }
 
@@ -73,15 +82,19 @@ public class AdministradorService implements AdministradorInterface {
 
         administrador.setRoles(roles);
         repository.save(administrador);
+        logger.info("ADMIN SALVO!");
+
         return ResponseEntity.ok().body(new MessageResposta("Administrador adicionado com sucesso!"));
     }
 
 
+    //LISTA TODOS OS ADIMISTRADORES
     @Override
     public List<Administrador> listarTodosAdministradores() {
         return this.repository.findAll();
     }
 
+    //LISTA UM ADMINISTRADOR PELO ID DELE
     @Override
     public Administrador findAdministrador(String id) {
 
@@ -90,15 +103,23 @@ public class AdministradorService implements AdministradorInterface {
         if (optional.isPresent()) {
             Administrador administrador = optional.get();
             administrador.setSenhaAcesso("");
+            logger.info("ADMIN ENCONTRADO!");
+
             return administrador;
+
         } else {
+            logger.error("ADMIN NÃO  ENCONTRADO!");
+
             throw new IllegalArgumentException("Administrador não encontrado");
         }
 
     }
 
+    //LISTA UM ADMINISTRADOR PELO EMAIL DELE
     @Override
     public Administrador findAdministradorEmail(String email) {
+        logger.info("ADMIN ENCONTRADO!");
+
         return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
     }
 
@@ -117,16 +138,19 @@ public class AdministradorService implements AdministradorInterface {
         return administrador;
     }
 
+    //REMOVE UM ADMINISTRADOR
     @Override
     public String deletarAdministrador(String id) {
 
         Administrador administrador = findAdministrador(id);
 
         this.repository.delete(administrador);
+        logger.info("ADMIN REMOVIDO!");
 
         return "Professor deletado com sucesso";
     }
 
+    //ALTERA INFORMAÇÕES DESSE ADMINISTRADOR
     @Override
     public String alterarAdministrador(String id, Administrador administradorNovo) {
 
@@ -136,9 +160,12 @@ public class AdministradorService implements AdministradorInterface {
 
         this.repository.save(administradorAlterado);
 
+        logger.info("ADMIN ALTERADO");
+
         return "Administrador alterado com sucesso";
     }
 
+    //MÉTODO AUXILIAR PARA ALTERAR AS INFORMAÇÕES DO ADMINISTRADOR
     private Administrador alterarAtributos(Administrador administrador, Administrador administradorNovo){
         if(administradorNovo.getNome()==null){
             throw new IllegalArgumentException("Nome não preenchido");
@@ -150,6 +177,9 @@ public class AdministradorService implements AdministradorInterface {
             throw new IllegalArgumentException("Status invalido para um administrador, deve ser ativo");
         }
         administrador = administradorNovo;
+
+        logger.info("INFORMAÇÕES DO ADM SALVO COM SUCESSO!");
+
         return administrador;
     }
 
