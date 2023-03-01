@@ -18,5 +18,6 @@ public interface FinanceiroInterface {
     List<Financeiro> getReceitas();
     List<Financeiro> getGastos();
     Double lucro();
+    Double lucroMensal();
 
 }

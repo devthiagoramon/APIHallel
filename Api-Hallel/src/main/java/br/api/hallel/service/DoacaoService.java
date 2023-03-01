@@ -5,14 +5,12 @@ import br.api.hallel.payload.requerimento.DoacaoReq;
 import br.api.hallel.repository.DoacaoRepository;
 import br.api.hallel.service.interfaces.DoacaoInterface;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
-
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.LoggerFactory;
 @Service
 @RequiredArgsConstructor
 public class DoacaoService implements DoacaoInterface {
@@ -22,7 +20,7 @@ public class DoacaoService implements DoacaoInterface {
     @Autowired
     private ComunidadeService doacaoService;
 
-    Logger logger =(Logger) LoggerFactory.getLogger(DoacaoService.class);
+    Logger logger =LoggerFactory.getLogger(DoacaoService.class);
 
 
     //ADICIONA OU ATUALIZA UMA DOAÇÃO
