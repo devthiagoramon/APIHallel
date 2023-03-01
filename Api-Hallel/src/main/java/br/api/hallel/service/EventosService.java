@@ -4,14 +4,16 @@ import br.api.hallel.model.Eventos;
 import br.api.hallel.model.Membro;
 import br.api.hallel.repository.EventosRepository;
 import br.api.hallel.service.interfaces.EventosInterface;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class EventosService implements EventosInterface {
@@ -22,7 +24,7 @@ public class EventosService implements EventosInterface {
     private MembroService membroService;
     @Autowired
     private ComunidadeService comunidadeService;
-    Logger logger = (Logger) LoggerFactory.getLogger(EventosService.class);
+    Logger logger =  LoggerFactory.getLogger(EventosService.class);
 
 
     //LISTA OS EVENTOS JÁ CRIADOS

@@ -3,14 +3,15 @@ package br.api.hallel.service;
 import br.api.hallel.model.Associado;
 import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.service.interfaces.AssociadoInterface;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class AssociadoService implements AssociadoInterface {
 
@@ -22,7 +23,7 @@ public class AssociadoService implements AssociadoInterface {
         return this.repository.findAll();
     }
 
-    Logger logger = (Logger) LoggerFactory.getLogger(AssociadoService.class);
+    Logger logger =  LoggerFactory.getLogger(AssociadoService.class);
 
 
     //LISTA TODOS OS ASSOCIADOS
@@ -65,7 +66,7 @@ public class AssociadoService implements AssociadoInterface {
             System.out.println("Associado atualizado");
             return this.repository.save(associado);
         }else{
-            logger.warning("ASSOCIADO NÃO ENCONTRADO!");
+            logger.warn("ASSOCIADO NÃO ENCONTRADO!");
 
             return null;
         }

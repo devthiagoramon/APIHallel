@@ -2,17 +2,16 @@ package br.api.hallel.service;
 
 import br.api.hallel.model.Comunidade;
 import br.api.hallel.model.Doacao;
-import br.api.hallel.model.Eventos;
 import br.api.hallel.repository.ComunidadeRepository;
 import br.api.hallel.service.interfaces.ComunidadeInterface;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class ComunidadeService implements ComunidadeInterface {
     @Autowired
     private ComunidadeRepository repository;
 
-    Logger logger =(Logger) LoggerFactory.getLogger(ComunidadeService.class);
+    Logger logger = LoggerFactory.getLogger(ComunidadeService.class);
 
 
     //CRIA UMA DOAÇÃO, OU APENAS ALTERA AS INFORMAÇÕES DELA

@@ -48,6 +48,10 @@ public class FinanceiroController {
     public Double lucro(){
         return this.financeiroService.lucro();
     }
+    @GetMapping("/lucroMensal")
+    public Double lucroMensal(){
+        return this.financeiroService.lucroMensal();
+    }
 
 
     //GASTOS

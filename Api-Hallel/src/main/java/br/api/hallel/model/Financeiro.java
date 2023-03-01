@@ -25,5 +25,10 @@ public class Financeiro {
     private Double gastoProvisorio;
     private Double receitaProvisoria;
     private Double lucro;
+    private Double lucroMensal;
+    private Double gastoMensal;
+    private Double receitaMensal;
+
+
 
 }

@@ -5,14 +5,11 @@ import br.api.hallel.model.GastoFinanceiro;
 import br.api.hallel.model.ReceitaFinanceira;
 import br.api.hallel.repository.FinanceiroRepository;
 import br.api.hallel.service.interfaces.FinanceiroInterface;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
 public class FinanceiroService implements FinanceiroInterface {
@@ -30,7 +27,6 @@ public class FinanceiroService implements FinanceiroInterface {
         return this.repository.save(financeiro);
     }
 
-    Logger logger =(Logger) LoggerFactory.getLogger(FinanceiroService.class);
 
 
 
@@ -131,13 +127,19 @@ public class FinanceiroService implements FinanceiroInterface {
         return lucro;
     }
 
+    public Double lucroMensalCalc() {
+        Financeiro financeiro = getFinanceiro();
+        Double lucroMensal = (financeiro.getReceitaMensal() - financeiro.getGastoMensal());
+        return lucroMensal;
+    }
+
     //REMOVER FINANCEIRO
     @Override
     public void deleteFinanceiro(String id) {
         this.repository.deleteById(id);
     }
 
-    //SOIMA DE RECEITA
+    //SOMA DE RECEITA
     public void somaReceita(Financeiro financeiro, Double somaTotal) {
 
         List<Double> receita = new ArrayList<>();
@@ -179,4 +181,48 @@ public class FinanceiroService implements FinanceiroInterface {
 
         update(financeiro);
     }
+
+    @Override
+    public Double lucroMensal() {
+
+        Financeiro financeiro = getFinanceiro();
+
+        Integer data = 0;
+        Double somaFinanceiro = 0.0, somaGasto = 0.0;
+        int cont = 0;
+
+        for (ReceitaFinanceira receitas : financeiro.getReceita()) {
+
+            data = Integer.parseInt(receitas.getDataReceita().substring(0, 2));
+            if (data <= 30) {
+                somaFinanceiro += receitas.getValor();
+                System.out.println("soma : " + somaFinanceiro);
+
+            }
+            financeiro.setReceitaMensal(somaFinanceiro);
+
+        }
+        System.out.println("SOMA FINAL : " + financeiro.getReceitaMensal());
+
+        for (GastoFinanceiro gasto : financeiro.getGastos()) {
+
+            data = Integer.parseInt(gasto.getDataGasto().substring(0, 2));
+
+            if (data <= 30) {
+                somaGasto += gasto.getValor();
+
+            }
+            financeiro.setGastoMensal(somaGasto);
+
+        }
+        System.out.println("SOMA FINAL" + financeiro.getGastoMensal());
+
+        update(financeiro);
+        financeiro.setLucroMensal(lucroMensalCalc());
+
+        return financeiro.getLucroMensal();
+    }
+
 }
+
+
