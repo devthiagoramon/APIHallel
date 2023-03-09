@@ -20,4 +20,5 @@ public interface FinanceiroInterface {
     Double lucro();
     Double lucroMensal();
 
+    Double gastoMensal();
 }

@@ -65,6 +65,18 @@ public class GastoService implements GastoInterface {
         Optional<GastoFinanceiro> optional = this.repository.findById(id);
 
         if(optional.isPresent()){
+            GastoFinanceiro gasto = optional.get();
+
+            Financeiro financeiro = service.getFinanceiro();
+
+
+            financeiro.getValorGastos().remove(gasto.getValor());
+            financeiro.getGastos().remove(gasto);
+
+
+            this.service.update(financeiro);
+
+
             this.repository.deleteById(id);
 
         }else{
