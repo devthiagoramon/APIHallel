@@ -1,5 +1,6 @@
 package br.api.hallel.service;
 
+import br.api.hallel.model.Financeiro;
 import br.api.hallel.model.ReceitaFinanceira;
 import br.api.hallel.payload.requerimento.ReceitaReq;
 import br.api.hallel.repository.ReceitaFinanceiraRepository;
@@ -64,6 +65,13 @@ public class ReceitaService implements ReceitaInterface {
         Optional<ReceitaFinanceira> optional = this.repository.findById(id);
 
         if(optional.isPresent()){
+            ReceitaFinanceira receita = optional.get();
+
+            Financeiro financeiro = this.service.getFinanceiro();
+            financeiro.getValorReceitas().remove(receita.getValor());
+
+            this.service.update(financeiro);
+
             this.repository.deleteById(id);
         }else{
 

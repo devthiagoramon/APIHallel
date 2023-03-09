@@ -1,5 +1,7 @@
 package br.api.hallel.service;
 
+import br.api.hallel.exceptions.SolicitarCadastroException;
+import br.api.hallel.exceptions.SolicitarLoginException;
 import br.api.hallel.model.*;
 import br.api.hallel.payload.requerimento.LoginRequerimento;
 import br.api.hallel.payload.requerimento.LoginRequerimentoGoogle;
@@ -74,10 +76,16 @@ public class MainService implements MainInterface {
                 membroResponse.setNome(membro.getNome());
                 membroResponse.setEmail(membro.getEmail());
                 membroResponse.setRoles(membro.getRoles());
-                return AuthenticationResponse.builder()
-                        .token(jwtToken)
-                        .objeto(membroResponse)
-                        .build();
+
+                if (membro.getNome() != null && membro.getEmail() != null
+                        && membro.getSenha() != null) {
+                    return AuthenticationResponse.builder()
+                            .token(jwtToken)
+                            .objeto(membroResponse)
+                            .build();
+                } else {
+                    throw new SolicitarLoginException("Por favor, informe as credenciais os campos corretamente!");
+                }
             }
         }
 
@@ -91,10 +99,15 @@ public class MainService implements MainInterface {
             administradorResponse.setEmail(administrador.getEmail());
             administradorResponse.setNome(administrador.getNome());
             administradorResponse.setRoles(administrador.getRoles());
-            return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .objeto(administradorResponse)
-                    .build();
+
+            if (administrador.getNome() != null && administrador.getEmail() != null) {
+                return AuthenticationResponse.builder()
+                        .token(jwtToken)
+                        .objeto(administradorResponse)
+                        .build();
+            } else {
+                throw new SolicitarLoginException("Por favor, informe as credenciais corretamente! ");
+            }
         }
         return null;
     }
@@ -170,11 +183,17 @@ public class MainService implements MainInterface {
         membro.setStatus(StatusMembro.PENDENTE);
 
         //SALVA NO BD E GERA O TOKEN PARA O USUARIO
-        membroRepository.save(membro);
-        var jwtToken = jwtService.generateToken(membro);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        if (membro.getEmail() != null &&
+                membro.getNome() != null &&
+                membro.getSenha() != null) {
+            membroRepository.save(membro);
+            var jwtToken = jwtService.generateToken(membro);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        } else {
+            throw new SolicitarCadastroException("Por favor, preenchar os campos corretamente.");
+        }
     }
 
 
@@ -197,11 +216,20 @@ public class MainService implements MainInterface {
         membro.setRoles(roles);
         membro.setStatus(StatusMembro.PENDENTE);
 
-        googleRepository.save(membro);
-        var jwtToken = jwtService.generateToken(membro);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        if (solicitarCadastroGoogle.getEmail() != null &&
+                solicitarCadastroGoogle.getNome() != null &&
+                solicitarCadastroGoogle.getSenha() != null) {
+
+            googleRepository.save(membro);
+
+            var jwtToken = jwtService.generateToken(membro);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        } else {
+            throw new SolicitarCadastroException("Por favor, preenchar os campos corretamente.");
+        }
+
 
     }
 

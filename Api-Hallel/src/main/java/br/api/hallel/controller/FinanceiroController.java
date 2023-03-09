@@ -52,7 +52,10 @@ public class FinanceiroController {
     public Double lucroMensal(){
         return this.financeiroService.lucroMensal();
     }
-
+    @GetMapping("/gastoMensal")
+    public Double gastoMensal(){
+        return this.financeiroService.gastoMensal();
+    }
 
     //GASTOS
 
@@ -117,5 +120,6 @@ public class FinanceiroController {
     public ReceitaFinanceira updateReceita(@PathVariable String id, @RequestBody ReceitaReq receita) {
         return this.receitaService.update(id, receita);
     }
+
 
 }

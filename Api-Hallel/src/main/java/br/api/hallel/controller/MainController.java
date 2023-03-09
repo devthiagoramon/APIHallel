@@ -1,17 +1,17 @@
 package br.api.hallel.controller;
 
+import br.api.hallel.exceptions.SolicitarCadastroException;
+import br.api.hallel.exceptions.SolicitarLoginException;
 import br.api.hallel.payload.requerimento.LoginRequerimento;
 import br.api.hallel.payload.requerimento.SolicitarCadastroRequerimento;
 import br.api.hallel.payload.resposta.AuthenticationResponse;
 import br.api.hallel.security.services.JwtService;
 import br.api.hallel.service.MainService;
+import ch.qos.logback.core.joran.conditional.IfAction;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -25,13 +25,28 @@ public class MainController {
     private MainService mainService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> logar(@Valid @RequestBody LoginRequerimento loginRequerimento){
-        return ResponseEntity.ok().body(this.mainService.logar(loginRequerimento));
+    public ResponseEntity<AuthenticationResponse> logar(@Valid @RequestBody LoginRequerimento loginRequerimento) {
+
+        try {
+            return ResponseEntity.ok().body(this.mainService.logar(loginRequerimento));
+        } catch (SolicitarLoginException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
     }
 
     @PostMapping("/solicitarCadastro")
     public ResponseEntity<AuthenticationResponse> solicitarCadastro(@Valid @RequestBody SolicitarCadastroRequerimento solicitarCadastroRequerimento){
+
+        try {
+
         return ResponseEntity.ok().body(this.mainService.solicitarCadastro(solicitarCadastroRequerimento));
+        }catch (SolicitarCadastroException ex){
+            System.out.println(ex.getMessage());
+            return null;
+        }
+
     }
 
     @PostMapping("/isTokenExpired")

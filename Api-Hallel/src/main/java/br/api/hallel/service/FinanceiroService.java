@@ -43,16 +43,15 @@ public class FinanceiroService implements FinanceiroInterface {
     @Override
     public void salvarGasto(GastoFinanceiro gastoFinanceiro) {
         Financeiro financeiro = getFinanceiro();
-        Financeiro valor = getFinanceiro();
 
         if (financeiro.getGastos() != null) {
             financeiro.getGastos().add(gastoFinanceiro);
-            if(valor.getValorGastos()!=null) {
-                valor.getValorGastos().add(gastoFinanceiro.getValor());
+            if(financeiro.getValorGastos()!=null) {
+                financeiro.getValorGastos().add(gastoFinanceiro.getValor());
             }else{
                 ArrayList<Double> gastos = new ArrayList<>();
                 gastos.add(gastoFinanceiro.getValor());
-                valor.setValorGastos(gastos);
+                financeiro.setValorGastos(gastos);
             }
             somaGasto(financeiro, gastoFinanceiro.getValor());
         } else {
@@ -63,7 +62,7 @@ public class FinanceiroService implements FinanceiroInterface {
             valorArray.add(gastoFinanceiro.getValor());
 
             financeiro.setGastos(gastoArray);
-            valor.setValorGastos(valorArray);
+            financeiro.setValorGastos(valorArray);
         }
         this.repository.save(financeiro);
     }
@@ -74,7 +73,6 @@ public class FinanceiroService implements FinanceiroInterface {
     @Override
     public void salvarReceita(ReceitaFinanceira receitaFinanceira) {
         Financeiro financeiro = getFinanceiro();
-        Financeiro valor = getFinanceiro();
 
         if (financeiro.getGastos() != null) {
             if(financeiro.getReceita() != null) {
@@ -84,12 +82,12 @@ public class FinanceiroService implements FinanceiroInterface {
                 receita.add(receitaFinanceira);
                 financeiro.setReceita(receita);
             }
-            if(valor.getValorReceitas() != null){
-                valor.getValorReceitas().add(receitaFinanceira.getValor());
+            if(financeiro.getValorReceitas() != null){
+                financeiro.getValorReceitas().add(receitaFinanceira.getValor());
             }else{
                 ArrayList<Double> receitas = new ArrayList<>();
                 receitas.add(receitaFinanceira.getValor());
-                valor.setValorReceitas(receitas);
+                financeiro.setValorReceitas(receitas);
             }
             somaReceita(financeiro, receitaFinanceira.getValor());
         } else {
@@ -101,7 +99,7 @@ public class FinanceiroService implements FinanceiroInterface {
             valorArray.add(receitaFinanceira.getValor());
 
             financeiro.setReceita(receitaArray);
-            valor.setValorReceitas(valorArray);
+            financeiro.setValorReceitas(valorArray);
 
         }
         this.repository.save(financeiro);
@@ -167,7 +165,7 @@ public class FinanceiroService implements FinanceiroInterface {
         List<Double> gasto = new ArrayList<>();
 
         if(financeiro.getValorGastos() != null) {
-            gasto.addAll(financeiro.getValorReceitas());
+            gasto.addAll(financeiro.getValorGastos());
         }else{
             List<Double> gastoNew = new ArrayList<>();
             gasto.addAll(gastoNew);
@@ -175,9 +173,12 @@ public class FinanceiroService implements FinanceiroInterface {
 
         for (int i = 0; i < gasto.size(); i++) {
             somaTotal += gasto.get(i);
+
         }
 
         financeiro.setGastoProvisorio(somaTotal);
+
+        System.out.println();
 
         update(financeiro);
     }
@@ -194,15 +195,14 @@ public class FinanceiroService implements FinanceiroInterface {
         for (ReceitaFinanceira receitas : financeiro.getReceita()) {
 
             data = Integer.parseInt(receitas.getDataReceita().substring(0, 2));
+
             if (data <= 30) {
                 somaFinanceiro += receitas.getValor();
-                System.out.println("soma : " + somaFinanceiro);
 
             }
             financeiro.setReceitaMensal(somaFinanceiro);
 
         }
-        System.out.println("SOMA FINAL : " + financeiro.getReceitaMensal());
 
         for (GastoFinanceiro gasto : financeiro.getGastos()) {
 
@@ -215,12 +215,18 @@ public class FinanceiroService implements FinanceiroInterface {
             financeiro.setGastoMensal(somaGasto);
 
         }
-        System.out.println("SOMA FINAL" + financeiro.getGastoMensal());
 
         update(financeiro);
         financeiro.setLucroMensal(lucroMensalCalc());
 
+
         return financeiro.getLucroMensal();
+    }
+
+    @Override
+    public Double gastoMensal() {
+        Financeiro financeiro = getFinanceiro();
+        return financeiro.getGastoMensal();
     }
 
 }
