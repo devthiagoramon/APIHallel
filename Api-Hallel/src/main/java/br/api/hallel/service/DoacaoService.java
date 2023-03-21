@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class DoacaoService implements DoacaoInterface {
@@ -20,7 +24,7 @@ public class DoacaoService implements DoacaoInterface {
     @Autowired
     private ComunidadeService doacaoService;
 
-    Logger logger =LoggerFactory.getLogger(DoacaoService.class);
+    Logger logger = LoggerFactory.getLogger(DoacaoService.class);
 
 
     //ADICIONA OU ATUALIZA UMA DOAÇÃO
@@ -32,6 +36,30 @@ public class DoacaoService implements DoacaoInterface {
         return repository.insert(doacaoReq.toDoacao());
     }
 
+    @Override
+    public List<Doacao> listAllDoacoes() {
+        return this.repository.findAll();
+    }
+
+    @Override
+    public Doacao listDoacaoById(String id) {
+
+        Optional<Doacao> optional = this.repository.findById(id);
+
+        if (optional.isPresent()) {
+            Doacao doacao = optional.get();
+
+
+            logger.info("DOAÇÃO LISTADA COM SUCESSO");
+
+            return doacao;
+
+        }else{
+            logger.warn("ID NÃO ENCONTRADO!");
+            return null;
+        }
+
+    }
 
 
 }
