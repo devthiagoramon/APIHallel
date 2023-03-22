@@ -2,7 +2,6 @@ package br.api.hallel.service;
 
 import br.api.hallel.model.Associado;
 import br.api.hallel.model.AssociadoRole;
-import br.api.hallel.model.Comunidade;
 import br.api.hallel.model.Transacao;
 import br.api.hallel.payload.requerimento.TransacaoRequerimento;
 import br.api.hallel.repository.AssociadoRepository;
@@ -40,7 +39,7 @@ public class TransacaoService implements TransacaoInterface {
         // PRIMEIRA VERIFICAÇÃO DO MÉTODO
 
         //VERIFICA SE A MENSALIDADE DO ASSOCIADO FOI PAGA
-        if (associado.getMensalidadePaga()) {
+        if (associado.getIsPago()) {
 
             //SE SIM, ELE VAI OCORRE UMA BUSCA DO USUÁRIO COMO ASSOCIADO
 

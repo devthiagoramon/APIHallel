@@ -11,10 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Associado extends Membro{
 
     private Eventos eventoParticipando;
-    private Boolean mensalidadePaga;
+    private Boolean isPago;
     private Transacao transacao;
     private AssociadoRole isAssociado;
 
+    private String dataFinalPagamento;
 
     public Associado(){
 
@@ -25,7 +26,7 @@ public class Associado extends Membro{
     public String toString() {
         return "Associado{" +
                 "eventoParticipando=" + eventoParticipando +
-                ", mensalidadePaga=" + mensalidadePaga +
+                ", mensalidadePaga=" + isPago +
                 ", transacao=" + transacao +
                 ", isAssociado=" + isAssociado +
                 '}';

@@ -1,6 +1,7 @@
 package br.api.hallel.service.interfaces;
 
 import br.api.hallel.model.Associado;
+import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 
 import java.util.List;
 
@@ -12,4 +13,7 @@ public interface AssociadoInterface {
 
     Associado updateAssociadoById(String id, Associado associado);
 
+    List<AssociadoPagamentosRes> getAllPagamentosAssociados();
+
+    AssociadoPagamentosRes getAssociadoPagamentoById(String id);
 }

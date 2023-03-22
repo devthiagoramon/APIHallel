@@ -4,6 +4,7 @@ import br.api.hallel.model.Associado;
 import br.api.hallel.model.Membro;
 import br.api.hallel.model.MetodoPagamento;
 import br.api.hallel.model.Transacao;
+import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.service.AssociadoService;
 import br.api.hallel.service.MembroService;
@@ -91,5 +92,15 @@ public class AssociadoController {
     @GetMapping("/update/{id}")
     public Associado updateAssociado(@PathVariable String id, @RequestBody Associado associado){
         return this.service.updateAssociadoById(id, associado);
+    }
+
+    @GetMapping("/getAllPagamentos")
+    public List<AssociadoPagamentosRes> getAssociadosPagamento(){
+        return this.service.getAllPagamentosAssociados();
+    }
+
+    @GetMapping("/getPagamentoAssociado/{id}")
+    public AssociadoPagamentosRes getAssociadoPagamentoById(@PathVariable String id){
+        return this.service.getAssociadoPagamentoById(id);
     }
 }
