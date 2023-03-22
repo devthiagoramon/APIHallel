@@ -46,6 +46,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/solicitarCadastro").permitAll()
                 .requestMatchers("/api/administrador/create").permitAll()
                 .requestMatchers("/api/eventos/listar").hasRole("USER")
+                .requestMatchers("api/administrador/associados/getAllPagamentos").hasRole("ADMIN")
                 .requestMatchers("/api/financeiro/**").hasRole("ADMIN")
                 .requestMatchers("/api/administrador/**").hasRole("ADMIN")
                 .requestMatchers("/api/eventos/").hasRole("ADMIN")
