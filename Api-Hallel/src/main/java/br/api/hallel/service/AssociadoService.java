@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class AssociadoService implements AssociadoInterface {
@@ -83,7 +82,7 @@ public class AssociadoService implements AssociadoInterface {
         List<AssociadoPagamentosRes> pagamentosRes = new ArrayList<>();
 
         associados.forEach(associado -> {
-            AssociadoPagamentosRes pagamento = new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getTransacao());
+            AssociadoPagamentosRes pagamento = new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsPago(), associado.getIsAssociado(), associado.getTransacao());
             pagamentosRes.add(pagamento);
         });
 
@@ -94,7 +93,7 @@ public class AssociadoService implements AssociadoInterface {
     public AssociadoPagamentosRes getAssociadoPagamentoById(String id) {
         Associado associado = listAssociadoById(id);
 
-        return new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getTransacao());
+        return new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsPago(), associado.getIsAssociado(), associado.getTransacao());
     }
 
 }
