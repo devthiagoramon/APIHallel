@@ -2,6 +2,7 @@ package br.api.hallel.service;
 
 import br.api.hallel.model.Doacao;
 import br.api.hallel.payload.requerimento.DoacaoReq;
+import br.api.hallel.payload.resposta.DoacoesDinheiroListaAdmResponse;
 import br.api.hallel.repository.DoacaoRepository;
 import br.api.hallel.service.interfaces.DoacaoInterface;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +38,8 @@ public class DoacaoService implements DoacaoInterface {
     }
 
     @Override
-    public List<Doacao> listAllDoacoes() {
-        return this.repository.findAll();
+    public List<DoacoesDinheiroListaAdmResponse> listAllDoacoes() {
+        return new DoacoesDinheiroListaAdmResponse().toListDoacoesDinheiroListaAdm(this.repository.findAll());
     }
 
     @Override
