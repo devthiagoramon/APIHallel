@@ -2,6 +2,7 @@ package br.api.hallel.controller;
 
 import br.api.hallel.model.Doacao;
 import br.api.hallel.payload.requerimento.DoacaoReq;
+import br.api.hallel.payload.resposta.DoacoesDinheiroListaAdmResponse;
 import br.api.hallel.service.DoacaoService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class DoacaoController {
     }
 
     @GetMapping("/list")
-    private List<Doacao> doacaoList() {return this.service.listAllDoacoes();}
+    private List<DoacoesDinheiroListaAdmResponse> doacaoList() {return this.service.listAllDoacoes();}
 
     @GetMapping("/{id}")
     private Doacao listDoacaoById(@PathVariable String id){return this.service.listDoacaoById(id);}
