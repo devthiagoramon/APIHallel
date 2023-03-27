@@ -97,6 +97,11 @@ public class FinanceiroController {
         return this.receitaService.listAll();
     }
 
+    @GetMapping("/ultimasReceitas")
+    public List<ReceitaFinanceira> listUltimasReceitas(){
+        return this.receitaService.listUltimasReceitas();
+    }
+
     //CRIA RECEITAS
     @PostMapping("/receita/criar")
     public ReceitaFinanceira createReceita(@RequestBody ReceitaFinanceira receitaFinanceira) {
