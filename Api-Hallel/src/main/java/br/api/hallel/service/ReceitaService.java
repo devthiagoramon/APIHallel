@@ -6,8 +6,10 @@ import br.api.hallel.payload.requerimento.ReceitaReq;
 import br.api.hallel.repository.ReceitaFinanceiraRepository;
 import br.api.hallel.service.interfaces.ReceitaInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +46,7 @@ public class ReceitaService implements ReceitaInterface {
 
     @Override
     public List<ReceitaFinanceira> listAll() {
-        return this.repository.findAll();
+        return this.repository.findAll(Sort.by(Sort.Direction.DESC, "dataReceita"));
     }
 
     @Override
@@ -77,5 +79,17 @@ public class ReceitaService implements ReceitaInterface {
 
         System.out.println("Não existe nenhum usuário de id :"+id);
         }
+    }
+
+    @Override
+    public List<ReceitaFinanceira> listUltimasReceitas() {
+        List<ReceitaFinanceira> ultimasReceitas = new ArrayList<>();
+        List<ReceitaFinanceira> receitas = listAll();
+
+        for (int i = 0; i < 5; i++) {
+            ultimasReceitas.add(receitas.get(i));
+        }
+
+        return ultimasReceitas;
     }
 }

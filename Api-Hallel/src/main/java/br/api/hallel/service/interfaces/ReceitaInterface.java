@@ -14,4 +14,5 @@ public interface ReceitaInterface {
     ReceitaFinanceira update(String id, ReceitaReq receita);
     void deleteReceita(String id);
 
+    List<ReceitaFinanceira> listUltimasReceitas();
 }
