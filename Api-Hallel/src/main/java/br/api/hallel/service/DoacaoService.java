@@ -1,8 +1,12 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.Doacao;
+import br.api.hallel.model.DoacaoObjeto;
+import br.api.hallel.payload.requerimento.DoacaoObjetoReq;
 import br.api.hallel.payload.requerimento.DoacaoReq;
 import br.api.hallel.payload.resposta.DoacoesDinheiroListaAdmResponse;
+import br.api.hallel.payload.resposta.DoacoesObjetoListaAdmResponse;
+import br.api.hallel.repository.DoacaoObjetoRepository;
 import br.api.hallel.repository.DoacaoRepository;
 import br.api.hallel.service.interfaces.DoacaoInterface;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +26,9 @@ public class DoacaoService implements DoacaoInterface {
 
     @Autowired
     private DoacaoRepository repository;
+
+    @Autowired
+    private DoacaoObjetoRepository repositoryObjeto;
     @Autowired
     private ComunidadeService doacaoService;
 
@@ -55,12 +62,45 @@ public class DoacaoService implements DoacaoInterface {
 
             return doacao;
 
-        }else{
+        } else {
             logger.warn("ID NÃO ENCONTRADO!");
             return null;
         }
 
     }
 
+    @Override
+    public List<DoacoesObjetoListaAdmResponse> listAllDoacoesObjeto() {
+        return new DoacoesObjetoListaAdmResponse().toDoacoesObjLista(this.repositoryObjeto.findAll());
+    }
 
+    @Override
+    public DoacaoObjeto doarObjeto(DoacaoObjetoReq doacaoObjeto) {
+        return this.repositoryObjeto.insert(doacaoObjeto.toDoacaoObjeto());
+    }
+
+    @Override
+    public DoacaoObjeto objetoRecebido(String id) {
+        Optional<DoacaoObjeto> optional = this.repositoryObjeto.findById(id);
+
+        if (optional.isPresent()) {
+            DoacaoObjeto objeto = optional.get();
+            objeto.setRecebido(true);
+            return this.repositoryObjeto.save(objeto);
+        }
+        return null;
+
+    }
+
+    @Override
+    public DoacaoObjeto objetoNaoRecebido(String id) {
+        Optional<DoacaoObjeto> optional = this.repositoryObjeto.findById(id);
+
+        if (optional.isPresent()) {
+            DoacaoObjeto objeto = optional.get();
+            objeto.setRecebido(false);
+            this.repositoryObjeto.save(objeto);
+        }
+        return null;
+    }
 }
