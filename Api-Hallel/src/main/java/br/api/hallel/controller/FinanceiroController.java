@@ -6,6 +6,8 @@ import br.api.hallel.model.GastoFinanceiro;
 import br.api.hallel.model.ReceitaFinanceira;
 import br.api.hallel.payload.requerimento.GastoReq;
 import br.api.hallel.payload.requerimento.ReceitaReq;
+import br.api.hallel.payload.resposta.ReceitasDiaAtualResponse;
+import br.api.hallel.payload.resposta.ReceitasSemanaAtualResponse;
 import br.api.hallel.service.FinanceiroService;
 import br.api.hallel.service.GastoService;
 import br.api.hallel.service.ReceitaService;
@@ -101,6 +103,13 @@ public class FinanceiroController {
     public List<ReceitaFinanceira> listUltimasReceitas(){
         return this.receitaService.listUltimasReceitas();
     }
+
+    // LISTA BASEADA EM DATA
+    @GetMapping("/receitas/dia")
+    public ReceitasDiaAtualResponse listFinanceiraDia(){return this.receitaService.listAllByThisDay();};
+
+    @GetMapping("/receita/semana")
+    public ReceitasSemanaAtualResponse listFinanceiraSemana(){return this.receitaService.listAllByThisWeek();}
 
     //CRIA RECEITAS
     @PostMapping("/receita/criar")
