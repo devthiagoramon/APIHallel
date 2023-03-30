@@ -115,7 +115,7 @@ public class ReceitaService implements ReceitaInterface {
 
         Calendar cal = Calendar.getInstance();
         int diaAtual = cal.get(Calendar.DAY_OF_MONTH);
-        return new ReceitasDiaAtualResponse(diaAtualString.substring(0,5), valorTotal);
+        return new ReceitasDiaAtualResponse(diaAtualString.substring(0, 5), valorTotal);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class ReceitaService implements ReceitaInterface {
 
         List<LocalDate> totalDates = new ArrayList<>();
 
-        while (!ldStart.isAfter(ldEnd)){
+        while (!ldStart.isAfter(ldEnd)) {
             totalDates.add(ldStart);
             ldStart = ldStart.plusDays(1);
         }
@@ -145,12 +145,18 @@ public class ReceitaService implements ReceitaInterface {
             mapaValores.put(formatter.format(datas), 0.0);
         });
 
-        for (ReceitaFinanceira receitaFinanceira:
+
+        int lastIndex = 0;
+        for (ReceitaFinanceira receitaFinanceira :
                 listAll()) {
             for (String data :
                     mapaValores.keySet()) {
-                if(data.equals(receitaFinanceira.getDataReceita())){
+                if (data.equals(receitaFinanceira.getDataReceita())) {
                     mapaValores.replace(data, receitaFinanceira.getValor());
+                    if (lastIndex != 0) {
+                        mapaValores.replace(data, receitaFinanceira.getValor()+listAll().get(lastIndex).getValor());
+                    }
+                    lastIndex = listAll().indexOf(receitaFinanceira);
                 }
             }
         }
@@ -162,7 +168,7 @@ public class ReceitaService implements ReceitaInterface {
         }
         for (String data :
                 mapaValores.keySet()) {
-            datasStrings.add(data.substring(0,5));
+            datasStrings.add(data.substring(0, 5));
         }
 
         return new ReceitasSemanaAtualResponse(datasStrings, valores);
