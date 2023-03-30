@@ -146,17 +146,12 @@ public class ReceitaService implements ReceitaInterface {
         });
 
 
-        int lastIndex = 0;
         for (ReceitaFinanceira receitaFinanceira :
                 listAll()) {
             for (String data :
                     mapaValores.keySet()) {
                 if (data.equals(receitaFinanceira.getDataReceita())) {
                     mapaValores.replace(data, receitaFinanceira.getValor());
-                    if (lastIndex != 0) {
-                        mapaValores.replace(data, receitaFinanceira.getValor()+listAll().get(lastIndex).getValor());
-                    }
-                    lastIndex = listAll().indexOf(receitaFinanceira);
                 }
             }
         }
