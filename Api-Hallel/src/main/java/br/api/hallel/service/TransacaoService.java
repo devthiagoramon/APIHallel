@@ -55,7 +55,7 @@ public class TransacaoService implements TransacaoInterface {
 
                     //SE FOI ELE FOR ASSOCIADO JÁ, ELE MANTÉM COMO ASSOCIADO
                     Associado associadoOptional = optional.get();
-                    associadoOptional.setIsAssociado(AssociadoRole.ATIVO);
+                    associadoOptional.setIsAssociado(AssociadoRole.PAGO);
                     associado.setIsAssociado(associadoOptional.getIsAssociado());
 
                     System.out.println("Mantém como Associado");
@@ -63,7 +63,7 @@ public class TransacaoService implements TransacaoInterface {
                 } else {
 
                     //SE ELE NÃO FOR ASSOCIADO AINDA, ELE É INSERIDO COMO UM NOVO ASSOCIADO
-                    associado.setIsAssociado(AssociadoRole.ATIVO);
+                    associado.setIsAssociado(AssociadoRole.PAGO);
 
                     System.out.println("Inserir como novo Associado");
                     return this.associadoRepository.insert(associado); //SALVO NO BD COMO NOVO ASSOCIADO
@@ -76,7 +76,7 @@ public class TransacaoService implements TransacaoInterface {
                  */
 
                 System.out.println("Mensalidade em pendência");
-                associado.setIsAssociado(AssociadoRole.PENDENTE);
+                associado.setIsAssociado(AssociadoRole.NAO_PAGO);
             }
 
         } else {
@@ -85,7 +85,7 @@ public class TransacaoService implements TransacaoInterface {
             VAI FICAR COMO INATIVO
             */
             System.out.println("Mensalidade não paga");
-            associado.setIsAssociado(AssociadoRole.INATIVO);
+            associado.setIsAssociado(AssociadoRole.PENDENTE);
 
         }
 
