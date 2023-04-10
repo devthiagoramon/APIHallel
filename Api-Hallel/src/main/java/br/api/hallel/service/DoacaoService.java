@@ -17,6 +17,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.LoggerFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,10 +83,15 @@ public class DoacaoService implements DoacaoInterface {
 
     @Override
     public DoacaoObjeto objetoRecebido(String id) {
+        Date dataRecebida = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+
         Optional<DoacaoObjeto> optional = this.repositoryObjeto.findById(id);
 
         if (optional.isPresent()) {
             DoacaoObjeto objeto = optional.get();
+            objeto.setDataRecebida(formatter.format(dataRecebida));
             objeto.setRecebido(true);
             return this.repositoryObjeto.save(objeto);
         }
@@ -98,8 +105,19 @@ public class DoacaoService implements DoacaoInterface {
 
         if (optional.isPresent()) {
             DoacaoObjeto objeto = optional.get();
+            objeto.setDataRecebida("");
             objeto.setRecebido(false);
             this.repositoryObjeto.save(objeto);
+        }
+        return null;
+    }
+
+    @Override
+    public DoacaoObjeto listDoacaoObjetoById(String id) {
+        Optional<DoacaoObjeto> optional = this.repositoryObjeto.findById(id);
+        if(optional.isPresent()){
+            DoacaoObjeto objeto = optional.get();
+            return objeto;
         }
         return null;
     }
