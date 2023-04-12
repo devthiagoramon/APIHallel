@@ -42,7 +42,7 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/login").permitAll()
-                .requestMatchers("/api/isTokenExpired").permitAll()
+                .requestMatchers("/api/isTokenExpired/{token}").permitAll()
                 .requestMatchers("/api/solicitarCadastro").permitAll()
                 .requestMatchers("/api/administrador/create").permitAll()
                 .requestMatchers("/api/eventos/listar").hasRole("USER")
