@@ -18,10 +18,19 @@ public class Curso {
 
     @Id
     private String id;
-    private String titulo;
+    private String nome;
+    private String image;
     private String descricao;
+
+    private ArrayList<String> requisitos;
     private ArrayList<String> tags;
     private ArrayList<String> aprendizado;
     private ArrayList<String> conteudo;
+
+    public Curso(String nome, String image, ArrayList<String> requisitos){
+        this.nome = nome;
+        this.image = image;
+        this.requisitos = requisitos;
+    }
 
 }

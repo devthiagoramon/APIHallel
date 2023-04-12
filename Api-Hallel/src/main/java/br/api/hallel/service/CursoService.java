@@ -1,6 +1,7 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.Curso;
+import br.api.hallel.payload.requerimento.AddCursoReq;
 import br.api.hallel.repository.CursoRepository;
 import br.api.hallel.service.interfaces.CursoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class CursoService implements CursoInterface {
     CursoRepository repository;
 
     @Override
-    public Curso createCurso(Curso curso) {
-        return this.repository.insert(curso);
+    public Curso createCurso(AddCursoReq cursoReq) {
+        return this.repository.insert(cursoReq.toCurso());
     }
 
     @Override
