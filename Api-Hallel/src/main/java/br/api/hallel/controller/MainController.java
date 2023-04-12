@@ -49,8 +49,8 @@ public class MainController {
 
     }
 
-    @PostMapping("/isTokenExpired")
-    public ResponseEntity<Boolean> isTokenValid(@RequestBody String token){
+    @GetMapping("/isTokenExpired/{token}")
+    public ResponseEntity<Boolean> isTokenValid(@PathVariable String token){
         token = token.replace("Bearer ", "");
         return ResponseEntity.ok().body(jwtService.isTokenExpired(token));
     }
