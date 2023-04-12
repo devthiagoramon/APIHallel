@@ -1,6 +1,7 @@
 package br.api.hallel.controller;
 
 import br.api.hallel.model.Curso;
+import br.api.hallel.payload.requerimento.AddCursoReq;
 import br.api.hallel.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,9 @@ public class CursoController {
     CursoService service;
 
     @PostMapping("/create")
-    public ResponseEntity<Curso> createCurso(@RequestBody Curso curso) {
-        return ResponseEntity.status(201).body(this.service.createCurso(curso));
+    public ResponseEntity<Curso> createCurso(@RequestBody AddCursoReq cursoReq) {
+        System.out.println(cursoReq.toString());
+        return ResponseEntity.status(201).body(this.service.createCurso(cursoReq));
     }
 
     @GetMapping("")
