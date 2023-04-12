@@ -52,4 +52,7 @@ public class DoacaoController {
     @GetMapping("/{id}")
     private Doacao listDoacaoById(@PathVariable String id){return this.service.listDoacaoById(id);}
 
+    @GetMapping("/objeto/{id}")
+    private DoacaoObjeto listDoacaoObjetoById(@PathVariable String id){return this.service.listDoacaoObjetoById(id);};
+
 }
