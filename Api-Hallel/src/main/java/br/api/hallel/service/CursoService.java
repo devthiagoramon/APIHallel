@@ -33,9 +33,14 @@ public class CursoService implements CursoInterface {
     }
 
     @Override
-    public Curso updateCurso(Curso curso) {
+    public Curso updateCurso(String id, Curso cursoNew) {
 
-        return this.repository.save(curso);
+        Curso cursoOld = listCursoById(id);
+        cursoOld.setNome(cursoNew.getNome());
+        cursoOld.setImage(cursoOld.getImage());
+        cursoOld.setRequisitos(cursoNew.getRequisitos());
+
+        return this.repository.save(cursoOld);
     }
 
     @Override

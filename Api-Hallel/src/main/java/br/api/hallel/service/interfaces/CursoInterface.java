@@ -9,6 +9,6 @@ public interface CursoInterface {
     Curso createCurso(AddCursoReq cursoReq);
     List<Curso> listAllCursos();
     Curso listCursoById(String id);
-    Curso updateCurso(Curso curso);
+    Curso updateCurso(String id, Curso curso);
     void deleteCurso(String id);
 }
