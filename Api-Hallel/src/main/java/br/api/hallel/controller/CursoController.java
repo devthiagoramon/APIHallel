@@ -33,9 +33,9 @@ public class CursoController {
         return ResponseEntity.status(201).body(this.service.listCursoById(id));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<Curso> updateCurso(@RequestBody Curso curso) {
-        return ResponseEntity.status(200).body(this.service.updateCurso(curso));
+    @PostMapping("/update/{id}")
+    public ResponseEntity<Curso> updateCurso(@PathVariable String id, @RequestBody Curso curso) {
+        return ResponseEntity.status(200).body(this.service.updateCurso(id, curso));
     }
 
     @PostMapping("/delete/{id}")
