@@ -19,7 +19,6 @@ public class CursoController {
 
     @PostMapping("/create")
     public ResponseEntity<Curso> createCurso(@RequestBody AddCursoReq cursoReq) {
-        System.out.println(cursoReq.toString());
         return ResponseEntity.status(201).body(this.service.createCurso(cursoReq));
     }
 

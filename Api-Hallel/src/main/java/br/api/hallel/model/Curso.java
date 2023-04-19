@@ -27,6 +27,8 @@ public class Curso {
     private ArrayList<String> aprendizado;
     private ArrayList<String> conteudo;
 
+    private ArrayList<ModulosCurso> modulos;
+
     public Curso(String nome, String image, ArrayList<String> requisitos){
         this.nome = nome;
         this.image = image;
