@@ -16,6 +16,7 @@ public class Associado extends Membro{
     private AssociadoRole isAssociado;
 
     private String dataFinalPagamento;
+    private Recompensa recompensa;
 
     public Associado(){
 
