@@ -7,6 +7,7 @@ import br.api.hallel.service.interfaces.CursoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,5 +55,22 @@ public class CursoService implements CursoInterface {
             throw new RuntimeException("Curso não criado!");
         }
 
+    }
+
+    @Override
+    public List<Curso> listCursoByUser(String idUsuario) {
+
+        List<Curso> todosCursos = listAllCursos();
+        List<Curso> cursosDoUser = new ArrayList<>();
+
+        todosCursos.forEach(curso -> {
+            curso.getParticipantes().forEach(participante -> {
+                if(participante.getId().equals(idUsuario)){
+                    cursosDoUser.add(curso);
+                }
+            });
+        });
+
+        return cursosDoUser;
     }
 }

@@ -29,6 +29,8 @@ public class Curso {
 
     private ArrayList<ModulosCurso> modulos;
 
+    private ArrayList<Associado> participantes;
+
     public Curso(String nome, String image, ArrayList<String> requisitos){
         this.nome = nome;
         this.image = image;

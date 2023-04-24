@@ -11,4 +11,6 @@ public interface CursoInterface {
     Curso listCursoById(String id);
     Curso updateCurso(String id, Curso curso);
     void deleteCurso(String id);
+
+    List<Curso> listCursoByUser(String idUsuario);
 }

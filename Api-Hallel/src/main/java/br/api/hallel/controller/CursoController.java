@@ -31,6 +31,10 @@ public class CursoController {
     public ResponseEntity<Curso> listCursoById(@PathVariable String id) {
         return ResponseEntity.status(201).body(this.service.listCursoById(id));
     }
+    @GetMapping("/usuario/cursosCadastrado/{id}")
+    public ResponseEntity<List<Curso>> listCursoCadastradoByUsuario(@PathVariable String idUsuario){
+        return ResponseEntity.status(201).body(this.service.listCursoByUser(idUsuario));
+    }
 
     @PostMapping("/update/{id}")
     public ResponseEntity<Curso> updateCurso(@PathVariable String id, @RequestBody Curso curso) {
