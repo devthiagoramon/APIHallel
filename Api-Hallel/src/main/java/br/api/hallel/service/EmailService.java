@@ -31,7 +31,7 @@ public class EmailService implements EmailInterface {
         mensagem.setText(request.getConteudo());
 
         javaMailSender.send(mensagem);
-        log.info("EMAIL ENVIADO!");
+        log.info("EMAIL ENVIADO PARA "+request.getDest()+"!");
         return request.toEmail();
     }
 
@@ -47,7 +47,7 @@ public class EmailService implements EmailInterface {
         helper.addAttachment(request.getAnexo(), new ClassPathResource(request.getAnexo()));
 
         javaMailSender.send(mensagem);
-        log.info("EMAIL ENVIADO COM ANEXO!");
+        log.info("EMAIL ENVIADO PARA "+request.getDest()+" COM ANEXO!");
         return request.toEmail();
     }
 
