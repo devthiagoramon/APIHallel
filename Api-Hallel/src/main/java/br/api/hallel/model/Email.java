@@ -2,6 +2,7 @@ package br.api.hallel.model;
 
 import lombok.Data;
 
+
 @Data
 public class Email {
 

@@ -4,6 +4,7 @@ import br.api.hallel.model.Associado;
 import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AssociadoInterface {
 

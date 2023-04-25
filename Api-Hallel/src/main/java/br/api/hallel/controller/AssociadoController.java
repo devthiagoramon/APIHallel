@@ -75,6 +75,7 @@ public class AssociadoController {
 
             associado.setTransacao(transacao);
             associado.setMensalidadePaga(true);
+            associado.setDataNascimnetoAssociado(membro.getDataNascimento());
             associado.getTransacao().setDataExp(transacao.getDataExp());
             this.transacaoService.createAssociado(associado);
 
