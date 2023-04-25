@@ -13,16 +13,16 @@ public class EmailRequest {
     private String anexo;
     private String conteudo;
 
-    public Email toEmail(){
+    public Email toEmail() {
         Email email = new Email();
         email.setDestinatario(dest);
         email.setConteudo(conteudo);
         email.setTitulo(titulo);
-        email.setAnexo(anexo);
         if (anexo != null) {
-            this.anexo = anexo;
+            email.setAnexo(anexo);
+        } else {
+            email.setAnexo("");
         }
-
         return email;
     }
 

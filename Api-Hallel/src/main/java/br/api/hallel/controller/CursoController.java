@@ -1,6 +1,7 @@
 package br.api.hallel.controller;
 
 import br.api.hallel.model.Curso;
+import br.api.hallel.model.ModulosCurso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
 import br.api.hallel.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class CursoController {
     @GetMapping("/usuario/cursosCadastrado/{id}")
     public ResponseEntity<List<Curso>> listCursoCadastradoByUsuario(@PathVariable String idUsuario){
         return ResponseEntity.status(201).body(this.service.listCursoByUser(idUsuario));
+    }
+
+    @GetMapping("/getModulo/{id}")
+    public ResponseEntity<List<ModulosCurso>> listModuloByIdCurso(@PathVariable String id){
+        return ResponseEntity.status(201).body(this.service.listModuloByIdCurso(id));
     }
 
     @PostMapping("/update/{id}")
