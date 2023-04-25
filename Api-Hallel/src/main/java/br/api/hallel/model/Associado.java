@@ -1,22 +1,20 @@
 package br.api.hallel.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 // Associado que precisa de uma transação para se tornar um associado
 @Document
-@Getter
-@Setter
+@Data
 public class Associado extends Membro{
 
     private Eventos eventoParticipando;
     private Boolean isPago;
     private Transacao transacao;
     private AssociadoRole isAssociado;
-
     private String dataFinalPagamento;
     private Recompensa recompensa;
+    private String dataNascimentoAssociado;
 
     public Associado(){
 
