@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VideosModulo {
+    private int numVideo;
     private String linkVideo;
-    private String nomeVideo;
+    private String tituloVideo;
 }

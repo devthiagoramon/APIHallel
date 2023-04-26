@@ -31,6 +31,9 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private String endpointsPermitidosAll[] = {"/api/login", "/api/isTokenExpired/{token}", "/api/solicitarCadastro","/api/administrador/create",
+                                            "/api/cursos/user"};
+
     private AuthEntryPointJwt unauthorizedHandler;
 
     private final JwtTokenFilter jwtTokenFilter;
@@ -41,17 +44,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/login").permitAll()
-                .requestMatchers("/api/isTokenExpired/{token}").permitAll()
-                .requestMatchers("/api/solicitarCadastro").permitAll()
-                .requestMatchers("/api/administrador/create").permitAll()
+                .requestMatchers(endpointsPermitidosAll).permitAll()
                 .requestMatchers("/api/eventos/listar").hasRole("USER")
                 .requestMatchers("api/administrador/associados/getAllPagamentos").hasRole("ADMIN")
                 .requestMatchers("/api/financeiro/**").hasRole("ADMIN")
                 .requestMatchers("/api/administrador/**").hasRole("ADMIN")
                 .requestMatchers("/api/eventos/").hasRole("ADMIN")
                 .requestMatchers("/api/cursos/**").hasRole("ADMIN")
-                .requestMatchers("/api/cursos/user").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login(Customizer.withDefaults())
