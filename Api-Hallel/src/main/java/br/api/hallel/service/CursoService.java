@@ -2,6 +2,7 @@ package br.api.hallel.service;
 
 import br.api.hallel.model.Associado;
 import br.api.hallel.model.Curso;
+import br.api.hallel.model.ModulosCurso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
 import br.api.hallel.repository.CursoRepository;
 import br.api.hallel.service.interfaces.CursoInterface;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -102,6 +104,11 @@ public class CursoService implements CursoInterface {
         }
 
     }
+    public List<ModulosCurso> listModuloByIdCurso(String id) {
 
+        Curso curso = listCursoById(id);
+
+        return curso.getModulos().stream().collect(Collectors.toList());
+    }
 
 }
