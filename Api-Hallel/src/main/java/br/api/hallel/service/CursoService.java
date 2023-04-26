@@ -1,9 +1,11 @@
 package br.api.hallel.service;
 
+import br.api.hallel.model.Associado;
 import br.api.hallel.model.Curso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
 import br.api.hallel.repository.CursoRepository;
 import br.api.hallel.service.interfaces.CursoInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class CursoService implements CursoInterface {
 
     @Autowired
@@ -65,7 +68,7 @@ public class CursoService implements CursoInterface {
 
         todosCursos.forEach(curso -> {
             curso.getParticipantes().forEach(participante -> {
-                if(participante.getId().equals(idUsuario)){
+                if (participante.getId().equals(idUsuario)) {
                     cursosDoUser.add(curso);
                 }
             });
@@ -73,4 +76,32 @@ public class CursoService implements CursoInterface {
 
         return cursosDoUser;
     }
+
+    @Override
+    public void addAssociadoCurso(Associado associado, Curso curso) {
+
+        if (curso.getParticipantes() != null) {
+
+            curso.getParticipantes().forEach(participantes -> {
+                if (associado.getNome() != null && participantes.getEmail() != associado.getEmail()) {
+                    log.info("Participante " + associado.getNome() + " adicionado com sucesso!");
+                    curso.getParticipantes().add(associado);
+
+                } else {
+                    log.warn("Associado já está inscrito no curso");
+                }
+            });
+
+        }else{
+            var listaParticipantes = new ArrayList<Associado>();
+            listaParticipantes.add(associado);
+            curso.setParticipantes(listaParticipantes);
+            this.repository.save(curso);
+
+            log.info("Participante inscrito no Curso");
+        }
+
+    }
+
+
 }
