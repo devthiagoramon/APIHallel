@@ -20,14 +20,15 @@ public class EmailController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createMail(@RequestBody EmailRequest emailRequest){
-
-        return ResponseEntity.ok().body(this.service.sendMail(emailRequest));
+        this.service.sendMail(emailRequest);
+        return ResponseEntity.ok().body("Enviado");
     }
 
     @PostMapping("/create/anexo")
     public ResponseEntity<?> createMailAnexo(@RequestBody EmailRequest emailRequest){
         try {
-            return ResponseEntity.ok().body(this.service.sendMailAttachment(emailRequest ));
+            this.service.sendMailAttachment(emailRequest );
+            return ResponseEntity.ok().body("Enviado");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
