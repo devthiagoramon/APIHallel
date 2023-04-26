@@ -1,5 +1,6 @@
 package br.api.hallel.controller;
 
+import br.api.hallel.model.Associado;
 import br.api.hallel.model.Curso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
 import br.api.hallel.service.CursoService;
@@ -47,4 +48,9 @@ public class CursoController {
         return ResponseEntity.status(204).build();
     }
 
+    @PostMapping("/addParticipante")
+    public ResponseEntity<?> addParticipante(@RequestBody Curso curso, @RequestBody Associado associado){
+        this.service.addAssociadoCurso(associado,curso);
+        return ResponseEntity.status(204).build();
+    }
 }
