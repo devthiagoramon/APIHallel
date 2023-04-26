@@ -1,6 +1,5 @@
 package br.api.hallel.service.interfaces;
 
-import br.api.hallel.model.Associado;
 import br.api.hallel.model.Curso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
 
@@ -12,7 +11,6 @@ public interface CursoInterface {
     Curso listCursoById(String id);
     Curso updateCurso(String id, Curso curso);
     void deleteCurso(String id);
-    List<Curso> listCursoByUser(String idUsuario);
-    void addAssociadoCurso(Associado associado, Curso curso);
 
+    List<Curso> listCursoByUser(String idUsuario);
 }
