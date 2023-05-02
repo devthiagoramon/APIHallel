@@ -43,7 +43,8 @@ public class CursoService implements CursoInterface {
 
         Curso cursoOld = listCursoById(id);
         cursoOld.setNome(cursoNew.getNome());
-        cursoOld.setImage(cursoOld.getImage());
+        cursoOld.setImage(cursoNew.getImage());
+        cursoOld.setDescricao(cursoNew.getDescricao());
         cursoOld.setRequisitos(cursoNew.getRequisitos());
         cursoOld.setModulos(cursoNew.getModulos());
 

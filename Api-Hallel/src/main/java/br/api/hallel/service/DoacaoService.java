@@ -2,10 +2,13 @@ package br.api.hallel.service;
 
 import br.api.hallel.model.Doacao;
 import br.api.hallel.model.DoacaoObjeto;
+import br.api.hallel.model.ReceitaFinanceira;
 import br.api.hallel.payload.requerimento.DoacaoObjetoReq;
 import br.api.hallel.payload.requerimento.DoacaoReq;
 import br.api.hallel.payload.resposta.DoacoesDinheiroListaAdmResponse;
 import br.api.hallel.payload.resposta.DoacoesObjetoListaAdmResponse;
+import br.api.hallel.payload.resposta.ReceitasDiaAtualResponse;
+import br.api.hallel.payload.resposta.ReceitasSemanaAtualResponse;
 import br.api.hallel.repository.DoacaoObjetoRepository;
 import br.api.hallel.repository.DoacaoRepository;
 import br.api.hallel.service.interfaces.DoacaoInterface;
@@ -18,9 +21,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +41,7 @@ public class DoacaoService implements DoacaoInterface {
     private DoacaoObjetoRepository repositoryObjeto;
     @Autowired
     private ComunidadeService doacaoService;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     Logger logger = LoggerFactory.getLogger(DoacaoService.class);
 
@@ -120,5 +129,49 @@ public class DoacaoService implements DoacaoInterface {
             return objeto;
         }
         return null;
+    }
+
+    public List<DoacoesDinheiroListaAdmResponse> listAllDoacaoDinheiroByThisDay() {
+
+        List<DoacoesDinheiroListaAdmResponse> doacoesDia = new ArrayList<>();
+
+        double valorTotal = 0;
+        String diaAtualString = formatter.format(new Date());
+        for (DoacoesDinheiroListaAdmResponse objeto :
+                listAllDoacoes()) {
+            if (objeto.getDataDoacao().equals(diaAtualString)) {
+                doacoesDia.add(objeto);
+            }
+        }
+        return doacoesDia;
+    }
+
+    public List<DoacoesDinheiroListaAdmResponse> listAllDoacaoDinheiroByThisWeek() {
+
+        List<DoacoesDinheiroListaAdmResponse> doacoesSemana = new ArrayList<>();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+
+        ZoneId TZ = ZoneId.of("America/Puerto_Rico");
+
+        ArrayList<String> datasStrings = new ArrayList<>();
+
+        Locale locale = new Locale("pt", "br");
+        DayOfWeek firstDay = WeekFields.of(locale).getFirstDayOfWeek();
+        LocalDate ldStart = LocalDate.now(TZ).with(TemporalAdjusters.previousOrSame(firstDay));
+        DayOfWeek lastDay = DayOfWeek.of(((firstDay.getValue() + 5) % DayOfWeek.values().length) + 1);
+        LocalDate ldEnd = LocalDate.now(TZ).with(TemporalAdjusters.nextOrSame(lastDay));
+
+        while (!ldStart.isAfter(ldEnd)) {
+            datasStrings.add(ldStart.toString());
+            ldStart = ldStart.plusDays(1);
+        }
+
+        doacoesSemana = listAllDoacoes()
+                .stream()
+                .filter(item -> datasStrings.contains(item.getDataDoacao()))
+                .collect(Collectors.toList());
+
+        return doacoesSemana;
     }
 }
