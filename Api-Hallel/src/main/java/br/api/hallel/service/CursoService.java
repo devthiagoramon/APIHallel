@@ -81,7 +81,9 @@ public class CursoService implements CursoInterface {
     }
 
     @Override
-    public void addAssociadoCurso(Associado associado, Curso curso) {
+    public void addAssociadoCurso(Associado associado, String idCurso) {
+
+        var curso = this.repository.findById(idCurso).get();
 
         if (curso.getParticipantes() != null) {
 
@@ -107,9 +109,17 @@ public class CursoService implements CursoInterface {
     }
     public List<ModulosCurso> listModuloByIdCurso(String id) {
 
-        Curso curso = listCursoById(id);
+        var curso = listCursoById(id);
 
         return curso.getModulos().stream().collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Associado> listUserContainsCurso(String id) {
+
+        var curso = this.repository.findById(id).get();
+
+        return curso.getParticipantes().stream().collect(Collectors.toList());
     }
 
 }

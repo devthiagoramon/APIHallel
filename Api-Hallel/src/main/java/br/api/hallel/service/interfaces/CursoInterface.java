@@ -12,6 +12,7 @@ public interface CursoInterface {
     Curso listCursoById(String id);
     Curso updateCurso(String id, Curso curso);
     void deleteCurso(String id);
-    void addAssociadoCurso(Associado associado, Curso curso);
+    void addAssociadoCurso(Associado associado, String idCurso);
     List<Curso> listCursoByUser(String idUsuario);
+    List<Associado> listUserContainsCurso(String id);
 }
