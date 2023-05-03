@@ -54,9 +54,14 @@ public class CursoController {
         return ResponseEntity.status(204).build();
     }
 
-    @PostMapping("/addParticipante")
-    public ResponseEntity<?> addParticipante(@RequestBody Curso curso, @RequestBody Associado associado){
-        this.service.addAssociadoCurso(associado,curso);
+    @PostMapping("/addParticipante/{idCurso}")
+    public ResponseEntity<?> addParticipante(@PathVariable String idCurso, @RequestBody Associado associado){
+        this.service.addAssociadoCurso(associado,idCurso);
         return ResponseEntity.status(204).build();
+    }
+
+    @GetMapping("/getParticipantes/{id}")
+    public ResponseEntity<List<Associado>> listAssociadosCurso(@PathVariable String id){
+        return ResponseEntity.status(200).body(this.service.listUserContainsCurso(id));
     }
 }
