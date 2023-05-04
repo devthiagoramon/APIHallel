@@ -18,7 +18,7 @@ public interface ReceitaInterface {
 
     List<ReceitaFinanceira> listUltimasReceitas();
 
-    ReceitasDiaAtualResponse listAllByThisDay();
+    ReceitasDiaAtualResponse getValorTotalByThisDay();
 
-    ReceitasSemanaAtualResponse listAllByThisWeek();
+    ReceitasSemanaAtualResponse getValorTotalByThisWeek();
 }

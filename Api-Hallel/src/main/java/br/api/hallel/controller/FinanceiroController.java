@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/api/financeiro")
@@ -73,6 +72,16 @@ public class FinanceiroController {
         return this.gastoService.createGasto(gastoFinanceiro);
     }
 
+    @GetMapping("/gastos/thisDay")
+    public List<GastoFinanceiro> listGastosByDay(){
+        return this.gastoService.listAllByThisDay();
+    }
+
+    @GetMapping("/gastos/thisWeek")
+    public List<GastoFinanceiro> listGastosByWeek(){
+        return this.gastoService.listAllByThisWeek();
+    }
+
     //DELETA DESPESAS
     @GetMapping("/gasto/deletar/{id}")
     public void deleteGasto(@PathVariable String id) {
@@ -99,6 +108,16 @@ public class FinanceiroController {
         return this.receitaService.listAll();
     }
 
+    @GetMapping("/receita/thisDay")
+    public List<ReceitaFinanceira> listReceitasByThisDay(){
+        return this.receitaService.listAllByThisDay();
+    }
+
+    @GetMapping("/receita/thisWeek")
+    public List<ReceitaFinanceira> listReceitaByThisWeek(){
+        return this.receitaService.listAllByThisWeek();
+    }
+
     @GetMapping("/ultimasReceitas")
     public List<ReceitaFinanceira> listUltimasReceitas(){
         return this.receitaService.listUltimasReceitas();
@@ -106,10 +125,10 @@ public class FinanceiroController {
 
     // LISTA BASEADA EM DATA
     @GetMapping("/receitas/dia")
-    public ReceitasDiaAtualResponse listFinanceiraDia(){return this.receitaService.listAllByThisDay();};
+    public ReceitasDiaAtualResponse listFinanceiraDia(){return this.receitaService.getValorTotalByThisDay();};
 
     @GetMapping("/receita/semana")
-    public ReceitasSemanaAtualResponse listFinanceiraSemana(){return this.receitaService.listAllByThisWeek();}
+    public ReceitasSemanaAtualResponse listFinanceiraSemana(){return this.receitaService.getValorTotalByThisWeek();}
 
     //CRIA RECEITAS
     @PostMapping("/receita/criar")

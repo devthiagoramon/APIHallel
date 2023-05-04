@@ -55,4 +55,13 @@ public class DoacaoController {
     @GetMapping("/objeto/{id}")
     private DoacaoObjeto listDoacaoObjetoById(@PathVariable String id){return this.service.listDoacaoObjetoById(id);};
 
+    @GetMapping("/list/thisDay")
+    private List<DoacoesDinheiroListaAdmResponse> doacoesThisDay(){
+        return this.service.listAllDoacaoDinheiroByThisDay();
+    }
+
+    @GetMapping("/list/thisWeek")
+    private List<DoacoesDinheiroListaAdmResponse> doacoesThisWeek(){
+        return this.service.listAllDoacaoDinheiroByThisWeek();
+    }
 }
