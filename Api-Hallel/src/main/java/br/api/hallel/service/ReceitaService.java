@@ -1,6 +1,7 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.Financeiro;
+import br.api.hallel.model.GastoFinanceiro;
 import br.api.hallel.model.ReceitaFinanceira;
 import br.api.hallel.payload.requerimento.ReceitaReq;
 import br.api.hallel.payload.resposta.ReceitasDiaAtualResponse;
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ReceitaService implements ReceitaInterface {
@@ -103,7 +105,7 @@ public class ReceitaService implements ReceitaInterface {
     }
 
     @Override
-    public ReceitasDiaAtualResponse listAllByThisDay() {
+    public ReceitasDiaAtualResponse getValorTotalByThisDay() {
         double valorTotal = 0;
         String diaAtualString = formatter.format(new Date());
         for (ReceitaFinanceira receitaFinanceira :
@@ -119,7 +121,7 @@ public class ReceitaService implements ReceitaInterface {
     }
 
     @Override
-    public ReceitasSemanaAtualResponse listAllByThisWeek() {
+    public ReceitasSemanaAtualResponse getValorTotalByThisWeek() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 
@@ -167,5 +169,45 @@ public class ReceitaService implements ReceitaInterface {
         }
 
         return new ReceitasSemanaAtualResponse(datasStrings, valores);
+    }
+
+    public List<ReceitaFinanceira> listAllByThisDay() {
+        List<ReceitaFinanceira> receitasDia = new ArrayList<>();
+        String diaAtualString = formatter.format(new Date());
+        for (ReceitaFinanceira objeto :
+                listAll()) {
+            if (objeto.getDataReceita().equals(diaAtualString)) {
+                receitasDia.add(objeto);
+            }
+        }
+        return receitasDia;
+    }
+
+    public List<ReceitaFinanceira> listAllByThisWeek() {
+        List<ReceitaFinanceira> receitasFinanceirasWeek = new ArrayList<>();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+
+        ZoneId TZ = ZoneId.of("America/Puerto_Rico");
+
+        ArrayList<String> datasStrings = new ArrayList<>();
+
+        Locale locale = new Locale("pt", "br");
+        DayOfWeek firstDay = WeekFields.of(locale).getFirstDayOfWeek();
+        LocalDate ldStart = LocalDate.now(TZ).with(TemporalAdjusters.previousOrSame(firstDay));
+        DayOfWeek lastDay = DayOfWeek.of(((firstDay.getValue() + 5) % DayOfWeek.values().length) + 1);
+        LocalDate ldEnd = LocalDate.now(TZ).with(TemporalAdjusters.nextOrSame(lastDay));
+
+        while (!ldStart.isAfter(ldEnd)) {
+            datasStrings.add(formatter.format(ldStart));
+            ldStart = ldStart.plusDays(1);
+        }
+
+        receitasFinanceirasWeek = listAll()
+                .stream()
+                .filter(item -> datasStrings.contains(item.getDataReceita()))
+                .collect(Collectors.toList());
+
+        return receitasFinanceirasWeek;
     }
 }

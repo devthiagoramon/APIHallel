@@ -134,8 +134,6 @@ public class DoacaoService implements DoacaoInterface {
     public List<DoacoesDinheiroListaAdmResponse> listAllDoacaoDinheiroByThisDay() {
 
         List<DoacoesDinheiroListaAdmResponse> doacoesDia = new ArrayList<>();
-
-        double valorTotal = 0;
         String diaAtualString = formatter.format(new Date());
         for (DoacoesDinheiroListaAdmResponse objeto :
                 listAllDoacoes()) {
@@ -163,7 +161,7 @@ public class DoacaoService implements DoacaoInterface {
         LocalDate ldEnd = LocalDate.now(TZ).with(TemporalAdjusters.nextOrSame(lastDay));
 
         while (!ldStart.isAfter(ldEnd)) {
-            datasStrings.add(ldStart.toString());
+            datasStrings.add(formatter.format(ldStart));
             ldStart = ldStart.plusDays(1);
         }
 
