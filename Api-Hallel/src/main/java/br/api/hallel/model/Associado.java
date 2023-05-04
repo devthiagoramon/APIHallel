@@ -3,6 +3,9 @@ package br.api.hallel.model;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 // Associado que precisa de uma transação para se tornar um associado
 @Document
 @Data
@@ -17,7 +20,8 @@ public class Associado extends Membro{
     private String dataNascimentoAssociado;
     private Double desempenho;
     private DesempenhoAssociadoCurso desAssociado;
-
+    private ArrayList<Curso>historicoCurso;
+    private HashMap<AtividadesCurso, Boolean> associadoAtividadesCurso;
     public Associado(){
 
     }

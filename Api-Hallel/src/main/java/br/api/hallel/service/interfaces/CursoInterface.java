@@ -16,5 +16,5 @@ public interface CursoInterface {
     void addAssociadoCurso(Associado associado, String idCurso);
     List<Curso> listCursoByUser(String idUsuario);
     List<Associado> listUserContainsCurso(String id);
-    List<AtividadesCurso> listAtividadeByCurso(String id);
+    List<AtividadesCurso> listAllAtividadesByCurso(String id);
 }

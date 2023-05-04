@@ -23,7 +23,7 @@ public class AddCursoReq {
         curso.setImage(this.getImage());
         curso.setRequisitos(this.getRequisitos());
         curso.setModulos(this.getModulos());
-        curso.setAtividadesCursos(this.getAtividadesCursos());
+        curso.setAtividades(this.getAtividadesCursos());
         return curso;
     }
 

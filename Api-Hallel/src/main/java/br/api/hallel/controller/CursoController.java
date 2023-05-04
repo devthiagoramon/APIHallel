@@ -5,9 +5,7 @@ import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Curso;
 import br.api.hallel.model.ModulosCurso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
-import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.service.CursoService;
-import jdk.javadoc.doclet.Reporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,19 +55,10 @@ public class CursoController {
         return ResponseEntity.status(204).build();
     }
 
-    @Autowired
-    AssociadoRepository associadoRepository;
-
     @PostMapping("/addParticipante/{idCurso}")
     public ResponseEntity<?> addParticipante(@RequestBody Associado associado, @PathVariable String idCurso) {
-        try {
-
             this.service.addAssociadoCurso(associado, idCurso);
             return ResponseEntity.status(204).build();
-
-        } catch (RuntimeException e) {
-            return null;
-        }
     }
 
     @GetMapping("/getParticipantes/{id}")
@@ -79,6 +68,6 @@ public class CursoController {
 
     @GetMapping("/getAtividades/{id}")
     public ResponseEntity<List<AtividadesCurso>> listAtividadeByCurso(@PathVariable String id){
-        return ResponseEntity.status(200).body(this.service.listAtividadeByCurso(id));
+        return ResponseEntity.status(200).body(this.service.listAllAtividadesByCurso(id));
     }
 }

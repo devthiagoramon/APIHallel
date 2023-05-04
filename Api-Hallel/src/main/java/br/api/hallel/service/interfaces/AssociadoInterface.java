@@ -4,7 +4,6 @@ import br.api.hallel.model.Associado;
 import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AssociadoInterface {
 
@@ -17,4 +16,7 @@ public interface AssociadoInterface {
     List<AssociadoPagamentosRes> getAllPagamentosAssociados();
 
     AssociadoPagamentosRes getAssociadoPagamentoById(String id);
+    Associado concluirCurso(String idCurso, String idAssociado);
+    Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso);
+    Double desempenhoCurso( String idAssociado);
 }
