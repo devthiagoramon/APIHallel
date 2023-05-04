@@ -27,8 +27,8 @@ public class Curso {
     private ArrayList<String> aprendizado;
     private ArrayList<String> conteudo;
 
+    private ArrayList<AtividadesCurso> atividadesCursos;
     private ArrayList<ModulosCurso> modulos;
-
     private ArrayList<Associado> participantes;
 
     public Curso(String nome, String image, ArrayList<String> requisitos){
