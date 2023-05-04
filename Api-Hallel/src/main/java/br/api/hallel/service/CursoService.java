@@ -1,11 +1,7 @@
 package br.api.hallel.service;
 
-import br.api.hallel.model.Associado;
-import br.api.hallel.model.AtividadesCurso;
-import br.api.hallel.model.Curso;
-import br.api.hallel.model.ModulosCurso;
+import br.api.hallel.model.*;
 import br.api.hallel.payload.requerimento.AddCursoReq;
-import br.api.hallel.payload.requerimento.AssociadoRequest;
 import br.api.hallel.repository.CursoRepository;
 import br.api.hallel.service.interfaces.CursoInterface;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +45,7 @@ public class CursoService implements CursoInterface {
         cursoOld.setDescricao(cursoNew.getDescricao());
         cursoOld.setRequisitos(cursoNew.getRequisitos());
         cursoOld.setModulos(cursoNew.getModulos());
-        cursoOld.setAtividadesCursos(cursoNew.getAtividadesCursos());
+        cursoOld.setAtividades(cursoNew.getAtividades());
 
         return this.repository.save(cursoOld);
     }
@@ -86,25 +82,27 @@ public class CursoService implements CursoInterface {
     public void addAssociadoCurso(Associado associado, String idCurso) {
 
         var curso = this.repository.findById(idCurso).get();
+        boolean isExists = false;
 
         if (curso.getParticipantes() != null) {
 
-            curso.getParticipantes().forEach(participantes -> {
-                if (participantes == associado) {
-                    var associadoRequest = new AssociadoRequest();
-                    associadoRequest.setNome(associado.getNome());
-                    associadoRequest.setEmail(associado.getEmail());
-                    associadoRequest.setDataNascimento(associado.getDataNascimentoAssociado());
-                    associadoRequest.setIsAssociado(associado.getIsAssociado());
-
-                    curso.getParticipantes().add(associadoRequest.toAssociado());
-                    log.info("Participante " + associado.getNome() + " adicionado com sucesso!");
-
-                }else{
-                    log.info("Associado " + associado.getNome() + " já está inscrito!");
-                    throw new RuntimeException();
+            for (Associado participantes : curso.getParticipantes()) {
+                if (participantes.getEmail().equals(associado.getEmail())) {
+                    System.out.println(participantes.getEmail());
+                    isExists = true;
                 }
-            });
+            }
+
+            if (isExists) {
+                log.info("Associado já inscrito no curso!");
+            } else {
+                if (associado.getIsAssociado().equals(AssociadoRole.PAGO) || associado.getIsAssociado().equals(AssociadoRole.PENDENTE)) {
+                    log.warn("Associado não está ativo!");
+                } else {
+                    curso.getParticipantes().add(associado);
+                    log.info("Associado " + associado.getNome() + " inscrito com sucesso!");
+                }
+            }
 
         }else{
             var listaParticipantes = new ArrayList<Associado>();
@@ -131,10 +129,11 @@ public class CursoService implements CursoInterface {
     }
 
     @Override
-    public List<AtividadesCurso> listAtividadeByCurso(String id) {
+    public List<AtividadesCurso> listAllAtividadesByCurso(String id) {
         var curso = this.repository.findById(id).get();
 
-        return curso.getAtividadesCursos().stream().collect(Collectors.toList());
+        return curso.getAtividades().stream().collect(Collectors.toList());
     }
+
 
 }

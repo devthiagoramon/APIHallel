@@ -5,7 +5,7 @@ import br.api.hallel.model.AssociadoRole;
 import lombok.Data;
 
 @Data
-public class AssociadoRequest {
+public class AssociadoReq {
 
     private String nome;
     private String email;

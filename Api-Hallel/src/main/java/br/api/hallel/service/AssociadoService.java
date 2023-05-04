@@ -1,24 +1,28 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.Associado;
+import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.service.interfaces.AssociadoInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.stream.Collectors;
 
 @Service
 public class AssociadoService implements AssociadoInterface {
 
     @Autowired
     private AssociadoRepository repository;
+    @Autowired
+    private CursoService cursoService;
 
     @Override
     public List<Associado> listAllAssociado() {
@@ -94,6 +98,64 @@ public class AssociadoService implements AssociadoInterface {
         Associado associado = listAssociadoById(id);
 
         return new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsPago(), associado.getIsAssociado(), associado.getTransacao());
+    }
+
+    @Override
+    public Associado concluirCurso(String idCurso, String idAssociado) {
+        var curso = this.cursoService.listCursoById(idCurso);
+        var associado = this.listAssociadoById(idAssociado);
+
+        curso.setCursoCompleted(true);
+
+        if (associado.getHistoricoCurso() == null) {
+            ArrayList historico = new ArrayList();
+            historico.add(curso);
+            associado.setHistoricoCurso(historico);
+        } else {
+            associado.getHistoricoCurso().add(curso);
+        }
+
+        return this.repository.save(associado);
+    }
+
+    @Override
+    public Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso) {
+        var curso = this.cursoService.listCursoById(idCurso);
+        var associado = this.listAssociadoById(idAssociado);
+
+        for (AtividadesCurso atividades : curso.getAtividades()) {
+            if (atividades.getTitulo().equals(tituloAtividade)) {
+
+                if (associado.getAssociadoAtividadesCurso() == null) {
+                    HashMap hashMap = new HashMap();
+                    hashMap.put(atividades, true);
+                    associado.setAssociadoAtividadesCurso(hashMap);
+
+                } else {
+                    associado.getAssociadoAtividadesCurso().put(atividades, true);
+                }
+            }
+        }
+
+        return this.repository.save(associado);
+    }
+
+    @Override
+    public Double desempenhoCurso(String idAssociado) {
+        var curso = this.cursoService.listAllCursos();
+        var associado = this.repository.findById(idAssociado).get();
+
+        var completedsList = curso.stream().filter(completo -> completo.getCursoCompleted() == true).collect(Collectors.toList());
+
+        Double quantidade = Double.valueOf(curso.size());
+        Double completeds = Double.valueOf(completedsList.size());
+
+        Double porcentagem = (completeds / quantidade);
+
+        associado.setDesempenho(porcentagem);
+
+        this.repository.save(associado);
+        return associado.getDesempenho();
     }
 
 }

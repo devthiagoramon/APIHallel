@@ -30,6 +30,7 @@ public class Curso {
     private ArrayList<AtividadesCurso> atividades;
     private ArrayList<ModulosCurso> modulos;
     private ArrayList<Associado> participantes;
+    private Boolean cursoCompleted;
 
     public Curso(String nome, String image, ArrayList<String> requisitos){
         this.nome = nome;

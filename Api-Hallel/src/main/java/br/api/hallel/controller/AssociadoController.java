@@ -1,14 +1,12 @@
 package br.api.hallel.controller;
 
 import br.api.hallel.model.Associado;
-import br.api.hallel.model.Membro;
-import br.api.hallel.model.MetodoPagamento;
+import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Transacao;
 import br.api.hallel.payload.requerimento.RecompensaRequest;
 import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.service.AssociadoService;
-import br.api.hallel.service.MembroService;
 import br.api.hallel.service.RecompensaService;
 import br.api.hallel.service.TransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/associado")
@@ -111,11 +108,28 @@ public class AssociadoController {
     }
 
     @GetMapping("/recompensa/{id}")
-    public ResponseEntity<Associado> sendRecompensa(@RequestBody RecompensaRequest recompensa, @PathVariable String id){
+    public ResponseEntity<Associado> sendRecompensa(@RequestBody RecompensaRequest recompensa, @PathVariable String id) {
 
-        Associado  associado = this.service.listAssociadoById(id);
+        Associado associado = this.service.listAssociadoById(id);
 
-        return ResponseEntity.status(201).body(this.recompensaService.sendRecompensa(recompensa,associado));
+        return ResponseEntity.status(201).body(this.recompensaService.sendRecompensa(recompensa, associado));
     }
 
+    @PostMapping("/curso/concluir/{idCurso}/{idAssociado}")
+    public ResponseEntity<Associado> concluirCurso(@PathVariable String idCurso, @PathVariable String idAssociado) {
+
+        return ResponseEntity.status(204).body(this.service.concluirCurso(idCurso,idAssociado));
+    }
+
+    @PostMapping("/curso/atividade/concluir/{idCurso}/{idAssociado}")
+    public ResponseEntity<Associado> concluirAtvidade(@PathVariable String idCurso, @PathVariable String idAssociado
+    , @RequestBody AtividadesCurso atividadesCurso){
+
+        return ResponseEntity.status(204).body(this.service.concluirAtividade(atividadesCurso.getTitulo() ,idAssociado, idCurso));
+    }
+
+    @GetMapping("/curso/desempenho/{id}")
+    public ResponseEntity<Double> desempenhoCurso(@PathVariable String id){
+        return ResponseEntity.status(200).body(this.service.desempenhoCurso(id));
+    }
 }

@@ -15,5 +15,6 @@ public class AtividadesCurso {
     private String descricao;
     private File arquivo;
     private String link;
+    private Boolean isCompleted;
 
 }

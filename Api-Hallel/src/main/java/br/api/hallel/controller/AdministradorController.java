@@ -100,4 +100,5 @@ public class AdministradorController {
     public void deleteEvento(@PathVariable(value = "id") String id) {
         this.eventosService.deleteEventoById(id);
     }
+
 }
