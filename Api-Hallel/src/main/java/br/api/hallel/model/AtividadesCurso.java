@@ -4,11 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.File;
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class AtividadesCurso {
-    private Integer numAtividade;
-    private String nomeAtividade;
-    private String linkAtividade;
+
+    private String titulo;
+    private String descricao;
+    private File arquivo;
+    private String link;
+
 }
