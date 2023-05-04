@@ -13,7 +13,7 @@ public class AtividadesCurso {
 
     private String titulo;
     private String descricao;
-    private File arquivo;
+    private String arquivo;
     private String link;
     private Boolean isCompleted;
 
