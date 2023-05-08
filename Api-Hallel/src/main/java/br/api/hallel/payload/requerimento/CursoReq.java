@@ -8,10 +8,11 @@ import lombok.Data;
 import java.util.ArrayList;
 
 @Data
-public class AddCursoReq {
+public class CursoReq {
 
     private String nome;
     private String image;
+    private String descricao;
     private ArrayList<String> requisitos;
 
     private ArrayList<ModulosCurso> modulos;
@@ -21,6 +22,7 @@ public class AddCursoReq {
         Curso curso = new Curso();
         curso.setNome(this.getNome());
         curso.setImage(this.getImage());
+        curso.setDescricao(this.getDescricao());
         curso.setRequisitos(this.getRequisitos());
         curso.setModulos(this.getModulos());
         curso.setAtividades(this.getAtividadesCursos());
