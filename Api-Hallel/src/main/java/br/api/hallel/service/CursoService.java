@@ -1,10 +1,11 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.*;
-import br.api.hallel.payload.requerimento.AddCursoReq;
+import br.api.hallel.payload.requerimento.CursoReq;
 import br.api.hallel.repository.CursoRepository;
 import br.api.hallel.service.interfaces.CursoInterface;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class CursoService implements CursoInterface {
     CursoRepository repository;
 
     @Override
-    public Curso createCurso(AddCursoReq cursoReq) {
+    public Curso createCurso(CursoReq cursoReq) {
         return this.repository.insert(cursoReq.toCurso());
     }
 
@@ -37,7 +38,7 @@ public class CursoService implements CursoInterface {
     }
 
     @Override
-    public Curso updateCurso(String id, Curso cursoNew) {
+    public Curso updateCurso(String id, @NotNull Curso cursoNew) {
 
         Curso cursoOld = listCursoById(id);
         cursoOld.setNome(cursoNew.getNome());

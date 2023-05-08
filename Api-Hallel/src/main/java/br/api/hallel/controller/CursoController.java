@@ -4,7 +4,7 @@ import br.api.hallel.model.Associado;
 import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Curso;
 import br.api.hallel.model.ModulosCurso;
-import br.api.hallel.payload.requerimento.AddCursoReq;
+import br.api.hallel.payload.requerimento.CursoReq;
 import br.api.hallel.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class CursoController {
     CursoService service;
 
     @PostMapping("/create")
-    public ResponseEntity<Curso> createCurso(@RequestBody AddCursoReq cursoReq) {
+    public ResponseEntity<Curso> createCurso(@RequestBody CursoReq cursoReq) {
         return ResponseEntity.status(201).body(this.service.createCurso(cursoReq));
     }
 
@@ -45,8 +45,8 @@ public class CursoController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<Curso> updateCurso(@PathVariable String id, @RequestBody Curso curso) {
-        return ResponseEntity.status(200).body(this.service.updateCurso(id, curso));
+    public ResponseEntity<Curso> updateCurso(@PathVariable String id, @RequestBody CursoReq cursoReq) {
+        return ResponseEntity.status(200).body(this.service.updateCurso(id, cursoReq.toCurso()));
     }
 
     @PostMapping("/delete/{id}")
