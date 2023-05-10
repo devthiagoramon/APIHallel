@@ -4,6 +4,7 @@ import br.api.hallel.model.Associado;
 import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Curso;
 import br.api.hallel.payload.requerimento.CursoReq;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

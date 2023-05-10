@@ -9,6 +9,7 @@ import br.api.hallel.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class CursoController {
     CursoService service;
 
     @PostMapping("/create")
-    public ResponseEntity<Curso> createCurso(@RequestBody CursoReq cursoReq) {
+public ResponseEntity<Curso> createCurso(@RequestBody CursoReq cursoReq) {
+
         return ResponseEntity.status(201).body(this.service.createCurso(cursoReq));
     }
 
