@@ -125,7 +125,7 @@ public class AssociadoController {
     public ResponseEntity<Associado> concluirAtvidade(@PathVariable String idCurso, @PathVariable String idAssociado
     , @RequestBody AtividadesCurso atividadesCurso){
 
-        return ResponseEntity.status(204).body(this.service.concluirAtividade(atividadesCurso.getTitulo() ,idAssociado, idCurso));
+        return ResponseEntity.status(204).body(this.service.concluirAtividade(atividadesCurso.getTituloAtividade() ,idAssociado, idCurso));
     }
 
     @GetMapping("/curso/desempenho/{id}")

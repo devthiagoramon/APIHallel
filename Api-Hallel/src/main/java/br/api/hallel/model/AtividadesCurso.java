@@ -3,18 +3,16 @@ package br.api.hallel.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.File;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AtividadesCurso {
 
-    private String titulo;
-    private String descricao;
-    private String arquivo;
-    private String link;
+    private String tituloAtividade;
+    private String descricaoAtividade;
+    private String arquivoAtividade;
     private Boolean isCompleted;
 
 }

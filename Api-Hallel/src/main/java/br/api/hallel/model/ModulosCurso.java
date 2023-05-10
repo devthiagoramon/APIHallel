@@ -14,4 +14,6 @@ public class ModulosCurso {
     private String tituloModulo;
     private ArrayList<VideosModulo> videosModulo;
 
+    private ArrayList<AtividadesCurso> atividadesModulo;
+
 }

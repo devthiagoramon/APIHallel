@@ -16,7 +16,7 @@ public class CursoReq {
     private ArrayList<String> requisitos;
 
     private ArrayList<ModulosCurso> modulos;
-    private ArrayList<AtividadesCurso> atividadesCursos;
+
 
     public Curso toCurso(){
         Curso curso = new Curso();
@@ -25,7 +25,6 @@ public class CursoReq {
         curso.setDescricao(this.getDescricao());
         curso.setRequisitos(this.getRequisitos());
         curso.setModulos(this.getModulos());
-        curso.setAtividades(this.getAtividadesCursos());
         return curso;
     }
 

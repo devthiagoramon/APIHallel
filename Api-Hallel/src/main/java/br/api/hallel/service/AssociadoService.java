@@ -124,7 +124,7 @@ public class AssociadoService implements AssociadoInterface {
         var associado = this.listAssociadoById(idAssociado);
 
         for (AtividadesCurso atividades : curso.getAtividades()) {
-            if (atividades.getTitulo().equals(tituloAtividade)) {
+            if (atividades.getTituloAtividade().equals(tituloAtividade)) {
 
                 if (associado.getAssociadoAtividadesCurso() == null) {
                     HashMap hashMap = new HashMap();
