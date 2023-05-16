@@ -1,6 +1,7 @@
 package br.api.hallel.service.interfaces;
 
 import br.api.hallel.model.Associado;
+import br.api.hallel.model.ModulosCurso;
 import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface AssociadoInterface {
     Associado concluirCurso(String idCurso, String idAssociado);
     Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso);
     Double desempenhoCurso( String idAssociado);
+    Associado favoriteCurso(String idAssociado, String idCurso);
+    Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado);
+
 }

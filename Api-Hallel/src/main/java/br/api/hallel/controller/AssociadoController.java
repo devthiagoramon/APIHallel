@@ -1,7 +1,6 @@
 package br.api.hallel.controller;
 
 import br.api.hallel.model.Associado;
-import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Transacao;
 import br.api.hallel.payload.requerimento.RecompensaRequest;
 import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
@@ -16,10 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/associado")
+@RequestMapping("/api/associados")
 @CrossOrigin("*")
 public class AssociadoController {
-
 
     @Autowired
     private AssociadoService service;
@@ -115,21 +113,4 @@ public class AssociadoController {
         return ResponseEntity.status(201).body(this.recompensaService.sendRecompensa(recompensa, associado));
     }
 
-    @PostMapping("/curso/concluir/{idCurso}/{idAssociado}")
-    public ResponseEntity<Associado> concluirCurso(@PathVariable String idCurso, @PathVariable String idAssociado) {
-
-        return ResponseEntity.status(204).body(this.service.concluirCurso(idCurso,idAssociado));
-    }
-
-    @PostMapping("/curso/atividade/concluir/{idCurso}/{idAssociado}")
-    public ResponseEntity<Associado> concluirAtvidade(@PathVariable String idCurso, @PathVariable String idAssociado
-    , @RequestBody AtividadesCurso atividadesCurso){
-
-        return ResponseEntity.status(204).body(this.service.concluirAtividade(atividadesCurso.getTituloAtividade() ,idAssociado, idCurso));
-    }
-
-    @GetMapping("/curso/desempenho/{id}")
-    public ResponseEntity<Double> desempenhoCurso(@PathVariable String id){
-        return ResponseEntity.status(200).body(this.service.desempenhoCurso(id));
-    }
 }

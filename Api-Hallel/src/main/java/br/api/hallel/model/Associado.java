@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 // Associado que precisa de uma transação para se tornar um associado
 @Document
@@ -18,10 +19,13 @@ public class Associado extends Membro{
     private String dataFinalPagamento;
     private Recompensa recompensa;
     private String dataNascimentoAssociado;
-    private Double desempenho;
-    private DesempenhoAssociadoCurso desAssociado;
-    private ArrayList<Curso>historicoCurso;
+    private Double desempenhoTotalCursos;
+    private HashSet<Curso>historicoCurso;
     private HashMap<AtividadesCurso, Boolean> associadoAtividadesCurso;
+    private HashSet<Curso> cursosFavoritos;
+    private HashSet<Curso> cursosInscritos;
+    private ArrayList<ModulosCurso> modulosCursosCompletos;
+
     public Associado(){
 
     }
