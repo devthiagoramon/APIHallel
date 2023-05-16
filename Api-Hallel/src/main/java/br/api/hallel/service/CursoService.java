@@ -1,16 +1,19 @@
 package br.api.hallel.service;
 
 import br.api.hallel.model.*;
-import br.api.hallel.payload.requerimento.CursoReq;
+import br.api.hallel.payload.requerimento.AddCursoReq;
+import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.repository.CursoRepository;
 import br.api.hallel.service.interfaces.CursoInterface;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,11 +23,12 @@ import java.util.stream.Collectors;
 public class CursoService implements CursoInterface {
 
     @Autowired
-    CursoRepository repository;
+    private CursoRepository repository;
+    @Autowired
+    private AssociadoRepository associadoRepository;
 
     @Override
-    public Curso createCurso(CursoReq cursoReq) {
-
+    public Curso createCurso(AddCursoReq cursoReq) {
         return this.repository.insert(cursoReq.toCurso());
     }
 
@@ -40,7 +44,7 @@ public class CursoService implements CursoInterface {
     }
 
     @Override
-    public Curso updateCurso(String id, @NotNull Curso cursoNew) {
+    public Curso updateCurso(String id, Curso cursoNew) {
 
         Curso cursoOld = listCursoById(id);
         cursoOld.setNome(cursoNew.getNome());
@@ -99,24 +103,39 @@ public class CursoService implements CursoInterface {
             if (isExists) {
                 log.info("Associado já inscrito no curso!");
             } else {
-                if (associado.getIsAssociado().equals(AssociadoRole.PAGO) || associado.getIsAssociado().equals(AssociadoRole.PENDENTE)) {
+                if (!associado.getIsAssociado().equals(AssociadoRole.PAGO)) {
                     log.warn("Associado não está ativo!");
+
                 } else {
+                    inscrever(associado, curso);
                     curso.getParticipantes().add(associado);
                     log.info("Associado " + associado.getNome() + " inscrito com sucesso!");
                 }
             }
 
-        }else{
+        } else {
             var listaParticipantes = new ArrayList<Associado>();
             listaParticipantes.add(associado);
             curso.setParticipantes(listaParticipantes);
-
+            inscrever(associado, curso);
             log.info("Participante inscrito no Curso");
         }
 
+        log.info("User salvo!");
         this.repository.save(curso);
     }
+
+    private void inscrever(Associado associado, Curso curso) {
+        if (associado.getCursosInscritos() == null) {
+            HashSet inscritos = new HashSet();
+            inscritos.add(curso);
+            associado.setCursosInscritos(inscritos);
+        } else {
+            associado.getCursosInscritos().add(curso);
+        }
+        this.associadoRepository.save(associado);
+    }
+
     public List<ModulosCurso> listModuloByIdCurso(String id) {
 
         var curso = listCursoById(id);
@@ -138,5 +157,30 @@ public class CursoService implements CursoInterface {
         return curso.getAtividades().stream().collect(Collectors.toList());
     }
 
+    @Override
+    public String desempenhoDoCurso(String idAssociado, String idCurso) {
+        var associado = this.associadoRepository.findById(idAssociado).get();
+        var curso = this.listCursoById(idCurso);
+
+        Double completds = Double.valueOf(associado.getModulosCursosCompletos().size());
+        Double quantidade = Double.valueOf(curso.getModulos().size());
+
+        Double resultado = (completds / quantidade);
+
+        for (Curso allCursos :
+                associado.getCursosInscritos()) {
+            if (allCursos.getId().equals(idCurso)) {
+                allCursos.setDesempenhoDoCurso(new DecimalFormat("0.00").format(resultado));
+            }
+        }
+
+        this.associadoRepository.save(associado);
+        return new DecimalFormat("0.00").format(resultado);
+    }
+
+    @Override
+    public void generatePDF(HttpServletResponse response) throws IOException {
+
+    }
 
 }
