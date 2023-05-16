@@ -99,20 +99,22 @@ public class CursoController {
     }
 
 
-    @PostMapping("/concluir/{idCurso}/{idAssociado}")
-    public ResponseEntity<Associado> concluirCurso(@PathVariable String idCurso, @PathVariable String idAssociado) {
-
+    @PostMapping("/concluir")
+    public ResponseEntity<Associado> concluirCurso(@RequestParam(value = "idCurso") String idCurso,
+                                                   @RequestParam(value = "idAssociado") String idAssociado) {
         return ResponseEntity.status(204).body(this.associadoService.concluirCurso(idCurso, idAssociado));
     }
 
     @PostMapping("/atividade/concluir")
-    public ResponseEntity<Associado> concluirAtvidade(@RequestParam(value = "idAssociado") String idAssociado, @RequestParam(value = "idCurso") String idCurso, @RequestBody AtividadesCurso atividadesCurso) {
+    public ResponseEntity<Associado> concluirAtvidade(@RequestParam(value = "idAssociado") String idAssociado,
+                                                      @RequestParam(value = "idCurso") String idCurso, @RequestBody AtividadesCurso atividadesCurso) {
 
         return ResponseEntity.status(204).body(this.associadoService.concluirAtividade(atividadesCurso.getTituloAtividade(), idAssociado, idCurso));
     }
 
-    @PostMapping("/favorite/{idAssociado}/{idCurso}")
-    public ResponseEntity<Associado> favoriteCurso(@PathVariable String idAssociado, @PathVariable String idCurso) {
+    @PostMapping("/favorite")
+    public ResponseEntity<Associado> favoriteCurso(@RequestParam(value = "idAssociado") String idAssociado,
+                                                   @RequestParam(value = "idCurso")String idCurso) {
         return ResponseEntity.ok().body(this.associadoService.favoriteCurso(idAssociado, idCurso));
     }
 
@@ -122,12 +124,14 @@ public class CursoController {
     }
 
     @PostMapping("/concluirModulo/{idAssociado}")
-    public ResponseEntity<Associado> concluirModulo(@RequestBody ModulosCurso modulosCurso, @PathVariable String idAssociado) {
+    public ResponseEntity<Associado> concluirModulo(@RequestBody ModulosCurso modulosCurso,
+                                                    @PathVariable String idAssociado) {
         return ResponseEntity.ok().body(this.associadoService.concluirModuloCurso(modulosCurso, idAssociado));
     }
 
-    @GetMapping("/desempenhoCurso/{idCurso}/{idAssociado}")
-    public ResponseEntity<String> desempenhoDoCurso(@PathVariable String idCurso, @PathVariable String idAssociado) {
+    @GetMapping("/desempenhoCurso")
+    public ResponseEntity<String> desempenhoDoCurso(@RequestParam(value = "idCurso") String idCurso,
+                                                    @RequestParam(value = "idAssociado") String idAssociado) {
         return ResponseEntity.ok().body(this.service.desempenhoDoCurso(idAssociado, idCurso));
     }
 
