@@ -4,6 +4,7 @@ import br.api.hallel.model.Associado;
 import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Curso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
+import br.api.hallel.payload.resposta.DescricaoCursoRes;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -21,4 +22,6 @@ public interface CursoInterface {
     List<AtividadesCurso> listAllAtividadesByCurso(String id);
     String desempenhoDoCurso(String idAssociado, String idCurso);
     void generatePDF(HttpServletResponse response) throws IOException;
+
+    DescricaoCursoRes descCursoById(String id);
 }

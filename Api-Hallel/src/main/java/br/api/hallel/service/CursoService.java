@@ -2,6 +2,7 @@ package br.api.hallel.service;
 
 import br.api.hallel.model.*;
 import br.api.hallel.payload.requerimento.AddCursoReq;
+import br.api.hallel.payload.resposta.DescricaoCursoRes;
 import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.repository.CursoRepository;
 import br.api.hallel.service.interfaces.CursoInterface;
@@ -181,6 +182,36 @@ public class CursoService implements CursoInterface {
     @Override
     public void generatePDF(HttpServletResponse response) throws IOException {
 
+    }
+
+    @Override
+    public DescricaoCursoRes descCursoById(String id) {
+        DescricaoCursoRes descricaoCurso = new DescricaoCursoRes();
+        int qtdAtividade = 0;
+        int qtdMaterias = 0;
+
+        Curso curso = listCursoById(id);
+
+        descricaoCurso = descricaoCurso.toDescricaoCursoRes(curso);
+
+        if(curso.getModulos()!=null) {
+            for (ModulosCurso modulo :
+                    curso.getModulos()) {
+                if(modulo.getAtividadesModulo()!= null) {
+                    for (AtividadesCurso atividade :
+                            modulo.getAtividadesModulo()) {
+                        qtdAtividade++;
+                        if (atividade.getArquivoAtividade() != "") {
+                            qtdMaterias++;
+                        }
+                    }
+                }
+            }
+            descricaoCurso.setQtdAtividades(qtdAtividade);
+            descricaoCurso.setQtdMateriais(qtdMaterias);
+        }
+
+        return descricaoCurso;
     }
 
 }
