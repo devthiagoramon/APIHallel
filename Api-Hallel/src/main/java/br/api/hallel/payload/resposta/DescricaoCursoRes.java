@@ -36,6 +36,7 @@ public class DescricaoCursoRes {
         descricaoCursoRes.setImage(curso.getImage());
         descricaoCursoRes.setModulos(curso.getModulos());
         descricaoCursoRes.setRequisitos(curso.getRequisitos());
+        descricaoCursoRes.setAprendizado(curso.getAprendizado());
 
         return descricaoCursoRes;
     }

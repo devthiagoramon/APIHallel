@@ -57,9 +57,9 @@ public class CursoController {
         return ResponseEntity.status(201).body(this.service.listModuloByIdCurso(id));
     }
 
-    @PostMapping("/update/{id}")
-    public ResponseEntity<Curso> updateCurso(@PathVariable String id, @RequestBody Curso curso) {
-        return ResponseEntity.status(200).body(this.service.updateCurso(id, curso));
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Curso> updateCurso(@PathVariable String id, @RequestBody AddCursoReq curso) {
+        return ResponseEntity.status(200).body(this.service.updateCurso(id, curso.toCurso()));
     }
 
     @PostMapping("/delete/{id}")
@@ -70,7 +70,6 @@ public class CursoController {
 
     @PostMapping("/addParticipante/{idCurso}")
     public ResponseEntity<?> addParticipante(@RequestBody Associado associado, @PathVariable String idCurso) {
-
         this.service.addAssociadoCurso(associado, idCurso);
         return ResponseEntity.status(204).build();
     }

@@ -53,6 +53,7 @@ public class CursoService implements CursoInterface {
         cursoOld.setDescricao(cursoNew.getDescricao());
         cursoOld.setRequisitos(cursoNew.getRequisitos());
         cursoOld.setModulos(cursoNew.getModulos());
+        cursoOld.setAprendizado(cursoNew.getAprendizado());
         cursoOld.setAtividades(cursoNew.getAtividades());
 
         return this.repository.save(cursoOld);
