@@ -12,7 +12,9 @@ public class AddCursoReq {
 
     private String nome;
     private String image;
+    private String descricao;
     private ArrayList<String> requisitos;
+    private ArrayList<String> aprendizado;
 
     private ArrayList<ModulosCurso> modulos;
     private ArrayList<AtividadesCurso> atividadesCursos;
@@ -22,8 +24,10 @@ public class AddCursoReq {
         curso.setNome(this.getNome());
         curso.setImage(this.getImage());
         curso.setRequisitos(this.getRequisitos());
+        curso.setDescricao(this.getDescricao());
         curso.setModulos(this.getModulos());
         curso.setAtividades(this.getAtividadesCursos());
+        curso.setAprendizado(this.getAprendizado());
         return curso;
     }
 
