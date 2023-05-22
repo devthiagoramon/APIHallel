@@ -17,10 +17,5 @@ public interface AssociadoInterface {
     List<AssociadoPagamentosRes> getAllPagamentosAssociados();
 
     AssociadoPagamentosRes getAssociadoPagamentoById(String id);
-    Associado concluirCurso(String idCurso, String idAssociado);
-    Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso);
-    Double desempenhoCurso( String idAssociado);
-    Associado favoriteCurso(String idAssociado, String idCurso);
-    Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado);
 
 }

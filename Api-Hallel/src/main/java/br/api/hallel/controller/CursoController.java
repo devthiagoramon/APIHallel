@@ -1,5 +1,6 @@
 package br.api.hallel.controller;
 
+import br.api.hallel.exceptions.AssociadoNotFoundException;
 import br.api.hallel.model.Associado;
 import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Curso;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cursos")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class CursoController {
 
     @Autowired
@@ -42,10 +43,6 @@ public class CursoController {
     @GetMapping("/{id}")
     public ResponseEntity<Curso> listCursoById(@PathVariable String id) {
         return ResponseEntity.status(201).body(this.service.listCursoById(id));
-    }
-    @GetMapping("/descCurso/{id}")
-    public ResponseEntity<DescricaoCursoRes> descCursoById(@PathVariable String id){
-        return ResponseEntity.status(201).body(this.service.descCursoById(id));
     }
     @GetMapping("/usuario/cursosCadastrado/{id}")
     public ResponseEntity<List<Curso>> listCursoCadastradoByUsuario(@PathVariable String idUsuario){
@@ -68,9 +65,9 @@ public class CursoController {
         return ResponseEntity.status(204).build();
     }
 
-    @PostMapping("/addParticipante/{idCurso}")
-    public ResponseEntity<?> addParticipante(@RequestBody Associado associado, @PathVariable String idCurso) {
-        this.service.addAssociadoCurso(associado, idCurso);
+    @PostMapping("/matricular/{idAssociado}/{idCurso}")
+    public ResponseEntity<?> addParticipante(@PathVariable(value = "idAssociado") String idAssociado, @PathVariable(value = "idCurso") String idCurso) throws AssociadoNotFoundException {
+        this.service.addAssociadoCurso(idAssociado, idCurso);
         return ResponseEntity.status(204).build();
     }
 
@@ -106,31 +103,31 @@ public class CursoController {
     @PostMapping("/concluir")
     public ResponseEntity<Associado> concluirCurso(@RequestParam(value = "idCurso") String idCurso,
                                                    @RequestParam(value = "idAssociado") String idAssociado) {
-        return ResponseEntity.status(204).body(this.associadoService.concluirCurso(idCurso, idAssociado));
+        return ResponseEntity.status(204).body(this.service.concluirCurso(idCurso, idAssociado));
     }
 
     @PostMapping("/atividade/concluir")
     public ResponseEntity<Associado> concluirAtvidade(@RequestParam(value = "idAssociado") String idAssociado,
                                                       @RequestParam(value = "idCurso") String idCurso, @RequestBody AtividadesCurso atividadesCurso) {
 
-        return ResponseEntity.status(204).body(this.associadoService.concluirAtividade(atividadesCurso.getTituloAtividade(), idAssociado, idCurso));
+        return ResponseEntity.status(204).body(this.service.concluirAtividade(atividadesCurso.getTituloAtividade(), idAssociado, idCurso));
     }
 
     @PostMapping("/favorite")
     public ResponseEntity<Associado> favoriteCurso(@RequestParam(value = "idAssociado") String idAssociado,
                                                    @RequestParam(value = "idCurso")String idCurso) {
-        return ResponseEntity.ok().body(this.associadoService.favoriteCurso(idAssociado, idCurso));
+        return ResponseEntity.ok().body(this.service.favoriteCurso(idAssociado, idCurso));
     }
 
     @GetMapping("/desempenho/{id}")
     public ResponseEntity<Double> desempenhoCurso(@PathVariable String id) {
-        return ResponseEntity.status(200).body(this.associadoService.desempenhoCurso(id));
+        return ResponseEntity.status(200).body(this.service.desempenhoCurso(id));
     }
 
     @PostMapping("/concluirModulo/{idAssociado}")
     public ResponseEntity<Associado> concluirModulo(@RequestBody ModulosCurso modulosCurso,
                                                     @PathVariable String idAssociado) {
-        return ResponseEntity.ok().body(this.associadoService.concluirModuloCurso(modulosCurso, idAssociado));
+        return ResponseEntity.ok().body(this.service.concluirModuloCurso(modulosCurso, idAssociado));
     }
 
     @GetMapping("/desempenhoCurso")

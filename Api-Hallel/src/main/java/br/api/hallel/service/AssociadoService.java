@@ -21,8 +21,6 @@ public class AssociadoService implements AssociadoInterface {
 
     @Autowired
     private AssociadoRepository associadoRepository;
-    @Autowired
-    private CursoService cursoService;
 
     @Override
     public List<Associado> listAllAssociado() {
@@ -98,97 +96,6 @@ public class AssociadoService implements AssociadoInterface {
         Associado associado = listAssociadoById(id);
 
         return new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsPago(), associado.getIsAssociado(), associado.getTransacao());
-    }
-
-    @Override
-    public Associado concluirCurso(String idCurso, String idAssociado) {
-        var curso = this.cursoService.listCursoById(idCurso);
-        var associado = this.listAssociadoById(idAssociado);
-
-        curso.setCursoCompleted(true);
-
-        if (associado.getHistoricoCurso() == null) {
-            HashSet historico = new HashSet();
-            historico.add(curso);
-            associado.setHistoricoCurso(historico);
-
-        } else {
-            associado.getHistoricoCurso().add(curso);
-        }
-
-        log.info("Curso concluido");
-        return this.associadoRepository.save(associado);
-    }
-
-    @Override
-    public Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso) {
-        var curso = this.cursoService.listCursoById(idCurso);
-        var associado = this.listAssociadoById(idAssociado);
-
-        for (AtividadesCurso atividades : curso.getAtividades()) {
-            if (atividades.getTituloAtividade().equals(tituloAtividade)) {
-
-                if (associado.getAssociadoAtividadesCurso() == null) {
-                    HashMap hashMap = new HashMap();
-                    hashMap.put(atividades, true);
-                    associado.setAssociadoAtividadesCurso(hashMap);
-
-                } else {
-                    associado.getAssociadoAtividadesCurso().put(atividades, true);
-                }
-            }
-        }
-
-        return this.associadoRepository.save(associado);
-    }
-
-    @Override
-    public Double desempenhoCurso(String idAssociado) {
-        var associado = this.associadoRepository.findById(idAssociado).get();
-
-
-        Double quantidade = Double.valueOf(associado.getCursosInscritos().size());
-        Double completeds = Double.valueOf(associado.getHistoricoCurso().size());
-
-        Double porcentagem = (completeds / quantidade);
-
-        associado.setDesempenhoTotalCursos(porcentagem);
-
-        this.associadoRepository.save(associado);
-        return associado.getDesempenhoTotalCursos();
-    }
-
-    @Override
-    public Associado favoriteCurso(String idAssociado, String idCurso) {
-
-        var curso = this.cursoService.listCursoById(idCurso);
-        var associado = this.listAssociadoById(idAssociado);
-
-        if (associado.getCursosFavoritos() == null) {
-            HashSet<Curso> cursosFavoritos = new HashSet();
-            cursosFavoritos.add(curso);
-            associado.setCursosFavoritos(cursosFavoritos);
-
-        } else {
-            associado.getCursosFavoritos().add(curso);
-        }
-
-        return this.associadoRepository.save(associado);
-    }
-
-    @Override
-    public Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado) {
-        var associado = this.listAssociadoById(idAssociado);
-
-        if (associado.getModulosCursosCompletos() == null) {
-            ArrayList<ModulosCurso> modulos = new ArrayList();
-            modulos.add(modulosCurso);
-            associado.setModulosCursosCompletos(modulos);
-        } else {
-            associado.getModulosCursosCompletos().add(modulosCurso);
-        }
-
-        return this.associadoRepository.save(associado);
     }
 
 
