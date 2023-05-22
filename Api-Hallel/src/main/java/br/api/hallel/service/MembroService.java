@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.api.hallel.payload.resposta.PerfilResponse;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -16,6 +17,7 @@ import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.service.interfaces.MembroInterface;
 
 @Service
+@Log4j2
 public class MembroService implements MembroInterface {
 
     @Autowired
@@ -42,7 +44,13 @@ public class MembroService implements MembroInterface {
 
     @Override
     public Membro listMembroId(String id) {
-        return this.repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Membro não existe"));
+        Optional<Membro> membroOptional = this.repository.findById(id);
+        if (membroOptional.isPresent()) {
+            return membroOptional.get();
+        } else {
+            log.info("Membro com id: '" + id + "' não enctrado");
+            return null;
+        }
     }
 
     @Override
@@ -106,11 +114,11 @@ public class MembroService implements MembroInterface {
 
     //INFORMAÇÕES PARA PODER O USUÁRIO VISUALIZAR SEU PERFIL
     @Override
-    public PerfilResponse visualizarPerfil(String nome, String email) throws IllegalAccessException {
+    public PerfilResponse visualizarPerfil(String id) throws IllegalAccessException {
 
         //FAZ A BUSCA DO MEMBRO PELO BD, UTILIZANDO SEU ID
-        Optional<Membro> optional = this.repository.findByNomeAndEmail(nome, email);
-        if(optional.isPresent()){
+        Optional<Membro> optional = this.repository.findById(id);
+        if (optional.isPresent()) {
 
             //SE EXISTE, EXIBE AS INFORMAÇÕES DO PERFIL
             PerfilResponse perfil = new PerfilResponse();

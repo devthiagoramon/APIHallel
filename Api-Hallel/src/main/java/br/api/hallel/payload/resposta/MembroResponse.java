@@ -14,6 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class MembroResponse {
 
+    private String id;
     private String nome;
     private String email;
     private Set<Role> roles;

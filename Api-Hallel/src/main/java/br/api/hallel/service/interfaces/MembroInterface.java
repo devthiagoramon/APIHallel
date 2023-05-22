@@ -26,5 +26,5 @@ public interface MembroInterface {
 
     public Membro findByEmail(String email);
 
-    PerfilResponse visualizarPerfil(String nome, String email) throws IllegalAccessException;
+    PerfilResponse visualizarPerfil(String id) throws IllegalAccessException;
 }
