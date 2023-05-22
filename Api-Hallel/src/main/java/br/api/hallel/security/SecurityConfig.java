@@ -31,8 +31,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private String endpointsPermitidosAll[] = {"/api/login", "/api/isTokenExpired/{token}", "/api/solicitarCadastro","/api/administrador/create",
-                                            "/api/cursos/user"};
+    private String endpointsPermitidosAll[] = {"/api/login", "/api/isTokenExpired/{token}", "/api/solicitarCadastro","/api/administrador/create","/api/listarCurso", "/api/descCurso/{id}", "/api/matricularCurso/{idAssociado}/{idCurso}"};
 
     private AuthEntryPointJwt unauthorizedHandler;
 
@@ -46,6 +45,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(endpointsPermitidosAll).permitAll()
                 .requestMatchers("/api/eventos/listar").hasRole("USER")
+                .requestMatchers("/api/cursos/matricularSe").hasRole("USER")
+                .requestMatchers("/api/cursos/listar").hasRole("USER")
                 .requestMatchers("api/administrador/associados/getAllPagamentos").hasRole("ADMIN")
                 .requestMatchers("/api/financeiro/**").hasRole("ADMIN")
                 .requestMatchers("/api/administrador/**").hasRole("ADMIN")
