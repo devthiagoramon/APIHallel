@@ -60,10 +60,10 @@ public class CursoService implements CursoInterface {
         return this.repository.save(cursoOld);
     }
 
-    public Curso updateCursoAndAssociado(String idCurso, Curso cursoNew, Associado associado) {
-
+    public Associado updateCursoAndAssociado(String idCurso, Curso cursoNew, Associado associado) {
 
         Curso cursoOld = listCursoById(idCurso);
+
         cursoOld.setNome(cursoNew.getNome());
         cursoOld.setImage(cursoNew.getImage());
         cursoOld.setDescricao(cursoNew.getDescricao());
@@ -71,10 +71,11 @@ public class CursoService implements CursoInterface {
         cursoOld.setModulos(cursoNew.getModulos());
         cursoOld.setAprendizado(cursoNew.getAprendizado());
         cursoOld.setAtividades(cursoNew.getAtividades());
+        cursoOld.setParticipantes(cursoNew.getParticipantes());
 
-        inscrever( associado, cursoNew);
+        Associado associadoVal = inscrever(associado, cursoOld);
 
-        return this.repository.save(cursoOld);
+        return this.associadoService.updateAssociadoById(associado.getId(), associadoVal);
     }
 
     @Override
@@ -152,15 +153,31 @@ public class CursoService implements CursoInterface {
         this.updateCursoAndAssociado(curso.getId(), curso, associado );
     }
 
-    private void inscrever(Associado associado, Curso curso) {
+    private Associado inscrever(Associado associado, Curso curso) {
+        Boolean ifExists = false;
+
         if (associado.getCursosInscritos() == null) {
-            HashSet inscritos = new HashSet();
+            ArrayList<Curso> inscritos = new ArrayList<>();
             inscritos.add(curso);
             associado.setCursosInscritos(inscritos);
         } else {
+
+            for (Curso cursos: associado.getCursosInscritos()) {
+                if(cursos.getId() == curso.getId()){
+                    ifExists = true;
+                }
+            }
+
+            if(ifExists){
+                log.warn("Curso já existente");
+            }else{
+
             associado.getCursosInscritos().add(curso);
+            }
+
         }
-        this.associadoService.updateAssociadoById(associado.getId(), associado);
+        return associado;
+
     }
 
     public List<ModulosCurso> listModuloByIdCurso(String id) {
@@ -248,7 +265,7 @@ public class CursoService implements CursoInterface {
         curso.setCursoCompleted(true);
 
         if (associado.getHistoricoCurso() == null) {
-            HashSet historico = new HashSet();
+            ArrayList<Curso> historico = new ArrayList();
             historico.add(curso);
             associado.setHistoricoCurso(historico);
 
@@ -305,7 +322,7 @@ public class CursoService implements CursoInterface {
         var associado = this.associadoService.listAssociadoById(idAssociado);
 
         if (associado.getCursosFavoritos() == null) {
-            HashSet<Curso> cursosFavoritos = new HashSet();
+            ArrayList<Curso> cursosFavoritos = new ArrayList<>();
             cursosFavoritos.add(curso);
             associado.setCursosFavoritos(cursosFavoritos);
 
@@ -329,6 +346,18 @@ public class CursoService implements CursoInterface {
         }
 
         return this.associadoRepository.save(associado);
+    }
+
+    @Override
+    public void removeAssociadoCurso(String idAssociado, String idCurso) {
+        Curso curso = this.listCursoById(idCurso);
+        Associado associado = this.associadoService.listAssociadoById(idAssociado);
+
+        curso.getParticipantes().remove(associado);
+//        associado.getCursosInscritos().remove(curso);
+
+        updateCurso(idCurso, curso);
+        this.associadoService.updateAssociadoById(idAssociado, associado);
     }
 
 

@@ -20,10 +20,10 @@ public class Associado extends Membro{
     private Recompensa recompensa;
     private String dataNascimentoAssociado;
     private Double desempenhoTotalCursos;
-    private HashSet<Curso>historicoCurso;
+    private ArrayList<Curso>historicoCurso;
     private HashMap<AtividadesCurso, Boolean> associadoAtividadesCurso;
-    private HashSet<Curso> cursosFavoritos;
-    private HashSet<Curso> cursosInscritos;
+    private ArrayList<Curso> cursosFavoritos;
+    private ArrayList<Curso> cursosInscritos;
     private ArrayList<ModulosCurso> modulosCursosCompletos;
 
     public Associado(){
