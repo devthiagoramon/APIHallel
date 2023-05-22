@@ -18,6 +18,7 @@ import br.api.hallel.security.services.JwtService;
 import br.api.hallel.service.interfaces.MainInterface;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +29,7 @@ import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class MainService implements MainInterface {
 
     @Autowired
@@ -66,19 +68,20 @@ public class MainService implements MainInterface {
             //VERIFICAÇÃO PARA VER SE EXISTE UM MEMBRO COM ESSE EMAIL
 
             var membro = membroRepository.findByEmail(loginRequerimento.getEmail()).get();
-            System.out.println("Membro");
 
             if (membro.getStatus().equals(StatusMembro.ATIVO)) {
 
                 //SE EXISTE, O MEMBRO VEM COMO ATIVO, POIS ESTÁ ACESSANDO AO SITE
                 var jwtToken = jwtService.generateToken(membro);
                 MembroResponse membroResponse = new MembroResponse();
+                membroResponse.setId(membro.getId());
                 membroResponse.setNome(membro.getNome());
                 membroResponse.setEmail(membro.getEmail());
                 membroResponse.setRoles(membro.getRoles());
 
                 if (membro.getNome() != null && membro.getEmail() != null
                         && membro.getSenha() != null) {
+                    log.info(membro.getNome()+ " logando");
                     return AuthenticationResponse.builder()
                             .token(jwtToken)
                             .objeto(membroResponse)
