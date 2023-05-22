@@ -79,4 +79,12 @@ public class MainController {
         return ResponseEntity.status(204).build();
     }
 
+    @PostMapping("/removeParticipante/{idCurso}/{idAssociado}")
+    public void removeParticipante(@PathVariable String idCurso,
+                                   @PathVariable String idAssociado){
+
+        this.cursoService.removeAssociadoCurso(idAssociado, idCurso);
+    }
+
+
 }
