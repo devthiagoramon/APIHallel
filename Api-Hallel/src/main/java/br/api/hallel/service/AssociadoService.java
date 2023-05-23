@@ -67,7 +67,6 @@ public class AssociadoService implements AssociadoInterface {
 
             logger.info("ASSOCIADO ATUALIZADO!");
 
-            System.out.println("Associado atualizado");
             return this.associadoRepository.save(associado);
         } else {
             logger.warn("ASSOCIADO NÃO ENCONTRADO!");

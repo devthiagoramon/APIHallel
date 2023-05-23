@@ -30,7 +30,7 @@ public interface CursoInterface {
     Double desempenhoCurso( String idAssociado);
     Associado favoriteCurso(String idAssociado, String idCurso);
     Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado);
-    void removeAssociadoCurso(String idAssociado, String idCurso);
+    void removeAssociadoCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException;
 
     void generatePDF(HttpServletResponse response) throws IOException;
 }

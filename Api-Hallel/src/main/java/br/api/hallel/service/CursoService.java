@@ -3,6 +3,8 @@ package br.api.hallel.service;
 import br.api.hallel.exceptions.AssociadoNotFoundException;
 import br.api.hallel.model.*;
 import br.api.hallel.payload.requerimento.AddCursoReq;
+import br.api.hallel.payload.requerimento.AssociadoReq;
+import br.api.hallel.payload.resposta.AssociadoCursoResponse;
 import br.api.hallel.payload.resposta.DescricaoCursoRes;
 import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.repository.CursoRepository;
@@ -14,7 +16,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +27,7 @@ import java.util.stream.Collectors;
 public class CursoService implements CursoInterface {
 
     @Autowired
-    private CursoRepository repository;
+    private CursoRepository cursoRepository;
     @Autowired
     private AssociadoRepository associadoRepository;
 
@@ -31,59 +36,63 @@ public class CursoService implements CursoInterface {
 
     @Override
     public Curso createCurso(AddCursoReq cursoReq) {
-        return this.repository.insert(cursoReq.toCurso());
+        return this.cursoRepository.insert(cursoReq.toCurso());
     }
 
     @Override
     public List<Curso> listAllCursos() {
-        return this.repository.findAll();
+        return this.cursoRepository.findAll();
     }
 
     @Override
     public Curso listCursoById(String id) {
-        return this.repository.findById(id).orElseThrow(() ->
+        return this.cursoRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Curso com id " + id + " não existe!"));
     }
 
     @Override
-    public Curso updateCurso(String id, Curso cursoNew) {
+    public Curso updateCurso(String id, Curso cursoOld) {
 
-        Curso cursoOld = listCursoById(id);
-        cursoOld.setNome(cursoNew.getNome());
-        cursoOld.setImage(cursoNew.getImage());
-        cursoOld.setDescricao(cursoNew.getDescricao());
-        cursoOld.setRequisitos(cursoNew.getRequisitos());
-        cursoOld.setModulos(cursoNew.getModulos());
-        cursoOld.setAprendizado(cursoNew.getAprendizado());
-        cursoOld.setAtividades(cursoNew.getAtividades());
+        Curso cursoNew = cursoOld;
 
-        return this.repository.save(cursoOld);
+        return this.cursoRepository.save(cursoNew);
     }
 
-    public Associado updateCursoAndAssociado(String idCurso, Curso cursoNew, Associado associado) {
+    public void updateCursoAndAssociado(String idCurso, Curso cursoOld, Associado associado) {
 
-        Curso cursoOld = listCursoById(idCurso);
+        Curso cursoNew = cursoOld;
 
-        cursoOld.setNome(cursoNew.getNome());
-        cursoOld.setImage(cursoNew.getImage());
-        cursoOld.setDescricao(cursoNew.getDescricao());
-        cursoOld.setRequisitos(cursoNew.getRequisitos());
-        cursoOld.setModulos(cursoNew.getModulos());
-        cursoOld.setAprendizado(cursoNew.getAprendizado());
-        cursoOld.setAtividades(cursoNew.getAtividades());
-        cursoOld.setParticipantes(cursoNew.getParticipantes());
+        Boolean ifExists = false;
 
-        Associado associadoVal = inscrever(associado, cursoOld);
+        if (associado.getCursosInscritos() != null) {
 
-        return this.associadoService.updateAssociadoById(associado.getId(), associadoVal);
+            for (Curso cursosInscritos : associado.getCursosInscritos()) {
+                    System.out.println("opa mermao");
+                    ifExists = true;
+                }
+
+
+            if (ifExists) {
+                log.warn("Curso já inscrito!");
+            } else {
+                associado.getCursosInscritos().add(cursoNew);
+            }
+
+        } else {
+            ArrayList<Curso> cursosInscritos = new ArrayList<>();
+            cursosInscritos.add(cursoNew);
+            associado.setCursosInscritos(cursosInscritos);
+        }
+
+        this.associadoRepository.save(associado);
     }
 
     @Override
     public void deleteCurso(String id) {
-        Optional<Curso> optional = this.repository.findById(id);
+        Optional<Curso> optional = this.cursoRepository.findById(id);
 
         if (optional.isPresent()) {
-            this.repository.deleteById(id);
+            this.cursoRepository.deleteById(id);
         } else {
             throw new RuntimeException("Curso não criado!");
         }
@@ -110,7 +119,7 @@ public class CursoService implements CursoInterface {
     @Override
     public void addAssociadoCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException {
 
-        var curso = this.repository.findById(idCurso).get();
+        var curso = this.cursoRepository.findById(idCurso).get();
         boolean isExists = false;
 
         Associado associado = this.associadoService.listAssociadoById(idAssociado);
@@ -120,12 +129,12 @@ public class CursoService implements CursoInterface {
             throw new AssociadoNotFoundException("Você não é associado");
         }
 
+        AssociadoReq associadoReq = new AssociadoReq();
 
         if (curso.getParticipantes() != null) {
 
             for (Associado participantes : curso.getParticipantes()) {
                 if (participantes.getEmail().equals(associado.getEmail())) {
-                    System.out.println(participantes.getEmail());
                     isExists = true;
                 }
             }
@@ -136,48 +145,21 @@ public class CursoService implements CursoInterface {
                 if (!associado.getIsAssociado().equals(AssociadoRole.PAGO)) {
 
                 } else {
-                    curso.getParticipantes().add(associado);
+                    curso.getParticipantes().add(associadoReq.toAssociado(associado));
                 }
             }
 
         } else {
             ArrayList<Associado> listaParticipantesAssociado = new ArrayList<Associado>();
 
-            listaParticipantesAssociado.add(associado);
+            listaParticipantesAssociado.add(associadoReq.toAssociado(associado));
             curso.setParticipantes(listaParticipantesAssociado);
-
 
         }
 
         log.info("User salvo!");
-        this.updateCursoAndAssociado(curso.getId(), curso, associado );
-    }
-
-    private Associado inscrever(Associado associado, Curso curso) {
-        Boolean ifExists = false;
-
-        if (associado.getCursosInscritos() == null) {
-            ArrayList<Curso> inscritos = new ArrayList<>();
-            inscritos.add(curso);
-            associado.setCursosInscritos(inscritos);
-        } else {
-
-            for (Curso cursos: associado.getCursosInscritos()) {
-                if(cursos.getId() == curso.getId()){
-                    ifExists = true;
-                }
-            }
-
-            if(ifExists){
-                log.warn("Curso já existente");
-            }else{
-
-            associado.getCursosInscritos().add(curso);
-            }
-
-        }
-        return associado;
-
+        this.updateCurso(curso.getId(), curso);
+        this.updateCursoAndAssociado(idCurso, curso, associado);
     }
 
     public List<ModulosCurso> listModuloByIdCurso(String id) {
@@ -189,14 +171,14 @@ public class CursoService implements CursoInterface {
 
     @Override
     public List<Associado> listUserContainsCurso(String id) {
-        var curso = this.repository.findById(id).get();
+        var curso = this.cursoRepository.findById(id).get();
 
         return curso.getParticipantes().stream().collect(Collectors.toList());
     }
 
     @Override
     public List<AtividadesCurso> listAllAtividadesByCurso(String id) {
-        var curso = this.repository.findById(id).get();
+        var curso = this.cursoRepository.findById(id).get();
 
         return curso.getAtividades().stream().collect(Collectors.toList());
     }
@@ -349,15 +331,44 @@ public class CursoService implements CursoInterface {
     }
 
     @Override
-    public void removeAssociadoCurso(String idAssociado, String idCurso) {
+    public void removeAssociadoCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException {
         Curso curso = this.listCursoById(idCurso);
+
         Associado associado = this.associadoService.listAssociadoById(idAssociado);
+        AssociadoCursoResponse associadoResponse = new AssociadoCursoResponse();
 
-        curso.getParticipantes().remove(associado);
-//        associado.getCursosInscritos().remove(curso);
+        int index = 0;
+        int indexCursoInscrito = 0;
 
+        if (curso.getParticipantes().contains(associadoResponse.toAssociado(associado))) {
+            for (Associado associadosParticipando :
+                    curso.getParticipantes()) {
+
+                if (!associadosParticipando.getEmail().equals(associado.getEmail())) {
+                    index++;
+                }
+
+            }
+
+            curso.getParticipantes().remove(index);
+
+            for (Curso cursosIncritos :
+                    associado.getCursosInscritos()) {
+                if (cursosIncritos.getId() != curso.getId()) {
+                    indexCursoInscrito++;
+                }
+            }
+
+            associado.getCursosInscritos().remove(indexCursoInscrito);
+
+        } else {
+            log.warn("Associado de id " + idAssociado + " não está inscrito");
+            throw new AssociadoNotFoundException("Associado não encontrado");
+        }
+
+        log.info("Usuário removido!");
         updateCurso(idCurso, curso);
-        this.associadoService.updateAssociadoById(idAssociado, associado);
+        updateCursoAndAssociado(idCurso, curso, associado);
     }
 
 
