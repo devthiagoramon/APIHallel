@@ -73,15 +73,18 @@ public class MainController {
         return ResponseEntity.status(201).body(this.cursoService.descCursoById(id));
     }
 
-    @PostMapping("/matricularCurso/{idAssociado}/{idCurso}")
-    public ResponseEntity<?> addParticipante(@PathVariable(value = "idAssociado") String idAssociado, @PathVariable(value = "idCurso") String idCurso) throws AssociadoNotFoundException {
+    @PostMapping("/matricularParticipante/{idAssociado}/{idCurso}")
+    public ResponseEntity<?> addParticipante(@PathVariable(value = "idAssociado")
+                                                 String idAssociado, @PathVariable(value = "idCurso")
+                                                 String idCurso) throws AssociadoNotFoundException {
+
         this.cursoService.addAssociadoCurso(idAssociado, idCurso);
         return ResponseEntity.status(204).build();
     }
 
-    @PostMapping("/removeParticipante/{idCurso}/{idAssociado}")
+    @PostMapping("/removerParticipante/{idAssociado}/{idCurso}")
     public void removeParticipante(@PathVariable String idCurso,
-                                   @PathVariable String idAssociado){
+                                   @PathVariable String idAssociado) throws AssociadoNotFoundException {
 
         this.cursoService.removeAssociadoCurso(idAssociado, idCurso);
     }
