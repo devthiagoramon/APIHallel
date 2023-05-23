@@ -83,10 +83,11 @@ public class MainController {
     }
 
     @PostMapping("/removerParticipante/{idAssociado}/{idCurso}")
-    public void removeParticipante(@PathVariable String idCurso,
-                                   @PathVariable String idAssociado) throws AssociadoNotFoundException {
+    public ResponseEntity<?> removeParticipante(@PathVariable(value = "idCurso") String idCurso,
+                                   @PathVariable(value = "idAssociado") String idAssociado) throws AssociadoNotFoundException {
 
         this.cursoService.removeAssociadoCurso(idAssociado, idCurso);
+        return ResponseEntity.status(202).build();
     }
 
 
