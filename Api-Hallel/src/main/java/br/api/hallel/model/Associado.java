@@ -10,7 +10,7 @@ import java.util.HashSet;
 // Associado que precisa de uma transação para se tornar um associado
 @Document
 @Data
-public class Associado extends Membro{
+public class Associado extends Membro {
 
     private Eventos eventoParticipando;
     private Boolean isPago;
@@ -20,13 +20,15 @@ public class Associado extends Membro{
     private Recompensa recompensa;
     private String dataNascimentoAssociado;
     private Double desempenhoTotalCursos;
-    private ArrayList<Curso>historicoCurso;
+    private ArrayList<Curso> historicoCurso;
     private HashMap<AtividadesCurso, Boolean> associadoAtividadesCurso;
     private ArrayList<Curso> cursosFavoritos;
     private ArrayList<Curso> cursosInscritos;
     private ArrayList<ModulosCurso> modulosCursosCompletos;
 
-    public Associado(){
+    private Boolean mensalidadePaga;
+
+    public Associado() {
 
     }
 

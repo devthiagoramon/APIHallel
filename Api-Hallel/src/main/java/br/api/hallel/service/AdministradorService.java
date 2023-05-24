@@ -76,6 +76,11 @@ public class AdministradorService implements AdministradorInterface {
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
                         roles.add(userRole);
                         break;
+                    case "associado":
+                        Role associadoRole = roleRepository.findByName(ERole.ROLE_ASSOCIADO)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+                        roles.add(associadoRole);
+                        break;
                 }
             });
         }
@@ -176,6 +181,7 @@ public class AdministradorService implements AdministradorInterface {
         if(administradorNovo.getStatus() != StatusMembro.ATIVO){
             throw new IllegalArgumentException("Status invalido para um administrador, deve ser ativo");
         }
+
         administrador = administradorNovo;
 
         logger.info("INFORMAÇÕES DO ADM SALVO COM SUCESSO!");
