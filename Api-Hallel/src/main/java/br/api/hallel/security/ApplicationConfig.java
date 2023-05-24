@@ -2,6 +2,7 @@ package br.api.hallel.security;
 
 import br.api.hallel.model.Role;
 import br.api.hallel.repository.AdministradorRepository;
+import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.repository.MembroGoogleRepository;
 import br.api.hallel.repository.MembroRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,17 +36,22 @@ public class ApplicationConfig {
     private AdministradorRepository administradorRepository;
     @Autowired
     private MembroRepository membroRepository;
+
+    @Autowired
+    private AssociadoRepository associadoRepository;
     @Autowired
     private MembroGoogleRepository googleRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            if (membroRepository.findByEmail(username).isPresent()) {
+            if (associadoRepository.findByEmail(username).isPresent()) {
+                return associadoRepository.findByEmail(username).get();
+            } else if (membroRepository.findByEmail(username).isPresent()) {
                 return membroRepository.findByEmail(username).get();
             } else if (administradorRepository.findByEmail(username).isPresent()) {
                 return administradorRepository.findByEmail(username).get();
-            } else if(this.googleRepository.findByEmail(username).isPresent()){
+            } else if (this.googleRepository.findByEmail(username).isPresent()) {
                 return this.googleRepository.findByEmail(username).get();
             }
             throw new UsernameNotFoundException("Usuario não encontrado");

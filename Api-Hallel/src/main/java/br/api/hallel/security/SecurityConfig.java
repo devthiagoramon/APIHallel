@@ -1,5 +1,6 @@
 package br.api.hallel.security;
 
+import br.api.hallel.model.ERole;
 import br.api.hallel.security.jwt.AuthEntryPointJwt;
 import br.api.hallel.security.jwt.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,17 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private String endpointsPermitidosAll[] = {"/api/login", "/api/isTokenExpired/{token}", "/api/solicitarCadastro","/api/administrador/create","/api/listarCurso", "/api/descCurso/{id}", "/api/matricularCurso/{idAssociado}/{idCurso}"};
+    private String endpointsPermitidosAll[] = {"/api/login",
+            "/api/isTokenExpired/{token}",
+            "/api/solicitarCadastro",
+            "/api/administrador/create",
+            "/api/listarCurso",
+            "/api/descCurso/{id}",
+            "/api/matricularParticipante/{idAssociado}/{idCurso}"};
+
+    private String endpointsPermitidasAdm[] = {"/api/administrador/**", "/api/eventos/", "/api/cursos/**", "/api/financeiro/**"};
+    private String endpointsMembros[] = {"/api/eventos/listar"};
+    private String endpointsAssociado[] = {"/api/associados/meusCursos/{idAssociado}"};
 
     private AuthEntryPointJwt unauthorizedHandler;
 
@@ -43,16 +54,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
+                .requestMatchers(endpointsPermitidasAdm).hasRole("ADMIN")
+                .requestMatchers(endpointsMembros).hasRole("USER")
+                .requestMatchers(endpointsAssociado).hasRole("ASSOCIADO")
                 .requestMatchers(endpointsPermitidosAll).permitAll()
-                .requestMatchers("/api/eventos/listar").hasRole("USER")
-                .requestMatchers("/api/cursos/matricularSe").hasRole("USER")
-                .requestMatchers("/api/cursos/listar").hasRole("USER")
-                .requestMatchers("/api/associados/**").hasRole("ASSOCIADO")
-                .requestMatchers("api/administrador/associados/getAllPagamentos").hasRole("ADMIN")
-                .requestMatchers("/api/financeiro/**").hasRole("ADMIN")
-                .requestMatchers("/api/administrador/**").hasRole("ADMIN")
-                .requestMatchers("/api/eventos/").hasRole("ADMIN")
-                .requestMatchers("/api/cursos/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login(Customizer.withDefaults())

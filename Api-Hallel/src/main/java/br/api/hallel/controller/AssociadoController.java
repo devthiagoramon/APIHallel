@@ -133,7 +133,7 @@ public class AssociadoController {
         return ResponseEntity.status(201).body(this.recompensaService.sendRecompensa(recompensa, associado));
     }
 
-    @GetMapping("/cursosCadastrado/{id}")
+    @GetMapping("/meusCursos/{id}")
     public ResponseEntity<List<CursosAssociadoRes>> listCursoCadastradoByAssociado(@PathVariable String id) {
         return ResponseEntity.status(201).body(this.cursoService.listCursoByAssociado(id));
     }
