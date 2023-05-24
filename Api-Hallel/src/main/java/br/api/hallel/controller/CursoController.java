@@ -6,13 +6,12 @@ import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Curso;
 import br.api.hallel.model.ModulosCurso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
-import br.api.hallel.payload.resposta.DescricaoCursoRes;
+import br.api.hallel.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.service.AssociadoService;
 import br.api.hallel.service.CursoService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -44,10 +43,6 @@ public class CursoController {
     @GetMapping("/{id}")
     public ResponseEntity<Curso> listCursoById(@PathVariable String id) {
         return ResponseEntity.status(201).body(this.service.listCursoById(id));
-    }
-    @GetMapping("/usuario/cursosCadastrado/{id}")
-    public ResponseEntity<List<Curso>> listCursoCadastradoByUsuario(@PathVariable String idUsuario){
-        return ResponseEntity.status(201).body(this.service.listCursoByUser(idUsuario));
     }
 
     @GetMapping("/getModulo/{id}")

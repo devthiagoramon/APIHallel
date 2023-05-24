@@ -5,6 +5,7 @@ import br.api.hallel.model.*;
 import br.api.hallel.payload.requerimento.AddCursoReq;
 import br.api.hallel.payload.requerimento.AssociadoReq;
 import br.api.hallel.payload.resposta.AssociadoCursoResponse;
+import br.api.hallel.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.payload.resposta.DescricaoCursoRes;
 import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.repository.CursoRepository;
@@ -100,17 +101,23 @@ public class CursoService implements CursoInterface {
     }
 
     @Override
-    public List<Curso> listCursoByUser(String idUsuario) {
+    public List<CursosAssociadoRes> listCursoByAssociado(String idUsuario) {
 
         List<Curso> todosCursos = listAllCursos();
-        List<Curso> cursosDoUser = new ArrayList<>();
+        List<CursosAssociadoRes> cursosDoUser = new ArrayList<>();
 
         todosCursos.forEach(curso -> {
-            curso.getParticipantes().forEach(participante -> {
-                if (participante.getId().equals(idUsuario)) {
-                    cursosDoUser.add(curso);
-                }
-            });
+            if(curso.getParticipantes()!=null){
+                curso.getParticipantes().forEach(participante -> {
+                    if (participante.getId().equals(idUsuario)) {
+                        CursosAssociadoRes cursosProv = new CursosAssociadoRes(
+                                curso.getId(),
+                                curso.getNome(),
+                                curso.getImage());
+                        cursosDoUser.add(cursosProv);
+                    }
+                });
+            }
         });
 
         return cursosDoUser;

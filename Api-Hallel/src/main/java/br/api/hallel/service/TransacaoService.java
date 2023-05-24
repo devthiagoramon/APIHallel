@@ -39,7 +39,7 @@ public class TransacaoService implements TransacaoInterface {
         // PRIMEIRA VERIFICAÇÃO DO MÉTODO
 
         //VERIFICA SE A MENSALIDADE DO ASSOCIADO FOI PAGA
-        if (associado.getIsPago()) {
+        if (associado.getMensalidadePaga()) {
 
             //SE SIM, ELE VAI OCORRE UMA BUSCA DO USUÁRIO COMO ASSOCIADO
 

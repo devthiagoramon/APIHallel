@@ -6,6 +6,7 @@ import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Curso;
 import br.api.hallel.model.ModulosCurso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
+import br.api.hallel.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.payload.resposta.DescricaoCursoRes;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -19,7 +20,7 @@ public interface CursoInterface {
     Curso updateCurso(String id, Curso curso);
     void deleteCurso(String id);
     void addAssociadoCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException;
-    List<Curso> listCursoByUser(String idUsuario);
+    List<CursosAssociadoRes> listCursoByAssociado(String idUsuario);
     List<Associado> listUserContainsCurso(String id);
     List<AtividadesCurso> listAllAtividadesByCurso(String id);
     String desempenhoDoCurso(String idAssociado, String idCurso);
