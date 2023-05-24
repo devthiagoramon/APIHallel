@@ -97,5 +97,17 @@ public class AssociadoService implements AssociadoInterface {
         return new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsPago(), associado.getIsAssociado(), associado.getTransacao());
     }
 
+    @Override
+    public Associado findByEmail(String email) {
+
+        Optional<Associado> optional = associadoRepository.findByEmail(email);
+
+        if(optional.isPresent()){
+            return optional.get();
+        }
+
+        return null;
+    }
+
 
 }

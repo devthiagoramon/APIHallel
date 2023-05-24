@@ -9,4 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface AssociadoRepository extends MongoRepository<Associado,String> {
+    Optional<Associado> findByEmail(String email);
 }

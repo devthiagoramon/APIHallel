@@ -8,6 +8,7 @@ import br.api.hallel.payload.requerimento.LoginRequerimentoGoogle;
 import br.api.hallel.payload.requerimento.SolicitarCadastroGoogle;
 import br.api.hallel.payload.requerimento.SolicitarCadastroRequerimento;
 import br.api.hallel.payload.resposta.AdministradorResponse;
+import br.api.hallel.payload.resposta.AssociadoResponse;
 import br.api.hallel.payload.resposta.AuthenticationResponse;
 import br.api.hallel.payload.resposta.MembroResponse;
 import br.api.hallel.repository.AdministradorRepository;
@@ -39,6 +40,9 @@ public class MainService implements MainInterface {
     private AdministradorRepository administradorRepository;
 
     @Autowired
+    private AssociadoService associadoService;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
@@ -62,6 +66,22 @@ public class MainService implements MainInterface {
                         loginRequerimento.getEmail(), loginRequerimento.getSenha()
                 )
         );
+
+        if(associadoService.findByEmail(loginRequerimento.getEmail()) != null){
+            Associado associado = associadoService.findByEmail(loginRequerimento.getEmail());
+            if(associado.getMensalidadePaga()) {
+                var jwtToken = jwtService.generateToken(associado);
+                AssociadoResponse associadoResponse = new AssociadoResponse();
+                associadoResponse.setId(associado.getId());
+                associadoResponse.setRoles(associado.getRoles());
+
+                log.info(associado.getNome()+ " logando");
+                return AuthenticationResponse.builder()
+                        .token(jwtToken)
+                        .objeto(associadoResponse)
+                        .build();
+            }
+        }
 
         if (membroRepository.findByEmail(loginRequerimento.getEmail()).isPresent()) {
 
@@ -114,7 +134,6 @@ public class MainService implements MainInterface {
         }
         return null;
     }
-
 
     /*MÉTODO PARA REALIZAR O LOGIN COM GOOGLE (OAUTH2)
         (MESMA COISA DO MÉTODO ANTERIOR)

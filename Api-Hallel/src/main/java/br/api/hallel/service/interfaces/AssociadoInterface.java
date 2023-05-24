@@ -18,4 +18,5 @@ public interface AssociadoInterface {
 
     AssociadoPagamentosRes getAssociadoPagamentoById(String id);
 
+    Associado findByEmail(String email);
 }

@@ -77,9 +77,8 @@ public class MainController {
     public ResponseEntity<?> addParticipante(@PathVariable(value = "idAssociado")
                                                  String idAssociado, @PathVariable(value = "idCurso")
                                                  String idCurso) throws AssociadoNotFoundException {
-
         this.cursoService.addAssociadoCurso(idAssociado, idCurso);
-        return ResponseEntity.status(204).build();
+        return ResponseEntity.status(201).build();
     }
 
     @PostMapping("/removerParticipante/{idAssociado}/{idCurso}")
