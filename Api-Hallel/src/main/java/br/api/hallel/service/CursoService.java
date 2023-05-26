@@ -179,7 +179,6 @@ public class CursoService implements CursoInterface {
     @Override
     public List<Associado> listUserContainsCurso(String id) {
         var curso = this.cursoRepository.findById(id).get();
-
         return curso.getParticipantes().stream().collect(Collectors.toList());
     }
 
