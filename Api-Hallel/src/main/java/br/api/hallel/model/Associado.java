@@ -25,7 +25,6 @@ public class Associado extends Membro {
     private ArrayList<Curso> cursosFavoritos;
     private ArrayList<Curso> cursosInscritos;
     private ArrayList<ModulosCurso> modulosCursosCompletos;
-
     private Boolean mensalidadePaga;
 
     public Associado() {

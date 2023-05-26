@@ -2,6 +2,7 @@ package br.api.hallel.controller;
 
 import br.api.hallel.model.Doacao;
 import br.api.hallel.model.DoacaoObjeto;
+import br.api.hallel.model.DoadorReq;
 import br.api.hallel.payload.requerimento.DoacaoObjetoReq;
 import br.api.hallel.payload.requerimento.DoacaoReq;
 import br.api.hallel.payload.resposta.DoacoesDinheiroListaAdmResponse;
@@ -64,4 +65,12 @@ public class DoacaoController {
     private List<DoacoesDinheiroListaAdmResponse> doacoesThisWeek(){
         return this.service.listAllDoacaoDinheiroByThisWeek();
     }
+
+    @PostMapping("/virarDoador")
+    private String virarDoador(@RequestBody DoadorReq doadorReq){
+
+        return "Error em virar doador";
+    }
+
 }
+
