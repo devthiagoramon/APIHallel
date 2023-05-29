@@ -55,7 +55,7 @@ public class CursoService implements CursoInterface {
     public Curso updateCurso(String id, Curso cursoOld) {
 
         Curso cursoNew = cursoOld;
-
+        cursoNew.setId(id);
         return this.cursoRepository.save(cursoNew);
     }
 
