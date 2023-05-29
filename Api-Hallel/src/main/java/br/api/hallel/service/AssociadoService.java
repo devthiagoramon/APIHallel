@@ -99,7 +99,7 @@ public class AssociadoService implements AssociadoInterface {
 
         Optional<Associado> optional = associadoRepository.findByEmail(email);
 
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             return optional.get();
         }
 
@@ -116,32 +116,47 @@ public class AssociadoService implements AssociadoInterface {
     @Override
     public List<Associado> listAssociadosByPendente() {
 
-       return associadoRepository.findByIsAssociadoEquals(AssociadoRole.PENDENTE).isEmpty() ?
-               this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.PENDENTE) : null;
+        return associadoRepository.findByIsAssociadoEquals(AssociadoRole.PENDENTE).isEmpty() ?
+                this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.PENDENTE) : null;
     }
 
     @Override
     public List<Associado> listAssociadosByNaoPago() {
         return this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.NAO_PAGO).isEmpty() ?
-                this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.NAO_PAGO) :null;
+                this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.NAO_PAGO) : null;
     }
 
     @Override
     public List<Transacao> listPagamentoCredito() {
-        return this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.CARTAO_CREDITO).isEmpty() ?
-                this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.CARTAO_CREDITO) : null;
+        List<Transacao> transacaos = new ArrayList<>();
+        listAllAssociado().stream().forEach(associado -> {
+            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_CREDITO){
+                transacaos.add(associado.getTransacao());
+            }
+        });
+        return transacaos;
     }
 
     @Override
     public List<Transacao> listPagamentoDebito() {
-        return this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.CARTAO_DEBITO).isEmpty() ?
-                this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.CARTAO_DEBITO) : null;
+        List<Transacao> transacaos = new ArrayList<>();
+        listAllAssociado().stream().forEach(associado -> {
+            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_DEBITO){
+                transacaos.add(associado.getTransacao());
+            }
+        });
+        return transacaos;
     }
 
     @Override
     public List<Transacao> listPagamentoDinheiro() {
-        return this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.DINHEIRO).isEmpty() ?
-                this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.DINHEIRO) : null;
+       List<Transacao> transacaos = new ArrayList<>();
+       listAllAssociado().stream().forEach(associado -> {
+           if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.DINHEIRO){
+               transacaos.add(associado.getTransacao());
+           }
+       });
+       return transacaos;
     }
 
 
