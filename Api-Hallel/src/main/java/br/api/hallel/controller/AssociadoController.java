@@ -138,4 +138,30 @@ public class AssociadoController {
         return ResponseEntity.status(201).body(this.cursoService.listCursoByAssociado(id));
     }
 
+    @GetMapping("/pagos")
+    public ResponseEntity<List<Associado>> listAssociadosPago(){
+        return ResponseEntity.status(201).body(this.service.listAssociadosByPago());
+    }
+    @GetMapping("/pendentes")
+    public ResponseEntity<List<Associado>> listAssociadosPendentes(){
+        return ResponseEntity.status(201).body(this.service.listAssociadosByPendente());
+    }
+    @GetMapping("/naopagos")
+    public ResponseEntity<List<Associado>> listAssociadosNaoPago(){
+        return ResponseEntity.status(201).body(this.service.listAssociadosByNaoPago());
+    }
+
+    @GetMapping("/metodo/credito")
+    public ResponseEntity<List<Transacao>> listMetodoPagamentoCredito(){
+        return ResponseEntity.status(201).body(this.service.listPagamentoCredito());
+    }
+
+    @GetMapping("/metodo/debito")
+    public ResponseEntity<List<Transacao>> listMetodoPagamentoDebito(){
+        return ResponseEntity.status(201).body(this.service.listPagamentoDebito());
+    }
+    @GetMapping("/metodo/dinheiro")
+    public ResponseEntity<List<Transacao>> listMetodoPagamentoDinheiro(){
+        return ResponseEntity.status(201).body(this.service.listPagamentoDinheiro());
+    }
 }
