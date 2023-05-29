@@ -1,9 +1,6 @@
 package br.api.hallel.service;
 
-import br.api.hallel.model.Associado;
-import br.api.hallel.model.AtividadesCurso;
-import br.api.hallel.model.Curso;
-import br.api.hallel.model.ModulosCurso;
+import br.api.hallel.model.*;
 import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.repository.AssociadoRepository;
 import br.api.hallel.service.interfaces.AssociadoInterface;
@@ -107,6 +104,44 @@ public class AssociadoService implements AssociadoInterface {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Associado> listAssociadosByPago() {
+
+        return this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.PAGO).isEmpty() ?
+                this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.PAGO) : null;
+    }
+
+    @Override
+    public List<Associado> listAssociadosByPendente() {
+
+       return associadoRepository.findByIsAssociadoEquals(AssociadoRole.PENDENTE).isEmpty() ?
+               this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.PENDENTE) : null;
+    }
+
+    @Override
+    public List<Associado> listAssociadosByNaoPago() {
+        return this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.NAO_PAGO).isEmpty() ?
+                this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.NAO_PAGO) :null;
+    }
+
+    @Override
+    public List<Transacao> listPagamentoCredito() {
+        return this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.CARTAO_CREDITO).isEmpty() ?
+                this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.CARTAO_CREDITO) : null;
+    }
+
+    @Override
+    public List<Transacao> listPagamentoDebito() {
+        return this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.CARTAO_DEBITO).isEmpty() ?
+                this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.CARTAO_DEBITO) : null;
+    }
+
+    @Override
+    public List<Transacao> listPagamentoDinheiro() {
+        return this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.DINHEIRO).isEmpty() ?
+                this.associadoRepository.findByMetodoPagamentoEquals(MetodoPagamento.DINHEIRO) : null;
     }
 
 
