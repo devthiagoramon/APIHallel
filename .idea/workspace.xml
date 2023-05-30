@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2324b3e3-ef01-45e5-bb66-c307ee27b7a7" name="Changes" comment="" />
+    <list default="true" id="5d1562f1-7967-4f97-a7ee-df31123e5574" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectId" id="2QUKtwhyPt9tIVLIoAR7YdnYYj4" />
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2QVxyofAmIX627yUFViPOPfXjpE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -17,24 +28,19 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/migue/OneDrive/Documentos/HALLEL/API/Hallel35/Api-Hallel",
-    "vue.rearranger.settings.migration": "true"
+    "git-widget-placeholder": "miguel",
+    "last_opened_file_path": "C:/Users/Suporte/Documents/HallelAPI/Hallel14/Api-Hallel"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2324b3e3-ef01-45e5-bb66-c307ee27b7a7" name="Changes" comment="" />
-      <created>1685402938104</created>
+      <changelist id="5d1562f1-7967-4f97-a7ee-df31123e5574" name="Changes" comment="" />
+      <created>1685452807230</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1685402938104</updated>
-      <workItem from="1685402939220" duration="57000" />
+      <updated>1685452807230</updated>
     </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
 </project>
