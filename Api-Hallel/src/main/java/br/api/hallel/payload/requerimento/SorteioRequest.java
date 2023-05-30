@@ -12,13 +12,13 @@ import java.util.List;
 public class SorteioRequest {
     private String titulo;
     private String data;
-    private List<Associado> associadoList;
+    private String descricao;
 
     public Sorteio toSorteio(){
         Sorteio sorteio = new Sorteio();
         sorteio.setTitulo(getTitulo());
         sorteio.setData(getData());
-        sorteio.setSorteioAssociados(associadoList);
+        sorteio.setDescricao(getDescricao());
 
         return sorteio;
     }

@@ -123,20 +123,6 @@ public class AssociadoController {
         return this.service.getAssociadoPagamentoById(id);
     }
 
-    @PostMapping("/addSorteio/{idAssociado}/{idSorteio}")
-    public ResponseEntity<List<Sorteio>> sortToRecompensa(@PathVariable(value = "idAssociado") String idAssociado,
-                                                          @PathVariable(value = "idSorteio") String idSorteio ) {
-
-        return ResponseEntity.status(201).body(this.recompensaService.addToSort(idSorteio, idAssociado));
-    }
-
-    @PostMapping("/recompensa/{idSorteio}")
-    public ResponseEntity<Associado> addRecompensa (@RequestBody RecompensaResponse response,
-                                                    @PathVariable (value = "idSorteio") String idSorteio){
-
-        return ResponseEntity.status(201).body(this.recompensaService.sendRecompensa(idSorteio, response));
-    }
-
     @GetMapping("/meusCursos/{id}")
     public ResponseEntity<List<CursosAssociadoRes>> listCursoCadastradoByAssociado(@PathVariable String id) {
         return ResponseEntity.status(201).body(this.cursoService.listCursoByAssociado(id));
