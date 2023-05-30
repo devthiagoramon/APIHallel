@@ -3,7 +3,6 @@ package br.api.hallel.controller;
 import br.api.hallel.model.*;
 import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.payload.resposta.CursosAssociadoRes;
-import br.api.hallel.payload.resposta.RecompensaResponse;
 import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.repository.RoleRepository;
 import br.api.hallel.service.AssociadoService;

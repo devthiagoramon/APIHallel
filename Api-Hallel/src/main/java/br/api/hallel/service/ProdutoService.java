@@ -6,15 +6,19 @@ import br.api.hallel.payload.requerimento.ProdutoReq;
 import br.api.hallel.payload.resposta.ProdutoResponse;
 import br.api.hallel.repository.ProdutoRepository;
 import br.api.hallel.service.interfaces.ProdutoInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ProdutoService implements ProdutoInterface {
 
     @Autowired
@@ -24,17 +28,20 @@ public class ProdutoService implements ProdutoInterface {
 
     @Override
     public Produto createProduto(ProdutoReq produto) {
+        log.info("Produto Criado!");
         return this.repository.insert(produto.toProduto());
     }
 
     @Override
     public List<ProdutoResponse> listAllProdutos() {
+
         List<ProdutoResponse> listaResponse = new ArrayList<>();
+
         this.repository.findAll().forEach(produto -> {
-            ProdutoResponse response = new ProdutoResponse();
-            response.toProdutoResponse(produto);
-            listaResponse.add(response);
+            listaResponse.add(new ProdutoResponse().toProdutoResponse(produto));
         });
+
+        log.info("Produtos listados");
         return listaResponse;
     }
 
@@ -46,6 +53,7 @@ public class ProdutoService implements ProdutoInterface {
         if (optional.isPresent()) {
             Produto produto = optional.get();
 
+            log.info("Produto listado");
             return response.toProdutoResponse(produto);
         }
 
@@ -60,6 +68,7 @@ public class ProdutoService implements ProdutoInterface {
         Produto produtoResponse = this.listProdutoById(id) == null ?
                 this.repository.save(produtoAux) : null;
 
+        log.info("Produto Atualizado!");
         return new ProdutoResponse().toProdutoResponse(produtoResponse);
     }
 
@@ -67,6 +76,8 @@ public class ProdutoService implements ProdutoInterface {
     public void deleteProduto(String id) {
 
         if (this.listProdutoById(id) != null) {
+
+            log.info("Produto removido!");
             this.repository.deleteById(id);
         }
 
@@ -77,12 +88,50 @@ public class ProdutoService implements ProdutoInterface {
 
         Membro membroAux = this.membroService.listMembroId(idMembro);
 
+        log.info("Produtos listado por membros");
         return this.listAllProdutos().stream().map(produto -> {
-            if(produto.getMembro() == membroAux){
+            if (produto.getMembro() == membroAux) {
                 return produto;
-            }else{
+            } else {
                 return null;
             }
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProdutoResponse> getPrecoDesc() {
+
+        if (this.listAllProdutos() != null) {
+
+            List<ProdutoResponse> produtoResponseList = new ArrayList<>();
+
+            listAllProdutos().stream().sorted((o1,o2) -> o2.getPreco().compareTo(o1.getPreco()))
+                    .forEach(produtos ->{
+                        produtoResponseList.add(produtos);
+                    });
+
+            return produtoResponseList;
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<ProdutoResponse> getPrecoAsc() {
+
+        if (this.listAllProdutos() != null) {
+
+            List<ProdutoResponse> produtoResponseList = new ArrayList<>();
+
+            listAllProdutos().stream().sorted(Comparator.comparing(ProdutoResponse::getPreco))
+                    .forEach(produtos ->{
+                produtoResponseList.add(produtos);
+            });
+
+            return produtoResponseList;
+        }
+
+
+        return null;
     }
 }

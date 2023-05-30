@@ -1,10 +1,7 @@
 package br.api.hallel.payload.requerimento;
 
-import br.api.hallel.model.Associado;
 import br.api.hallel.model.Recompensa;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class RecompensaRequest {

@@ -3,7 +3,6 @@ package br.api.hallel.controller;
 import br.api.hallel.model.Sorteio;
 import br.api.hallel.payload.requerimento.RecompensaRequest;
 import br.api.hallel.payload.requerimento.SorteioRequest;
-import br.api.hallel.payload.resposta.AssociadoResponse;
 import br.api.hallel.payload.resposta.AssociadoSorteioResponse;
 import br.api.hallel.payload.resposta.SorteioResponse;
 import br.api.hallel.service.RecompensaService;

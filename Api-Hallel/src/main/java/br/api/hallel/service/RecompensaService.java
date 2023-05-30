@@ -5,7 +5,6 @@ import br.api.hallel.model.Recompensa;
 import br.api.hallel.model.Sorteio;
 import br.api.hallel.payload.requerimento.AssociadoReq;
 import br.api.hallel.payload.requerimento.RecompensaRequest;
-import br.api.hallel.payload.resposta.AssociadoResponse;
 import br.api.hallel.payload.resposta.AssociadoSorteioResponse;
 import br.api.hallel.payload.resposta.SorteioResponse;
 import br.api.hallel.repository.SorteioRepository;
@@ -14,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,11 +72,11 @@ public class RecompensaService implements RecompensaInterface {
         Sorteio sorteio = sorteioRepository.findById(idSorteio).get();
 
         int indexRandom = new Random().nextInt(sorteio.getSorteioAssociados().size());
+        Associado associado = sorteio.getSorteioAssociados().get(indexRandom);
 
-        System.out.println("index: "+indexRandom);
         System.out.println("tamanho da lista" + sorteio.getSorteioAssociados().size());
 
-        Associado associado = sorteio.getSorteioAssociados().get(indexRandom);
+        System.out.println("index: "+indexRandom+ ", "+associado.getNome());
 
         if(associado.getRecompensas() != null){
             associado.getRecompensas().add(recompensa.toRecompensa());
@@ -88,6 +86,15 @@ public class RecompensaService implements RecompensaInterface {
             associado.setRecompensas(listaRecompensas);
         }
 
+        if(sorteio.getUltimosAssociados() != null){
+            sorteio.getUltimosAssociados().add(associado);
+        }else{
+            List<Associado> listaAssociados = new ArrayList<>();
+            listaAssociados.add(associado);
+            sorteio.setUltimosAssociados(listaAssociados);
+        }
+
+        this.sorteioRepository.save(sorteio);
         this.associadoService.updateAssociadoById(associado.getId(), associado);
 
         return new AssociadoSorteioResponse().toResponse(associado);

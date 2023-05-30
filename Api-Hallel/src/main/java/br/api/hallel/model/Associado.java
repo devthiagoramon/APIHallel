@@ -1,6 +1,9 @@
 package br.api.hallel.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -10,6 +13,9 @@ import java.util.List;
 // Associado que precisa de uma transação para se tornar um associado
 @Document
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Associado extends Membro {
 
     private Eventos eventoParticipando;
@@ -27,18 +33,4 @@ public class Associado extends Membro {
     private ArrayList<ModulosCurso> modulosCursosCompletos;
     private Boolean mensalidadePaga;
 
-    public Associado() {
-
-    }
-
-
-    @Override
-    public String toString() {
-        return "Associado{" +
-                "eventoParticipando=" + eventoParticipando +
-                ", mensalidadePaga=" + isPago +
-                ", transacao=" + transacao +
-                ", isAssociado=" + isAssociado +
-                '}';
-    }
 }
