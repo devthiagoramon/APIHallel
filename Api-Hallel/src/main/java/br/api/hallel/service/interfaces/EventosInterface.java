@@ -14,6 +14,6 @@ public interface EventosInterface {
     Eventos createEvento(Eventos evento);
     Eventos updateEventoById(String id);
     void deleteEventoById(String id);
-
     String adicionarMembro(String titulo, String emailUser);
+    List<Eventos> listEventoOrdemAlfabetica();
 }

@@ -1,17 +1,15 @@
 package br.api.hallel.controller;
 
-import br.api.hallel.exceptions.AssociadoNotFoundException;
 import br.api.hallel.model.*;
-import br.api.hallel.payload.requerimento.RecompensaRequest;
 import br.api.hallel.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.payload.resposta.CursosAssociadoRes;
+import br.api.hallel.payload.resposta.RecompensaResponse;
 import br.api.hallel.repository.MembroRepository;
 import br.api.hallel.repository.RoleRepository;
 import br.api.hallel.service.AssociadoService;
 import br.api.hallel.service.CursoService;
 import br.api.hallel.service.RecompensaService;
 import br.api.hallel.service.TransacaoService;
-import com.mongodb.lang.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -125,12 +123,18 @@ public class AssociadoController {
         return this.service.getAssociadoPagamentoById(id);
     }
 
-    @GetMapping("/recompensa/{id}")
-    public ResponseEntity<Associado> sendRecompensa(@RequestBody RecompensaRequest recompensa, @PathVariable String id) {
+    @PostMapping("/addSorteio/{idAssociado}/{idSorteio}")
+    public ResponseEntity<List<Sorteio>> sortToRecompensa(@PathVariable(value = "idAssociado") String idAssociado,
+                                                          @PathVariable(value = "idSorteio") String idSorteio ) {
 
-        Associado associado = this.service.listAssociadoById(id);
+        return ResponseEntity.status(201).body(this.recompensaService.addToSort(idSorteio, idAssociado));
+    }
 
-        return ResponseEntity.status(201).body(this.recompensaService.sendRecompensa(recompensa, associado));
+    @PostMapping("/recompensa/{idSorteio}")
+    public ResponseEntity<Associado> addRecompensa (@RequestBody RecompensaResponse response,
+                                                    @PathVariable (value = "idSorteio") String idSorteio){
+
+        return ResponseEntity.status(201).body(this.recompensaService.sendRecompensa(idSorteio, response));
     }
 
     @GetMapping("/meusCursos/{id}")
