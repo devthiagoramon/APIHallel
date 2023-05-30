@@ -24,4 +24,5 @@ public interface DoacaoInterface {
     DoacaoObjeto objetoNaoRecebido(String id);
 
     DoacaoObjeto listDoacaoObjetoById(String id);
+
 }

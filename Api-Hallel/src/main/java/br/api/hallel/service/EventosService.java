@@ -5,6 +5,7 @@ import br.api.hallel.model.Membro;
 import br.api.hallel.repository.EventosRepository;
 import br.api.hallel.service.interfaces.EventosInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -141,7 +142,13 @@ public class EventosService implements EventosInterface {
         return "Evento não encontrado";
     }
 
+    @Override
+    public List<Eventos> listEventoOrdemAlfabetica() {
 
+        List<Eventos> eventos = repository.findAll(Sort.by(Sort.Direction.ASC, "nome"));
+
+        return eventos;
+    }
 
 
 }
