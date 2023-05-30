@@ -14,6 +14,7 @@ public class Sorteio {
     @Id
     private String id;
     private String titulo;
+    private String descricao;
     private String data;
     List<Associado> sorteioAssociados;
 

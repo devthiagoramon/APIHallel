@@ -12,7 +12,6 @@ public class RecompensaRequest {
     private String nome;
     private String descricao;
     private Boolean isObjeto;
-    private List<Associado> sortAssociadosRecompensa;
 
     public Recompensa toRecompensa(){
         Recompensa recompensa = new Recompensa();

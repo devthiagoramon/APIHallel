@@ -11,6 +11,7 @@ public class SorteioResponse {
     private String id;
     private String titulo;
     private String data;
+    private String descricao;
     List<Associado> sorteioAssociados;
 
     public SorteioResponse toSorteioResponse(Sorteio sorteio){
@@ -20,6 +21,7 @@ public class SorteioResponse {
         response.setTitulo(sorteio.getTitulo());
         response.setSorteioAssociados(sorteio.getSorteioAssociados());
         response.setData(sorteio.getData());
+        response.setDescricao(sorteio.getDescricao());
 
         return response;
     }

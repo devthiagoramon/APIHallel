@@ -1,12 +1,11 @@
 package br.api.hallel.service.interfaces;
 
-import br.api.hallel.model.Associado;
-import br.api.hallel.model.Sorteio;
-import br.api.hallel.payload.resposta.RecompensaResponse;
-
-import java.util.List;
+import br.api.hallel.payload.requerimento.RecompensaRequest;
+import br.api.hallel.payload.resposta.AssociadoResponse;
+import br.api.hallel.payload.resposta.AssociadoSorteioResponse;
+import br.api.hallel.payload.resposta.SorteioResponse;
 
 public interface RecompensaInterface {
-    List<Sorteio> addToSort(String idSorteio, String idAssociado);
-    Associado sendRecompensa(String idSorteio,RecompensaResponse recompensa);
+    SorteioResponse addToSort(String idSorteio, String idAssociado);
+    AssociadoSorteioResponse sendRecompensa(String idSorteio, RecompensaRequest recompensa);
 }
