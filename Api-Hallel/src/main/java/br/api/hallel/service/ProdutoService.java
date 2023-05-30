@@ -7,12 +7,14 @@ import br.api.hallel.payload.resposta.ProdutoResponse;
 import br.api.hallel.repository.ProdutoRepository;
 import br.api.hallel.service.interfaces.ProdutoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class ProdutoService implements ProdutoInterface {
 
     @Autowired
