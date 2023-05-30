@@ -1,6 +1,5 @@
 package br.api.hallel.controller;
 
-import br.api.hallel.model.Email;
 import br.api.hallel.payload.requerimento.EmailRequest;
 import br.api.hallel.service.EmailService;
 import jakarta.mail.MessagingException;

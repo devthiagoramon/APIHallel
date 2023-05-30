@@ -11,7 +11,6 @@ import br.api.hallel.payload.resposta.DescricaoCursoRes;
 import br.api.hallel.security.services.JwtService;
 import br.api.hallel.service.CursoService;
 import br.api.hallel.service.MainService;
-import ch.qos.logback.core.joran.conditional.IfAction;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

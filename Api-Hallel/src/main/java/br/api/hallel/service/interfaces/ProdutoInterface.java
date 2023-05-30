@@ -14,4 +14,6 @@ public interface ProdutoInterface {
     ProdutoResponse updateProduto(String id, ProdutoReq produto);
     void deleteProduto(String id);
     List<ProdutoResponse> getProdutosByMembro(String id);
+    List<ProdutoResponse> getPrecoDesc();
+    List<ProdutoResponse> getPrecoAsc();
 }

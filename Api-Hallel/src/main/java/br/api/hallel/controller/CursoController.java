@@ -6,7 +6,6 @@ import br.api.hallel.model.AtividadesCurso;
 import br.api.hallel.model.Curso;
 import br.api.hallel.model.ModulosCurso;
 import br.api.hallel.payload.requerimento.AddCursoReq;
-import br.api.hallel.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.service.AssociadoService;
 import br.api.hallel.service.CursoService;
 import jakarta.servlet.http.HttpServletResponse;

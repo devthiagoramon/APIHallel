@@ -1,18 +1,20 @@
 package br.api.hallel.model;
 
-import java.sql.Date;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+
+import java.util.*;
 
 @Document
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Membro extends Usuario implements UserDetails {
     
     private String nome;
@@ -38,97 +40,6 @@ public class Membro extends Usuario implements UserDetails {
         this.dataNascimento = dataNascimento;
         this.status = status;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public StatusMembro getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusMembro status) {
-        this.status = status;
-    }
-
-    public Integer getIdade() {
-        return idade;
-    }
-
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getFuncao() {
-        return funcao;
-    }
-
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
-    }
-
-    public Boolean getDoador() {
-        return doador;
-    }
-
-    public void setDoador(Boolean doador) {
-        this.doador = doador;
-    }
-
-    public Integer getQuantidadeDoacoes() {
-        return quantidadeDoacoes;
-    }
-
-    public void setQuantidadeDoacoes(Integer quantidadeDoacoes) {
-        this.quantidadeDoacoes = quantidadeDoacoes;
-    }
-
-    public String getDataNascimento() {
-        return this.dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public Membro(){}
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

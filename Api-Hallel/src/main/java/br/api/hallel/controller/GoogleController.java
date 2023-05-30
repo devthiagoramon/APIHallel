@@ -1,16 +1,16 @@
 package br.api.hallel.controller;
 
-import br.api.hallel.model.Membro;
 import br.api.hallel.model.MembroGoogle;
-import br.api.hallel.payload.requerimento.LoginRequerimentoGoogle;
 import br.api.hallel.payload.requerimento.SolicitarCadastroGoogle;
 import br.api.hallel.repository.MembroGoogleRepository;
 import br.api.hallel.service.MainService;
 import br.api.hallel.service.MembroService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 

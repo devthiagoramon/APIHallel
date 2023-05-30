@@ -8,7 +8,6 @@ import br.api.hallel.payload.requerimento.DoacaoReq;
 import br.api.hallel.payload.resposta.DoacoesDinheiroListaAdmResponse;
 import br.api.hallel.payload.resposta.DoacoesObjetoListaAdmResponse;
 import br.api.hallel.service.DoacaoService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

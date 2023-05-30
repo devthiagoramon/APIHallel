@@ -1,14 +1,9 @@
 package br.api.hallel.controller;
 
-import java.util.List;
-
+import br.api.hallel.model.Membro;
+import br.api.hallel.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import br.api.hallel.model.Membro;
-import br.api.hallel.model.Usuario;
-import br.api.hallel.service.UsuarioService;
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @CrossOrigin("*")

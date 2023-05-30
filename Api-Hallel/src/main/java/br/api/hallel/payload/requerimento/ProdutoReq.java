@@ -1,6 +1,5 @@
 package br.api.hallel.payload.requerimento;
 
-import br.api.hallel.model.Membro;
 import br.api.hallel.model.Produto;
 import lombok.Data;
 

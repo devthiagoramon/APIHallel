@@ -1,12 +1,10 @@
 package br.api.hallel.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-@Getter
-@Setter
+@Data
 public class MembroGoogle extends  Membro{
 
     private String nomeGoogle;
