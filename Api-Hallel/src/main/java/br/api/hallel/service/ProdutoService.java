@@ -1,0 +1,86 @@
+package br.api.hallel.service;
+
+import br.api.hallel.model.Membro;
+import br.api.hallel.model.Produto;
+import br.api.hallel.payload.requerimento.ProdutoReq;
+import br.api.hallel.payload.resposta.ProdutoResponse;
+import br.api.hallel.repository.ProdutoRepository;
+import br.api.hallel.service.interfaces.ProdutoInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+public class ProdutoService implements ProdutoInterface {
+
+    @Autowired
+    private ProdutoRepository repository;
+    @Autowired
+    private MembroService membroService;
+
+    @Override
+    public Produto createProduto(ProdutoReq produto) {
+        return this.repository.insert(produto.toProduto());
+    }
+
+    @Override
+    public List<ProdutoResponse> listAllProdutos() {
+        List<ProdutoResponse> listaResponse = new ArrayList<>();
+        this.repository.findAll().forEach(produto -> {
+            ProdutoResponse response = new ProdutoResponse();
+            response.toProdutoResponse(produto);
+            listaResponse.add(response);
+        });
+        return listaResponse;
+    }
+
+    @Override
+    public ProdutoResponse listProdutoById(String id) {
+        ProdutoResponse response = new ProdutoResponse();
+        Optional<Produto> optional = this.repository.findById(id);
+
+        if (optional.isPresent()) {
+            Produto produto = optional.get();
+
+            return response.toProdutoResponse(produto);
+        }
+
+        return null;
+    }
+
+    @Override
+    public ProdutoResponse updateProduto(String id, ProdutoReq produto) {
+
+        Produto produtoAux = produto.toProduto();
+        produtoAux.setId(id);
+        Produto produtoResponse = this.listProdutoById(id) == null ?
+                this.repository.save(produtoAux) : null;
+
+        return new ProdutoResponse().toProdutoResponse(produtoResponse);
+    }
+
+    @Override
+    public void deleteProduto(String id) {
+
+        if (this.listProdutoById(id) != null) {
+            this.repository.deleteById(id);
+        }
+
+    }
+
+    @Override
+    public List<ProdutoResponse> getProdutosByMembro(String idMembro) {
+
+        Membro membroAux = this.membroService.listMembroId(idMembro);
+
+        return this.listAllProdutos().stream().map(produto -> {
+            if(produto.getMembro() == membroAux){
+                return produto;
+            }else{
+                return null;
+            }
+        }).collect(Collectors.toList());
+    }
+}
