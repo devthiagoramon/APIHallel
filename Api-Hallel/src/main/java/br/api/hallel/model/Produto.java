@@ -19,5 +19,7 @@ public class Produto {
     private String dataCadastrado;
     private String dataComprado;
     private Membro membro;
+    private Integer estoque;
+    private Double promocao;
 
 }

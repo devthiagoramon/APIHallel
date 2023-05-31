@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class ProdutoResponse {
+
     private String id;
     private String nome;
     private String descricao;
@@ -14,6 +15,8 @@ public class ProdutoResponse {
     private String dataCadastrado;
     private String dataComprado;
     private Membro membro;
+    private Integer estoque;
+    private Double promocao;
 
     public ProdutoResponse toProdutoResponse(Produto produto){
 
@@ -26,6 +29,8 @@ public class ProdutoResponse {
         response.setDataCadastrado(produto.getDataCadastrado());
         response.setDataCadastrado(produto.getDataComprado());
         response.setMembro(produto.getMembro());
+        response.setEstoque(produto.getEstoque());
+        response.setPreco(produto.getPromocao());
 
         return response;
     }

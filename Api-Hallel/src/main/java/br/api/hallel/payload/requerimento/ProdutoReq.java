@@ -10,7 +10,7 @@ public class ProdutoReq {
     private String descricao;
     private String imagem;
     private Double preco;
-
+    private Double promocao;
     public Produto toProduto(){
         Produto produto = new Produto();
 
@@ -18,7 +18,7 @@ public class ProdutoReq {
         produto.setDescricao(getDescricao());
         produto.setImagem(getImagem());
         produto.setPreco(getPreco());
-
+        produto.setPromocao(getPromocao());
         return produto;
     }
 
