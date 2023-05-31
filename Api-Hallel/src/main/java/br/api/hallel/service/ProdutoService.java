@@ -8,7 +8,6 @@ import br.api.hallel.repository.ProdutoRepository;
 import br.api.hallel.service.interfaces.ProdutoInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -99,7 +98,7 @@ public class ProdutoService implements ProdutoInterface {
     }
 
     @Override
-    public List<ProdutoResponse> getPrecoDesc() {
+    public List<ProdutoResponse> getProdutoPrecoDesc() {
 
         if (this.listAllProdutos() != null) {
 
@@ -117,13 +116,53 @@ public class ProdutoService implements ProdutoInterface {
     }
 
     @Override
-    public List<ProdutoResponse> getPrecoAsc() {
+    public List<ProdutoResponse> getProdutoPrecoAsc() {
 
         if (this.listAllProdutos() != null) {
 
             List<ProdutoResponse> produtoResponseList = new ArrayList<>();
 
             listAllProdutos().stream().sorted(Comparator.comparing(ProdutoResponse::getPreco))
+                    .forEach(produtos ->{
+                produtoResponseList.add(produtos);
+            });
+
+            return produtoResponseList;
+        }
+
+
+        return null;
+    }
+
+    @Override
+    public ProdutoResponse adicionarPromocao(String id, Double valorPromocao) {
+
+        if(this.listProdutoById(id) != null){
+            ProdutoResponse response = this.listProdutoById(id);
+
+            ProdutoReq produtoReq = new ProdutoReq();
+            produtoReq.setNome(response.getNome());
+            produtoReq.setImagem(response.getImagem());
+            produtoReq.setDescricao(response.getDescricao());
+            produtoReq.setPromocao(valorPromocao);
+            produtoReq.setPreco((produtoReq.getPreco()) * (valorPromocao/100));
+
+
+            return updateProduto(id,produtoReq);
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<ProdutoResponse> getProdutoPromocao() {
+
+        if (this.listAllProdutos() != null) {
+
+            List<ProdutoResponse> produtoResponseList = new ArrayList<>();
+
+            listAllProdutos().stream().filter(produtoResponse -> produtoResponse.getPromocao() != null)
+                    .sorted(Comparator.comparing(ProdutoResponse::getPromocao))
                     .forEach(produtos ->{
                 produtoResponseList.add(produtos);
             });

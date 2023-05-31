@@ -52,12 +52,17 @@ public class ProdutoController{
 
     @GetMapping("/getProdutos/asc")
     public ResponseEntity<List<ProdutoResponse>> listProdutoAsc() {
-        return ResponseEntity.status(201).body(this.produtoService.getPrecoAsc());
+        return ResponseEntity.status(201).body(this.produtoService.getProdutoPrecoAsc());
     }
 
     @GetMapping("/getProdutos/desc")
     public ResponseEntity<List<ProdutoResponse>> listProdutoDesc() {
-        return ResponseEntity.status(201).body(this.produtoService.getPrecoDesc());
+        return ResponseEntity.status(201).body(this.produtoService.getProdutoPrecoDesc());
+    }
+
+    @GetMapping("/getProdutos/promocao")
+    public ResponseEntity<List<ProdutoResponse>> listProdutoPromocao(){
+        return ResponseEntity.status(201).body(this.produtoService.getProdutoPromocao());
     }
 
 }
