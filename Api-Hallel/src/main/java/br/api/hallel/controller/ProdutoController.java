@@ -60,6 +60,12 @@ public class ProdutoController{
         return ResponseEntity.status(201).body(this.produtoService.getProdutoPrecoDesc());
     }
 
+    @PostMapping("/add/promocao/{idProduto}")
+    public ResponseEntity<ProdutoResponse> addPromotion(@PathVariable(value = "idProduto") String idProduto,
+    @RequestParam(value ="promocao") Double promocao){
+        return ResponseEntity.status(201).body(this.produtoService.adicionarPromocao(idProduto,promocao));
+    }
+
     @GetMapping("/getProdutos/promocao")
     public ResponseEntity<List<ProdutoResponse>> listProdutoPromocao(){
         return ResponseEntity.status(201).body(this.produtoService.getProdutoPromocao());
