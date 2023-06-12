@@ -1,6 +1,5 @@
 package br.api.hallel.moduloAPI.payload.resposta;
 
-import br.api.hallel.model.*;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.AssociadoRole;
 import br.api.hallel.moduloAPI.model.StatusMembro;

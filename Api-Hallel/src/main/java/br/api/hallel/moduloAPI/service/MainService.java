@@ -2,7 +2,6 @@ package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.exceptions.SolicitarCadastroException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
-import br.api.hallel.model.*;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.repository.AdministradorRepository;
 import br.api.hallel.moduloAPI.repository.MembroGoogleRepository;

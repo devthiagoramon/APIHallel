@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.model.StatusMembro;
 
-@Repository
 public interface MembroRepository extends MongoRepository<Membro, String>{
     
     public List<Membro> findByStatusEquals(Enum<StatusMembro> status);

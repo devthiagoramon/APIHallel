@@ -1,7 +1,6 @@
 package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
-import br.api.hallel.model.*;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.CursoRepository;

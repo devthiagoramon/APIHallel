@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import br.api.hallel.moduloAPI.model.Usuario;
 
-@Repository
 public interface UsuarioRepository extends MongoRepository<Usuario, String>{
 
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 public interface EventosRepository extends MongoRepository<Eventos, String> {
     Optional<Eventos> findByTitulo(String titulo);
 

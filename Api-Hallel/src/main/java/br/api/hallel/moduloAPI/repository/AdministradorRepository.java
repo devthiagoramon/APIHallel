@@ -7,7 +7,6 @@ import br.api.hallel.moduloAPI.model.Administrador;
 
 import java.util.Optional;
 
-@Repository
 public interface AdministradorRepository extends MongoRepository<Administrador,String>{
 
     public Optional<Administrador> findByEmail(String email);

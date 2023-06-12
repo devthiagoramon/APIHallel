@@ -1,6 +1,5 @@
 package br.api.hallel.moduloAPI.controller;
 
-import br.api.hallel.model.*;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
