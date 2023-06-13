@@ -14,8 +14,8 @@ public class CursoMoodleService {
     @Autowired
     private CursoMoodleRepository repository;
 
-    public CursoMoodle createCursoMoodle(CursoMoodleReq cursoMoodleReq){
-        return this.repository.save(cursoMoodleReq.toCursoMoodle());
+    public void createCursoMoodle(CursoMoodleReq cursoMoodleReq){
+        this.repository.save(cursoMoodleReq.toCursoMoodle());
     }
 
     public List<CursoMoodle> listCursoMoodle(){

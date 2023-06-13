@@ -1,8 +1,11 @@
 package br.api.hallel.config;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -15,7 +18,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "br.api.hallel.moduloMoodle.repository", entityManagerFactoryRef = "mariaDbEntityManagerFactory")
+@EnableJpaRepositories(basePackages = {"br.api.hallel.moduloMoodle.repository"},
+        entityManagerFactoryRef = "mariaEntityManagerFactory", transactionManagerRef = "mariaTransactionManager"
+        )
 public class MariaDBConfig {
     @Value("${spring.datasource.url}")
     private String mariaDBUrl;
@@ -35,17 +40,18 @@ public class MariaDBConfig {
         return dataSource;
     }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean mariaDBEntityManagerFactory(DataSource mariaDBDataSource) {
+    @Bean(name = "mariaEntityManagerFactory")
+    public EntityManagerFactory mariaDBEntityManagerFactory(DataSource mariaDBDataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(mariaDBDataSource);
         em.setPackagesToScan("br.api.hallel.moduloMoodle.model");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
-        return em;
+        em.afterPropertiesSet();
+        return em.getObject();
     }
 
-    @Bean(name = "mariaDbEntityManagerFactory")
+    @Bean(name = "mariaTransactionManager")
     public PlatformTransactionManager mariaDBTransactionManager(EntityManagerFactory mariaDBEntityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(mariaDBEntityManagerFactory);

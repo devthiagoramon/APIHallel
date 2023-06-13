@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
+import org.springframework.orm.hibernate5.SpringSessionContext;
 
 @SpringBootApplication
 @Import({MongoDBConfig.class, MariaDBConfig.class})
