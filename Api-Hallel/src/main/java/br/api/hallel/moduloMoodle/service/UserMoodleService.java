@@ -1,7 +1,7 @@
 package br.api.hallel.moduloMoodle.service;
 
 import br.api.hallel.moduloMoodle.model.UserMoodle;
-import br.api.hallel.moduloMoodle.payload.UserMoodleReq;
+import br.api.hallel.moduloMoodle.payload.request.UserMoodleReq;
 import br.api.hallel.moduloMoodle.repository.UserMoodleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

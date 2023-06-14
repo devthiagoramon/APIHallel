@@ -1,4 +1,4 @@
-package br.api.hallel.moduloMoodle.payload;
+package br.api.hallel.moduloMoodle.payload.request;
 
 import br.api.hallel.moduloMoodle.model.CursoMoodle;
 import jakarta.persistence.Id;
@@ -7,8 +7,6 @@ import lombok.Data;
 @Data
 public class CursoMoodleReq {
 
-    @Id
-    private Long id;
     private String fullname;
     private String shortname;
     private String idnumber;
@@ -25,6 +23,10 @@ public class CursoMoodleReq {
         cursoMoodle.setShortname(this.shortname);
         cursoMoodle.setIdnumber(this.idnumber);
         cursoMoodle.setSummary(this.summary);
+        cursoMoodle.setFormat(this.format);
+        cursoMoodle.setShowgrades(this.showgrades);
+        cursoMoodle.setCompletionnotify(this.completionnotify);
+        cursoMoodle.setSummaryformat(this.summaryformat);
         return cursoMoodle;
     }
 }

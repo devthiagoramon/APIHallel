@@ -1,4 +1,4 @@
-package br.api.hallel.moduloMoodle.payload;
+package br.api.hallel.moduloMoodle.payload.request;
 
 import br.api.hallel.moduloMoodle.model.UserMoodle;
 import lombok.Data;

@@ -64,7 +64,7 @@ public class ProdutoService implements ProdutoInterface {
 
         Produto produtoAux = produto.toProduto();
         produtoAux.setId(id);
-        Produto produtoResponse = this.listProdutoById(id) == null ?
+        Produto produtoResponse = this.listProdutoById(id) != null ?
                 this.repository.save(produtoAux) : null;
 
         log.info("Produto Atualizado!");
