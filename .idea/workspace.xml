@@ -4,21 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="313cd18c-ddc2-46df-af73-089e2d570454" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Hallel39.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/controller/CourseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/CourseMoodleResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_2.xml" beforeDir="false" />
+    <list default="true" id="6768cae7-4940-4021-901b-d2fd3e30d049" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Hallel40.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/EventosRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EventosResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/controller/CourseEnrolController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/controller/EnrolAssignmentsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/controller/UserEnrolmentsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/CourseEnrol.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/EnrolAssignments.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/UserEnrolments.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/CourseEnrolRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/EnrolAssignmentsReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/UserEnrolmentsReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/CourseEnrolResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/EnrolAssignmentsResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/UserEnrolmentsResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/CourseEnrolRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/EnrolAssignmentsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/UserEnrolmentsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/CourseEnrolService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/EnrolAssignmentsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/UserEnrolmentsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/ProdutoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/ProdutoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/CursoMoodle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/CursoMoodle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/CursoMoodleReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/CursoMoodleReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/UserMoodleReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/UserMoodleReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/UserMoodleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/UserMoodleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/AdministradorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/AdministradorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/EventosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MembroMarketingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MembroMarketingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Eventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Eventos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/CadEventoRequerimento.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/EventosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/EventosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/EventosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/EventosInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/EventosInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/UserKeyComposta.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/UserKeyComposta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/CursoMoodleReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/CursoMoodleReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/CourseMoodleResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/CourseMoodleResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/CursoMoodleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/CursoMoodleRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/CursoMoodleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/CursoMoodleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/UserMoodleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/UserMoodleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +84,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "miguel",
-    "last_opened_file_path": "C:/Users/migue/OneDrive/Documentos/HALLEL/API/Hallel36",
+    "last_opened_file_path": "C:/Users/migue/OneDrive/Documentos/HALLEL/API/Hallel40/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/controller",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -71,6 +93,15 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\controller" />
+      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\model" />
+      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\payload\response" />
+      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\payload\request" />
+      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\repository" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.ApiHallelApplication">
     <configuration name="ApiHallelApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.api.hallel.ApiHallelApplication" />

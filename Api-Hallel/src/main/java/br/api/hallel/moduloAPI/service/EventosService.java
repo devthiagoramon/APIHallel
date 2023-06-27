@@ -2,20 +2,20 @@ package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventosInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Service
+@Slf4j
 public class EventosService implements EventosInterface {
 
     @Autowired
@@ -24,94 +24,90 @@ public class EventosService implements EventosInterface {
     private MembroService membroService;
     @Autowired
     private ComunidadeService comunidadeService;
-    Logger logger =  LoggerFactory.getLogger(EventosService.class);
 
+
+    //CRIA EVENTOS
+    @Override
+    public Eventos createEvento(EventosRequest evento) {
+        log.info("EVENT0 CRIADO!");
+
+        return this.repository.insert(evento.toEventosRequest());
+    }
 
     //LISTA OS EVENTOS JÁ CRIADOS
     @Override
-    public List<Eventos> listarAllEventos() {
-        logger.info("LISTANDO EVENTOS!");
+    public List<EventosResponse> listarAllEventos() {
 
-        return this.repository.findAll();
+        List<EventosResponse> listaResponse = new ArrayList<>();
+
+        this.repository.findAll().forEach(eventos -> {
+            listaResponse.add(new EventosResponse().toEventosResponse(eventos));
+        });
+
+        log.info("Eventos listados!");
+
+        return listaResponse;
     }
 
     //LISTA APENAS UM EVENTO PELO SEU ID
     @Override
-    public Eventos listarEventoById(String id) {
+    public EventosResponse listarEventoById(String id) {
+        EventosResponse response = new EventosResponse();
         Optional<Eventos> optional = this.repository.findById(id);
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
 
-            logger.info("EVENTO LISTADO!");
-
-            return eventos;
-        } else {
-            logger.warn("EVENTOS NÃO ENCONTRADO!");
-
-            return null;
+            log.info("Evento listado");
+            return response.toEventosResponse(eventos);
         }
+
+        return null;
     }
 
     //LISTA O EVENTO PELO SEU NOME
     @Override
-    public Eventos listarEventosByNome(String nome) {
+    public EventosResponse listarEventosByTitulo(String nome) {
+        EventosResponse response = new EventosResponse();
         Optional<Eventos> optional = this.repository.findByTitulo(nome);
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
 
-            logger.info("EVENTO LISTADO!");
-
-            return eventos;
-        } else {
-            logger.warn("EVENTO NÃO ENCONTRADO!");
-
-            return null;
+            log.info("Evento listado");
+            return response.toEventosResponse(eventos);
         }
 
+        return null;
     }
-
-    //CRIA EVENTOS
-    @Override
-    public Eventos createEvento(Eventos evento) {
-        logger.info("EVENT0 CRIADO!");
-
-        return this.repository.insert(evento);
-    }
-
 
     //ATUALIZA AS INFORMAÇÕES DO EVENTO
     @Override
-    public Eventos updateEventoById(String id) {
+    public EventosResponse updateEventoById(String id, EventosRequest request) {
 
-        Optional<Eventos> optional = this.repository.findById(id);
 
-        if (optional.isPresent()) {
-            Eventos eventos = optional.get();
-            logger.info("EVENTO ATUALZIADO!");
+        Eventos eventoAux = request.toEventosRequest();
+        eventoAux.setId(id);
 
-            return this.repository.save(eventos);
-        } else {
-            logger.warn("EVENTO NÃO ENCONTRADO!");
+        Eventos eventosResponse = this.listarEventoById(id) != null ?
+                this.repository.save(eventoAux) : null;
 
-            return null;
-        }
-
+        log.info("Evento Atualizado!");
+        return new EventosResponse().toEventosResponse(eventosResponse);
     }
 
     //REMOVE UM EVENTO
     @Override
     public void deleteEventoById(String id) {
-        Optional<Eventos> optional = this.repository.findById(id);
 
-        if (optional.isPresent()) {
-            Eventos eventos = optional.get();
+
+        if (listarEventoById(id) != null) {
+
             this.repository.deleteById(id);
-            logger.info("EVENTO DELETADO!");
+            log.info("EVENTO DELETADO!");
 
         } else {
-            logger.warn("EVENTO NÃO ENCONTRADO, ENTÃO NAO FOI REMOVIDO!");
+            log.warn("EVENTO NÃO ENCONTRADO, ENTÃO NAO FOI REMOVIDO!");
 
         }
     }
@@ -131,22 +127,90 @@ public class EventosService implements EventosInterface {
                 integrantes.add(membroService.findByEmail(emailUser));
                 evento.setIntegrantes(integrantes);
             }
-            logger.info("MEMBRO CADASTRADO AO EVENTO!");
+            log.info("MEMBRO CADASTRADO AO EVENTO!");
             this.repository.save(evento);
 
             return "Membro cadastrado no evento com sucesso";
         }
-        logger.info("EVENTO NÃO ECONTRADO!");
+        log.info("EVENTO NÃO ECONTRADO!");
 
         return "Evento não encontrado";
     }
 
     @Override
-    public List<Eventos> listEventoOrdemAlfabetica() {
+    public List<EventosResponse> listEventoOrdemAlfabetica() {
 
-        List<Eventos> eventos = repository.findAll(Sort.by(Sort.Direction.ASC, "nome"));
+        List<EventosResponse> listResponse = new ArrayList<>();
 
-        return eventos;
+        this.repository.findAllByOrderByTituloAsc().forEach(eventos -> {
+            listResponse.add(new EventosResponse().toEventosResponse(eventos));
+        });
+
+        log.info("Listando eventos em ordem alfabetica");
+        return listResponse;
+    }
+
+    @Override
+    public List<Membro> listMembrosEventos(String id) {
+
+        EventosResponse eventosResponse = this.listarEventoById(id);
+
+        log.info("Listando membros participando de um evento");
+
+        return eventosResponse.getIntegrantes();
+    }
+
+
+    @Override
+    public EventosResponse addDestaqueToEvento(String idEvento) {
+
+        if (!listarEventoById(idEvento).getDestaque()) {
+            Eventos request = this.repository.findById(idEvento).get();
+            request.setId(idEvento);
+            request.setDestaque(true);
+
+            Eventos eventosResponse = this.listarEventoById(idEvento) != null ?
+                    this.repository.save(request) : null;
+
+            return new EventosResponse().toEventosResponse(eventosResponse);
+        } else {
+            log.warn("Evento já está em destaque");
+            return null;
+        }
+
+    }
+
+    @Override
+    public EventosResponse removeDestaqueToEvento(String idEvento) {
+
+        if (listarEventoById(idEvento).getDestaque()) {
+            Eventos request = this.repository.findById(idEvento).get();
+            request.setId(idEvento);
+            request.setDestaque(false);
+
+            Eventos eventosResponse = this.listarEventoById(idEvento) != null ?
+                    this.repository.save(request) : null;
+
+            return new EventosResponse().toEventosResponse(eventosResponse);
+        } else {
+
+            log.warn("Evento já está sem destaque");
+            return null;
+        }
+    }
+
+    @Override
+    public List<EventosResponse> listEventosDestaque() {
+
+        List<EventosResponse> responseList = new ArrayList<>();
+
+        this.repository.findAllByDestaqueEquals(true).forEach(eventos -> {
+            responseList.add(new EventosResponse().toEventosResponse(eventos));
+        });
+
+        log.info("Listando eventos em destaque");
+
+        return responseList;
     }
 
 

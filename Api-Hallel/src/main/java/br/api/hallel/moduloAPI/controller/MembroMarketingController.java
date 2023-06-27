@@ -2,6 +2,8 @@ package br.api.hallel.moduloAPI.controller;
 
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.MembroMarketing;
+import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.service.EventosService;
 import br.api.hallel.moduloAPI.service.MembroMarketingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,13 +57,14 @@ public class MembroMarketingController {
     }
 
     @GetMapping("/eventos")
-    public ResponseEntity<List<Eventos>> listAllEventos(){
+    public ResponseEntity<List<EventosResponse>> listAllEventos(){
         return ResponseEntity.status(200).body(eventosService.listarAllEventos());
     }
 
     @PostMapping("/{id}/edit")
-    public Eventos updateEventos(@PathVariable(value = "id") String id){
-        return this.eventosService.updateEventoById(id);
+    public EventosResponse updateEventos(@PathVariable(value = "id") String id,
+                                 @RequestBody EventosRequest request){
+        return this.eventosService.updateEventoById(id,request);
     }
 
 }

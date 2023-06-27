@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class CourseMoodleResponse {
 
+    private Long id;
     private String fullname;
     private String shortname;
     private String idnumber;
@@ -19,6 +20,7 @@ public class CourseMoodleResponse {
     public CourseMoodleResponse toResponse(CursoMoodle cursoMoodle){
 
         CourseMoodleResponse response = new CourseMoodleResponse();
+        response.setId(cursoMoodle.getId());
         response.setFullname(cursoMoodle.getFullname());
         response.setShortname(cursoMoodle.getShortname());
         response.setCompletionnotify(cursoMoodle.isCompletionnotify());

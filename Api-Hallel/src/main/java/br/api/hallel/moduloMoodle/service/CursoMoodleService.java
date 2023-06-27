@@ -1,7 +1,5 @@
 package br.api.hallel.moduloMoodle.service;
 
-import br.api.hallel.moduloAPI.model.Produto;
-import br.api.hallel.moduloAPI.payload.resposta.ProdutoResponse;
 import br.api.hallel.moduloMoodle.model.CursoMoodle;
 import br.api.hallel.moduloMoodle.payload.request.CursoMoodleReq;
 import br.api.hallel.moduloMoodle.payload.response.CourseMoodleResponse;
@@ -22,7 +20,7 @@ public class CursoMoodleService {
     private CursoMoodleRepository repository;
 
     public void createCursoMoodle(CursoMoodleReq cursoMoodleReq){
-        log.info("Curso Criado!");
+        log.info("Curso Moodle Criado!");
         this.repository.save(cursoMoodleReq.toCursoMoodle());
     }
 
@@ -59,7 +57,11 @@ public class CursoMoodleService {
     }
 
     public void deleteCourseById(Long id){
-        log.info(listCourseById(id) != null ? "Curso deletado!" : "Curso com id "+id+" não encontrado!");
+
+        if(listCourseById(id) != null){
+            this.repository.deleteById(id);
+        }
+
     }
 
 }

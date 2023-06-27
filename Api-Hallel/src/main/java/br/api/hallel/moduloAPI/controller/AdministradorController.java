@@ -4,13 +4,13 @@ import br.api.hallel.moduloAPI.model.Administrador;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
-import br.api.hallel.moduloAPI.payload.requerimento.CadEventoRequerimento;
+import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.service.AdministradorService;
 import br.api.hallel.moduloAPI.service.EventosService;
 import br.api.hallel.moduloAPI.service.MembroService;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +20,8 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/administrador")
+@Slf4j
 public class AdministradorController {
-
-    Logger logger = LoggerFactory.getLogger(AdministradorController.class);
 
     @Autowired
     private AdministradorService service;
@@ -82,18 +81,19 @@ public class AdministradorController {
     }
 
     @PostMapping("/evento/create")
-    public ResponseEntity<Eventos> createEventos(@RequestBody CadEventoRequerimento cadEvento){
+    public ResponseEntity<Eventos> createEventos(@RequestBody EventosRequest request) {
 
-        logger.info("Create eventos acessado infos:\n{\n titulo:"+cadEvento.getTitulo()+"\n" +
-                "descricao:"+cadEvento.getDescricao()+"\n" +
-                "local: "+cadEvento.getLocal());
+        log.info("Create eventos acessado infos:\n{\n titulo:" + request.getTitulo() + "\n" +
+                "descricao:" + request.getDescricao() + "\n" +
+                "local: " + request.getLocalEvento());
 
-        return ResponseEntity.status(201).body(eventosService.createEvento(cadEvento.toEventos()));
+        return ResponseEntity.status(201).body(eventosService.createEvento(request));
     }
 
     @PostMapping("/evento/{id}/edit")
-    public Eventos updateEventos(@PathVariable(value = "id") String id) {
-        return this.eventosService.updateEventoById(id);
+    public EventosResponse updateEventos(@PathVariable(value = "id") String id,
+                                         @RequestBody EventosRequest request) {
+        return this.eventosService.updateEventoById(id, request);
     }
 
     @PostMapping("/evento/{id}/delete")
@@ -101,4 +101,28 @@ public class AdministradorController {
         this.eventosService.deleteEventoById(id);
     }
 
+    @GetMapping("/eventos/asc")
+    public List<EventosResponse> getEventsByOrderAsc() {
+        return this.eventosService.listEventoOrdemAlfabetica();
+    }
+
+    @PostMapping("/evento/addDestaque/{id}")
+    public EventosResponse addDestaqueToEvent(@PathVariable(value = "id") String id) {
+        return this.eventosService.addDestaqueToEvento(id);
+    }
+
+    @PostMapping("/evento/removeDestaque/{id}")
+    public EventosResponse removeDestaqueToEvent(@PathVariable(value = "id") String id) {
+        return this.eventosService.removeDestaqueToEvento(id);
+    }
+
+    @GetMapping("/eventos/destaques")
+    public List<EventosResponse> listAllEventsByDestaque() {
+        return this.eventosService.listEventosDestaque();
+    }
+
+    @GetMapping("{id}/get/participantes")
+    public List<Membro> listAllEventsByDestaque(@PathVariable(value = "id") String id) {
+        return this.eventosService.listMembrosEventos(id);
+    }
 }

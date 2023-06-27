@@ -1,7 +1,6 @@
 package br.api.hallel.moduloMoodle.payload.request;
 
 import br.api.hallel.moduloMoodle.model.CursoMoodle;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data

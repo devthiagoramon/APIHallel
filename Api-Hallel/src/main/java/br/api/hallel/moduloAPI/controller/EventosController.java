@@ -1,6 +1,8 @@
 package br.api.hallel.moduloAPI.controller;
 
 import br.api.hallel.moduloAPI.model.Eventos;
+import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.service.EventosService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +21,25 @@ public class EventosController {
     @Autowired
     private EventosService service;
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<Eventos>> listAllEventos(){
+    @GetMapping("")
+    public ResponseEntity<List<EventosResponse>> listAllEventos(){
         return ResponseEntity.status(200).body(service.listarAllEventos());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Eventos> listEventoById(@PathVariable String id){
+    public ResponseEntity<EventosResponse> listEventoById(@PathVariable String id){
         return ResponseEntity.status(201).body(service.listarEventoById(id));
     }
 
     @GetMapping("{nome}")
-    public ResponseEntity<Eventos> listEventoByNome(@PathVariable String nome){
-        return ResponseEntity.status(201).body(service.listarEventosByNome(nome));
+    public ResponseEntity<EventosResponse> listEventoByNome(@PathVariable String nome){
+        return ResponseEntity.status(201).body(service.listarEventosByTitulo(nome));
     }
 
     @GetMapping("/update/{id}")
-    public ResponseEntity<Eventos> updateEventos(@PathVariable String id){
-        return ResponseEntity.status(200).body(service.updateEventoById(id));
+    public ResponseEntity<EventosResponse> updateEventos(@PathVariable(value = "id") String id,
+                                                         @RequestBody EventosRequest request){
+        return ResponseEntity.status(200).body(service.updateEventoById(id, request));
     }
 
     @GetMapping("/delete/{id}")
@@ -50,6 +53,5 @@ public class EventosController {
                                              @RequestParam(value = "emailUser") String emailUser){
         return ResponseEntity.ok().body(this.service.adicionarMembro(titulo,emailUser));
     }
-
 
 }
