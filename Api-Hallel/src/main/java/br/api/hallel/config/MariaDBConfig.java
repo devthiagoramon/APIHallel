@@ -2,6 +2,7 @@ package br.api.hallel.config;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(basePackages = {"br.api.hallel.moduloMoodle.repository"},
         entityManagerFactoryRef = "mariaEntityManagerFactory", transactionManagerRef = "mariaTransactionManager"
         )
+@Log4j2
 public class MariaDBConfig {
     @Value("${spring.datasource.url}")
     private String mariaDBUrl;

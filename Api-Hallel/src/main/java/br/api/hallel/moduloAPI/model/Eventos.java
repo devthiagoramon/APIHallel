@@ -27,7 +27,7 @@ public class Eventos {
     private MembroMarketing membroMarketing;
     private Administrador administrador;
     private String date;
-    private String localidade;
+    private LocalEvento localEvento;
     private String horario;
     private String imagem;
     private Long participantesEspeciais;
