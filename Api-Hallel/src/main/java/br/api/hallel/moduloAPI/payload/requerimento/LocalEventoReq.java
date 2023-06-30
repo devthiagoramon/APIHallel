@@ -20,7 +20,7 @@ public class LocalEventoReq {
     public LocalEvento toLocalEvento() {
         LocalEvento localEvento = new LocalEvento();
         localEvento.setLocalizacao(this.getLocalizacao());
-        localEvento.setLocalizacao(this.getImagem());
+        localEvento.setImagem(this.getImagem());
         localEvento.setDataCadastrada(simpleDateFormat.format(new Date()));
         return localEvento;
     }

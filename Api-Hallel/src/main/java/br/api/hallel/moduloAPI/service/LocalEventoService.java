@@ -30,6 +30,8 @@ public class LocalEventoService implements LocalEventoInterface {
         localEventoAntigo.setId(idLocalEvento);
         localEventoAntigo.setLocalizacao(newLocalEvento.getLocalizacao());
         localEventoAntigo.setImagem(newLocalEvento.getImagem());
+
+        this.repository.save(localEventoAntigo);
         return localEventoAntigo;
     }
 

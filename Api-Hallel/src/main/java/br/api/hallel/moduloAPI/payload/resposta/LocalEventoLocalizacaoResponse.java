@@ -10,9 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LocalEventoLocalizacaoResponse {
 
+
+    private String id;
     private String localizacao;
 
+
     public LocalEventoLocalizacaoResponse(LocalEvento localEvento){
+        this.id = localEvento.getId();
         this.localizacao = localEvento.getLocalizacao();
     }
 }
