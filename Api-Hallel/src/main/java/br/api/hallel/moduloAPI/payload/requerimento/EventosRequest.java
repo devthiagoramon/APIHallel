@@ -26,6 +26,11 @@ public class EventosRequest {
     private Long participantesEspeciais;
     private Boolean destaque;
 
+
+    public Eventos toCreateRequest(){
+        return new Eventos(getDescricao(), getTitulo(), getDate(), getLocalEvento(), getImagem(), getHorario());
+    }
+
     public Eventos toEventosRequest(){
 
         Eventos request = new Eventos(getAssociadoParticipando(),

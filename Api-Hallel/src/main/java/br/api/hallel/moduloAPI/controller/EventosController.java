@@ -27,12 +27,12 @@ public class EventosController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventosResponse> listEventoById(@PathVariable String id){
+    public ResponseEntity<EventosResponse> listEventoByIdController(@PathVariable(value = "id") String id){
         return ResponseEntity.status(201).body(service.listarEventoById(id));
     }
 
     @GetMapping("/{nome}")
-    public ResponseEntity<EventosResponse> listEventoByNome(@PathVariable String nome){
+    public ResponseEntity<EventosResponse> listEventoByNomeController(@PathVariable(value = "nome") String nome){
         return ResponseEntity.status(201).body(service.listarEventosByTitulo(nome));
     }
 

@@ -36,10 +36,11 @@ public class SecurityConfig {
             "/api/administrador/create",
             "/api/listarCurso",
             "/api/descCurso/{id}",
-            "/api/matricularParticipante/{idAssociado}/{idCurso}"};
+            "/api/matricularParticipante/{idAssociado}/{idCurso}",
+            "/api/eventos/"};
 
-    private String endpointsPermitidasAdm[] = {"/api/administrador/**", "/api/eventos/", "/api/cursos/**", "/api/financeiro/**"};
-    private String endpointsMembros[] = {"/api/eventos/listar"};
+    private String endpointsPermitidasAdm[] = {"/api/administrador/**", "/api/cursos/**", "/api/financeiro/**"};
+    private String endpointsMembros[] = {};
     private String endpointsAssociado[] = {"/api/associados/meusCursos/{idAssociado}"};
 
     private AuthEntryPointJwt unauthorizedHandler;

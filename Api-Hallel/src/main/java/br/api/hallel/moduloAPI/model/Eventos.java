@@ -32,6 +32,15 @@ public class Eventos {
     private Long participantesEspeciais;
     private Boolean destaque;
 
+    public Eventos(String descricao, String titulo, String date, LocalEvento localEvento, String horario, String imagem) {
+        this.descricao = descricao;
+        this.titulo = titulo;
+        this.date = date;
+        this.localEvento = localEvento;
+        this.horario = horario;
+        this.imagem = imagem;
+    }
+
     public Eventos(List<Associado> associadoParticipando,
                    String descricao,
                    Long quantidadeMembros,
