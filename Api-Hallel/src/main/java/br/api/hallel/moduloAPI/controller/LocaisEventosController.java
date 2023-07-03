@@ -46,6 +46,7 @@ public class LocaisEventosController {
 
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<String> deleteLocalEvento(@PathVariable String id){
+        this.service.excluirLocalEvento(id);
         return ResponseEntity.status(200).body("Local evento deletado");
     }
 

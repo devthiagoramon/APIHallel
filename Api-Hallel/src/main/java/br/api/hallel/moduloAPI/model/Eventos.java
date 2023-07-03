@@ -22,7 +22,6 @@ public class Eventos {
     private Long quantidadeMembros;
     private Long maxMembros;
     private String titulo;
-
     private ArrayList<Membro> integrantes;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
