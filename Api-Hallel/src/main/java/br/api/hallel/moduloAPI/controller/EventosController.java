@@ -1,6 +1,8 @@
 package br.api.hallel.moduloAPI.controller;
 
+import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
+import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.service.EventosService;
@@ -53,5 +55,6 @@ public class EventosController {
                                              @RequestParam(value = "emailUser") String emailUser){
         return ResponseEntity.ok().body(this.service.adicionarMembro(titulo,emailUser));
     }
+
 
 }

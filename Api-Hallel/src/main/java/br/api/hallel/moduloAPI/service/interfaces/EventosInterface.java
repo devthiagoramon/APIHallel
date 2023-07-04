@@ -25,8 +25,8 @@ public interface EventosInterface {
     List<EventosResponse> listEventosDestaque();
 
     EventosResponse adicionarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento);
-    EventosResponse editarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento);
-    EventosResponse excluirDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento);
+    String editarDespesaInEvento(String idEvento, Integer idDespesaEvento, DespesaEventoRequest despesaEvento);
+    void excluirDespesaInEvento(String idEvento, Integer idDespesaEvento);
     List<DespesaEvento> listarDespesasInEvento(String idEvento);
 
 }

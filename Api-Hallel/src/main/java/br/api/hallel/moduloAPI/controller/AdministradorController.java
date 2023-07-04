@@ -1,9 +1,11 @@
 package br.api.hallel.moduloAPI.controller;
 
 import br.api.hallel.moduloAPI.model.Administrador;
+import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
+import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.service.AdministradorService;
@@ -125,4 +127,30 @@ public class AdministradorController {
     public List<Membro> listAllEventsByDestaque(@PathVariable(value = "id") String id) {
         return this.eventosService.listMembrosEventos(id);
     }
+
+    @PostMapping("/eventos/{id}/despesa/add")
+    public ResponseEntity<EventosResponse> adicionarDespesaNoEvento(@PathVariable(value = "id") String idEvento,
+                                                                    @RequestBody DespesaEventoRequest despesaEventoRequest){
+        return ResponseEntity.status(201).body(this.eventosService.adicionarDespesaInEvento(idEvento,despesaEventoRequest));
+    }
+
+    @PutMapping("/eventos/{idEvento}/despesa/{idDespesa}/edit")
+    public ResponseEntity<String> editarDespesaNoEvento(@PathVariable(value = "idEvento") String idEvento,
+                                                        @PathVariable(value = "idDespesa") Integer idDespesa,
+                                                        @RequestBody DespesaEventoRequest despesaEventoRequestNew){
+        return ResponseEntity.status(202).body(this.eventosService.editarDespesaInEvento(idEvento, idDespesa, despesaEventoRequestNew));
+    }
+
+    @DeleteMapping("/eventos/{idEvento}/despesa/{idDespesa}/delete")
+    public ResponseEntity<String> excluirDespesaNoEvento(@PathVariable(value = "idEvento") String idEvento,
+                                                         @PathVariable(value = "idDespesa") Integer idDespesa){
+        this.eventosService.excluirDespesaInEvento(idEvento,idDespesa);
+        return ResponseEntity.status(200).body("Deleta com sucesso");
+    }
+
+    @GetMapping("/eventos/{idEvento}/despesa/listAll")
+    public ResponseEntity<List<DespesaEvento>> listarTodasDespesasNoEvento(@PathVariable(value = "idEvento") String idEvento){
+        return ResponseEntity.status(200).body(this.eventosService.listarDespesasInEvento(idEvento));
+    }
+
 }

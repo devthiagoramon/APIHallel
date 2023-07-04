@@ -228,18 +228,40 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public EventosResponse editarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento) {
-        return null;
+    public String editarDespesaInEvento(String idEvento, Integer idDespesaEvento, DespesaEventoRequest despesaEvento) {
+        Eventos evento = listarEventoById(idEvento).toEvento();
+        DespesaEvento despesaEventoObj = despesaEvento.toDespesaEvento();
+
+        DespesaEvento despesaEventoObjOld = evento.getDespesas().get(idDespesaEvento);
+
+        despesaEventoObjOld.setNome(despesaEventoObj.getNome());
+        despesaEventoObjOld.setTipoDespesa(despesaEventoObj.getTipoDespesa());
+        despesaEventoObjOld.setDescricao(despesaEventoObj.getDescricao());
+        despesaEventoObjOld.setQuantidade(despesaEventoObj.getQuantidade());
+        despesaEventoObjOld.setValor(despesaEventoObj.getValor());
+
+        evento.getDespesas().add(idDespesaEvento, despesaEventoObjOld);
+
+        log.info("Despesa de id "+idDespesaEvento+" evento "+evento.getTitulo()+" editado com sucesso");
+
+        return "Despesa de id "+idDespesaEvento+" evento "+evento.getTitulo()+" editado com sucesso";
     }
 
     @Override
-    public EventosResponse excluirDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento) {
-        return null;
+    public void excluirDespesaInEvento(String idEvento, Integer idDespesaEvento) {
+        Eventos evento = listarEventoById(idEvento).toEvento();
+
+        if(evento.getDespesas().get(idDespesaEvento) != null){
+            evento.getDespesas().remove(idDespesaEvento);
+        }else{
+            log.info("Despesa com id: "+idDespesaEvento+", inexistente");
+        }
     }
 
     @Override
     public List<DespesaEvento> listarDespesasInEvento(String idEvento) {
-        return null;
+        Eventos evento = listarEventoById(idEvento).toEvento();
+        return evento.getDespesas();
     }
 
 
