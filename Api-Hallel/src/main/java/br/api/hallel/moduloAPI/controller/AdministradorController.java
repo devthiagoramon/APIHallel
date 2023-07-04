@@ -103,6 +103,11 @@ public class AdministradorController {
         this.eventosService.deleteEventoById(id);
     }
 
+    @GetMapping("/evento/{idEvento}/list")
+    public ResponseEntity<EventosResponse> listarEventoByIdEvento(@PathVariable(value = "idEvento") String idEvento){
+        return ResponseEntity.status(200).body(this.eventosService.listarEventoById(idEvento));
+    }
+
     @GetMapping("/eventos/asc")
     public List<EventosResponse> getEventsByOrderAsc() {
         return this.eventosService.listEventoOrdemAlfabetica();

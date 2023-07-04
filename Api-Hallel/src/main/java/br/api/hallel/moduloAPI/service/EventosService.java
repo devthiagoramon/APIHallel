@@ -224,6 +224,8 @@ public class EventosService implements EventosInterface {
         }
         despesaEventoObj.setId(evento.getDespesas().size() + 1);
         evento.getDespesas().add(despesaEventoObj);
+        this.repository.save(evento);
+
         return new EventosResponse().toEventosResponse(evento);
     }
 
@@ -242,6 +244,8 @@ public class EventosService implements EventosInterface {
 
         evento.getDespesas().add(idDespesaEvento, despesaEventoObjOld);
 
+        this.repository.save(evento);
+
         log.info("Despesa de id "+idDespesaEvento+" evento "+evento.getTitulo()+" editado com sucesso");
 
         return "Despesa de id "+idDespesaEvento+" evento "+evento.getTitulo()+" editado com sucesso";
@@ -253,6 +257,7 @@ public class EventosService implements EventosInterface {
 
         if(evento.getDespesas().get(idDespesaEvento) != null){
             evento.getDespesas().remove(idDespesaEvento);
+            this.repository.save(evento);
         }else{
             log.info("Despesa com id: "+idDespesaEvento+", inexistente");
         }
