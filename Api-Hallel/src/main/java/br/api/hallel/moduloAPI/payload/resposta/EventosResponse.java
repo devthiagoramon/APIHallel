@@ -30,7 +30,9 @@ public class EventosResponse {
     private Long participantesEspeciais;
     private Boolean destaque;
 
-    public EventosResponse toEventosResponse(Eventos eventos){
+    private List<DespesaEvento> despesas;
+
+    public EventosResponse toEventosResponse(Eventos eventos) {
 
         EventosResponse response = new EventosResponse(
                 eventos.getId(),
@@ -47,9 +49,28 @@ public class EventosResponse {
                 eventos.getHorario(),
                 eventos.getImagem(),
                 eventos.getParticipantesEspeciais(),
-                eventos.getDestaque());
+                eventos.getDestaque(),
+                eventos.getDespesas());
 
         return response;
     }
 
+    public Eventos toEvento() {
+        return new Eventos(this.getId(),
+                this.getAssociadoParticipando(),
+                this.getDescricao(),
+                getQuantidadeMembros(),
+                getMaxMembros(),
+                getTitulo(),
+                getIntegrantes(),
+                getMembroMarketing(),
+                getAdministrador(),
+                getDate(),
+                getLocalEvento(),
+                getHorario(),
+                getImagem(),
+                getParticipantesEspeciais(),
+                getDestaque(),
+                getDespesas());
+    }
 }

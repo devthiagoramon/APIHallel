@@ -1,7 +1,9 @@
 package br.api.hallel.moduloAPI.service;
 
+import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
@@ -118,11 +120,11 @@ public class EventosService implements EventosInterface {
     public String adicionarMembro(String titulo, String emailUser) {
         Optional<Eventos> optional = this.repository.findByTitulo(titulo);
 
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             Eventos evento = optional.get();
-            if(evento.getIntegrantes() != null){
+            if (evento.getIntegrantes() != null) {
                 evento.getIntegrantes().add(membroService.findByEmail(emailUser));
-            }else{
+            } else {
                 ArrayList<Membro> integrantes = new ArrayList<>();
                 integrantes.add(membroService.findByEmail(emailUser));
                 evento.setIntegrantes(integrantes);
@@ -211,6 +213,33 @@ public class EventosService implements EventosInterface {
         log.info("Listando eventos em destaque");
 
         return responseList;
+    }
+
+    @Override
+    public EventosResponse adicionarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento) {
+        Eventos evento = listarEventoById(idEvento).toEvento();
+        DespesaEvento despesaEventoObj = despesaEvento.toDespesaEvento();
+        if (evento.getDespesas() == null) {
+            evento.setDespesas(new ArrayList<>());
+        }
+        despesaEventoObj.setId(evento.getDespesas().size() + 1);
+        evento.getDespesas().add(despesaEventoObj);
+        return new EventosResponse().toEventosResponse(evento);
+    }
+
+    @Override
+    public EventosResponse editarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento) {
+        return null;
+    }
+
+    @Override
+    public EventosResponse excluirDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento) {
+        return null;
+    }
+
+    @Override
+    public List<DespesaEvento> listarDespesasInEvento(String idEvento) {
+        return null;
     }
 
 

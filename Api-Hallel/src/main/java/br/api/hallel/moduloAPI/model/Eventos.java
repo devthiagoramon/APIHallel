@@ -32,6 +32,8 @@ public class Eventos {
     private Long participantesEspeciais;
     private Boolean destaque;
 
+    private List<DespesaEvento> despesas;
+
     public Eventos(String descricao, String titulo, String date, LocalEvento localEvento, String horario, String imagem) {
         this.descricao = descricao;
         this.titulo = titulo;
@@ -54,7 +56,8 @@ public class Eventos {
                    String horario,
                    String imagem,
                    Long participantesEspeciais,
-                   Boolean destaque) {
+                   boolean destaque
+                   ) {
 
         this.associadoParticipando = associadoParticipando;
         this.descricao = descricao;
@@ -71,4 +74,6 @@ public class Eventos {
         this.participantesEspeciais = participantesEspeciais;
         this.destaque = destaque;
     }
+
+
 }

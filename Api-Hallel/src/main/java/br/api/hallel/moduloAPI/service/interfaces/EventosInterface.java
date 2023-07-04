@@ -1,7 +1,9 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
+import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 
@@ -21,5 +23,10 @@ public interface EventosInterface {
     EventosResponse addDestaqueToEvento(String idEvento);
     EventosResponse removeDestaqueToEvento(String idEvento);
     List<EventosResponse> listEventosDestaque();
+
+    EventosResponse adicionarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento);
+    EventosResponse editarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento);
+    EventosResponse excluirDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento);
+    List<DespesaEvento> listarDespesasInEvento(String idEvento);
 
 }
