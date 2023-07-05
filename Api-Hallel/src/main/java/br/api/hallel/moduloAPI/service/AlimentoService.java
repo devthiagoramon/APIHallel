@@ -1,10 +1,8 @@
 package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.Alimentos;
-import br.api.hallel.moduloAPI.model.Retiro;
 import br.api.hallel.moduloAPI.payload.requerimento.AlimentoReq;
 import br.api.hallel.moduloAPI.payload.resposta.AlimentoResponse;
-import br.api.hallel.moduloAPI.payload.resposta.RetiroResponse;
 import br.api.hallel.moduloAPI.repository.AlimentosRepository;
 import br.api.hallel.moduloAPI.service.interfaces.AlimentosInterface;
 import lombok.extern.slf4j.Slf4j;
@@ -61,5 +59,17 @@ public class AlimentoService implements AlimentosInterface {
         } else {
             log.warn("Alimento com id " + id + " não existente!");
         }
+    }
+
+    @Override
+    public void deleteAlimentoByObj(AlimentoReq alimentoReq) {
+
+        this.repository.findAll().forEach(alimentos -> {
+            AlimentoReq alimentoVal = new AlimentoReq().toAlimentoReq(alimentos);
+            if (alimentoVal.equals(alimentoReq)) {
+                this.repository.delete(alimentos);
+            }
+        });
+
     }
 }

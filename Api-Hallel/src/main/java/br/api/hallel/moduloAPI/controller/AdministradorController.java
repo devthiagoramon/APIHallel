@@ -2,12 +2,10 @@ package br.api.hallel.moduloAPI.controller;
 
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.*;
+import br.api.hallel.moduloAPI.payload.resposta.AlimentoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.RetiroResponse;
-import br.api.hallel.moduloAPI.service.AdministradorService;
-import br.api.hallel.moduloAPI.service.EventosService;
-import br.api.hallel.moduloAPI.service.MembroService;
-import br.api.hallel.moduloAPI.service.RetiroService;
+import br.api.hallel.moduloAPI.service.*;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,5 +184,22 @@ public class AdministradorController {
                                                           @RequestBody AlimentoReq req) {
 
         return ResponseEntity.ok().body(this.retiroService.addAlimentosRetiro(idRetiro, req));
+    }
+
+    @DeleteMapping("/retiro/remover/alimentos/{idRetiro}")
+    public ResponseEntity<AlimentoReq> removerAlimentosRetiro(@PathVariable(value = "idRetiro") String idRetiro, @RequestBody AlimentoReq req) {
+
+        return ResponseEntity.ok().body(this.retiroService.removeAlimentoRetiro(idRetiro, req));
+    }
+
+    @GetMapping("/retiro/alimentos/{idRetiro}")
+    public ResponseEntity<List<AlimentoResponse>> listarAlimentosRetiro(@PathVariable(value = "idRetiro") String idRetiro){
+        return ResponseEntity.ok().body(this.retiroService.listAllAlimentosByRetiro(idRetiro));
+    }
+
+    @PutMapping("/retiro/atualizar/alimentos/{idRetiro}")
+    public ResponseEntity<AlimentoReq> updateAlimentoRetiro(@PathVariable (value = "idRetiro") String idRetiro,
+                                                                 @RequestBody AlimentoReq alimentoReq){
+        return ResponseEntity.ok().body(this.retiroService.atualizarAlimentoRetiro(idRetiro,alimentoReq));
     }
 }

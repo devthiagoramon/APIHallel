@@ -8,8 +8,14 @@ import java.util.List;
 
 public interface AlimentosInterface {
     Alimentos createAlimento(AlimentoReq req);
+
     List<AlimentoResponse> listAllAlimentos();
+
     AlimentoResponse listAlimentoById(String id);
+
     AlimentoResponse updateAlimentoById(String id, AlimentoReq alimentoReq);
+
     void deleteAlimentoById(String id);
+
+    void deleteAlimentoByObj(AlimentoReq alimentoReq);
 }

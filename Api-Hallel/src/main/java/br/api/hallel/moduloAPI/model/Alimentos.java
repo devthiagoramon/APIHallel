@@ -18,6 +18,7 @@ public class Alimentos {
     private String nomeAlimento;
     private Integer quantidade;
     private Double peso;
+    private Membro membroDoador;
 
     public Alimentos(String tipo, String dataValidade, String nomeAlimento, Integer quantidade, Double peso) {
         this.tipo = tipo;

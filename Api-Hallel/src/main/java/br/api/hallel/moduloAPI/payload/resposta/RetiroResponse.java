@@ -34,8 +34,8 @@ public class RetiroResponse {
 
     public RetiroResponse toResponse(Retiro retiro) {
 
-        return new RetiroResponse(getId(), getNome(), getDescricao(), getParticipantes(), getMaxParticipantes(),
-                getAlimentos(), getLocalRetiro(), getDataRetiro(), getHoraRetiro());
+        return new RetiroResponse(retiro.getId(), retiro.getNome(), retiro.getDescricao(), retiro.getParticipantes(), retiro.getMaxParticipantes(),
+                retiro.getAlimentos(), retiro.getLocalRetiro(), retiro.getDataRetiro(), retiro. getHoraRetiro());
     }
 
 }
