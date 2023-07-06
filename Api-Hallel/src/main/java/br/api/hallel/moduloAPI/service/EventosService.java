@@ -55,7 +55,7 @@ public class EventosService implements EventosInterface {
     @Override
     public EventosResponse listarEventoById(String id) {
         EventosResponse response = new EventosResponse();
-        Optional<Eventos> optional = this.repository.findById(id);
+        Optional<Eventos> optional = this.repository.findById(String.valueOf(id));
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();
@@ -234,7 +234,7 @@ public class EventosService implements EventosInterface {
         Eventos evento = listarEventoById(idEvento).toEvento();
         DespesaEvento despesaEventoObj = despesaEvento.toDespesaEvento();
 
-        DespesaEvento despesaEventoObjOld = evento.getDespesas().get(idDespesaEvento);
+        DespesaEvento despesaEventoObjOld = evento.getDespesas().get(idDespesaEvento-1);
 
         despesaEventoObjOld.setNome(despesaEventoObj.getNome());
         despesaEventoObjOld.setTipoDespesa(despesaEventoObj.getTipoDespesa());
@@ -242,7 +242,7 @@ public class EventosService implements EventosInterface {
         despesaEventoObjOld.setQuantidade(despesaEventoObj.getQuantidade());
         despesaEventoObjOld.setValor(despesaEventoObj.getValor());
 
-        evento.getDespesas().add(idDespesaEvento, despesaEventoObjOld);
+        evento.getDespesas().set(idDespesaEvento-1, despesaEventoObjOld);
 
         this.repository.save(evento);
 
@@ -255,8 +255,8 @@ public class EventosService implements EventosInterface {
     public void excluirDespesaInEvento(String idEvento, Integer idDespesaEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();
 
-        if(evento.getDespesas().get(idDespesaEvento) != null){
-            evento.getDespesas().remove(idDespesaEvento);
+        if(evento.getDespesas().get(idDespesaEvento-1) != null){
+            evento.getDespesas().remove(idDespesaEvento-1);
             this.repository.save(evento);
         }else{
             log.info("Despesa com id: "+idDespesaEvento+", inexistente");

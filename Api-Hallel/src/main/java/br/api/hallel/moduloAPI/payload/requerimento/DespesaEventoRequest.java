@@ -32,7 +32,8 @@ public class DespesaEventoRequest {
     public DespesaEvento toDespesaEvento(){
         DespesaEvento despesaEvento = new DespesaEvento();
         despesaEvento.setNome(nome);
-        despesaEvento.setDescricao(descricao);
+        despesaEvento.setDescricao(
+                descricao);
         switch (num_tipoDespesa){
             case 1:
                 despesaEvento.setTipoDespesa(TipoDespesa.DINHEIRO);
