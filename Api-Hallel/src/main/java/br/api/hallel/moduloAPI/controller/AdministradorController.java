@@ -1,16 +1,11 @@
 package br.api.hallel.moduloAPI.controller;
 
-import br.api.hallel.moduloAPI.model.Administrador;
-import br.api.hallel.moduloAPI.model.DespesaEvento;
-import br.api.hallel.moduloAPI.model.Eventos;
-import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
-import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.model.*;
+import br.api.hallel.moduloAPI.payload.requerimento.*;
+import br.api.hallel.moduloAPI.payload.resposta.AlimentoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
-import br.api.hallel.moduloAPI.service.AdministradorService;
-import br.api.hallel.moduloAPI.service.EventosService;
-import br.api.hallel.moduloAPI.service.MembroService;
+import br.api.hallel.moduloAPI.payload.resposta.RetiroResponse;
+import br.api.hallel.moduloAPI.service.*;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +26,8 @@ public class AdministradorController {
     private EventosService eventosService;
     @Autowired
     private MembroService membroService;
+    @Autowired
+    private RetiroService retiroService;
 
     @PostMapping("/create")
     public ResponseEntity<?> inserirAdministrador(@Valid @RequestBody CadAdministradorRequerimento administradorReq) {
@@ -135,27 +132,79 @@ public class AdministradorController {
 
     @PostMapping("/eventos/{id}/despesa/add")
     public ResponseEntity<EventosResponse> adicionarDespesaNoEvento(@PathVariable(value = "id") String idEvento,
-                                                                    @RequestBody DespesaEventoRequest despesaEventoRequest){
-        return ResponseEntity.status(201).body(this.eventosService.adicionarDespesaInEvento(idEvento,despesaEventoRequest));
+                                                                    @RequestBody DespesaEventoRequest despesaEventoRequest) {
+        return ResponseEntity.status(201).body(this.eventosService.adicionarDespesaInEvento(idEvento, despesaEventoRequest));
     }
 
     @PutMapping("/eventos/{idEvento}/despesa/{idDespesa}/edit")
     public ResponseEntity<String> editarDespesaNoEvento(@PathVariable(value = "idEvento") String idEvento,
                                                         @PathVariable(value = "idDespesa") Integer idDespesa,
-                                                        @RequestBody DespesaEventoRequest despesaEventoRequestNew){
+                                                        @RequestBody DespesaEventoRequest despesaEventoRequestNew) {
         return ResponseEntity.status(202).body(this.eventosService.editarDespesaInEvento(idEvento, idDespesa, despesaEventoRequestNew));
     }
 
     @DeleteMapping("/eventos/{idEvento}/despesa/{idDespesa}/delete")
     public ResponseEntity<String> excluirDespesaNoEvento(@PathVariable(value = "idEvento") String idEvento,
-                                                         @PathVariable(value = "idDespesa") Integer idDespesa){
-        this.eventosService.excluirDespesaInEvento(idEvento,idDespesa);
+                                                         @PathVariable(value = "idDespesa") Integer idDespesa) {
+        this.eventosService.excluirDespesaInEvento(idEvento, idDespesa);
         return ResponseEntity.status(200).body("Deleta com sucesso");
     }
 
     @GetMapping("/eventos/{idEvento}/despesa/listAll")
-    public ResponseEntity<List<DespesaEvento>> listarTodasDespesasNoEvento(@PathVariable(value = "idEvento") String idEvento){
+    public ResponseEntity<List<DespesaEvento>> listarTodasDespesasNoEvento(@PathVariable(value = "idEvento") String idEvento) {
         return ResponseEntity.status(200).body(this.eventosService.listarDespesasInEvento(idEvento));
     }
 
+
+    @PostMapping("/retiro/create")
+    public ResponseEntity<Retiro> createRetiro(@RequestBody RetiroRequest request) {
+        return ResponseEntity.status(200).body(this.retiroService.createRetiro(request));
+    }
+
+    @GetMapping("/retiros")
+    public ResponseEntity<List<RetiroResponse>> listAllRetiros() {
+        return ResponseEntity.status(201).body(this.retiroService.listAllRetiros());
+    }
+
+    @GetMapping("/retiro/{id}")
+    public ResponseEntity<RetiroResponse> listRetiroById(@PathVariable(value = "id") String id) {
+        return ResponseEntity.status(201).body(this.retiroService.listRetiroById(id));
+    }
+
+    @PutMapping("/retiro/update/{id}")
+    public ResponseEntity<RetiroResponse> updateRetiroById(@RequestBody RetiroRequest request,
+                                                           @PathVariable(value = "id") String id) {
+        return ResponseEntity.status(200).body(this.retiroService.updateRetiroById(request, id));
+    }
+
+    @DeleteMapping("/retiro/delete/{id}")
+    public ResponseEntity<Retiro> deleteRetiroById(@PathVariable(value = "id") String id) {
+        this.retiroService.deleteRetiroById(id);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/retiro/adicionar/alimentos/{idRetiro}")
+    public ResponseEntity<AlimentoReq> addAlimentosRetiro(@PathVariable(value = "idRetiro") String idRetiro,
+                                                          @RequestBody AlimentoReq req) {
+
+        return ResponseEntity.ok().body(this.retiroService.addAlimentosRetiro(idRetiro, req));
+    }
+
+    @DeleteMapping("/retiro/remover/alimentos/{idRetiro}")
+    public ResponseEntity<AlimentoReq> removerAlimentosRetiro(@PathVariable(value = "idRetiro") String idRetiro, @RequestBody AlimentoReq req) {
+
+        return ResponseEntity.ok().body(this.retiroService.removeAlimentoRetiro(idRetiro, req));
+    }
+
+    @GetMapping("/retiro/alimentos/{idRetiro}")
+    public ResponseEntity<List<AlimentoResponse>> listarAlimentosRetiro(@PathVariable(value = "idRetiro") String idRetiro){
+        return ResponseEntity.ok().body(this.retiroService.listAllAlimentosByRetiro(idRetiro));
+    }
+
+    @PutMapping("/retiro/atualizar/alimentos/{idRetiro}")
+    public ResponseEntity<AlimentoReq> updateAlimentoRetiro(@PathVariable (value = "idRetiro") String idRetiro,
+                                                                 @RequestBody AlimentoReq alimentoReq){
+        return ResponseEntity.ok().body(this.retiroService.atualizarAlimentoRetiro(idRetiro,alimentoReq));
+    }
 }

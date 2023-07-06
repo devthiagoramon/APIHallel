@@ -4,57 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6768cae7-4940-4021-901b-d2fd3e30d049" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Hallel40.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/EventosRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EventosResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/controller/CourseEnrolController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/controller/EnrolAssignmentsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/controller/UserEnrolmentsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/CourseEnrol.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/EnrolAssignments.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/UserEnrolments.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/CourseEnrolRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/EnrolAssignmentsReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/UserEnrolmentsReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/CourseEnrolResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/EnrolAssignmentsResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/UserEnrolmentsResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/CourseEnrolRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/EnrolAssignmentsRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/UserEnrolmentsRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/CourseEnrolService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/EnrolAssignmentsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/UserEnrolmentsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="3f5f9317-e28e-4c02-9653-3c837c4f8fbe" name="Changes" comment="Commit Miguel - alimentos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/AdministradorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/AdministradorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/EventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MembroMarketingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MembroMarketingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Eventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Eventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/CadEventoRequerimento.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/EventosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/EventosRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/EventosService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/EventosInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/EventosInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/UserKeyComposta.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/model/UserKeyComposta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/CursoMoodleReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/request/CursoMoodleReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/CourseMoodleResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/payload/response/CourseMoodleResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/CursoMoodleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/repository/CursoMoodleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/CursoMoodleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/service/CursoMoodleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/RetiroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/RetiroService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/miguel" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -72,37 +57,19 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="2QZ7BJEdqYL8ZBK7XygoKhXicwv" />
+  <component name="ProjectId" id="2S9htoK4vOfDaRQoAacRxXZqflm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "miguel",
-    "last_opened_file_path": "C:/Users/migue/OneDrive/Documentos/HALLEL/API/Hallel40/Api-Hallel/src/main/java/br/api/hallel/moduloMoodle/controller",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
-    "spring.configuration.checksum": "4320ef9457d5975e5e53c3ce5d8a7cbf",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;miguel&quot;
   }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\controller" />
-      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\model" />
-      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\payload\response" />
-      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\payload\request" />
-      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel40\Api-Hallel\src\main\java\br\api\hallel\moduloMoodle\repository" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.ApiHallelApplication">
+}</component>
+  <component name="RunManager">
     <configuration name="ApiHallelApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.api.hallel.ApiHallelApplication" />
       <module name="Api-Hallel" />
@@ -116,13 +83,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ApiHallelApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="Api-Hallel" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="br.api.hallel.ApiHallelApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.ApiHallelApplication" />
@@ -132,19 +92,24 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7895211d-9e5b-4d84-a6fc-2a1c54a32740" name="Changes" comment="" />
-      <created>1685549113018</created>
+      <changelist id="3f5f9317-e28e-4c02-9653-3c837c4f8fbe" name="Changes" comment="" />
+      <created>1688564920163</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1685549113018</updated>
-      <workItem from="1686082063316" duration="98000" />
-      <workItem from="1686082181180" duration="137000" />
-      <workItem from="1686082333619" duration="791000" />
-      <workItem from="1686085234840" duration="1288000" />
+      <updated>1688564920163</updated>
     </task>
+    <task id="LOCAL-00001" summary="Commit Miguel - alimentos">
+      <created>1688576809654</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1688576809654</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Commit Miguel - alimentos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit Miguel - alimentos" />
   </component>
 </project>
