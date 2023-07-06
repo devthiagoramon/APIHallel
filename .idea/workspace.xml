@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f5f9317-e28e-4c02-9653-3c837c4f8fbe" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="3f5f9317-e28e-4c02-9653-3c837c4f8fbe" name="Changes" comment="Commit Miguel - alimentos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/AdministradorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/AdministradorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Alimentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Alimentos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/AlimentoReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/AlimentoReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/RetiroResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/RetiroResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/AlimentoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/AlimentoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/RetiroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/RetiroService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/AlimentosInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/AlimentosInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/RetiroInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/RetiroInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,13 +62,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "miguel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;miguel&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="ApiHallelApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.api.hallel.ApiHallelApplication" />
@@ -107,6 +98,18 @@
       <option name="presentableId" value="Default" />
       <updated>1688564920163</updated>
     </task>
+    <task id="LOCAL-00001" summary="Commit Miguel - alimentos">
+      <created>1688576809654</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1688576809654</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Commit Miguel - alimentos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit Miguel - alimentos" />
   </component>
 </project>

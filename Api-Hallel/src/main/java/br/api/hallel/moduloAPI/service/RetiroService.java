@@ -139,14 +139,19 @@ public class RetiroService implements RetiroInterface {
             for (Alimentos alimentoFor : retiroRequest.getAlimentos()) {
                 AlimentoReq alimentoVal = new AlimentoReq().toAlimentoReq(alimentoFor);
 
-                if (alimentoVal.equals(alimentoReq)) {
+                System.out.println(alimentoFor.toString());
+                System.out.println(alimentoVal.toString());
 
-                    retiroRequest.getAlimentos().set(index, alimentoReq.toAlimentos());
+                if (new AlimentoReq().toAlimentoReq(alimentoFor).equals(alimentoVal)) {
+                    Alimentos alimentoUpdate = alimentoReq.toAlimentos();
+                    alimentoUpdate.setId(alimentoFor.getId());
+
+                    retiroRequest.getAlimentos().set(index, alimentoUpdate);
 
                     this.updateRetiroById(retiroRequest, idRetiro);
                     this.alimentoService.updateAlimentoById(alimentoFor.getId(), alimentoReq);
 
-                    log.warn("Alimento removido com sucesso");
+                    log.warn("Alimento atualizado com sucesso");
                     break;
                 }
                 index++;
