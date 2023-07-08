@@ -2,11 +2,15 @@ package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
+import br.api.hallel.moduloAPI.model.LocalEvento;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.LocalEventoLocalizacaoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
+import br.api.hallel.moduloAPI.payload.resposta.LocalEventoResponse;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
+import br.api.hallel.moduloAPI.repository.LocalEventoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventosInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -27,13 +32,22 @@ public class EventosService implements EventosInterface {
     @Autowired
     private ComunidadeService comunidadeService;
 
+    @Autowired
+    private LocalEventoRepository localEventoRepository;
+
 
     //CRIA EVENTOS
     @Override
     public Eventos createEvento(EventosRequest evento) {
         log.info("EVENT0 CRIADO!");
 
-        return this.repository.insert(evento.toCreateRequest());
+        LocalEventoLocalizacaoRequest localEventoRequest = evento.getLocalEventoRequest();
+
+        Optional<LocalEvento> optional = localEventoRepository.findById(localEventoRequest.getId());
+        if (optional.isEmpty()){
+            return null;
+        }
+        return this.repository.insert(evento.toCreateRequest(optional.get()));
     }
 
     //LISTA OS EVENTOS JÁ CRIADOS
@@ -87,14 +101,31 @@ public class EventosService implements EventosInterface {
     @Override
     public EventosResponse updateEventoById(String id, EventosRequest request) {
 
+        LocalEventoLocalizacaoRequest localEventoRequest = request.getLocalEventoRequest();
 
-        Eventos eventoAux = request.toEventosRequest();
-        eventoAux.setId(id);
+        Optional<LocalEvento> optional = localEventoRepository.findById(localEventoRequest.getId());
+        if (optional.isEmpty()){
+            return null;
+        }
 
-        Eventos eventosResponse = this.listarEventoById(id) != null ?
-                this.repository.save(eventoAux) : null;
+        EventosResponse eventoOld = this.listarEventoById(id);
+
+        eventoOld.setId(id);
+        eventoOld.setTitulo(request.getTitulo());
+        eventoOld.setDescricao(request.getDescricao());
+        eventoOld.setImagem(request.getImagem());
+        eventoOld.setDate(request.getDate());
+        eventoOld.setHorario(request.getHorario());
+        eventoOld.setLocalEvento(optional.get());
+
+        if(request.getPalestrantes() != null || request.getPalestrantes().size() == 0) {
+            eventoOld.setPalestrantes(request.getPalestrantes());
+        }
+
+        Eventos eventosResponse = this.repository.save(eventoOld.toEvento());
 
         log.info("Evento Atualizado!");
+
         return new EventosResponse().toEventosResponse(eventosResponse);
     }
 
@@ -234,7 +265,18 @@ public class EventosService implements EventosInterface {
         Eventos evento = listarEventoById(idEvento).toEvento();
         DespesaEvento despesaEventoObj = despesaEvento.toDespesaEvento();
 
-        DespesaEvento despesaEventoObjOld = evento.getDespesas().get(idDespesaEvento-1);
+        /**
+         * Pegar o index no array de despesas da despesa que for alterar
+         * */
+        int indexDespesa = -1;
+
+        for (DespesaEvento despesaEventoInterator : evento.getDespesas()) {
+            if (Objects.equals(idDespesaEvento, despesaEventoInterator.getId())) {
+                indexDespesa = evento.getDespesas().indexOf(despesaEventoInterator);
+            }
+        }
+
+        DespesaEvento despesaEventoObjOld = evento.getDespesas().get(indexDespesa);
 
         despesaEventoObjOld.setNome(despesaEventoObj.getNome());
         despesaEventoObjOld.setTipoDespesa(despesaEventoObj.getTipoDespesa());
@@ -242,7 +284,7 @@ public class EventosService implements EventosInterface {
         despesaEventoObjOld.setQuantidade(despesaEventoObj.getQuantidade());
         despesaEventoObjOld.setValor(despesaEventoObj.getValor());
 
-        evento.getDespesas().set(idDespesaEvento-1, despesaEventoObjOld);
+        evento.getDespesas().set(indexDespesa, despesaEventoObjOld);
 
         this.repository.save(evento);
 
@@ -255,12 +297,21 @@ public class EventosService implements EventosInterface {
     public void excluirDespesaInEvento(String idEvento, Integer idDespesaEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();
 
-        if(evento.getDespesas().get(idDespesaEvento-1) != null){
-            evento.getDespesas().remove(idDespesaEvento-1);
-            this.repository.save(evento);
-        }else{
-            log.info("Despesa com id: "+idDespesaEvento+", inexistente");
+        int indexDespesa = -1;
+
+        for (DespesaEvento despesaEvento : evento.getDespesas()) {
+            if (Objects.equals(idDespesaEvento, despesaEvento.getId())) {
+                indexDespesa = evento.getDespesas().indexOf(despesaEvento);
+            }
         }
+
+        if(indexDespesa == -1){
+            log.info("Despesa com id: "+idDespesaEvento+", inexistente");
+            return;
+        }
+
+        evento.getDespesas().remove(indexDespesa);
+        this.repository.save(evento);
     }
 
     @Override

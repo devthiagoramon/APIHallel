@@ -1,53 +1,80 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
 import br.api.hallel.moduloAPI.model.*;
+import br.api.hallel.moduloAPI.payload.resposta.LocalEventoLocalizacaoResponse;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
 public class EventosRequest {
-    private List<Associado> associadoParticipando;
     private String descricao;
-    private Long quantidadeMembros;
-    private Long maxMembros;
     private String titulo;
 
-    private ArrayList<Membro> integrantes;
-    private MembroMarketing membroMarketing;
-    private Administrador administrador;
     private String date;
+    private LocalEventoLocalizacaoRequest localEventoRequest;
     private LocalEvento localEvento;
     private String horario;
     private String imagem;
-    private Long participantesEspeciais;
-    private Boolean destaque;
+
+    private List<String> palestrantes;
 
 
-    public Eventos toCreateRequest(){
-        return new Eventos(getDescricao(), getTitulo(), getDate(), getLocalEvento(), getImagem(), getHorario());
+    public Eventos toCreateRequest(LocalEvento localEventoAtualizado){
+        return getEventos(localEventoAtualizado);
     }
 
-    public Eventos toEventosRequest(){
+    public Eventos toEvento(LocalEvento localEventoAtualizado){
 
-        Eventos request = new Eventos(getAssociadoParticipando(),
-                getDescricao(), getQuantidadeMembros(),
-                getMaxMembros(),
-                getTitulo(),
-                getIntegrantes(),
-                getMembroMarketing(),
-                getAdministrador(),
-                getDate(),
-                getLocalEvento(),
-                getHorario(),
-                getImagem(),
-                getParticipantesEspeciais(),
-                false);
-
-        return request;
+        return getEventos(localEventoAtualizado);
     }
 
+    @NotNull
+    private Eventos getEventos(LocalEvento localEventoAtualizado) {
+        Eventos evento = new Eventos();
+        evento.setTitulo(getTitulo());
+        evento.setDescricao(getDescricao());
+
+        if(getPalestrantes() != null) {
+            ArrayList<String> palestrantesList = new ArrayList<>();
+
+            for (String nome :
+                    getPalestrantes()) {
+                palestrantesList.add(nome);
+            }
+
+            evento.setPalestrantes(palestrantesList);
+        }
+
+        evento.setImagem(getImagem());
+        evento.setHorario(getHorario());
+        evento.setDate(getDate());
+        evento.setLocalEvento(localEventoAtualizado);
+        return evento;
+    }
+
+    public Eventos toEventoInEdit(LocalEvento localEventoAtualizado) {
+        Eventos evento = new Eventos();
+        evento.setTitulo(getTitulo());
+        evento.setDescricao(getDescricao());
+
+        if(getPalestrantes() != null) {
+            ArrayList<String> palestrantesList = new ArrayList<>();
+
+            palestrantesList.addAll(getPalestrantes());
+
+            evento.setPalestrantes(palestrantesList);
+        }
+
+        evento.setImagem(getImagem());
+        evento.setHorario(getHorario());
+        evento.setDate(getDate());
+        evento.setLocalEvento(localEventoAtualizado);
+        return evento;
+    }
 }

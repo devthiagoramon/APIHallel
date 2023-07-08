@@ -32,25 +32,30 @@ public class EventosResponse {
 
     private List<DespesaEvento> despesas;
 
+    private List<String> palestrantes;
+
     public EventosResponse toEventosResponse(Eventos eventos) {
 
-        EventosResponse response = new EventosResponse(
-                eventos.getId(),
-                eventos.getAssociadoParticipando(),
-                eventos.getDescricao(),
-                eventos.getQuantidadeMembros(),
-                eventos.getMaxMembros(),
-                eventos.getTitulo(),
-                eventos.getIntegrantes(),
-                eventos.getMembroMarketing(),
-                eventos.getAdministrador(),
-                eventos.getDate(),
-                eventos.getLocalEvento(),
-                eventos.getHorario(),
-                eventos.getImagem(),
-                eventos.getParticipantesEspeciais(),
-                eventos.getDestaque(),
-                eventos.getDespesas());
+        EventosResponse response = new EventosResponse();
+
+        response.setId(eventos.getId());
+        response.setAdministrador(eventos.getAdministrador());
+        response.setDescricao(eventos.getDescricao());
+        response.setAssociadoParticipando(eventos.getAssociadoParticipando());
+        response.setQuantidadeMembros(eventos.getQuantidadeMembros());
+        response.setMaxMembros(eventos.getMaxMembros());
+        response.setTitulo(eventos.getTitulo());
+        response.setIntegrantes(eventos.getIntegrantes());
+        response.setMembroMarketing(eventos.getMembroMarketing());
+        response.setAdministrador(eventos.getAdministrador());
+        response.setDate(eventos.getDate());
+        response.setLocalEvento(eventos.getLocalEvento());
+        response.setHorario(eventos.getHorario());
+        response.setImagem(eventos.getImagem());
+        response.setParticipantesEspeciais(eventos.getParticipantesEspeciais());
+        response.setDestaque(eventos.getDestaque());
+        response.setDespesas(eventos.getDespesas());
+        response.setPalestrantes(eventos.getPalestrantes());
 
         return response;
     }
@@ -71,6 +76,7 @@ public class EventosResponse {
                 getImagem(),
                 getParticipantesEspeciais(),
                 getDestaque(),
-                getDespesas());
+                getDespesas(),
+                getPalestrantes());
     }
 }

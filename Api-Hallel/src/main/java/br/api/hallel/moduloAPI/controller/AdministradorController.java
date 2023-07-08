@@ -82,9 +82,7 @@ public class AdministradorController {
     @PostMapping("/evento/create")
     public ResponseEntity<Eventos> createEventos(@RequestBody EventosRequest request) {
 
-        log.info("Create eventos acessado infos:\n{\n titulo:" + request.getTitulo() + "\n" +
-                "descricao:" + request.getDescricao() + "\n" +
-                "local: " + request.getLocalEvento());
+        log.info("Create eventos acessado infos:\n{\n titulo:" + request.getTitulo());
 
         return ResponseEntity.status(201).body(eventosService.createEvento(request));
     }
