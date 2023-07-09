@@ -62,16 +62,30 @@ public class EventoArquivado {
         return arquivado;
     }
 
-    public EventosRequest desarquivarEvento() {
-        EventosRequest eventosRequest = new EventosRequest();
-        eventosRequest.setTitulo(getTitulo());
-        eventosRequest.setDescricao(getDescricao());
-        eventosRequest.setDate(getDate());
-        eventosRequest.setLocalEvento(getLocalEvento());
-        eventosRequest.setImagem(getImagem());
-        eventosRequest.setPalestrantes(getPalestrantes());
-        eventosRequest.setHorario(getHorario());
-        return eventosRequest;
+    public Eventos desarquivarEvento() {
+
+        Eventos eventoDesarquivado = new Eventos();
+
+        eventoDesarquivado.setId(getId());
+        eventoDesarquivado.setAdministrador(getAdministrador());
+        eventoDesarquivado.setDescricao(getDescricao());
+        eventoDesarquivado.setAssociadoParticipando(getAssociadoParticipando());
+        eventoDesarquivado.setQuantidadeMembros(getQuantidadeMembros());
+        eventoDesarquivado.setMaxMembros(getMaxMembros());
+        eventoDesarquivado.setTitulo(getTitulo());
+        eventoDesarquivado.setIntegrantes(getIntegrantes());
+        eventoDesarquivado.setMembroMarketing(getMembroMarketing());
+        eventoDesarquivado.setAdministrador(getAdministrador());
+        eventoDesarquivado.setDate(getDate());
+        eventoDesarquivado.setLocalEvento(getLocalEvento());
+        eventoDesarquivado.setHorario(getHorario());
+        eventoDesarquivado.setImagem(getImagem());
+        eventoDesarquivado.setParticipantesEspeciais(getParticipantesEspeciais());
+        eventoDesarquivado.setDestaque(getDestaque());
+        eventoDesarquivado.setDespesas(getDespesas());
+        eventoDesarquivado.setPalestrantes(getPalestrantes());
+
+        return eventoDesarquivado;
 
     }
 }

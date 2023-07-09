@@ -29,6 +29,9 @@ public class AdministradorController {
     @Autowired
     private RetiroService retiroService;
 
+    @Autowired
+    private EventoArquivadoService eventoArquivadoService;
+
     @PostMapping("/create")
     public ResponseEntity<?> inserirAdministrador(@Valid @RequestBody CadAdministradorRequerimento administradorReq) {
         return this.service.inserirAdministrador(administradorReq);
@@ -101,6 +104,21 @@ public class AdministradorController {
     @GetMapping("/evento/{idEvento}/list")
     public ResponseEntity<EventosResponse> listarEventoByIdEvento(@PathVariable(value = "idEvento") String idEvento){
         return ResponseEntity.status(200).body(this.eventosService.listarEventoById(idEvento));
+    }
+
+    @GetMapping("/evento/{idEvento}/arquivar")
+    public void arquivarEvento(@PathVariable(value = "idEvento") String id){
+        this.eventoArquivadoService.addEventoArquivado(id);
+    }
+
+    @GetMapping("/evento/{idEvento}/desarquivar")
+    public void desarquivarEvento(@PathVariable(value = "idEvento") String idEvento){
+        this.eventoArquivadoService.retirarEventoArquivado(idEvento);
+    }
+
+    @GetMapping("/evento/arquivados")
+    public ResponseEntity<List<EventoArquivado>> eventosArquivados() {
+        return ResponseEntity.ok().body(this.eventoArquivadoService.listarEventosArquivados());
     }
 
     @GetMapping("/eventos/asc")

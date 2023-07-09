@@ -9,6 +9,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Log4j2
 public class EventoArquivadoService implements EventoArquivadoInterface {
@@ -38,5 +40,10 @@ public class EventoArquivadoService implements EventoArquivadoInterface {
     @Override
     public void excluirEventoArquivado(String idEvento) {
 
+    }
+
+    @Override
+    public List<EventoArquivado> listarEventosArquivados() {
+        return this.repository.findAll();
     }
 }

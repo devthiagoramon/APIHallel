@@ -50,6 +50,11 @@ public class EventosService implements EventosInterface {
         return this.repository.insert(evento.toCreateRequest(optional.get()));
     }
 
+    public Eventos createEvento(Eventos evento) {
+        log.info("EVENT0 CRIADO!");
+        return this.repository.insert(evento);
+    }
+
     //LISTA OS EVENTOS JÁ CRIADOS
     @Override
     public List<EventosResponse> listarAllEventos() {
