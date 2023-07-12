@@ -6,6 +6,7 @@ import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
+import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 
 import java.util.List;
 
@@ -18,15 +19,16 @@ public interface EventosInterface {
     EventosResponse updateEventoById(String id, EventosRequest request);
     void deleteEventoById(String id);
     String adicionarMembro(String titulo, String emailUser);
-    List<EventosResponse> listEventoOrdemAlfabetica();
+    List<EventosVisualizacaoResponse> listEventoOrdemAlfabetica();
     List<Membro> listMembrosEventos(String id);
-    EventosResponse addDestaqueToEvento(String idEvento);
-    EventosResponse removeDestaqueToEvento(String idEvento);
-    List<EventosResponse> listEventosDestaque();
+    EventosVisualizacaoResponse addDestaqueToEvento(String idEvento);
+    EventosVisualizacaoResponse removeDestaqueToEvento(String idEvento);
+    List<EventosVisualizacaoResponse> listEventosDestaque();
 
     EventosResponse adicionarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento);
     String editarDespesaInEvento(String idEvento, Integer idDespesaEvento, DespesaEventoRequest despesaEvento);
     void excluirDespesaInEvento(String idEvento, Integer idDespesaEvento);
     List<DespesaEvento> listarDespesasInEvento(String idEvento);
+    List<EventosVisualizacaoResponse> listEventosToVisualizar();
 
 }
