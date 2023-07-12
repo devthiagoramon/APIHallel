@@ -223,4 +223,6 @@ public class AdministradorController {
                                                                  @RequestBody AlimentoReq alimentoReq){
         return ResponseEntity.ok().body(this.retiroService.atualizarAlimentoRetiro(idRetiro,alimentoReq));
     }
+
+
 }

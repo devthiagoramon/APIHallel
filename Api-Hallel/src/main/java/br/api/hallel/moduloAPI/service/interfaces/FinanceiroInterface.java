@@ -21,4 +21,10 @@ public interface FinanceiroInterface {
     Double lucroMensal();
 
     Double gastoMensal();
+
+    void alterarMeta(String mes, String ano, String metaAtualizada);
+
+    Double listMetaMensal(String mes, String ano);
+
+    Double listMetaMensalPorcentagem(String mes, String ano);
 }

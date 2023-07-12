@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service;
 
+import br.api.hallel.moduloAPI.model.EntradaMensalFinanceiro;
 import br.api.hallel.moduloAPI.model.Financeiro;
 import br.api.hallel.moduloAPI.model.GastoFinanceiro;
 import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
@@ -8,6 +9,7 @@ import br.api.hallel.moduloAPI.service.interfaces.FinanceiroInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class FinanceiroService implements FinanceiroInterface {
 
     @Autowired
     FinanceiroRepository repository;
+    private DecimalFormat decimalFormat = new DecimalFormat("##");
 
     @Override
     public Financeiro createFinanceiro(Financeiro financeiro) {
@@ -227,6 +230,77 @@ public class FinanceiroService implements FinanceiroInterface {
     public Double gastoMensal() {
         Financeiro financeiro = getFinanceiro();
         return financeiro.getGastoMensal();
+    }
+
+    @Override
+    public void alterarMeta(String mes, String ano, String metaAtualizada) {
+        Financeiro financeiro = getFinanceiro();
+
+        if(financeiro.getEntradasMensais() != null){
+            for (EntradaMensalFinanceiro entradasMensai : financeiro.getEntradasMensais()) {
+                if(entradasMensai.getMes().equals(mes) && entradasMensai.getAno().equals(ano)){
+                    int index = financeiro.getEntradasMensais().indexOf(entradasMensai);
+
+                    String metaToDoubleString = metaAtualizada.replace("R$", "");
+                    metaToDoubleString = metaToDoubleString.replace(".", "");
+                    metaToDoubleString = metaToDoubleString.replace(",", ".");
+                    metaToDoubleString = metaToDoubleString.substring(1);
+
+                    Double metaToDouble = Double.parseDouble(metaToDoubleString);
+
+                    EntradaMensalFinanceiro entradaAtualizada = entradasMensai;
+                    entradaAtualizada.setMeta(metaToDouble);
+
+                    financeiro.getEntradasMensais().set(index, entradaAtualizada);
+                }
+            }
+        }
+        this.repository.save(financeiro);
+    }
+
+    @Override
+    public Double listMetaMensal(String mes, String ano) {
+
+        Financeiro financeiro = getFinanceiro();
+
+        EntradaMensalFinanceiro entradaMensalFinanceiro = new EntradaMensalFinanceiro();
+
+        if(financeiro.getEntradasMensais() != null) {
+
+            for (EntradaMensalFinanceiro entradasMensai : financeiro.getEntradasMensais()) {
+                if (entradasMensai.getMes().equals(mes) && entradasMensai.getAno().equals(ano)) {
+                    entradaMensalFinanceiro = entradasMensai;
+                }
+            }
+        } else {
+            entradaMensalFinanceiro.setMes(mes);
+            entradaMensalFinanceiro.setAno(ano);
+            entradaMensalFinanceiro.setMeta(0.0);
+            financeiro.setEntradasMensais(new ArrayList<>());
+            financeiro.getEntradasMensais().add(entradaMensalFinanceiro);
+            this.repository.save(financeiro);
+        }
+
+        return entradaMensalFinanceiro.getMeta();
+    }
+
+    @Override
+    public Double listMetaMensalPorcentagem(String mes, String ano) {
+
+        Financeiro financeiro = getFinanceiro();
+
+        EntradaMensalFinanceiro entradaMensalFinanceiro = null;
+
+        if(financeiro.getEntradasMensais() != null) {
+            for (EntradaMensalFinanceiro entradasMensai : financeiro.getEntradasMensais()) {
+                if (entradasMensai.getMes().equals(mes) && entradasMensai.getAno().equals(ano)) {
+                    entradaMensalFinanceiro = entradasMensai;
+                }
+            }
+
+            Double porcentagem = (financeiro.getReceitaMensal() * 100) / entradaMensalFinanceiro.getMeta();
+        }
+        return Double.parseDouble(decimalFormat.format(0.0));
     }
 
 }

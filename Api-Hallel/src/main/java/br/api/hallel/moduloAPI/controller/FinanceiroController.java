@@ -12,7 +12,9 @@ import br.api.hallel.moduloAPI.service.FinanceiroService;
 import br.api.hallel.moduloAPI.service.GastoService;
 import br.api.hallel.moduloAPI.service.ReceitaService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 @RequiredArgsConstructor
+@Log4j2
 public class FinanceiroController {
 
     @Autowired
@@ -36,6 +39,7 @@ public class FinanceiroController {
     public Financeiro createFinanceiro(@RequestBody Financeiro financeiro) {
         return this.financeiroService.createFinanceiro(financeiro);
     }
+
     @GetMapping("/delete/{id}")
     public void deleteFinanceiro(@PathVariable String id) {
         this.financeiroService.deleteFinanceiro(id);
@@ -45,16 +49,19 @@ public class FinanceiroController {
     public Financeiro update(@RequestBody Financeiro financeiro) {
         return this.financeiroService.update(financeiro);
     }
+
     @GetMapping("/lucro")
-    public Double lucro(){
+    public Double lucro() {
         return this.financeiroService.lucro();
     }
+
     @GetMapping("/lucroMensal")
-    public Double lucroMensal(){
+    public Double lucroMensal() {
         return this.financeiroService.lucroMensal();
     }
+
     @GetMapping("/gastoMensal")
-    public Double gastoMensal(){
+    public Double gastoMensal() {
         return this.financeiroService.gastoMensal();
     }
 
@@ -73,12 +80,12 @@ public class FinanceiroController {
     }
 
     @GetMapping("/gastos/thisDay")
-    public List<GastoFinanceiro> listGastosByDay(){
+    public List<GastoFinanceiro> listGastosByDay() {
         return this.gastoService.listAllByThisDay();
     }
 
     @GetMapping("/gastos/thisWeek")
-    public List<GastoFinanceiro> listGastosByWeek(){
+    public List<GastoFinanceiro> listGastosByWeek() {
         return this.gastoService.listAllByThisWeek();
     }
 
@@ -109,26 +116,32 @@ public class FinanceiroController {
     }
 
     @GetMapping("/receita/thisDay")
-    public List<ReceitaFinanceira> listReceitasByThisDay(){
+    public List<ReceitaFinanceira> listReceitasByThisDay() {
         return this.receitaService.listAllByThisDay();
     }
 
     @GetMapping("/receita/thisWeek")
-    public List<ReceitaFinanceira> listReceitaByThisWeek(){
+    public List<ReceitaFinanceira> listReceitaByThisWeek() {
         return this.receitaService.listAllByThisWeek();
     }
 
     @GetMapping("/ultimasReceitas")
-    public List<ReceitaFinanceira> listUltimasReceitas(){
+    public List<ReceitaFinanceira> listUltimasReceitas() {
         return this.receitaService.listUltimasReceitas();
     }
 
     // LISTA BASEADA EM DATA
     @GetMapping("/receitas/dia")
-    public ReceitasDiaAtualResponse listFinanceiraDia(){return this.receitaService.getValorTotalByThisDay();};
+    public ReceitasDiaAtualResponse listFinanceiraDia() {
+        return this.receitaService.getValorTotalByThisDay();
+    }
+
+    ;
 
     @GetMapping("/receita/semana")
-    public ReceitasSemanaAtualResponse listFinanceiraSemana(){return this.receitaService.getValorTotalByThisWeek();}
+    public ReceitasSemanaAtualResponse listFinanceiraSemana() {
+        return this.receitaService.getValorTotalByThisWeek();
+    }
 
     //CRIA RECEITAS
     @PostMapping("/receita/criar")
@@ -152,6 +165,27 @@ public class FinanceiroController {
     @GetMapping("/receita/update/{id}")
     public ReceitaFinanceira updateReceita(@PathVariable String id, @RequestBody ReceitaReq receita) {
         return this.receitaService.update(id, receita);
+    }
+
+    @PutMapping("/meta/alterar")
+    public ResponseEntity<String> updateMeta(@RequestParam(name = "mes") String mes,
+                                             @RequestParam(name = "ano") String ano,
+                                             @RequestParam(name = "meta") String metaAtualizada) {
+        this.financeiroService.alterarMeta(mes, ano, metaAtualizada);
+        log.info("Meta "+mes+"/"+ano+ " alterado");
+        return ResponseEntity.ok().body("Meta "+mes+"/"+ano+ " alterado");
+    }
+
+    @GetMapping("/meta/listar")
+    public ResponseEntity<Double> listMeta(@RequestParam(name = "mes") String mes,
+                                           @RequestParam(name = "ano") String ano){
+        return ResponseEntity.ok().body(this.financeiroService.listMetaMensal(mes, ano));
+    }
+
+    @GetMapping("/meta/porcentagem")
+    public ResponseEntity<Double> listMetaPorcentagem(@RequestParam(name = "mes") String mes,
+                                                       @RequestParam(name = "ano") String ano){
+        return ResponseEntity.ok().body(this.financeiroService.listMetaMensalPorcentagem(mes, ano));
     }
 
 
