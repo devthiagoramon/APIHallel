@@ -4,6 +4,7 @@ import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.*;
 import br.api.hallel.moduloAPI.payload.resposta.AlimentoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
+import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.RetiroResponse;
 import br.api.hallel.moduloAPI.service.*;
 import jakarta.validation.Valid;
@@ -122,22 +123,22 @@ public class AdministradorController {
     }
 
     @GetMapping("/eventos/asc")
-    public List<EventosResponse> getEventsByOrderAsc() {
+    public List<EventosVisualizacaoResponse> getEventsByOrderAsc() {
         return this.eventosService.listEventoOrdemAlfabetica();
     }
 
     @PostMapping("/evento/addDestaque/{id}")
-    public EventosResponse addDestaqueToEvent(@PathVariable(value = "id") String id) {
+    public EventosVisualizacaoResponse addDestaqueToEvent(@PathVariable(value = "id") String id) {
         return this.eventosService.addDestaqueToEvento(id);
     }
 
     @PostMapping("/evento/removeDestaque/{id}")
-    public EventosResponse removeDestaqueToEvent(@PathVariable(value = "id") String id) {
+    public EventosVisualizacaoResponse removeDestaqueToEvent(@PathVariable(value = "id") String id) {
         return this.eventosService.removeDestaqueToEvento(id);
     }
 
     @GetMapping("/eventos/destaques")
-    public List<EventosResponse> listAllEventsByDestaque() {
+    public List<EventosVisualizacaoResponse> listAllEventsByDestaque() {
         return this.eventosService.listEventosDestaque();
     }
 

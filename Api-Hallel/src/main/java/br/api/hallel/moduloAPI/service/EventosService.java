@@ -8,6 +8,7 @@ import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.LocalEventoLocalizacaoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
+import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.LocalEventoResponse;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.repository.LocalEventoRepository;
@@ -85,6 +86,19 @@ public class EventosService implements EventosInterface {
 
         return null;
     }
+
+    @Override
+    public List<EventosVisualizacaoResponse> listEventosToVisualizar() {
+        List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
+
+        this.repository.findAll().forEach(eventos -> {
+            listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+        });
+
+        log.info("Eventos para visualização listados!");
+        return listaResponse;
+    }
+
 
     //LISTA O EVENTO PELO SEU NOME
     @Override
@@ -175,13 +189,14 @@ public class EventosService implements EventosInterface {
         return "Evento não encontrado";
     }
 
-    @Override
-    public List<EventosResponse> listEventoOrdemAlfabetica() {
 
-        List<EventosResponse> listResponse = new ArrayList<>();
+    @Override
+    public List<EventosVisualizacaoResponse> listEventoOrdemAlfabetica() {
+
+        List<EventosVisualizacaoResponse> listResponse = new ArrayList<>();
 
         this.repository.findAllByOrderByTituloAsc().forEach(eventos -> {
-            listResponse.add(new EventosResponse().toEventosResponse(eventos));
+            listResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
         });
 
         log.info("Listando eventos em ordem alfabetica");
@@ -200,7 +215,7 @@ public class EventosService implements EventosInterface {
 
 
     @Override
-    public EventosResponse addDestaqueToEvento(String idEvento) {
+    public EventosVisualizacaoResponse addDestaqueToEvento(String idEvento) {
 
         if (!listarEventoById(idEvento).getDestaque()) {
             Eventos request = this.repository.findById(idEvento).get();
@@ -210,7 +225,7 @@ public class EventosService implements EventosInterface {
             Eventos eventosResponse = this.listarEventoById(idEvento) != null ?
                     this.repository.save(request) : null;
 
-            return new EventosResponse().toEventosResponse(eventosResponse);
+            return new EventosVisualizacaoResponse().toListEventosResponse(eventosResponse);
         } else {
             log.warn("Evento já está em destaque");
             return null;
@@ -219,7 +234,7 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public EventosResponse removeDestaqueToEvento(String idEvento) {
+    public EventosVisualizacaoResponse removeDestaqueToEvento(String idEvento) {
 
         if (listarEventoById(idEvento).getDestaque()) {
             Eventos request = this.repository.findById(idEvento).get();
@@ -229,7 +244,7 @@ public class EventosService implements EventosInterface {
             Eventos eventosResponse = this.listarEventoById(idEvento) != null ?
                     this.repository.save(request) : null;
 
-            return new EventosResponse().toEventosResponse(eventosResponse);
+            return new EventosVisualizacaoResponse().toListEventosResponse(eventosResponse);
         } else {
 
             log.warn("Evento já está sem destaque");
@@ -238,12 +253,12 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public List<EventosResponse> listEventosDestaque() {
+    public List<EventosVisualizacaoResponse> listEventosDestaque() {
 
-        List<EventosResponse> responseList = new ArrayList<>();
+        List<EventosVisualizacaoResponse> responseList = new ArrayList<>();
 
         this.repository.findAllByDestaqueEquals(true).forEach(eventos -> {
-            responseList.add(new EventosResponse().toEventosResponse(eventos));
+            responseList.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
         });
 
         log.info("Listando eventos em destaque");

@@ -5,6 +5,7 @@ import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
+import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.service.EventosService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class EventosController {
     private EventosService service;
 
     @GetMapping("")
-    public ResponseEntity<List<EventosResponse>> listAllEventos(){
-        return ResponseEntity.status(200).body(service.listarAllEventos());
+    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos(){
+        return ResponseEntity.status(200).body(service.listEventosToVisualizar());
     }
 
     @GetMapping("/{id}")
