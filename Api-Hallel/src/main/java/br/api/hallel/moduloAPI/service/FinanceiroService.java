@@ -31,8 +31,6 @@ public class FinanceiroService implements FinanceiroInterface {
     }
 
 
-
-
     //RESGATA DO BANCO DE DADOS, O FINANCEIRO DA COMUNIDADE
     @Override
     public Financeiro getFinanceiro() {
@@ -49,9 +47,9 @@ public class FinanceiroService implements FinanceiroInterface {
 
         if (financeiro.getGastos() != null) {
             financeiro.getGastos().add(gastoFinanceiro);
-            if(financeiro.getValorGastos()!=null) {
+            if (financeiro.getValorGastos() != null) {
                 financeiro.getValorGastos().add(gastoFinanceiro.getValor());
-            }else{
+            } else {
                 ArrayList<Double> gastos = new ArrayList<>();
                 gastos.add(gastoFinanceiro.getValor());
                 financeiro.setValorGastos(gastos);
@@ -78,16 +76,16 @@ public class FinanceiroService implements FinanceiroInterface {
         Financeiro financeiro = getFinanceiro();
 
         if (financeiro.getGastos() != null) {
-            if(financeiro.getReceita() != null) {
+            if (financeiro.getReceita() != null) {
                 financeiro.getReceita().add(receitaFinanceira);
-            }else{
+            } else {
                 ArrayList<ReceitaFinanceira> receita = new ArrayList<>();
                 receita.add(receitaFinanceira);
                 financeiro.setReceita(receita);
             }
-            if(financeiro.getValorReceitas() != null){
+            if (financeiro.getValorReceitas() != null) {
                 financeiro.getValorReceitas().add(receitaFinanceira.getValor());
-            }else{
+            } else {
                 ArrayList<Double> receitas = new ArrayList<>();
                 receitas.add(receitaFinanceira.getValor());
                 financeiro.setValorReceitas(receitas);
@@ -145,9 +143,9 @@ public class FinanceiroService implements FinanceiroInterface {
 
         List<Double> receita = new ArrayList<>();
 
-        if(financeiro.getValorReceitas() != null) {
+        if (financeiro.getValorReceitas() != null) {
             receita.addAll(financeiro.getValorReceitas());
-        }else{
+        } else {
             List<Double> receitaNew = new ArrayList<>();
             receita.addAll(receitaNew);
         }
@@ -167,9 +165,9 @@ public class FinanceiroService implements FinanceiroInterface {
 
         List<Double> gasto = new ArrayList<>();
 
-        if(financeiro.getValorGastos() != null) {
+        if (financeiro.getValorGastos() != null) {
             gasto.addAll(financeiro.getValorGastos());
-        }else{
+        } else {
             List<Double> gastoNew = new ArrayList<>();
             gasto.addAll(gastoNew);
         }
@@ -236,9 +234,9 @@ public class FinanceiroService implements FinanceiroInterface {
     public void alterarMeta(String mes, String ano, String metaAtualizada) {
         Financeiro financeiro = getFinanceiro();
 
-        if(financeiro.getEntradasMensais() != null){
+        if (financeiro.getEntradasMensais() != null) {
             for (EntradaMensalFinanceiro entradasMensai : financeiro.getEntradasMensais()) {
-                if(entradasMensai.getMes().equals(mes) && entradasMensai.getAno().equals(ano)){
+                if (entradasMensai.getMes().equals(mes) && entradasMensai.getAno().equals(ano)) {
                     int index = financeiro.getEntradasMensais().indexOf(entradasMensai);
 
                     String metaToDoubleString = metaAtualizada.replace("R$", "");
@@ -265,7 +263,7 @@ public class FinanceiroService implements FinanceiroInterface {
 
         EntradaMensalFinanceiro entradaMensalFinanceiro = new EntradaMensalFinanceiro();
 
-        if(financeiro.getEntradasMensais() != null) {
+        if (financeiro.getEntradasMensais() != null) {
 
             for (EntradaMensalFinanceiro entradasMensai : financeiro.getEntradasMensais()) {
                 if (entradasMensai.getMes().equals(mes) && entradasMensai.getAno().equals(ano)) {
@@ -291,7 +289,7 @@ public class FinanceiroService implements FinanceiroInterface {
 
         EntradaMensalFinanceiro entradaMensalFinanceiro = null;
 
-        if(financeiro.getEntradasMensais() != null) {
+        if (financeiro.getEntradasMensais() != null) {
             for (EntradaMensalFinanceiro entradasMensai : financeiro.getEntradasMensais()) {
                 if (entradasMensai.getMes().equals(mes) && entradasMensai.getAno().equals(ano)) {
                     entradaMensalFinanceiro = entradasMensai;
@@ -301,6 +299,37 @@ public class FinanceiroService implements FinanceiroInterface {
             Double porcentagem = (financeiro.getReceitaMensal() * 100) / entradaMensalFinanceiro.getMeta();
         }
         return Double.parseDouble(decimalFormat.format(0.0));
+    }
+
+    @Override
+    public Double entradasMesValor(String mes, String ano) {
+
+        Double totalEntradaMes = 0.0;
+
+        Financeiro financeiro = getFinanceiro();
+
+        for (ReceitaFinanceira receitaFinanceira : financeiro.getReceita()) {
+            if (receitaFinanceira.getDataReceita().substring(3).equals(mes + "/" + ano)) {
+                totalEntradaMes += receitaFinanceira.getValor();
+            }
+        }
+
+        return totalEntradaMes;
+    }
+
+    @Override
+    public Double saidaMesValor(String mes, String ano) {
+        Double totalSaidaMes = 0.0;
+
+        Financeiro financeiro = getFinanceiro();
+
+        for (GastoFinanceiro gastoFinanceiro : financeiro.getGastos()) {
+            if (gastoFinanceiro.getDataGasto().substring(3).equals(mes + "/" + ano)) {
+                totalSaidaMes += gastoFinanceiro.getValor();
+            }
+        }
+
+        return totalSaidaMes;
     }
 
 }

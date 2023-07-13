@@ -27,4 +27,8 @@ public interface FinanceiroInterface {
     Double listMetaMensal(String mes, String ano);
 
     Double listMetaMensalPorcentagem(String mes, String ano);
+
+    Double entradasMesValor(String mes, String ano);
+
+    Double saidaMesValor(String mes, String ano);
 }

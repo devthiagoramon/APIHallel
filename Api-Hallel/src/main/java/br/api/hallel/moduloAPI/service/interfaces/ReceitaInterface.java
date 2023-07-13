@@ -1,6 +1,7 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
 
+import br.api.hallel.moduloAPI.model.EntradaFinanceiraResponseUltimas;
 import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
 import br.api.hallel.moduloAPI.payload.requerimento.ReceitaReq;
 import br.api.hallel.moduloAPI.payload.resposta.ReceitasDiaAtualResponse;
@@ -16,7 +17,7 @@ public interface ReceitaInterface {
     ReceitaFinanceira update(String id, ReceitaReq receita);
     void deleteReceita(String id);
 
-    List<ReceitaFinanceira> listUltimasReceitas();
+    List<EntradaFinanceiraResponseUltimas> listUltimasEntradas();
 
     ReceitasDiaAtualResponse getValorTotalByThisDay();
 

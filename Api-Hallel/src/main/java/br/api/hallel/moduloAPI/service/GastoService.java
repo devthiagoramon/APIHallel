@@ -1,11 +1,11 @@
 package br.api.hallel.moduloAPI.service;
 
-import br.api.hallel.moduloAPI.model.Financeiro;
-import br.api.hallel.moduloAPI.model.GastoFinanceiro;
+import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.repository.GastoFinanceiroRepository;
 import br.api.hallel.moduloAPI.service.interfaces.GastoInterface;
 import br.api.hallel.moduloAPI.payload.requerimento.GastoReq;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -50,7 +50,7 @@ public class GastoService implements GastoInterface {
     //LISTA TODAS AS DESPESAS
     @Override
     public List<GastoFinanceiro> listAll() {
-        return this.repository.findAll();
+        return this.repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     //ATUALIZA INFORMAÇÕES SOBRE UMA DESPESA
@@ -89,6 +89,21 @@ public class GastoService implements GastoInterface {
             System.out.println("Nada encontrado de id : "+id+" , foi...");
 
         }
+    }
+
+    @Override
+    public List<SaidaFinanceiraResponseUltimas> listUltimasSaidas() {
+
+        List<SaidaFinanceiraResponseUltimas> ultimasSaidas = new ArrayList<>();
+        List<GastoFinanceiro> gastos = this.repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+
+        for (int i = 0; i < 5; i++) {
+            ultimasSaidas.add(new SaidaFinanceiraResponseUltimas(
+                    gastos.get(i).getDescricaoGasto(),
+                    gastos.get(i).getValor()));
+        }
+
+        return ultimasSaidas;
     }
 
     public List<GastoFinanceiro> listAllByThisDay() {

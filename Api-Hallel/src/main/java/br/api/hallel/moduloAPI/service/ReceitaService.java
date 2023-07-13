@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service;
 
+import br.api.hallel.moduloAPI.model.EntradaFinanceiraResponseUltimas;
 import br.api.hallel.moduloAPI.model.Financeiro;
 import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
 import br.api.hallel.moduloAPI.repository.ReceitaFinanceiraRepository;
@@ -56,7 +57,7 @@ public class ReceitaService implements ReceitaInterface {
 
     @Override
     public List<ReceitaFinanceira> listAll() {
-        return this.repository.findAll(Sort.by(Sort.Direction.DESC, "dataReceita"));
+        return this.repository.findAll(Sort.by(Sort.Direction.DESC, "id")   );
     }
 
     @Override
@@ -92,15 +93,17 @@ public class ReceitaService implements ReceitaInterface {
     }
 
     @Override
-    public List<ReceitaFinanceira> listUltimasReceitas() {
-        List<ReceitaFinanceira> ultimasReceitas = new ArrayList<>();
-        List<ReceitaFinanceira> receitas = listAll();
+    public List<EntradaFinanceiraResponseUltimas> listUltimasEntradas() {
+        List<EntradaFinanceiraResponseUltimas> ultimasEntradas = new ArrayList<>();
+        List<ReceitaFinanceira> receitas = this.repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 
         for (int i = 0; i < 5; i++) {
-            ultimasReceitas.add(receitas.get(i));
+            ultimasEntradas.add(new EntradaFinanceiraResponseUltimas(
+                    receitas.get(i).getDescricaoReceita(),
+                    receitas.get(i).getValor()  ));
         }
 
-        return ultimasReceitas;
+        return ultimasEntradas;
     }
 
     @Override

@@ -1,9 +1,7 @@
 package br.api.hallel.moduloAPI.controller;
 
 
-import br.api.hallel.moduloAPI.model.Financeiro;
-import br.api.hallel.moduloAPI.model.GastoFinanceiro;
-import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
+import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.GastoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.ReceitaReq;
 import br.api.hallel.moduloAPI.payload.resposta.ReceitasDiaAtualResponse;
@@ -65,6 +63,18 @@ public class FinanceiroController {
         return this.financeiroService.gastoMensal();
     }
 
+    @GetMapping("/entradasMes/valor")
+    public ResponseEntity<Double> entradasMensais(@RequestParam(name = "mes") String mes,
+                                  @RequestParam(name = "ano") String ano) {
+        return ResponseEntity.ok().body(this.financeiroService.entradasMesValor(mes, ano));
+    }
+
+    @GetMapping("/saidaMes/valor")
+    public ResponseEntity<Double> saidaMensais(@RequestParam(name = "mes") String mes,
+                               @RequestParam(name = "ano") String ano){
+        return ResponseEntity.ok().body(this.financeiroService.saidaMesValor(mes,ano));
+    }
+
     //GASTOS
 
     //LISTA DESPESAS
@@ -107,6 +117,11 @@ public class FinanceiroController {
         return this.gastoService.update(id, gasto);
     }
 
+    @GetMapping("/ultimasSaida")
+    public List<SaidaFinanceiraResponseUltimas> listUltimasSaidas() {
+        return this.gastoService.listUltimasSaidas();
+    }
+
     // Receitas
 
     //LISTA RECEITAS
@@ -125,9 +140,9 @@ public class FinanceiroController {
         return this.receitaService.listAllByThisWeek();
     }
 
-    @GetMapping("/ultimasReceitas")
-    public List<ReceitaFinanceira> listUltimasReceitas() {
-        return this.receitaService.listUltimasReceitas();
+    @GetMapping("/ultimasEntradas")
+    public List<EntradaFinanceiraResponseUltimas> listUltimasEntradas() {
+        return this.receitaService.listUltimasEntradas();
     }
 
     // LISTA BASEADA EM DATA
@@ -172,19 +187,19 @@ public class FinanceiroController {
                                              @RequestParam(name = "ano") String ano,
                                              @RequestParam(name = "meta") String metaAtualizada) {
         this.financeiroService.alterarMeta(mes, ano, metaAtualizada);
-        log.info("Meta "+mes+"/"+ano+ " alterado");
-        return ResponseEntity.ok().body("Meta "+mes+"/"+ano+ " alterado");
+        log.info("Meta " + mes + "/" + ano + " alterado");
+        return ResponseEntity.ok().body("Meta " + mes + "/" + ano + " alterado");
     }
 
     @GetMapping("/meta/listar")
     public ResponseEntity<Double> listMeta(@RequestParam(name = "mes") String mes,
-                                           @RequestParam(name = "ano") String ano){
+                                           @RequestParam(name = "ano") String ano) {
         return ResponseEntity.ok().body(this.financeiroService.listMetaMensal(mes, ano));
     }
 
     @GetMapping("/meta/porcentagem")
     public ResponseEntity<Double> listMetaPorcentagem(@RequestParam(name = "mes") String mes,
-                                                       @RequestParam(name = "ano") String ano){
+                                                      @RequestParam(name = "ano") String ano) {
         return ResponseEntity.ok().body(this.financeiroService.listMetaMensalPorcentagem(mes, ano));
     }
 
