@@ -21,5 +21,8 @@ public class GastoFinanceiro {
     private String finalidadeGasto;
     private String dataGasto;
     private String usuarioGasto;
+    private CodigosSaida codigo;
+    private String imagemAnexo;
+
 
 }

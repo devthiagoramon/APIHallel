@@ -2,10 +2,12 @@ package br.api.hallel.moduloAPI.controller;
 
 
 import br.api.hallel.moduloAPI.model.*;
+import br.api.hallel.moduloAPI.payload.requerimento.CodigosSaidaReq;
 import br.api.hallel.moduloAPI.payload.requerimento.GastoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.ReceitaReq;
 import br.api.hallel.moduloAPI.payload.resposta.ReceitasDiaAtualResponse;
 import br.api.hallel.moduloAPI.payload.resposta.ReceitasSemanaAtualResponse;
+import br.api.hallel.moduloAPI.service.CodigoSaidaService;
 import br.api.hallel.moduloAPI.service.FinanceiroService;
 import br.api.hallel.moduloAPI.service.GastoService;
 import br.api.hallel.moduloAPI.service.ReceitaService;
@@ -25,11 +27,14 @@ import java.util.List;
 public class FinanceiroController {
 
     @Autowired
-    GastoService gastoService;
+    private GastoService gastoService;
     @Autowired
-    ReceitaService receitaService;
+    private ReceitaService receitaService;
     @Autowired
-    FinanceiroService financeiroService;
+    private FinanceiroService financeiroService;
+
+    @Autowired
+    private CodigoSaidaService codigoSaidaService;
 
     //FINANCEIRO
 
@@ -65,14 +70,14 @@ public class FinanceiroController {
 
     @GetMapping("/entradasMes/valor")
     public ResponseEntity<Double> entradasMensais(@RequestParam(name = "mes") String mes,
-                                  @RequestParam(name = "ano") String ano) {
+                                                  @RequestParam(name = "ano") String ano) {
         return ResponseEntity.ok().body(this.financeiroService.entradasMesValor(mes, ano));
     }
 
     @GetMapping("/saidaMes/valor")
     public ResponseEntity<Double> saidaMensais(@RequestParam(name = "mes") String mes,
-                               @RequestParam(name = "ano") String ano){
-        return ResponseEntity.ok().body(this.financeiroService.saidaMesValor(mes,ano));
+                                               @RequestParam(name = "ano") String ano) {
+        return ResponseEntity.ok().body(this.financeiroService.saidaMesValor(mes, ano));
     }
 
     //GASTOS
@@ -116,10 +121,24 @@ public class FinanceiroController {
     public GastoFinanceiro updateGasto(@PathVariable String id, @RequestBody GastoReq gasto) {
         return this.gastoService.update(id, gasto);
     }
-
     @GetMapping("/ultimasSaida")
     public List<SaidaFinanceiraResponseUltimas> listUltimasSaidas() {
         return this.gastoService.listUltimasSaidas();
+    }
+
+    @PostMapping("/codigosSaida/adicionar")
+    public ResponseEntity<Boolean> adicionarCodigoSaida(@RequestBody CodigosSaidaReq codigosSaidaReq) {
+        return ResponseEntity.ok().body(this.codigoSaidaService.adicionarCodigoSaida(codigosSaidaReq));
+    }
+
+    @GetMapping("/codigosSaida/list")
+    public ResponseEntity<List<CodigosSaida>> listarCodigosSaida() {
+        return ResponseEntity.ok().body(this.codigoSaidaService.listarCodigosSaida());
+    }
+
+    @GetMapping("/codigosSaida/{numCodigo}/list")
+    public ResponseEntity<CodigosSaida> listarCodigoSaidaByNumCodigo(@PathVariable Double numCodigo){
+        return ResponseEntity.ok().body(this.codigoSaidaService.listarCodigosSaidaPeloNumCodigo(numCodigo));
     }
 
     // Receitas
@@ -181,6 +200,7 @@ public class FinanceiroController {
     public ReceitaFinanceira updateReceita(@PathVariable String id, @RequestBody ReceitaReq receita) {
         return this.receitaService.update(id, receita);
     }
+
 
     @PutMapping("/meta/alterar")
     public ResponseEntity<String> updateMeta(@RequestParam(name = "mes") String mes,

@@ -10,8 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
+import java.util.*;
 
 @Service
 public class FinanceiroService implements FinanceiroInterface {
@@ -215,6 +220,8 @@ public class FinanceiroService implements FinanceiroInterface {
             }
             financeiro.setGastoMensal(somaGasto);
 
+
+
         }
 
         update(financeiro);
@@ -323,9 +330,11 @@ public class FinanceiroService implements FinanceiroInterface {
 
         Financeiro financeiro = getFinanceiro();
 
-        for (GastoFinanceiro gastoFinanceiro : financeiro.getGastos()) {
-            if (gastoFinanceiro.getDataGasto().substring(3).equals(mes + "/" + ano)) {
-                totalSaidaMes += gastoFinanceiro.getValor();
+        if(financeiro.getGastos()!=null) {
+            for (GastoFinanceiro gastoFinanceiro : financeiro.getGastos()) {
+                if (gastoFinanceiro.getDataGasto().substring(3).equals(mes + "/" + ano)) {
+                    totalSaidaMes += gastoFinanceiro.getValor();
+                }
             }
         }
 

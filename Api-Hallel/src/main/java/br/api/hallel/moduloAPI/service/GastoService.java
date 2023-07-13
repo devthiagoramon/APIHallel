@@ -24,14 +24,19 @@ public class GastoService implements GastoInterface {
     @Autowired
     GastoFinanceiroRepository repository;
     @Autowired
-    FinanceiroService service;
+    FinanceiroService financeiroService;
+
+    @Autowired
+    CodigoSaidaService codigoSaidaService;
+
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     //ADICONA GASTO À COMUNIDADE
     @Override
     public GastoFinanceiro createGasto(GastoFinanceiro gastoFinanceiro) {
 
-        service.salvarGasto(gastoFinanceiro);
+        financeiroService.salvarGasto(gastoFinanceiro);
+
         return this.repository.insert(gastoFinanceiro);
     }
 
@@ -40,7 +45,7 @@ public class GastoService implements GastoInterface {
     public GastoFinanceiro listById(String id) {
         Optional<GastoFinanceiro> optional = this.repository.findById(id);
 
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             GastoFinanceiro gasto = optional.get();
             return gasto;
         }
@@ -58,7 +63,7 @@ public class GastoService implements GastoInterface {
     public GastoFinanceiro update(String id, GastoReq gasto) {
         Optional<GastoFinanceiro> optional = this.repository.findById(id);
 
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             return this.repository.save(gasto.toGasto());
         }
 
@@ -70,23 +75,23 @@ public class GastoService implements GastoInterface {
     public void deleteGasto(String id) {
         Optional<GastoFinanceiro> optional = this.repository.findById(id);
 
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             GastoFinanceiro gasto = optional.get();
 
-            Financeiro financeiro = service.getFinanceiro();
+            Financeiro financeiro = financeiroService.getFinanceiro();
 
 
             financeiro.getValorGastos().remove(gasto.getValor());
             financeiro.getGastos().remove(gasto);
 
 
-            this.service.update(financeiro);
+            this.financeiroService.update(financeiro);
 
 
             this.repository.deleteById(id);
 
-        }else{
-            System.out.println("Nada encontrado de id : "+id+" , foi...");
+        } else {
+            System.out.println("Nada encontrado de id : " + id + " , foi...");
 
         }
     }
@@ -97,12 +102,16 @@ public class GastoService implements GastoInterface {
         List<SaidaFinanceiraResponseUltimas> ultimasSaidas = new ArrayList<>();
         List<GastoFinanceiro> gastos = this.repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 
-        for (int i = 0; i < 5; i++) {
-            ultimasSaidas.add(new SaidaFinanceiraResponseUltimas(
-                    gastos.get(i).getDescricaoGasto(),
-                    gastos.get(i).getValor()));
-        }
+        int index = 0;
 
+        if (gastos.size() != 0) {
+            while (index < gastos.size()) {
+                ultimasSaidas.add(new SaidaFinanceiraResponseUltimas(
+                        gastos.get(index).getDescricaoGasto(),
+                        gastos.get(index).getValor()));
+                index++;
+            }
+        }
         return ultimasSaidas;
     }
 
