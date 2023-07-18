@@ -53,4 +53,10 @@ public class TesteData {
 
     }
 
+    @Test
+    void testeString() {
+        String nome = "17/06/2023";
+        System.out.println(nome.substring(3));
+    }
+
 }

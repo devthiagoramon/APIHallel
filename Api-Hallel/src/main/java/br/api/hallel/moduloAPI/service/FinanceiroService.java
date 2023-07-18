@@ -294,6 +294,8 @@ public class FinanceiroService implements FinanceiroInterface {
 
         Financeiro financeiro = getFinanceiro();
 
+        Double porcentagem = 0.0;
+
         EntradaMensalFinanceiro entradaMensalFinanceiro = null;
 
         if (financeiro.getEntradasMensais() != null) {
@@ -303,9 +305,10 @@ public class FinanceiroService implements FinanceiroInterface {
                 }
             }
 
-            Double porcentagem = (financeiro.getReceitaMensal() * 100) / entradaMensalFinanceiro.getMeta();
+            porcentagem = (financeiro.getReceitaMensal() * 100) / entradaMensalFinanceiro.getMeta();
+            System.out.println(porcentagem);
         }
-        return Double.parseDouble(decimalFormat.format(0.0));
+        return Double.parseDouble(decimalFormat.format(porcentagem));
     }
 
     @Override

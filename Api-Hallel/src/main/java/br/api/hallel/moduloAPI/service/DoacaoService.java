@@ -2,6 +2,7 @@ package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.Doacao;
 import br.api.hallel.moduloAPI.model.DoacaoObjeto;
+import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
 import br.api.hallel.moduloAPI.repository.DoacaoObjetoRepository;
 import br.api.hallel.moduloAPI.repository.DoacaoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.DoacaoInterface;
@@ -36,7 +37,10 @@ public class DoacaoService implements DoacaoInterface {
     @Autowired
     private DoacaoObjetoRepository repositoryObjeto;
     @Autowired
-    private ComunidadeService doacaoService;
+    private ComunidadeService comunidadeService;
+
+    @Autowired
+    private FinanceiroService financeiroService;
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     Logger logger = LoggerFactory.getLogger(DoacaoService.class);
@@ -46,8 +50,7 @@ public class DoacaoService implements DoacaoInterface {
     @Override
     public Doacao doar(DoacaoReq doacaoReq) {
         logger.info("DOAÇÃO SALVA!");
-
-        doacaoService.atualizarDoacao(doacaoReq.toDoacao());
+        comunidadeService.atualizarDoacao(doacaoReq.toDoacao());
         return repository.insert(doacaoReq.toDoacao());
     }
 
@@ -120,7 +123,7 @@ public class DoacaoService implements DoacaoInterface {
     @Override
     public DoacaoObjeto listDoacaoObjetoById(String id) {
         Optional<DoacaoObjeto> optional = this.repositoryObjeto.findById(id);
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             DoacaoObjeto objeto = optional.get();
             return objeto;
         }
