@@ -22,7 +22,7 @@ public class PagamentoAssociadoRequest {
     private List<Associado> para; // Opcional
     private String idAssociado;
 
-    public PagamentosAssociado getPagamentoAssociado() {
+    public PagamentosAssociado toPagamentoAssociado() {
         PagamentosAssociado pagamentoAssociado = new PagamentosAssociado();
         pagamentoAssociado.setCodigo(this.codigo);
         pagamentoAssociado.setData(this.data);

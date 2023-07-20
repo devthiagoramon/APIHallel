@@ -18,7 +18,7 @@ public class EntradaFinanceiroRequest {
     private Double valor;
     private MetodosPagamentosFinanceiro metodoPagamento;
 
-    private EntradasFinanceiro toEntradaFinanceiro(){
+    public EntradasFinanceiro toEntradaFinanceiro(){
         EntradasFinanceiro entradasFinanceiro = new EntradasFinanceiro();
         entradasFinanceiro.setCodigo(this.getCodigo());
         entradasFinanceiro.setData(this.getData());
