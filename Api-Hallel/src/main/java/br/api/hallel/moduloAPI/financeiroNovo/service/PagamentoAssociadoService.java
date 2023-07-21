@@ -52,6 +52,7 @@ public class PagamentoAssociadoService implements MetodosCRUDFinanceiro<Pagament
 
     @Override
     public List<PagamentosAssociado> listarAll() {
+
         return this.pagamentoAssociadoRepository.findAll();
     }
 

@@ -6,6 +6,7 @@ import br.api.hallel.moduloAPI.model.GastoFinanceiro;
 import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
 import br.api.hallel.moduloAPI.repository.FinanceiroRepository;
 import br.api.hallel.moduloAPI.service.interfaces.FinanceiroInterface;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.time.temporal.WeekFields;
 import java.util.*;
 
 @Service
+@Log4j2
 public class FinanceiroService implements FinanceiroInterface {
 
     @Autowired
@@ -296,7 +298,7 @@ public class FinanceiroService implements FinanceiroInterface {
 
         Double porcentagem = 0.0;
 
-        EntradaMensalFinanceiro entradaMensalFinanceiro = null;
+        EntradaMensalFinanceiro entradaMensalFinanceiro = new EntradaMensalFinanceiro();
 
         if (financeiro.getEntradasMensais() != null) {
             for (EntradaMensalFinanceiro entradasMensai : financeiro.getEntradasMensais()) {
@@ -306,7 +308,20 @@ public class FinanceiroService implements FinanceiroInterface {
             }
 
             porcentagem = (financeiro.getReceitaMensal() * 100) / entradaMensalFinanceiro.getMeta();
-            System.out.println(porcentagem);
+
+
+            /*
+            Verificar se estiver maior ou igual a 0.8 a casa decimal, forçar que seja o maior numero
+             */
+
+            double auxSubtracao = Math.floor(porcentagem.intValue());
+            double auxPorcentagem = porcentagem-auxSubtracao;
+
+            if(auxPorcentagem >= 0.8){
+                porcentagem = Math.ceil(porcentagem);
+            }else{
+                porcentagem = Math.floor(porcentagem);
+            }
         }
         return Double.parseDouble(decimalFormat.format(porcentagem));
     }
@@ -318,9 +333,11 @@ public class FinanceiroService implements FinanceiroInterface {
 
         Financeiro financeiro = getFinanceiro();
 
-        for (ReceitaFinanceira receitaFinanceira : financeiro.getReceita()) {
-            if (receitaFinanceira.getDataReceita().substring(3).equals(mes + "/" + ano)) {
-                totalEntradaMes += receitaFinanceira.getValor();
+        if(financeiro.getReceita()!=null) {
+            for (ReceitaFinanceira receitaFinanceira : financeiro.getReceita()) {
+                if (receitaFinanceira.getDataReceita().substring(3).equals(mes + "/" + ano)) {
+                    totalEntradaMes += receitaFinanceira.getValor();
+                }
             }
         }
 

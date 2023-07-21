@@ -16,17 +16,17 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
 
     @Override
     public Boolean cadastrar(SaidaFinanceiroRequest request) {
-
+        return null;
     }
 
     @Override
     public Boolean editar(String id, SaidaFinanceiroRequest request) {
-
+        return null;
     }
 
     @Override
     public Boolean deletar(String id) {
-
+        return null;
     }
 
     @Override

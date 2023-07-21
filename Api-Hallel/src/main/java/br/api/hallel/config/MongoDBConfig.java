@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "br.api.hallel.moduloAPI.repository")
+@EnableMongoRepositories(basePackages = {"br.api.hallel.moduloAPI.repository", "br.api.hallel.moduloAPI.financeiroNovo.repository"})
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
 
     @Value("${spring.data.mongodb.database}")
