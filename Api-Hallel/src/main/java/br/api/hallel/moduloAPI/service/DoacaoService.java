@@ -2,7 +2,6 @@ package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.Doacao;
 import br.api.hallel.moduloAPI.model.DoacaoObjeto;
-import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
 import br.api.hallel.moduloAPI.repository.DoacaoObjetoRepository;
 import br.api.hallel.moduloAPI.repository.DoacaoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.DoacaoInterface;
@@ -55,8 +54,14 @@ public class DoacaoService implements DoacaoInterface {
     }
 
     @Override
-    public List<DoacoesDinheiroListaAdmResponse> listAllDoacoes() {
-        return new DoacoesDinheiroListaAdmResponse().toListDoacoesDinheiroListaAdm(this.repository.findAll());
+    public List<DoacoesDinheiroListaAdmResponse> listAllDoacoes(String mes, String ano) {
+        List<Doacao> listaBdDoacoes = this.repository.findAll();
+        List<Doacao> listaGastoFinal = listaBdDoacoes
+                .stream()
+                .filter(doacao ->
+                        doacao.getDataDoacao().substring(3).equals(mes + "/" + ano))
+                .toList();
+        return new DoacoesDinheiroListaAdmResponse().toListDoacoesDinheiroListaAdm(listaGastoFinal);
     }
 
     @Override
@@ -135,7 +140,7 @@ public class DoacaoService implements DoacaoInterface {
         List<DoacoesDinheiroListaAdmResponse> doacoesDia = new ArrayList<>();
         String diaAtualString = formatter.format(new Date());
         for (DoacoesDinheiroListaAdmResponse objeto :
-                listAllDoacoes()) {
+                listAllDoacoes(mes, ano)) {
             if (objeto.getDataDoacao().equals(diaAtualString)) {
                 doacoesDia.add(objeto);
             }
@@ -164,7 +169,7 @@ public class DoacaoService implements DoacaoInterface {
             ldStart = ldStart.plusDays(1);
         }
 
-        doacoesSemana = listAllDoacoes()
+        doacoesSemana = listAllDoacoes(mes, ano)
                 .stream()
                 .filter(item -> datasStrings.contains(item.getDataDoacao()))
                 .collect(Collectors.toList());

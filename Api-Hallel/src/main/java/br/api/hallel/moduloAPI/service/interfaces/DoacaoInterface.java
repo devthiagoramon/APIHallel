@@ -12,7 +12,7 @@ import java.util.List;
 public interface DoacaoInterface {
 
     Doacao doar(DoacaoReq doacaoReq);
-    List<DoacoesDinheiroListaAdmResponse> listAllDoacoes();
+    List<DoacoesDinheiroListaAdmResponse> listAllDoacoes(String mes, String ano);
     Doacao listDoacaoById(String id);
 
     List<DoacoesObjetoListaAdmResponse> listAllDoacoesObjeto();

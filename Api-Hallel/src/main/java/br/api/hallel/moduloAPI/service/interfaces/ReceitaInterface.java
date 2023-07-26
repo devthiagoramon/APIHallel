@@ -13,7 +13,7 @@ public interface ReceitaInterface {
 
     ReceitaFinanceira createReceita(ReceitaFinanceira receitaFinanceira);
     ReceitaFinanceira listById(String id);
-    List<ReceitaFinanceira> listAll();
+    List<ReceitaFinanceira> listAll(String mes, String ano);
     ReceitaFinanceira update(String id, ReceitaReq receita);
     void deleteReceita(String id);
 

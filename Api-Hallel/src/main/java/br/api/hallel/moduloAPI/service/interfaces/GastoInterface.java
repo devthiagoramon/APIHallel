@@ -10,7 +10,7 @@ public interface GastoInterface {
 
     GastoFinanceiro createGasto(GastoFinanceiro gastoFinanceiro);
     GastoFinanceiro listById(String id);
-    List<GastoFinanceiro> listAll();
+    List<GastoFinanceiro> listAll(String mes, String ano);
     GastoFinanceiro update(String id, GastoReq gasto);
     void deleteGasto (String id);
 

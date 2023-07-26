@@ -11,12 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.WeekFields;
 import java.util.*;
 
 @Service
@@ -186,45 +180,38 @@ public class FinanceiroService implements FinanceiroInterface {
 
         financeiro.setGastoProvisorio(somaTotal);
 
-        System.out.println();
-
         update(financeiro);
     }
 
     @Override
-    public Double lucroMensal() {
+    public Double lucroMensal(String mes, String ano) {
 
         Financeiro financeiro = getFinanceiro();
 
-        Integer data = 0;
         Double somaFinanceiro = 0.0, somaGasto = 0.0;
         int cont = 0;
 
         for (ReceitaFinanceira receitas : financeiro.getReceita()) {
 
-            data = Integer.parseInt(receitas.getDataReceita().substring(0, 2));
 
-            if (data <= 30) {
+            if (receitas.getDataReceita().substring(3).equals(mes + "/" + ano)) {
                 somaFinanceiro += receitas.getValor();
 
             }
-            financeiro.setReceitaMensal(somaFinanceiro);
 
         }
+        financeiro.setReceitaMensal(somaFinanceiro);
 
         for (GastoFinanceiro gasto : financeiro.getGastos()) {
 
-            data = Integer.parseInt(gasto.getDataGasto().substring(0, 2));
+            if (gasto.getDataGasto().substring(3).equals(mes + "/" + ano)) {
 
-            if (data <= 30) {
                 somaGasto += gasto.getValor();
-
             }
-            financeiro.setGastoMensal(somaGasto);
-
-
 
         }
+        financeiro.setGastoMensal(somaGasto);
+
 
         update(financeiro);
         financeiro.setLucroMensal(lucroMensalCalc());
@@ -234,8 +221,9 @@ public class FinanceiroService implements FinanceiroInterface {
     }
 
     @Override
-    public Double gastoMensal() {
+    public Double gastoMensal(String mes, String ano) {
         Financeiro financeiro = getFinanceiro();
+
         return financeiro.getGastoMensal();
     }
 
@@ -315,11 +303,11 @@ public class FinanceiroService implements FinanceiroInterface {
              */
 
             double auxSubtracao = Math.floor(porcentagem.intValue());
-            double auxPorcentagem = porcentagem-auxSubtracao;
+            double auxPorcentagem = porcentagem - auxSubtracao;
 
-            if(auxPorcentagem >= 0.8){
+            if (auxPorcentagem >= 0.8) {
                 porcentagem = Math.ceil(porcentagem);
-            }else{
+            } else {
                 porcentagem = Math.floor(porcentagem);
             }
         }
@@ -333,7 +321,7 @@ public class FinanceiroService implements FinanceiroInterface {
 
         Financeiro financeiro = getFinanceiro();
 
-        if(financeiro.getReceita()!=null) {
+        if (financeiro.getReceita() != null) {
             for (ReceitaFinanceira receitaFinanceira : financeiro.getReceita()) {
                 if (receitaFinanceira.getDataReceita().substring(3).equals(mes + "/" + ano)) {
                     totalEntradaMes += receitaFinanceira.getValor();
@@ -350,7 +338,7 @@ public class FinanceiroService implements FinanceiroInterface {
 
         Financeiro financeiro = getFinanceiro();
 
-        if(financeiro.getGastos()!=null) {
+        if (financeiro.getGastos() != null) {
             for (GastoFinanceiro gastoFinanceiro : financeiro.getGastos()) {
                 if (gastoFinanceiro.getDataGasto().substring(3).equals(mes + "/" + ano)) {
                     totalSaidaMes += gastoFinanceiro.getValor();

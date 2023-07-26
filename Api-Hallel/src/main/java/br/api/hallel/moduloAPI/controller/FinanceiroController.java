@@ -59,13 +59,13 @@ public class FinanceiroController {
     }
 
     @GetMapping("/lucroMensal")
-    public Double lucroMensal() {
-        return this.financeiroService.lucroMensal();
+    public Double lucroMensal(@RequestParam(name = "mes") String mes, @RequestParam(name = "ano") String ano) {
+        return this.financeiroService.lucroMensal(mes, ano);
     }
 
     @GetMapping("/gastoMensal")
-    public Double gastoMensal() {
-        return this.financeiroService.gastoMensal();
+    public Double gastoMensal(@RequestParam(name = "mes") String mes, @RequestParam(name = "ano") String ano) {
+        return this.financeiroService.gastoMensal(mes, ano);
     }
 
     @GetMapping("/entradasMes/valor")
@@ -84,8 +84,9 @@ public class FinanceiroController {
 
     //LISTA DESPESAS
     @GetMapping("/gastos")
-    public List<GastoFinanceiro> listGastos() {
-        return this.gastoService.listAll();
+    public List<GastoFinanceiro> listGastos(@RequestParam(name = "mes") String mes,
+                                            @RequestParam(name = "ano") String ano) {
+        return this.gastoService.listAll(mes, ano);
     }
 
     //CRIA DESPESAS
@@ -121,6 +122,7 @@ public class FinanceiroController {
     public GastoFinanceiro updateGasto(@PathVariable String id, @RequestBody GastoReq gasto) {
         return this.gastoService.update(id, gasto);
     }
+
     @GetMapping("/ultimasSaida")
     public List<SaidaFinanceiraResponseUltimas> listUltimasSaidas() {
         return this.gastoService.listUltimasSaidas();
@@ -137,16 +139,17 @@ public class FinanceiroController {
     }
 
     @GetMapping("/codigosSaida/{numCodigo}/list")
-    public ResponseEntity<CodigosSaida> listarCodigoSaidaByNumCodigo(@PathVariable Double numCodigo){
+    public ResponseEntity<CodigosSaida> listarCodigoSaidaByNumCodigo(@PathVariable Double numCodigo) {
         return ResponseEntity.ok().body(this.codigoSaidaService.listarCodigosSaidaPeloNumCodigo(numCodigo));
     }
 
     // Receitas
 
     //LISTA RECEITAS
-    @GetMapping("/receita")
-    public List<ReceitaFinanceira> listReceitas() {
-        return this.receitaService.listAll();
+    @GetMapping("/receitas")
+    public List<ReceitaFinanceira> listReceitas(@RequestParam(name = "mes") String mes,
+                                                @RequestParam(name = "ano") String ano) {
+        return this.receitaService.listAll(mes, ano);
     }
 
     @GetMapping("/receita/thisDay")
@@ -169,8 +172,6 @@ public class FinanceiroController {
     public ReceitasDiaAtualResponse listFinanceiraDia() {
         return this.receitaService.getValorTotalByThisDay();
     }
-
-    ;
 
     @GetMapping("/receita/semana")
     public ReceitasSemanaAtualResponse listFinanceiraSemana() {

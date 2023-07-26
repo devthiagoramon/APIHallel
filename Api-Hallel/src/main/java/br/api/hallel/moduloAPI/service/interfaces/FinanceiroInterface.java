@@ -18,9 +18,9 @@ public interface FinanceiroInterface {
     List<Financeiro> getReceitas();
     List<Financeiro> getGastos();
     Double lucro();
-    Double lucroMensal();
+    Double lucroMensal(String mes, String ano);
 
-    Double gastoMensal();
+    Double gastoMensal(String mes, String ano);
 
     void alterarMeta(String mes, String ano, String metaAtualizada);
 

@@ -24,49 +24,58 @@ public class DoacaoController {
     private DoacaoService service;
 
     @PostMapping("/doar")
-    private Doacao doar(@RequestBody DoacaoReq doacaoReq){
+    private Doacao doar(@RequestBody DoacaoReq doacaoReq) {
         return this.service.doar(doacaoReq);
     }
 
     @PostMapping("/doarObjeto")
-    private DoacaoObjeto doarObjeto(@RequestBody DoacaoObjetoReq doacaoObjetoReq){
+    private DoacaoObjeto doarObjeto(@RequestBody DoacaoObjetoReq doacaoObjetoReq) {
         return this.service.doarObjeto(doacaoObjetoReq);
     }
 
     @PostMapping("{id}/recebido")
-    public DoacaoObjeto objetoRecebido(@PathVariable String id){
+    public DoacaoObjeto objetoRecebido(@PathVariable String id) {
         return this.service.objetoRecebido(id);
     }
 
     @PostMapping("{id}/naoRecebido")
-    public DoacaoObjeto objetoNaoRecebido(@PathVariable String id){
+    public DoacaoObjeto objetoNaoRecebido(@PathVariable String id) {
         return this.service.objetoNaoRecebido(id);
     }
 
     @GetMapping("/list")
-    private List<DoacoesDinheiroListaAdmResponse> doacaoList() {return this.service.listAllDoacoes();}
+    private List<DoacoesDinheiroListaAdmResponse> doacaoList(@RequestParam(name = "mes") String mes,
+                                                             @RequestParam(name = "ano") String ano) {
+        return this.service.listAllDoacoes(mes, ano);
+    }
 
     @GetMapping("/listObjetos")
-    private List<DoacoesObjetoListaAdmResponse> doacoesObjList(){return this.service.listAllDoacoesObjeto();};
+    private List<DoacoesObjetoListaAdmResponse> doacoesObjList() {
+        return this.service.listAllDoacoesObjeto();
+    }
 
     @GetMapping("/{id}")
-    private Doacao listDoacaoById(@PathVariable String id){return this.service.listDoacaoById(id);}
+    private Doacao listDoacaoById(@PathVariable String id) {
+        return this.service.listDoacaoById(id);
+    }
 
     @GetMapping("/objeto/{id}")
-    private DoacaoObjeto listDoacaoObjetoById(@PathVariable String id){return this.service.listDoacaoObjetoById(id);};
+    private DoacaoObjeto listDoacaoObjetoById(@PathVariable String id) {
+        return this.service.listDoacaoObjetoById(id);
+    }
 
-    @GetMapping("/list/thisDay")
-    private List<DoacoesDinheiroListaAdmResponse> doacoesThisDay(){
+    @GetMapping("/list/dia")
+    private List<DoacoesDinheiroListaAdmResponse> doacoesThisDay() {
         return this.service.listAllDoacaoDinheiroByThisDay();
     }
 
-    @GetMapping("/list/thisWeek")
-    private List<DoacoesDinheiroListaAdmResponse> doacoesThisWeek(){
+    @GetMapping("/list/semana")
+    private List<DoacoesDinheiroListaAdmResponse> doacoesThisWeek() {
         return this.service.listAllDoacaoDinheiroByThisWeek();
     }
 
     @PostMapping("/virarDoador")
-    private String virarDoador(@RequestBody DoadorReq doadorReq){
+    private String virarDoador(@RequestBody DoadorReq doadorReq) {
 
         return "Error em virar doador";
     }

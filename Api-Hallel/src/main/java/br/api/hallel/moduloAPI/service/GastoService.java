@@ -54,8 +54,16 @@ public class GastoService implements GastoInterface {
 
     //LISTA TODAS AS DESPESAS
     @Override
-    public List<GastoFinanceiro> listAll() {
-        return this.repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    public List<GastoFinanceiro> listAll(String mes, String ano) {
+        List<GastoFinanceiro> listaGastosBD = this.repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+
+        List<GastoFinanceiro> listaGastoFinal = listaGastosBD
+                .stream()
+                .filter(gastoFinanceiro ->
+                        gastoFinanceiro.getDataGasto().substring(3).equals(mes + "/" + ano))
+                .toList();
+
+        return listaGastoFinal;
     }
 
     //ATUALIZA INFORMAÇÕES SOBRE UMA DESPESA
@@ -119,7 +127,7 @@ public class GastoService implements GastoInterface {
         List<GastoFinanceiro> gastosDia = new ArrayList<>();
         String diaAtualString = formatter.format(new Date());
         for (GastoFinanceiro objeto :
-                listAll()) {
+                this.repository.findAll()) {
             if (objeto.getDataGasto().equals(diaAtualString)) {
                 gastosDia.add(objeto);
             }
@@ -147,7 +155,7 @@ public class GastoService implements GastoInterface {
             ldStart = ldStart.plusDays(1);
         }
 
-        gastosFinaneirosWeek = listAll()
+        gastosFinaneirosWeek = this.repository.findAll()
                 .stream()
                 .filter(item -> datasStrings.contains(item.getDataGasto()))
                 .collect(Collectors.toList());

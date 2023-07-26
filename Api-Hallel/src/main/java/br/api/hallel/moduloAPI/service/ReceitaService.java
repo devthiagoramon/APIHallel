@@ -2,6 +2,7 @@ package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.EntradaFinanceiraResponseUltimas;
 import br.api.hallel.moduloAPI.model.Financeiro;
+import br.api.hallel.moduloAPI.model.GastoFinanceiro;
 import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
 import br.api.hallel.moduloAPI.repository.ReceitaFinanceiraRepository;
 import br.api.hallel.moduloAPI.service.interfaces.ReceitaInterface;
@@ -56,8 +57,14 @@ public class ReceitaService implements ReceitaInterface {
     }
 
     @Override
-    public List<ReceitaFinanceira> listAll() {
-        return this.repository.findAll(Sort.by(Sort.Direction.DESC, "id")   );
+    public List<ReceitaFinanceira> listAll(String mes, String ano) {
+        List<ReceitaFinanceira> receitaFinanceirasBD = this.repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<ReceitaFinanceira> listaReceitaFinal = receitaFinanceirasBD
+                .stream()
+                .filter(receitaFinanceira ->
+                        receitaFinanceira.getDataReceita().substring(3).equals(mes + "/" + ano))
+                .toList();
+        return listaReceitaFinal;
     }
 
     @Override
@@ -100,7 +107,7 @@ public class ReceitaService implements ReceitaInterface {
         for (int i = 0; i < 5; i++) {
             ultimasEntradas.add(new EntradaFinanceiraResponseUltimas(
                     receitas.get(i).getDescricaoReceita(),
-                    receitas.get(i).getValor()  ));
+                    receitas.get(i).getValor()));
         }
 
         return ultimasEntradas;
@@ -111,7 +118,7 @@ public class ReceitaService implements ReceitaInterface {
         double valorTotal = 0;
         String diaAtualString = formatter.format(new Date());
         for (ReceitaFinanceira receitaFinanceira :
-                listAll()) {
+                this.repository.findAll()) {
             if (receitaFinanceira.getDataReceita().equals(diaAtualString)) {
                 valorTotal += receitaFinanceira.getValor();
             }
@@ -151,7 +158,7 @@ public class ReceitaService implements ReceitaInterface {
 
 
         for (ReceitaFinanceira receitaFinanceira :
-                listAll()) {
+                this.repository.findAll()) {
             for (String data :
                     mapaValores.keySet()) {
                 if (data.equals(receitaFinanceira.getDataReceita())) {
@@ -177,7 +184,7 @@ public class ReceitaService implements ReceitaInterface {
         List<ReceitaFinanceira> receitasDia = new ArrayList<>();
         String diaAtualString = formatter.format(new Date());
         for (ReceitaFinanceira objeto :
-                listAll()) {
+                this.repository.findAll()) {
             if (objeto.getDataReceita().equals(diaAtualString)) {
                 receitasDia.add(objeto);
             }
@@ -205,7 +212,7 @@ public class ReceitaService implements ReceitaInterface {
             ldStart = ldStart.plusDays(1);
         }
 
-        receitasFinanceirasWeek = listAll()
+        receitasFinanceirasWeek = this.repository.findAll()
                 .stream()
                 .filter(item -> datasStrings.contains(item.getDataReceita()))
                 .collect(Collectors.toList());
