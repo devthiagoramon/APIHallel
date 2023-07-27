@@ -137,15 +137,15 @@ public class DoacaoService implements DoacaoInterface {
 
     public List<DoacoesDinheiroListaAdmResponse> listAllDoacaoDinheiroByThisDay() {
 
-        List<DoacoesDinheiroListaAdmResponse> doacoesDia = new ArrayList<>();
+        List<Doacao> doacoesDia = new ArrayList<>();
         String diaAtualString = formatter.format(new Date());
-        for (DoacoesDinheiroListaAdmResponse objeto :
-                listAllDoacoes(mes, ano)) {
+        for (Doacao objeto :
+                this.repository.findAll()) {
             if (objeto.getDataDoacao().equals(diaAtualString)) {
                 doacoesDia.add(objeto);
             }
         }
-        return doacoesDia;
+        return new DoacoesDinheiroListaAdmResponse().toListDoacoesDinheiroListaAdm(doacoesDia);
     }
 
     public List<DoacoesDinheiroListaAdmResponse> listAllDoacaoDinheiroByThisWeek() {
@@ -169,7 +169,7 @@ public class DoacaoService implements DoacaoInterface {
             ldStart = ldStart.plusDays(1);
         }
 
-        doacoesSemana = listAllDoacoes(mes, ano)
+        doacoesSemana = new DoacoesDinheiroListaAdmResponse().toListDoacoesDinheiroListaAdm(this.repository.findAll())
                 .stream()
                 .filter(item -> datasStrings.contains(item.getDataDoacao()))
                 .collect(Collectors.toList());

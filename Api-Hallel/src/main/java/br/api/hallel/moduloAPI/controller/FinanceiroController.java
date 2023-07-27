@@ -95,12 +95,12 @@ public class FinanceiroController {
         return this.gastoService.createGasto(gastoFinanceiro);
     }
 
-    @GetMapping("/gastos/thisDay")
+    @GetMapping("/gastos/dia")
     public List<GastoFinanceiro> listGastosByDay() {
         return this.gastoService.listAllByThisDay();
     }
 
-    @GetMapping("/gastos/thisWeek")
+    @GetMapping("/gastos/semana")
     public List<GastoFinanceiro> listGastosByWeek() {
         return this.gastoService.listAllByThisWeek();
     }
