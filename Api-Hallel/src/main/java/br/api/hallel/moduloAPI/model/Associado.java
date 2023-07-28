@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,5 +33,6 @@ public class Associado extends Membro {
     private ArrayList<Curso> cursosInscritos;
     private ArrayList<ModulosCurso> modulosCursosCompletos;
     private Boolean mensalidadePaga;
+    private List<Date> mesesPagos;
 
 }

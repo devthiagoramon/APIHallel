@@ -153,13 +153,33 @@ public class AssociadoService implements AssociadoInterface {
 
     @Override
     public List<Transacao> listPagamentoDinheiro() {
-       List<Transacao> transacaos = new ArrayList<>();
+       List<Transacao> transacaoList = new ArrayList<>();
        listAllAssociado().stream().forEach(associado -> {
            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.DINHEIRO){
-               transacaos.add(associado.getTransacao());
+               transacaoList.add(associado.getTransacao());
            }
        });
-       return transacaos;
+       return transacaoList;
+    }
+
+    @Override
+    public Boolean pagarAssociacao(String idAssociado) {
+        Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
+        if(optional.isPresent()){
+            Associado associado = optional.get();
+            if(associado.getMesesPagos()!=null){
+                associado.getMesesPagos().add(new Date());
+                this.associadoRepository.save(associado);
+            }else{
+                ArrayList<Date> datasPagamentosList = new ArrayList<>();
+                datasPagamentosList.add(new Date());
+                associado.setMesesPagos(datasPagamentosList);
+                this.associadoRepository.save(associado);
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
 

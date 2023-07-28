@@ -25,4 +25,6 @@ public interface AssociadoInterface {
     List<Transacao> listPagamentoCredito();
     List<Transacao> listPagamentoDebito();
     List<Transacao> listPagamentoDinheiro();
+
+    Boolean pagarAssociacao(String idAssociado);
 }
