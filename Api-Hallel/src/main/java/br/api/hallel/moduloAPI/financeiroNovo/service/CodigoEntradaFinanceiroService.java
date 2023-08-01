@@ -1,8 +1,8 @@
 package br.api.hallel.moduloAPI.financeiroNovo.service;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.CodigoEntradaFinanceiroRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.CodigoEntradaFinanceiroRepository;
-import br.api.hallel.moduloAPI.financeiroNovo.request.CodigoEntradaFinanceiroRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

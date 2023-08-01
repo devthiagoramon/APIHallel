@@ -1,8 +1,8 @@
 package br.api.hallel.moduloAPI.financeiroNovo.service;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoAssociadoRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoAssociadoRepository;
-import br.api.hallel.moduloAPI.financeiroNovo.request.PagamentoAssociadoRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

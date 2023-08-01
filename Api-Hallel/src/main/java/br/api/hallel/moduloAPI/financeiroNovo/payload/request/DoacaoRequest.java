@@ -1,6 +1,8 @@
-package br.api.hallel.moduloAPI.financeiroNovo.request;
+package br.api.hallel.moduloAPI.financeiroNovo.payload.request;
 
-import br.api.hallel.moduloAPI.financeiroNovo.model.*;
+import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
+import br.api.hallel.moduloAPI.financeiroNovo.model.Doacoes;
+import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
 import br.api.hallel.moduloAPI.model.Membro;
 import lombok.AllArgsConstructor;
 import lombok.Data;

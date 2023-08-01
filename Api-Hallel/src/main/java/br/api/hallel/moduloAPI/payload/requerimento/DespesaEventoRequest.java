@@ -1,10 +1,16 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoSaidaFinanceiro;
+import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
 import br.api.hallel.moduloAPI.model.DespesaEvento;
+import br.api.hallel.moduloAPI.model.MetodoPagamento;
 import br.api.hallel.moduloAPI.model.TipoDespesa;
+import com.fasterxml.jackson.databind.DatabindException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +34,9 @@ public class DespesaEventoRequest {
 
     // Em caso do tipo da despesa for igual a dinheiro
     private double valor;
+    private CodigoSaidaFinanceiro codigo;
+    private Date data;
+    private MetodosPagamentosFinanceiro metodoPagamento;
 
     public DespesaEvento toDespesaEvento(){
         DespesaEvento despesaEvento = new DespesaEvento();

@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.financeiroNovo.request;
+package br.api.hallel.moduloAPI.financeiroNovo.payload.request;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoSaidaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
