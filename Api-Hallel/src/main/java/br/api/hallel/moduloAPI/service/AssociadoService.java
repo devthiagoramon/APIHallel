@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -22,13 +23,34 @@ public class AssociadoService implements AssociadoInterface {
     @Autowired
     private AssociadoRepository associadoRepository;
 
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+
+    Logger logger = LoggerFactory.getLogger(AssociadoService.class);
+
     @Override
     public List<Associado> listAllAssociado() {
         return this.associadoRepository.findAll();
     }
 
-    Logger logger = LoggerFactory.getLogger(AssociadoService.class);
+    @Override
+    public List<Associado> listAllAssociadoByMesAnoPagos(String mes, String ano) {
+        List<Associado> associadosDB = this.associadoRepository.findAll();
+        List<Associado> associadosPagos = new ArrayList<>();
 
+        for (Associado associado :
+                associadosDB) {
+            List<Date> mesesPagos = associado.getMesesPagos();
+            for (Date mesPago :
+                    mesesPagos) {
+                String mesPagoFormatado = formatter.format(mesPago);
+                if (mesPagoFormatado.substring(3).equals(mesPagoFormatado)) {
+                    associadosPagos.add(associado);
+                }
+            }
+        }
+        return associadosPagos;
+    }
 
     //LISTA TODOS OS ASSOCIADOS
     @Override
@@ -132,8 +154,8 @@ public class AssociadoService implements AssociadoInterface {
     @Override
     public List<Transacao> listPagamentoCredito() {
         List<Transacao> transacaos = new ArrayList<>();
-        listAllAssociado().stream().forEach(associado -> {
-            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_CREDITO){
+        associadoRepository.findAll().stream().forEach(associado -> {
+            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_CREDITO) {
                 transacaos.add(associado.getTransacao());
             }
         });
@@ -143,8 +165,8 @@ public class AssociadoService implements AssociadoInterface {
     @Override
     public List<Transacao> listPagamentoDebito() {
         List<Transacao> transacaos = new ArrayList<>();
-        listAllAssociado().stream().forEach(associado -> {
-            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_DEBITO){
+        associadoRepository.findAll().stream().forEach(associado -> {
+            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_DEBITO) {
                 transacaos.add(associado.getTransacao());
             }
         });
@@ -153,31 +175,31 @@ public class AssociadoService implements AssociadoInterface {
 
     @Override
     public List<Transacao> listPagamentoDinheiro() {
-       List<Transacao> transacaoList = new ArrayList<>();
-       listAllAssociado().stream().forEach(associado -> {
-           if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.DINHEIRO){
-               transacaoList.add(associado.getTransacao());
-           }
-       });
-       return transacaoList;
+        List<Transacao> transacaoList = new ArrayList<>();
+        this.associadoRepository.findAll().stream().forEach(associado -> {
+            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.DINHEIRO) {
+                transacaoList.add(associado.getTransacao());
+            }
+        });
+        return transacaoList;
     }
 
     @Override
     public Boolean pagarAssociacao(String idAssociado) {
         Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             Associado associado = optional.get();
-            if(associado.getMesesPagos()!=null){
+            if (associado.getMesesPagos() != null) {
                 associado.getMesesPagos().add(new Date());
                 this.associadoRepository.save(associado);
-            }else{
+            } else {
                 ArrayList<Date> datasPagamentosList = new ArrayList<>();
                 datasPagamentosList.add(new Date());
                 associado.setMesesPagos(datasPagamentosList);
                 this.associadoRepository.save(associado);
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }

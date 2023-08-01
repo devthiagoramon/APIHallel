@@ -1,6 +1,7 @@
 package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.Associado;
+import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EmailInterface;
 import br.api.hallel.moduloAPI.payload.requerimento.EmailRequest;
 import jakarta.mail.MessagingException;
@@ -21,7 +22,7 @@ public class EmailService implements EmailInterface {
 
     private final JavaMailSender javaMailSender;
     @Autowired
-    private AssociadoService associadoService;
+    private AssociadoRepository associadoRepository;
     @Autowired
     private MembroService membroService;
 
@@ -32,7 +33,7 @@ public class EmailService implements EmailInterface {
     @Override
     public void sendMail(EmailRequest request) {
         var mensagem = new SimpleMailMessage();
-        var allAssociados = this.associadoService.listAllAssociado();
+        var allAssociados = this.associadoRepository.findAll();
 
         allAssociados.forEach(associado -> {
             if (verifiqAniversario(associado)) {
@@ -54,7 +55,7 @@ public class EmailService implements EmailInterface {
 
         var mimeMessage = javaMailSender.createMimeMessage();
         var helper = new MimeMessageHelper(mimeMessage, true);
-        var allAssociados = this.associadoService.listAllAssociado();
+        var allAssociados = this.associadoRepository.findAll();
 
         allAssociados.forEach(associado -> {
             if (verifiqAniversario(associado)) {

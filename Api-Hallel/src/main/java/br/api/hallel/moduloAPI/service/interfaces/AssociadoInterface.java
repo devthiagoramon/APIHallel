@@ -9,6 +9,7 @@ import java.util.List;
 public interface AssociadoInterface {
 
     List<Associado> listAllAssociado();
+    List<Associado> listAllAssociadoByMesAnoPagos(String mes, String ano);
     Associado listAssociadoById(String id);
     void deleteAssociado(String id);
 

@@ -38,8 +38,14 @@ public class AssociadoController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @GetMapping("")
-    public List<Associado> listAllAssociados() {
+    @GetMapping("/")
+    public List<Associado> listAllAssociadosByMesAnoPagos(@RequestParam(value = "mes") String mes,
+                                                          @RequestParam(value = "ano") String ano) {
+        return this.service.listAllAssociadoByMesAnoPagos(mes, ano);
+    }
+
+    @GetMapping("/")
+    public List<Associado> listAllAssociados(){
         return this.service.listAllAssociado();
     }
 
