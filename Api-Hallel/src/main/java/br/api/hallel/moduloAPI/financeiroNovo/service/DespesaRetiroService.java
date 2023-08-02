@@ -2,17 +2,19 @@ package br.api.hallel.moduloAPI.financeiroNovo.service;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.DespesaRetiro;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.DespesaRetiroRequest;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.DespesaRetiroResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.DespesasRetiroRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Log4j2
-public class DespesaRetiroService implements MetodosCRUDFinanceiro<DespesaRetiro, DespesaRetiroRequest> {
+public class DespesaRetiroService implements MetodosCRUDFinanceiro<DespesaRetiro, DespesaRetiroRequest, DespesaRetiroResponse> {
 
     @Autowired
     private DespesasRetiroRepository despesasRetiroRepository;
@@ -33,6 +35,7 @@ public class DespesaRetiroService implements MetodosCRUDFinanceiro<DespesaRetiro
             despesaRetiroOld.setData(request.getData());
             despesaRetiroOld.setValor(request.getValor());
             despesaRetiroOld.setMetodoPagamento(request.getMetodoPagamento());
+            this.despesasRetiroRepository.save(despesaRetiroOld);
             log.info("Despesa Retiro (id: " + id + ") alterada com sucesso");
             return true;
         } else {
@@ -49,13 +52,18 @@ public class DespesaRetiroService implements MetodosCRUDFinanceiro<DespesaRetiro
     }
 
     @Override
-    public List<DespesaRetiro> listarAll() {
-        return this.despesasRetiroRepository.findAll();
+    public List<DespesaRetiroResponse> listarAll() {
+        List<DespesaRetiroResponse> responseList = new ArrayList<>();
+
+        for (DespesaRetiro despesaRetiro : this.despesasRetiroRepository.findAll()) {
+            responseList.add(new DespesaRetiroResponse().toDespesaResponseList(despesaRetiro));
+        }
+        return responseList;
     }
 
     @Override
-    public DespesaRetiro listarPorId(String id) {
+    public DespesaRetiroResponse listarPorId(String id) {
         Optional<DespesaRetiro> optional = this.despesasRetiroRepository.findById(id);
-        return optional.orElse(null);
+        return new DespesaRetiroResponse().toDespesaResponseList(optional.orElse(null));
     }
 }

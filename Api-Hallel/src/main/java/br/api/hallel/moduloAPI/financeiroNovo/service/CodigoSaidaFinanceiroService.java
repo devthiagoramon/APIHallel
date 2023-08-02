@@ -2,16 +2,18 @@ package br.api.hallel.moduloAPI.financeiroNovo.service;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoSaidaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.CodigoSaidaFinanceiroRequest;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.CodigoSaidaFinanceiroResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.CodigoSaidaFinanceiroRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Log4j2
-public class CodigoSaidaFinanceiroService implements MetodosCRUDFinanceiro<CodigoSaidaFinanceiro, CodigoSaidaFinanceiroRequest> {
+public class CodigoSaidaFinanceiroService implements MetodosCRUDFinanceiro<CodigoSaidaFinanceiro, CodigoSaidaFinanceiroRequest, CodigoSaidaFinanceiroResponse> {
 
     private CodigoSaidaFinanceiroRepository codigoSaidaFinanceiroRepository;
 
@@ -29,6 +31,7 @@ public class CodigoSaidaFinanceiroService implements MetodosCRUDFinanceiro<Codig
             CodigoSaidaFinanceiro codigoSaidaFinanceiroOld = optional.get();
             codigoSaidaFinanceiroOld.setNomeCodigo(request.getNomeCodigo());
             codigoSaidaFinanceiroOld.setNumeroCodigo(request.getNumeroCodigo());
+            this.codigoSaidaFinanceiroRepository.save(codigoSaidaFinanceiroOld);
             log.info("Codigo Saida (id: " + id + ") alterado com sucesso");
             return true;
         } else {
@@ -45,13 +48,19 @@ public class CodigoSaidaFinanceiroService implements MetodosCRUDFinanceiro<Codig
     }
 
     @Override
-    public List<CodigoSaidaFinanceiro> listarAll() {
-        return this.codigoSaidaFinanceiroRepository.findAll();
+    public List<CodigoSaidaFinanceiroResponse> listarAll() {
+        List<CodigoSaidaFinanceiroResponse> responseList = new ArrayList<>();
+
+        for (CodigoSaidaFinanceiro codigoSaidaFinanceiro : this.codigoSaidaFinanceiroRepository.findAll()) {
+            responseList.add(new CodigoSaidaFinanceiroResponse().toResponseList(codigoSaidaFinanceiro));
+        }
+
+        return responseList;
     }
 
     @Override
-    public CodigoSaidaFinanceiro listarPorId(String id) {
+    public CodigoSaidaFinanceiroResponse listarPorId(String id) {
         Optional<CodigoSaidaFinanceiro> optional = this.codigoSaidaFinanceiroRepository.findById(id);
-        return optional.orElse(null);
+        return new CodigoSaidaFinanceiroResponse().toResponseList(optional.orElse(null));
     }
 }
