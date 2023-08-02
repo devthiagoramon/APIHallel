@@ -149,7 +149,7 @@ public class CursoService implements CursoInterface {
 
             if (isExists) {
             } else {
-                if (!associado.getIsAssociado().equals(AssociadoRole.PAGO)) {
+                if (!associado.getIsAssociado().equals(AssociadoStatus.PAGO)) {
 
                 } else {
                     curso.getParticipantes().add(associadoReq.toAssociado(associado));

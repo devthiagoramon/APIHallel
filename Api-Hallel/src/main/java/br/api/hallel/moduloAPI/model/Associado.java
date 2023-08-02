@@ -22,7 +22,7 @@ public class Associado extends Membro {
     private Eventos eventoParticipando;
     private Boolean isPago;
     private Transacao transacao;
-    private AssociadoRole isAssociado;
+    private AssociadoStatus isAssociado;
     private String dataFinalPagamento;
     private List<Recompensa> recompensas;
     private String dataNascimentoAssociado;

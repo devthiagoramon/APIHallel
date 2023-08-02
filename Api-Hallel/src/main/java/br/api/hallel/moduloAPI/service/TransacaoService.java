@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.Associado;
-import br.api.hallel.moduloAPI.model.AssociadoRole;
+import br.api.hallel.moduloAPI.model.AssociadoStatus;
 import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.TransacaoRepository;
@@ -55,7 +55,7 @@ public class TransacaoService implements TransacaoInterface {
 
                     //SE FOI ELE FOR ASSOCIADO JÁ, ELE MANTÉM COMO ASSOCIADO
                     Associado associadoOptional = optional.get();
-                    associadoOptional.setIsAssociado(AssociadoRole.PAGO);
+                    associadoOptional.setIsAssociado(AssociadoStatus.PAGO);
                     associado.setIsAssociado(associadoOptional.getIsAssociado());
 
                     System.out.println("Mantém como Associado");
@@ -63,7 +63,7 @@ public class TransacaoService implements TransacaoInterface {
                 } else {
 
                     //SE ELE NÃO FOR ASSOCIADO AINDA, ELE É INSERIDO COMO UM NOVO ASSOCIADO
-                    associado.setIsAssociado(AssociadoRole.PAGO);
+                    associado.setIsAssociado(AssociadoStatus.PAGO);
 
                     System.out.println("Inserir como novo Associado");
                     return this.associadoRepository.insert(associado); //SALVO NO BD COMO NOVO ASSOCIADO
@@ -76,7 +76,7 @@ public class TransacaoService implements TransacaoInterface {
                  */
 
                 System.out.println("Mensalidade em pendência");
-                associado.setIsAssociado(AssociadoRole.NAO_PAGO);
+                associado.setIsAssociado(AssociadoStatus.NAO_PAGO);
             }
 
         } else {
@@ -85,7 +85,7 @@ public class TransacaoService implements TransacaoInterface {
             VAI FICAR COMO INATIVO
             */
             System.out.println("Mensalidade não paga");
-            associado.setIsAssociado(AssociadoRole.PENDENTE);
+            associado.setIsAssociado(AssociadoStatus.PENDENTE);
 
         }
 

@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.payload.resposta;
 
 import br.api.hallel.moduloAPI.model.Associado;
-import br.api.hallel.moduloAPI.model.AssociadoRole;
+import br.api.hallel.moduloAPI.model.AssociadoStatus;
 import br.api.hallel.moduloAPI.model.StatusMembro;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class AssociadoCursoResponse {
     private String nome;
     private String email;
     private String dataNascimentoAssociado;
-    private AssociadoRole isAssociado;
+    private AssociadoStatus isAssociado;
     private Boolean isPago;
     private StatusMembro status;
 

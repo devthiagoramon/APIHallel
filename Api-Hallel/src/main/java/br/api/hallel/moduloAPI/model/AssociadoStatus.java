@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.model;
 
-public enum AssociadoRole {
+public enum AssociadoStatus {
     PAGO,
     NAO_PAGO,
     PENDENTE

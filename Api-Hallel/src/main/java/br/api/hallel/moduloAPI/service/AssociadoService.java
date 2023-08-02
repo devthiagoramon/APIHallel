@@ -1,9 +1,10 @@
 package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.Associado;
-import br.api.hallel.moduloAPI.model.AssociadoRole;
+import br.api.hallel.moduloAPI.model.AssociadoStatus;
 import br.api.hallel.moduloAPI.model.MetodoPagamento;
 import br.api.hallel.moduloAPI.model.Transacao;
+import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.AssociadoInterface;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
@@ -34,22 +35,31 @@ public class AssociadoService implements AssociadoInterface {
     }
 
     @Override
-    public List<Associado> listAllAssociadoByMesAnoPagos(String mes, String ano) {
+    public List<AssociadoResponseList> listAllAssociadoByMesAno(String mes, String ano) {
         List<Associado> associadosDB = this.associadoRepository.findAll();
-        List<Associado> associadosPagos = new ArrayList<>();
+        List<AssociadoResponseList> associadosLoadad = new ArrayList<>();
 
-        for (Associado associado :
-                associadosDB) {
-            List<Date> mesesPagos = associado.getMesesPagos();
-            for (Date mesPago :
-                    mesesPagos) {
-                String mesPagoFormatado = formatter.format(mesPago);
-                if (mesPagoFormatado.substring(3).equals(mesPagoFormatado)) {
-                    associadosPagos.add(associado);
+        for (Associado associado : associadosDB) {
+            boolean hasPago = false;
+            AssociadoResponseList associadoResponseProv = new AssociadoResponseList();
+            associadoResponseProv.setId(associado.getId());
+            associadoResponseProv.setNome(associado.getNome());
+            if(associado.getMesesPagos()!=null) {
+                for (Date mesPagamento : associado.getMesesPagos()) {
+                    if (formatter.format(mesPagamento).substring(3).equals(mes + "/" + ano)) {
+                        hasPago = true;
+                        associadoResponseProv.setStatus(AssociadoStatus.PAGO);
+                        associadoResponseProv.setDataPagamento(mesPagamento);
+                    }
                 }
             }
+            if(!hasPago){
+                associadoResponseProv.setStatus(AssociadoStatus.NAO_PAGO);
+            }
+            associadosLoadad.add(associadoResponseProv);
         }
-        return associadosPagos;
+        Collections.sort(associadosLoadad);
+        return associadosLoadad;
     }
 
     //LISTA TODOS OS ASSOCIADOS
@@ -134,21 +144,21 @@ public class AssociadoService implements AssociadoInterface {
     @Override
     public List<Associado> listAssociadosByPago() {
 
-        return this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.PAGO).isEmpty() ?
-                this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.PAGO) : null;
+        return this.associadoRepository.findByIsAssociadoEquals(AssociadoStatus.PAGO).isEmpty() ?
+                this.associadoRepository.findByIsAssociadoEquals(AssociadoStatus.PAGO) : null;
     }
 
     @Override
     public List<Associado> listAssociadosByPendente() {
 
-        return associadoRepository.findByIsAssociadoEquals(AssociadoRole.PENDENTE).isEmpty() ?
-                this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.PENDENTE) : null;
+        return associadoRepository.findByIsAssociadoEquals(AssociadoStatus.PENDENTE).isEmpty() ?
+                this.associadoRepository.findByIsAssociadoEquals(AssociadoStatus.PENDENTE) : null;
     }
 
     @Override
     public List<Associado> listAssociadosByNaoPago() {
-        return this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.NAO_PAGO).isEmpty() ?
-                this.associadoRepository.findByIsAssociadoEquals(AssociadoRole.NAO_PAGO) : null;
+        return this.associadoRepository.findByIsAssociadoEquals(AssociadoStatus.NAO_PAGO).isEmpty() ?
+                this.associadoRepository.findByIsAssociadoEquals(AssociadoStatus.NAO_PAGO) : null;
     }
 
     @Override

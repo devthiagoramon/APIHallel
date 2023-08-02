@@ -2,6 +2,7 @@ package br.api.hallel.moduloAPI.controller;
 
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
+import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.repository.RoleRepository;
@@ -38,13 +39,13 @@ public class AssociadoController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @GetMapping("/")
-    public List<Associado> listAllAssociadosByMesAnoPagos(@RequestParam(value = "mes") String mes,
-                                                          @RequestParam(value = "ano") String ano) {
-        return this.service.listAllAssociadoByMesAnoPagos(mes, ano);
+    @GetMapping("/listByMesAno")
+    public List<AssociadoResponseList> listAllAssociadosByMesAnoPagos(@RequestParam(value = "mes") String mes,
+                                                                      @RequestParam(value = "ano") String ano) {
+        return this.service.listAllAssociadoByMesAno(mes, ano);
     }
 
-    @GetMapping("/")
+    @GetMapping("/listAll")
     public List<Associado> listAllAssociados(){
         return this.service.listAllAssociado();
     }

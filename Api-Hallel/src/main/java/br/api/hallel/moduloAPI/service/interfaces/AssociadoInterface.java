@@ -3,13 +3,14 @@ package br.api.hallel.moduloAPI.service.interfaces;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
+import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 
 import java.util.List;
 
 public interface AssociadoInterface {
 
     List<Associado> listAllAssociado();
-    List<Associado> listAllAssociadoByMesAnoPagos(String mes, String ano);
+    List<AssociadoResponseList> listAllAssociadoByMesAno(String mes, String ano);
     Associado listAssociadoById(String id);
     void deleteAssociado(String id);
 

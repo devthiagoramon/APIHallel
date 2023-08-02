@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
 import br.api.hallel.moduloAPI.model.Associado;
-import br.api.hallel.moduloAPI.model.AssociadoRole;
+import br.api.hallel.moduloAPI.model.AssociadoStatus;
 import br.api.hallel.moduloAPI.model.StatusMembro;
 import lombok.Data;
 
@@ -12,7 +12,7 @@ public class AssociadoReq {
     private String nome;
     private String email;
     private String dataNascimentoAssociado;
-    private AssociadoRole isAssociado;
+    private AssociadoStatus isAssociado;
     private Boolean isPago;
     private StatusMembro status;
 
