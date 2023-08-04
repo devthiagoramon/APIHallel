@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoAssociadoRequest;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
@@ -29,4 +30,6 @@ public interface AssociadoInterface {
     List<Transacao> listPagamentoDinheiro();
 
     Boolean pagarAssociacao(String idAssociado);
+
+    Boolean criarAssociado(String idMembro, PagamentoAssociadoRequest transacao);
 }

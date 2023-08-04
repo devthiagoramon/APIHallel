@@ -41,9 +41,12 @@ public class SecurityConfig {
 
     private String endpointsPermitidasAdm[] =
             {"/api/administrador/**", "/api/cursos/**", "/api/financeiro/**",
-            "/api/associados/**"};
-    private String endpointsMembros[] = {};
-    private String endpointsAssociado[] = {"/api/associados/meusCursos/{idAssociado}"};
+            "/api/associados/listByMes", "/api/associados/listAll",
+                    "/api/associados/{id}", "/api/associados/delete/{id}", "/api/associados/update/{id}",
+            "/api/associados/getAllPagamentos", "/getPagamentosAssociado/{id}", "/api/associados/pagos", "/api/associados/pendetes",
+            "/api/associados/naopagos", "/api/associados/metodo/credito", "/api/associados/metodo/debito", "/api/associados/metodo/dinheiro"};
+    private String endpointsMembros[] = {"/api/associados/criar/{idMembro}"};
+    private String endpointsAssociado[] = {"/api/associados/meusCursos/{idAssociado}", "/api/associados/pagarAssosiacao/{idAssociado}"};
 
     private AuthEntryPointJwt unauthorizedHandler;
 

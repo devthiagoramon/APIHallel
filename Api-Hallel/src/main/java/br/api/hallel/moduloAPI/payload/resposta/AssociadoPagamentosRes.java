@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 public class AssociadoPagamentosRes {
     private String nome;
     private String email;
-    private Boolean isPago;
     private AssociadoStatus situacao;
-    private Transacao transacao;
 
 }

@@ -1,11 +1,13 @@
 package br.api.hallel.moduloAPI.service;
 
-import br.api.hallel.moduloAPI.model.Associado;
-import br.api.hallel.moduloAPI.model.AssociadoStatus;
-import br.api.hallel.moduloAPI.model.MetodoPagamento;
-import br.api.hallel.moduloAPI.model.Transacao;
+import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
+import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
+import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoAssociadoRequest;
+import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
+import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.service.interfaces.AssociadoInterface;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -23,6 +27,9 @@ public class AssociadoService implements AssociadoInterface {
 
     @Autowired
     private AssociadoRepository associadoRepository;
+
+    @Autowired
+    private MembroRepository membroRepository;
 
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -44,7 +51,7 @@ public class AssociadoService implements AssociadoInterface {
             AssociadoResponseList associadoResponseProv = new AssociadoResponseList();
             associadoResponseProv.setId(associado.getId());
             associadoResponseProv.setNome(associado.getNome());
-            if(associado.getMesesPagos()!=null) {
+            if (associado.getMesesPagos() != null) {
                 for (Date mesPagamento : associado.getMesesPagos()) {
                     if (formatter.format(mesPagamento).substring(3).equals(mes + "/" + ano)) {
                         hasPago = true;
@@ -53,7 +60,7 @@ public class AssociadoService implements AssociadoInterface {
                     }
                 }
             }
-            if(!hasPago){
+            if (!hasPago) {
                 associadoResponseProv.setStatus(AssociadoStatus.NAO_PAGO);
             }
             associadosLoadad.add(associadoResponseProv);
@@ -115,7 +122,7 @@ public class AssociadoService implements AssociadoInterface {
         List<AssociadoPagamentosRes> pagamentosRes = new ArrayList<>();
 
         associados.forEach(associado -> {
-            AssociadoPagamentosRes pagamento = new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsPago(), associado.getIsAssociado(), associado.getTransacao());
+            AssociadoPagamentosRes pagamento = new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsAssociado());
             pagamentosRes.add(pagamento);
         });
 
@@ -126,7 +133,7 @@ public class AssociadoService implements AssociadoInterface {
     public AssociadoPagamentosRes getAssociadoPagamentoById(String id) {
         Associado associado = listAssociadoById(id);
 
-        return new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsPago(), associado.getIsAssociado(), associado.getTransacao());
+        return new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsAssociado());
     }
 
     @Override
@@ -164,33 +171,33 @@ public class AssociadoService implements AssociadoInterface {
     @Override
     public List<Transacao> listPagamentoCredito() {
         List<Transacao> transacaos = new ArrayList<>();
-        associadoRepository.findAll().stream().forEach(associado -> {
-            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_CREDITO) {
-                transacaos.add(associado.getTransacao());
-            }
-        });
+//        associadoRepository.findAll().stream().forEach(associado -> {
+//            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_CREDITO) {
+//                transacaos.add(associado.getTransacao());
+//            }
+//        });
         return transacaos;
     }
 
     @Override
     public List<Transacao> listPagamentoDebito() {
         List<Transacao> transacaos = new ArrayList<>();
-        associadoRepository.findAll().stream().forEach(associado -> {
-            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_DEBITO) {
-                transacaos.add(associado.getTransacao());
-            }
-        });
+//        associadoRepository.findAll().stream().forEach(associado -> {
+//            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.CARTAO_DEBITO) {
+//                transacaos.add(associado.getTransacao());
+//            }
+//        });
         return transacaos;
     }
 
     @Override
     public List<Transacao> listPagamentoDinheiro() {
         List<Transacao> transacaoList = new ArrayList<>();
-        this.associadoRepository.findAll().stream().forEach(associado -> {
-            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.DINHEIRO) {
-                transacaoList.add(associado.getTransacao());
-            }
-        });
+//        this.associadoRepository.findAll().stream().forEach(associado -> {
+//            if (associado.getTransacao().getMetodoPagamento() == MetodoPagamento.DINHEIRO) {
+//                transacaoList.add(associado.getTransacao());
+//            }
+//        });
         return transacaoList;
     }
 
@@ -214,5 +221,61 @@ public class AssociadoService implements AssociadoInterface {
         }
     }
 
+    @Override
+    public Boolean criarAssociado(String idMembro, PagamentoAssociadoRequest pagamentoAssociadoRequest) {
+
+        Optional<Membro> optional = this.membroRepository.findById(idMembro);
+
+
+        log.info(String.valueOf(optional.isPresent()));
+        if (optional.isEmpty()) {
+            return false;
+        }
+
+        Membro membro = optional.get();
+
+        /*
+         * Ser deletado após atualização do financeiro
+         */
+//
+//        CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
+//        codigoEntradaFinanceiro.setId("Teste");
+//        codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
+//        codigoEntradaFinanceiro.setNumeroCodigo(10.3);
+//        pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
+//        pagamentoAssociadoRequest.setMetodoPagamento(MetodosPagamentosFinanceiro.PIX);
+
+        PagamentosAssociado pagamentoAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
+        ArrayList<PagamentosAssociado> pagamentosAssociados = new ArrayList<>();
+        pagamentosAssociados.add(pagamentoAssociado);
+
+        List<Date> mesesPagos = new ArrayList<>();
+        mesesPagos.add(pagamentoAssociado.getData());
+
+        Associado associadoNovo = new Associado();
+
+        associadoNovo.setNome(membro.getNome());
+        associadoNovo.setIsAssociado(AssociadoStatus.PAGO);
+        associadoNovo.setPagamentosAssociados(pagamentosAssociados);
+        associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociado));
+        associadoNovo.setMensalidadePaga(true);
+        associadoNovo.setMesesPagos(mesesPagos);
+
+        Associado associadoSalvoBD = this.associadoRepository.insert(associadoNovo);
+
+        pagamentoAssociado.setIdAssociadoPagador(associadoSalvoBD.getId());
+
+        return true;
+    }
+
+    private Date getDataExpiroAssociacao(PagamentosAssociado pagamentosAssociado) {
+        LocalDate dataExpiro = pagamentosAssociado
+                .getData()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        dataExpiro = dataExpiro.plusDays(30);
+        return Date.from(dataExpiro.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
 
 }

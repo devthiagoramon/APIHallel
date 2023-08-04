@@ -13,7 +13,6 @@ public class AssociadoReq {
     private String email;
     private String dataNascimentoAssociado;
     private AssociadoStatus isAssociado;
-    private Boolean isPago;
     private StatusMembro status;
 
 
@@ -25,7 +24,6 @@ public class AssociadoReq {
         associadoVal.setEmail(associado.getEmail());
         associadoVal.setDataNascimentoAssociado(associado.getDataNascimentoAssociado());
         associadoVal.setIsAssociado(associado.getIsAssociado());
-        associadoVal.setIsPago(associado.getIsPago());
         associadoVal.setStatus(associado.getStatus());
 
         return associadoVal;

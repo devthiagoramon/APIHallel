@@ -16,7 +16,6 @@ public class AssociadoCursoResponse {
     private String email;
     private String dataNascimentoAssociado;
     private AssociadoStatus isAssociado;
-    private Boolean isPago;
     private StatusMembro status;
 
     public Associado toAssociado(Associado associado) {
@@ -27,7 +26,6 @@ public class AssociadoCursoResponse {
         associadoVal.setEmail(associado.getEmail());
         associadoVal.setDataNascimentoAssociado(associado.getDataNascimentoAssociado());
         associadoVal.setIsAssociado(associado.getIsAssociado());
-        associadoVal.setIsPago(associado.getIsPago());
         associadoVal.setStatus(associado.getStatus());
 
         return associadoVal;

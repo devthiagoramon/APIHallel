@@ -1,6 +1,8 @@
 package br.api.hallel.moduloAPI.controller;
 
-import br.api.hallel.moduloAPI.model.*;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoAssociadoRequest;
+import br.api.hallel.moduloAPI.model.Associado;
+import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
@@ -10,18 +12,17 @@ import br.api.hallel.moduloAPI.service.AssociadoService;
 import br.api.hallel.moduloAPI.service.CursoService;
 import br.api.hallel.moduloAPI.service.RecompensaService;
 import br.api.hallel.moduloAPI.service.TransacaoService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/associados")
 @CrossOrigin("*")
+@Log4j2
 public class AssociadoController {
 
     @Autowired
@@ -46,62 +47,21 @@ public class AssociadoController {
     }
 
     @GetMapping("/listAll")
-    public List<Associado> listAllAssociados(){
+    public List<Associado> listAllAssociados() {
         return this.service.listAllAssociado();
     }
 
-    @PostMapping("/criar/{email}")
-    public String createAssociado(@PathVariable String email) {
-
-
-        //PARA OCORRER A CRIAÇÃO DE ASSOCIADO, DEVE TER UMA TRANSAÇÃO
-
-        //EXEMPLO DE COMO TAVA FUNCIONANDO
-
-
-        //CRIANDO UAM TRANSAÇÃO
-
-        Transacao transacaoProv = new Transacao();
-        transacaoProv.setNomeTransacao("Transação muhaha");
-        transacaoProv.setMetodoPagamento(MetodoPagamento.CARTAO_CREDITO);
-        transacaoProv.setDataExp("08/02/2023");
-
-        //CRIANDO OBJ DE ASSOCIADO
-
-        Associado associadoProv = new Associado();
-
-        //VERIFICANDO SE O MEMBRO EXISTE NO SISTEMA
-
-        Optional<Membro> optional = this.repository.findByEmail("tramon@gmail.com");
-
-        if (optional.isPresent()) {
-
-            //SE EXISTE, PEGA AS INFORMAÇÕES E BOTA NA DE ASSOCIADO, E SALVA NO 'createAssociado()'
-
-            Membro membro = optional.get();
-            associadoProv.setId(membro.getId());
-            associadoProv.setNome(membro.getNome());
-            associadoProv.setEmail(membro.getEmail());
-            associadoProv.setStatus(membro.getStatus());
-
-            Set<Role> roles = new HashSet<>();
-
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-            Role associadoRole = roleRepository.findByName(ERole.ROLE_ASSOCIADO)
-                    .orElseThrow(() -> new RuntimeException("Error: Role Associado is not found."));
-            roles.add(associadoRole);
-
-            associadoProv.setRoles(roles);
-            associadoProv.setTransacao(transacaoProv);
-            associadoProv.setMensalidadePaga(true);
-            associadoProv.setDataNascimentoAssociado(membro.getDataNascimento());
-            this.transacaoService.createAssociado(associadoProv);
-
+    @PostMapping("/criar/{idMembro}")
+    public ResponseEntity<Boolean> createAssociado(@PathVariable String idMembro,
+                                                   @RequestBody PagamentoAssociadoRequest pagamentoAssociadoRequest
+    ) {
+//        PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
+        Boolean booleanResposta = this.service.criarAssociado(idMembro, pagamentoAssociadoRequest);
+        if (booleanResposta) {
+            return ResponseEntity.status(200).body(true);
+        } else {
+            return ResponseEntity.status(402).body(false);
         }
-
-        return associadoProv.toString();
     }
 
     @GetMapping("/{id}")

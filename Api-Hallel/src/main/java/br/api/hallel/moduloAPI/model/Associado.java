@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.model;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,8 @@ import java.util.List;
 public class Associado extends Membro {
 
     private Eventos eventoParticipando;
-    private Boolean isPago;
-    private Transacao transacao;
     private AssociadoStatus isAssociado;
-    private String dataFinalPagamento;
+    private Date dataExpiroAssociacao;
     private List<Recompensa> recompensas;
     private String dataNascimentoAssociado;
     private Double desempenhoTotalCursos;
@@ -34,5 +33,6 @@ public class Associado extends Membro {
     private ArrayList<ModulosCurso> modulosCursosCompletos;
     private Boolean mensalidadePaga;
     private List<Date> mesesPagos;
+    private List<PagamentosAssociado> pagamentosAssociados;
 
 }

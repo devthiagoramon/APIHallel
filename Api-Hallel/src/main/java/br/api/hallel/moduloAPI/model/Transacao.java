@@ -19,21 +19,19 @@ public class Transacao {
     private Boolean pago;
     private Associado associado;
 
-    public Transacao(){
+    public Transacao() {
 
     }
 
 
-    public Associado setPagamentoEfetivo(Boolean isPago){
-
-        if(isPago){
+    public Associado setPagamentoEfetivo(Boolean isPago) {
+        if (isPago) {
             System.out.println("Mensalidade Paga");
             return new Associado();
-        }else{
+        } else {
             System.out.println("Não foi pago a mensalidade");
             return null;
         }
-
     }
 
 }

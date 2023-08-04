@@ -104,20 +104,20 @@ public class RecompensaService implements RecompensaInterface {
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-        try {
-            Date date = format.parse(associado.getTransacao().getDataExp());
-            Date dateAtual = format.parse(getDataAtual());
-
-            if (date.compareTo(dateAtual) < 0) {
-                return false;
-            } else {
-                return true;
-            }
-
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
+//        try {
+//            Date date = format.parse(associado.getTransacao().getDataExp());
+//            Date dateAtual = format.parse(getDataAtual());
+//
+//            if (date.compareTo(dateAtual) < 0) {
+//                return false;
+//            } else {
+//                return true;
+//            }
+//
+//        } catch (ParseException e) {
+//            throw new RuntimeException(e);
+//        }
+        return true;
     }
 
     //PEGA A DATA ATUAL DO SISTEMA
