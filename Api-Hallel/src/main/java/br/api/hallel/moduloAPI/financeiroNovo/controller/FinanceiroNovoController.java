@@ -4,6 +4,8 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.SaidaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.EntradaFinanceiroRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.SaidaFinanceiroRequest;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.EntradaFinanceiroResponse;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.SaidaFinanceiroResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.service.EntradasFinanceiraService;
 import br.api.hallel.moduloAPI.financeiroNovo.service.SaidaFinanceiroService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,12 +69,15 @@ public class FinanceiroNovoController {
     }
 
     @GetMapping("/entradas")
-    public ResponseEntity<List<EntradasFinanceiro>> listarTodasEntradas() {
+    public ResponseEntity<List<EntradaFinanceiroResponse>> listarTodasEntradas() {
         return ResponseEntity.ok().body(this.entradaService.listarAll());
     }
 
     @GetMapping("/entrada/{id}")
-    public ResponseEntity<EntradasFinanceiro> listarEntradaById(@PathVariable String id) {
+    public ResponseEntity<EntradaFinanceiroResponse> listarEntradaById(@PathVariable String id) {
+        if (this.entradaService.listarPorId(id) == null) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok().body(this.entradaService.listarPorId(id));
     }
 
@@ -92,7 +97,7 @@ public class FinanceiroNovoController {
 
     @PutMapping("/saida/editar/{id}")
     public ResponseEntity<?> editarSaida(@PathVariable String id,
-                                           @RequestBody SaidaFinanceiroRequest request) {
+                                         @RequestBody SaidaFinanceiroRequest request) {
         if (this.saidaService.editar(id, request)) {
 
             return ResponseEntity.ok().build();
@@ -114,12 +119,12 @@ public class FinanceiroNovoController {
     }
 
     @GetMapping("/saidas")
-    public ResponseEntity<List<SaidaFinanceiro>> listarTodasSaidas() {
+    public ResponseEntity<List<SaidaFinanceiroResponse>> listarTodasSaidas() {
         return ResponseEntity.ok().body(this.saidaService.listarAll());
     }
 
     @GetMapping("/saida/{id}")
-    public ResponseEntity<SaidaFinanceiro> listarSaidaById(@PathVariable String id) {
+    public ResponseEntity<SaidaFinanceiroResponse> listarSaidaById(@PathVariable String id) {
         return ResponseEntity.ok().body(this.saidaService.listarPorId(id));
     }
 

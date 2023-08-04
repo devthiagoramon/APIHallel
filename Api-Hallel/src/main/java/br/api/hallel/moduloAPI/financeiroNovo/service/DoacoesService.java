@@ -2,17 +2,19 @@ package br.api.hallel.moduloAPI.financeiroNovo.service;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.Doacoes;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.DoacaoRequest;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.DoacoesResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.DoacoesRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Log4j2
-public class DoacoesService implements MetodosCRUDFinanceiro<Doacoes, DoacaoRequest> {
+public class DoacoesService implements MetodosCRUDFinanceiro<Doacoes, DoacaoRequest, DoacoesResponse> {
 
     @Autowired
     private DoacoesRepository doacoesRepository;
@@ -34,6 +36,7 @@ public class DoacoesService implements MetodosCRUDFinanceiro<Doacoes, DoacaoRequ
             doacaoOld.setMetodoPagamento(request.getMetodoPagamento());
             doacaoOld.setValor(request.getValor());
             doacaoOld.setUsuarioDoador(request.getUsuarioDoador());
+            this.doacoesRepository.save(doacaoOld);
             log.info("Doação (id: " + id + ") alterado com sucesso");
             return true;
         } else {
@@ -50,13 +53,17 @@ public class DoacoesService implements MetodosCRUDFinanceiro<Doacoes, DoacaoRequ
     }
 
     @Override
-    public List<Doacoes> listarAll() {
-        return this.doacoesRepository.findAll();
+    public List<DoacoesResponse> listarAll() {
+        List<DoacoesResponse> responseList = new ArrayList<>();
+        for (Doacoes doacoes : this.doacoesRepository.findAll()) {
+            responseList.add(new DoacoesResponse().toDoacaoResponseList(doacoes));
+        }
+        return responseList;
     }
 
     @Override
-    public Doacoes listarPorId(String id) {
+    public DoacoesResponse listarPorId(String id) {
         Optional<Doacoes> optional = this.doacoesRepository.findById(id);
-        return optional.orElse(null);
+        return new DoacoesResponse().toDoacaoResponseList(optional.orElse(null));
     }
 }

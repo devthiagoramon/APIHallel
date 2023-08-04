@@ -19,7 +19,7 @@ public class SaidaFinanceiroRequest {
     private Double valor;
     private MetodosPagamentosFinanceiro metodoPagamento;
 
-    private SaidaFinanceiro toSaidaFinanceiro(){
+    public SaidaFinanceiro toSaidaFinanceiro(){
         SaidaFinanceiro saidaFinanceiro = new SaidaFinanceiro();
         saidaFinanceiro.setCodigo(this.getCodigo());
         saidaFinanceiro.setData(this.getData());

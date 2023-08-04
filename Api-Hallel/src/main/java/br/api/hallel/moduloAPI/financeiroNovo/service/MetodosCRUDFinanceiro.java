@@ -5,12 +5,13 @@ import java.util.List;
 /**
  *
  * @param <T> Representa a classe que você vai trabalhar
- * @param <R> Representa a classe request a qual vai vim de um requisição
+ * @param <RQ> Representa a classe request a qual vai vim de um requisição
+ * @param <RE> Representa a classe response a qual vaidar uma resposta
  */
-public interface MetodosCRUDFinanceiro<T, R> {
-    public Boolean cadastrar(R request);
-    public Boolean editar(String id, R request);
+public interface MetodosCRUDFinanceiro<T, RQ, RE> {
+    public Boolean cadastrar(RQ request);
+    public Boolean editar(String id, RQ request);
     public Boolean deletar(String id);
-    public List<T> listarAll();
-    public T listarPorId(String id);
+    public List<RE> listarAll();
+    public RE listarPorId(String id);
 }
