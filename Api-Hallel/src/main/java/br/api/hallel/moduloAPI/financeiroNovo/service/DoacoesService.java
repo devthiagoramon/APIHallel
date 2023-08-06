@@ -32,7 +32,7 @@ public class DoacoesService implements MetodosCRUDFinanceiro<Doacoes, DoacaoRequ
         if (optional.isPresent()) {
             Doacoes doacaoOld = optional.get();
             doacaoOld.setCodigo(request.getCodigo());
-            doacaoOld.setData(request.getData());
+            doacaoOld.setDate(request.getData());
             doacaoOld.setMetodoPagamento(request.getMetodoPagamento());
             doacaoOld.setValor(request.getValor());
             doacaoOld.setUsuarioDoador(request.getUsuarioDoador());

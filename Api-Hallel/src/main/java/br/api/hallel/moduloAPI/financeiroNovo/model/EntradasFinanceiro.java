@@ -14,7 +14,7 @@ import java.util.Date;
 public class EntradasFinanceiro {
     private String id;
     private CodigoEntradaFinanceiro codigo;
-    private Date data;
+    private Date date;
     private Double valor;
     private MetodosPagamentosFinanceiro metodoPagamento;
 }

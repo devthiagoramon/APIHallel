@@ -1,6 +1,7 @@
 package br.api.hallel.moduloAPI.controller;
 
-import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoAssociadoRequest;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
+import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
@@ -12,13 +13,16 @@ import br.api.hallel.moduloAPI.service.AssociadoService;
 import br.api.hallel.moduloAPI.service.CursoService;
 import br.api.hallel.moduloAPI.service.RecompensaService;
 import br.api.hallel.moduloAPI.service.TransacaoService;
+import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
+@Data
 @RestController
 @RequestMapping("/api/associados")
 @CrossOrigin("*")
@@ -52,10 +56,8 @@ public class AssociadoController {
     }
 
     @PostMapping("/criar/{idMembro}")
-    public ResponseEntity<Boolean> createAssociado(@PathVariable String idMembro,
-                                                   @RequestBody PagamentoAssociadoRequest pagamentoAssociadoRequest
-    ) {
-//        PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
+    public ResponseEntity<Boolean> createAssociado(@PathVariable String idMembro) {
+        PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
         Boolean booleanResposta = this.service.criarAssociado(idMembro, pagamentoAssociadoRequest);
         if (booleanResposta) {
             return ResponseEntity.status(200).body(true);
@@ -131,6 +133,19 @@ public class AssociadoController {
         } else {
             return ResponseEntity.status(402).body(false);
         }
+    }
+
+    @GetMapping("/datasPagas/{idAssociado}")
+    public ResponseEntity<List<Date>> listarDatasPagasAssociados(@PathVariable String idAssociado){
+        return ResponseEntity.status(200).body(this.service.listarDatasPagas(idAssociado));
+    }
+
+    @GetMapping("/pagamento/{idAssociado}")
+    public ResponseEntity<PagamentoAssociadoResponse> listarPagamentoAssociadoByMesAndAno
+            (@PathVariable String idAssociado,
+             @RequestParam(value = "mes") String mes,
+             @RequestParam(value = "ano") String ano){
+        return ResponseEntity.status(200).body(this.service.listarPagamentoByMesAno(idAssociado, mes, ano));
     }
 
 }

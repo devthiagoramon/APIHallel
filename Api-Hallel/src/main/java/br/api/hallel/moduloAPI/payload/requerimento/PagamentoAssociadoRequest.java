@@ -1,37 +1,30 @@
-package br.api.hallel.moduloAPI.financeiroNovo.payload.request;
+package br.api.hallel.moduloAPI.payload.requerimento;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import br.api.hallel.moduloAPI.model.Associado;
 import jakarta.annotation.Nullable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class PagamentoAssociadoRequest {
     private CodigoEntradaFinanceiro codigo;
-    @Nullable
-    private Date data;
-    @Nullable
+    private Date date;
     private double valor;
     private MetodosPagamentosFinanceiro metodoPagamento;
-
-    @Nullable
     private List<Associado> para; // Opcional
-    @Nullable
     private String idAssociado;
 
     public PagamentosAssociado toPagamentoAssociado() {
         PagamentosAssociado pagamentoAssociado = new PagamentosAssociado();
         pagamentoAssociado.setCodigo(this.codigo);
-        pagamentoAssociado.setData(new Date());
+        pagamentoAssociado.setDate(new Date());
         pagamentoAssociado.setValor((double) 25.00);
         pagamentoAssociado.setMetodoPagamento(this.metodoPagamento);
         pagamentoAssociado.setPara(this.para);

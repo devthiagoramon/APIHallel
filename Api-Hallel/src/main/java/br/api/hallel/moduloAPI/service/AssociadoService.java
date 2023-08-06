@@ -3,7 +3,8 @@ package br.api.hallel.moduloAPI.service;
 import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
-import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoAssociadoRequest;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
+import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
@@ -206,15 +207,20 @@ public class AssociadoService implements AssociadoInterface {
         Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
         if (optional.isPresent()) {
             Associado associado = optional.get();
-            if (associado.getMesesPagos() != null) {
-                associado.getMesesPagos().add(new Date());
-                this.associadoRepository.save(associado);
-            } else {
-                ArrayList<Date> datasPagamentosList = new ArrayList<>();
-                datasPagamentosList.add(new Date());
-                associado.setMesesPagos(datasPagamentosList);
-                this.associadoRepository.save(associado);
-            }
+
+            // temporario
+            PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
+            CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
+            codigoEntradaFinanceiro.setId("Teste");
+            codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
+            codigoEntradaFinanceiro.setNumeroCodigo(10.3);
+            pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
+            pagamentoAssociadoRequest.setMetodoPagamento(MetodosPagamentosFinanceiro.PIX);
+            PagamentosAssociado pagamentoAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
+
+            associado.getPagamentosAssociados().add(pagamentoAssociado);
+            associado.getMesesPagos().add(new Date());
+            this.associadoRepository.save(associado);
             return true;
         } else {
             return false;
@@ -226,8 +232,6 @@ public class AssociadoService implements AssociadoInterface {
 
         Optional<Membro> optional = this.membroRepository.findById(idMembro);
 
-
-        log.info(String.valueOf(optional.isPresent()));
         if (optional.isEmpty()) {
             return false;
         }
@@ -237,20 +241,20 @@ public class AssociadoService implements AssociadoInterface {
         /*
          * Ser deletado após atualização do financeiro
          */
-//
-//        CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
-//        codigoEntradaFinanceiro.setId("Teste");
-//        codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
-//        codigoEntradaFinanceiro.setNumeroCodigo(10.3);
-//        pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
-//        pagamentoAssociadoRequest.setMetodoPagamento(MetodosPagamentosFinanceiro.PIX);
+
+        CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
+        codigoEntradaFinanceiro.setId("Teste");
+        codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
+        codigoEntradaFinanceiro.setNumeroCodigo(10.3);
+        pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
+        pagamentoAssociadoRequest.setMetodoPagamento(MetodosPagamentosFinanceiro.PIX);
 
         PagamentosAssociado pagamentoAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
         ArrayList<PagamentosAssociado> pagamentosAssociados = new ArrayList<>();
         pagamentosAssociados.add(pagamentoAssociado);
 
         List<Date> mesesPagos = new ArrayList<>();
-        mesesPagos.add(pagamentoAssociado.getData());
+        mesesPagos.add(pagamentoAssociado.getDate());
 
         Associado associadoNovo = new Associado();
 
@@ -268,9 +272,35 @@ public class AssociadoService implements AssociadoInterface {
         return true;
     }
 
+    @Override
+    public List<Date> listarDatasPagas(String idAssociado) {
+        Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
+        if (optional.isEmpty()) {
+            return null;
+        }
+        Associado associado = optional.get();
+        return associado.getMesesPagos();
+    }
+
+    @Override
+    public PagamentoAssociadoResponse listarPagamentoByMesAno(String idAssociado, String mes, String ano) {
+        Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
+        if (optional.isEmpty()) {
+            return null;
+        }
+        Associado associado = optional.get();
+        PagamentosAssociado pagamentosAssociado = null;
+        for (PagamentosAssociado pagamentoAssociadoObj : associado.getPagamentosAssociados()) {
+            if(formatter.format(pagamentoAssociadoObj.getDate()).substring(3).equals(mes+"/"+ano)){
+                pagamentosAssociado = pagamentoAssociadoObj;
+            }
+        }
+        return new PagamentoAssociadoResponse(pagamentosAssociado);
+    }
+
     private Date getDataExpiroAssociacao(PagamentosAssociado pagamentosAssociado) {
         LocalDate dataExpiro = pagamentosAssociado
-                .getData()
+                .getDate()
                 .toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();

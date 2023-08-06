@@ -32,7 +32,7 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
         if (optional.isPresent()) {
             EntradasFinanceiro entradasFinanceiroOld = optional.get();
             entradasFinanceiroOld.setCodigo(request.getCodigo());
-            entradasFinanceiroOld.setData(request.getData());
+            entradasFinanceiroOld.setDate(request.getData());
             entradasFinanceiroOld.setMetodoPagamento(request.getMetodoPagamento());
             entradasFinanceiroOld.setValor(request.getValor());
             this.entradasFinanceiroRepository.save(entradasFinanceiroOld);

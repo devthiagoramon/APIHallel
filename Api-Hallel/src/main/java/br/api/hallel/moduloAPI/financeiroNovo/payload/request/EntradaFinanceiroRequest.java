@@ -21,7 +21,7 @@ public class EntradaFinanceiroRequest {
     public EntradasFinanceiro toEntradaFinanceiro(){
         EntradasFinanceiro entradasFinanceiro = new EntradasFinanceiro();
         entradasFinanceiro.setCodigo(this.getCodigo());
-        entradasFinanceiro.setData(this.getData());
+        entradasFinanceiro.setDate(this.getData());
         entradasFinanceiro.setValor(this.getValor());
         entradasFinanceiro.setMetodoPagamento(this.getMetodoPagamento());
         return entradasFinanceiro;

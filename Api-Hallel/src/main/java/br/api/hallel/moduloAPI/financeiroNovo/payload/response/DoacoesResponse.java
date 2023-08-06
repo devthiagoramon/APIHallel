@@ -15,7 +15,7 @@ public class DoacoesResponse extends EntradaFinanceiroResponse{
         DoacoesResponse response = new DoacoesResponse();
         response.setId(doacoes.getId());
         response.setCodigo(doacoes.getCodigo());
-        response.setData(doacoes.getData());
+        response.setData(doacoes.getDate());
         response.setValor(doacoes.getValor());
         response.setMetodoPagamento(doacoes.getMetodoPagamento());
         response.setUsuarioDoador(doacoes.getUsuarioDoador());

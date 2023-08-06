@@ -24,7 +24,7 @@ public class DoacaoRequest {
     public Doacoes toDoacoes() {
         Doacoes doacao = new Doacoes();
         doacao.setCodigo(this.getCodigo());
-        doacao.setData(this.getData());
+        doacao.setDate(this.getData());
         doacao.setMetodoPagamento(this.getMetodoPagamento());
         doacao.setValor(this.getValor());
         doacao.setUsuarioDoador(this.getUsuarioDoador());

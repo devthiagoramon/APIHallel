@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.financeiroNovo.service;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
-import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoAssociadoRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoAssociadoRepository;
 import lombok.extern.log4j.Log4j2;
@@ -32,7 +32,7 @@ public class PagamentoAssociadoService implements MetodosCRUDFinanceiro<Pagament
         if (optional.isPresent()) {
             PagamentosAssociado pagamentosAssociadoOld = optional.get();
             pagamentosAssociadoOld.setCodigo(request.getCodigo());
-            pagamentosAssociadoOld.setData(request.getData());
+            pagamentosAssociadoOld.setDate(request.getDate());
             pagamentosAssociadoOld.setValor(request.getValor());
             pagamentosAssociadoOld.setPara(request.getPara());
             pagamentosAssociadoOld.setIdAssociadoPagador(request.getIdAssociado());

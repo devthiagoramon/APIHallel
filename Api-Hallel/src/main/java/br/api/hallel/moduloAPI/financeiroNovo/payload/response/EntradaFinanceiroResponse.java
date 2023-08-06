@@ -26,7 +26,7 @@ public class EntradaFinanceiroResponse {
         EntradaFinanceiroResponse response = new EntradaFinanceiroResponse();
         response.setId(entradasFinanceiro.getId());
         response.setCodigo(entradasFinanceiro.getCodigo());
-        response.setData(entradasFinanceiro.getData());
+        response.setData(entradasFinanceiro.getDate());
         response.setValor(entradasFinanceiro.getValor());
         response.setMetodoPagamento(entradasFinanceiro.getMetodoPagamento());
 
