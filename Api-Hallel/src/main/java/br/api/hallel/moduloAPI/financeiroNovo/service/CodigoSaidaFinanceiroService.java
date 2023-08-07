@@ -5,6 +5,8 @@ import br.api.hallel.moduloAPI.financeiroNovo.payload.request.CodigoSaidaFinance
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.CodigoSaidaFinanceiroResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.CodigoSaidaFinanceiroRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,6 +54,18 @@ public class CodigoSaidaFinanceiroService implements MetodosCRUDFinanceiro<Codig
         List<CodigoSaidaFinanceiroResponse> responseList = new ArrayList<>();
 
         for (CodigoSaidaFinanceiro codigoSaidaFinanceiro : this.codigoSaidaFinanceiroRepository.findAll()) {
+            responseList.add(new CodigoSaidaFinanceiroResponse().toResponseList(codigoSaidaFinanceiro));
+        }
+
+        return responseList;
+    }
+
+    @Override
+    public List<CodigoSaidaFinanceiroResponse> listByPage(int pagina) {
+        Pageable pageable = PageRequest.of(pagina, 15);
+
+        List<CodigoSaidaFinanceiroResponse> responseList = new ArrayList<>();
+        for (CodigoSaidaFinanceiro codigoSaidaFinanceiro : this.codigoSaidaFinanceiroRepository.findAll(pageable)) {
             responseList.add(new CodigoSaidaFinanceiroResponse().toResponseList(codigoSaidaFinanceiro));
         }
 

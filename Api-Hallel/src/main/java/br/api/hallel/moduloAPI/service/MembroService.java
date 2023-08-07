@@ -1,20 +1,23 @@
 package br.api.hallel.moduloAPI.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.model.StatusMembro;
+import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
+import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.service.interfaces.MembroInterface;
-import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.model.StatusMembro;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -130,6 +133,18 @@ public class MembroService implements MembroInterface {
             return perfil;
         }
         throw new IllegalAccessException("Usuario não encontrado para carregar o perfil");
+    }
+
+    @Override
+    public List<MembroResponse> listByPage(int pagina) {
+        Pageable pageable = PageRequest.of(pagina, 15);
+
+        List<MembroResponse> responseList = new ArrayList<>();
+
+        for (Membro membro : this.repository.findAll(pageable)) {
+            responseList.add(new MembroResponse().toResponse(membro));
+        }
+        return responseList;
     }
 
     public List<Membro> findByStatusInativo() {

@@ -6,6 +6,8 @@ import br.api.hallel.moduloAPI.financeiroNovo.payload.response.DespesaRetiroResp
 import br.api.hallel.moduloAPI.financeiroNovo.repository.DespesasRetiroRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,6 +58,17 @@ public class DespesaRetiroService implements MetodosCRUDFinanceiro<DespesaRetiro
         List<DespesaRetiroResponse> responseList = new ArrayList<>();
 
         for (DespesaRetiro despesaRetiro : this.despesasRetiroRepository.findAll()) {
+            responseList.add(new DespesaRetiroResponse().toDespesaResponseList(despesaRetiro));
+        }
+        return responseList;
+    }
+
+    @Override
+    public List<DespesaRetiroResponse> listByPage(int pagina) {
+        Pageable pageable = PageRequest.of(pagina,15);
+        List<DespesaRetiroResponse> responseList = new ArrayList<>();
+
+        for (DespesaRetiro despesaRetiro : this.despesasRetiroRepository.findAll(pageable)) {
             responseList.add(new DespesaRetiroResponse().toDespesaResponseList(despesaRetiro));
         }
         return responseList;

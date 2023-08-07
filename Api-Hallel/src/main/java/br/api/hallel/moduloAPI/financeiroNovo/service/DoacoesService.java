@@ -6,6 +6,8 @@ import br.api.hallel.moduloAPI.financeiroNovo.payload.response.DoacoesResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.DoacoesRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,6 +58,16 @@ public class DoacoesService implements MetodosCRUDFinanceiro<Doacoes, DoacaoRequ
     public List<DoacoesResponse> listarAll() {
         List<DoacoesResponse> responseList = new ArrayList<>();
         for (Doacoes doacoes : this.doacoesRepository.findAll()) {
+            responseList.add(new DoacoesResponse().toDoacaoResponseList(doacoes));
+        }
+        return responseList;
+    }
+
+    @Override
+    public List<DoacoesResponse> listByPage(int pagina) {
+        Pageable pageable = PageRequest.of(pagina,15);
+        List<DoacoesResponse> responseList = new ArrayList<>();
+        for (Doacoes doacoes : this.doacoesRepository.findAll(pageable)) {
             responseList.add(new DoacoesResponse().toDoacaoResponseList(doacoes));
         }
         return responseList;

@@ -13,5 +13,6 @@ public interface MetodosCRUDFinanceiro<T, RQ, RE> {
     public Boolean editar(String id, RQ request);
     public Boolean deletar(String id);
     public List<RE> listarAll();
+    public List<RE> listByPage(int pagina);
     public RE listarPorId(String id);
 }

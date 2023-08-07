@@ -6,6 +6,8 @@ import br.api.hallel.moduloAPI.financeiroNovo.payload.response.SaidaFinanceiroRe
 import br.api.hallel.moduloAPI.financeiroNovo.repository.SaidaFinanceiroRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -55,6 +57,16 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
     public List<SaidaFinanceiroResponse> listarAll() {
         List<SaidaFinanceiroResponse> responseList = new ArrayList<>();
 
+        for (SaidaFinanceiro saida : this.saidaFinanceiroRepository.findAll()) {
+            responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(saida));
+        }
+        return responseList;
+    }
+
+    @Override
+    public List<SaidaFinanceiroResponse> listByPage(int pagina) {
+        Pageable pageable = PageRequest.of(pagina,15);
+        List<SaidaFinanceiroResponse> responseList = new ArrayList<>();
         for (SaidaFinanceiro saida : this.saidaFinanceiroRepository.findAll()) {
             responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(saida));
         }

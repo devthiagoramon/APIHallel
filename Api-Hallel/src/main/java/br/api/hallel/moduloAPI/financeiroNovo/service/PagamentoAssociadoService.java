@@ -1,11 +1,13 @@
 package br.api.hallel.moduloAPI.financeiroNovo.service;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
-import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoAssociadoRepository;
+import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,6 +59,16 @@ public class PagamentoAssociadoService implements MetodosCRUDFinanceiro<Pagament
     public List<PagamentoAssociadoResponse> listarAll() {
         List<PagamentoAssociadoResponse> responseList = new ArrayList<>();
         for (PagamentosAssociado pagamentosAssociado : this.pagamentoAssociadoRepository.findAll()) {
+            responseList.add(new PagamentoAssociadoResponse().toPagamentoResponseList(pagamentosAssociado));
+        }
+        return responseList;
+    }
+
+    @Override
+    public List<PagamentoAssociadoResponse> listByPage(int pagina) {
+        Pageable pageable = PageRequest.of(pagina,15);
+        List<PagamentoAssociadoResponse> responseList = new ArrayList<>();
+        for (PagamentosAssociado pagamentosAssociado : this.pagamentoAssociadoRepository.findAll(pageable)) {
             responseList.add(new PagamentoAssociadoResponse().toPagamentoResponseList(pagamentosAssociado));
         }
         return responseList;

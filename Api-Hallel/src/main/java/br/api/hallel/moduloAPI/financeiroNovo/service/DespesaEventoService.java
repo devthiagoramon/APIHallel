@@ -1,11 +1,13 @@
 package br.api.hallel.moduloAPI.financeiroNovo.service;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.DespesaEvento;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.DespesaEventoResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.DespesaEventoRepository;
-import br.api.hallel.moduloAPI.financeiroNovo.payload.request.DespesaEventoRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,6 +58,17 @@ public class DespesaEventoService implements MetodosCRUDFinanceiro<DespesaEvento
         List<DespesaEventoResponse> responseList = new ArrayList<>();
 
         for (DespesaEvento despesaEvento : this.despesaEventoRepository.findAll()) {
+            responseList.add(new DespesaEventoResponse().toDespesaResponseList(despesaEvento));
+        }
+        return responseList;
+    }
+
+    @Override
+    public List<DespesaEventoResponse> listByPage(int pagina) {
+        Pageable pageable = PageRequest.of(pagina,15);
+        List<DespesaEventoResponse> responseList = new ArrayList<>();
+
+        for (DespesaEvento despesaEvento : this.despesaEventoRepository.findAll(pageable)) {
             responseList.add(new DespesaEventoResponse().toDespesaResponseList(despesaEvento));
         }
         return responseList;

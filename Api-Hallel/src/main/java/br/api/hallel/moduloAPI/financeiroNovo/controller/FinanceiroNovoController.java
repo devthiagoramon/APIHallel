@@ -1,7 +1,5 @@
 package br.api.hallel.moduloAPI.financeiroNovo.controller;
 
-import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
-import br.api.hallel.moduloAPI.financeiroNovo.model.SaidaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.EntradaFinanceiroRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.SaidaFinanceiroRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.EntradaFinanceiroResponse;
@@ -73,12 +71,23 @@ public class FinanceiroNovoController {
         return ResponseEntity.ok().body(this.entradaService.listarAll());
     }
 
+    @GetMapping("/entradas/pagina/{pagina}")
+    public ResponseEntity<List<EntradaFinanceiroResponse>> listEntradasPage(@PathVariable
+                                                                            int pagina) {
+        return ResponseEntity.ok().body(this.entradaService.listByPage(pagina));
+    }
+
     @GetMapping("/entrada/{id}")
-    public ResponseEntity<EntradaFinanceiroResponse> listarEntradaById(@PathVariable String id) {
+    public ResponseEntity<EntradaFinanceiroResponse> listarEntradaById(@PathVariable(value = "id") String id) {
         if (this.entradaService.listarPorId(id) == null) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().body(this.entradaService.listarPorId(id));
+    }
+
+    @GetMapping("/entradas/{pagina}")
+    public ResponseEntity<List<EntradaFinanceiroResponse>> listarByPagina(@PathVariable(value = "pagina") int pagina) {
+        return ResponseEntity.ok().body(this.entradaService.listByPage(pagina));
     }
 
     /**
@@ -121,6 +130,12 @@ public class FinanceiroNovoController {
     @GetMapping("/saidas")
     public ResponseEntity<List<SaidaFinanceiroResponse>> listarTodasSaidas() {
         return ResponseEntity.ok().body(this.saidaService.listarAll());
+    }
+
+    @GetMapping("/saidas/pagina/{pagina}")
+    public ResponseEntity<List<SaidaFinanceiroResponse>> listarSaidaPage(@PathVariable
+                                                                         int pagina) {
+        return ResponseEntity.ok().body(this.saidaService.listByPage(pagina));
     }
 
     @GetMapping("/saida/{id}")

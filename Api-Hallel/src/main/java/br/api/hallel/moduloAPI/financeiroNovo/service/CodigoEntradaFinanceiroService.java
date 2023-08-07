@@ -6,6 +6,8 @@ import br.api.hallel.moduloAPI.financeiroNovo.payload.response.CodigoEntradaFina
 import br.api.hallel.moduloAPI.financeiroNovo.repository.CodigoEntradaFinanceiroRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,6 +58,19 @@ public class CodigoEntradaFinanceiroService implements MetodosCRUDFinanceiro<Cod
             responseList.add(new CodigoEntradaFinanceiroResponse().toResponseList(codigoEntradaFinanceiro));
         }
         return responseList;
+    }
+
+    @Override
+    public List<CodigoEntradaFinanceiroResponse> listByPage(int pagina) {
+        Pageable pageable = PageRequest.of(pagina,15);
+
+        List<CodigoEntradaFinanceiroResponse> responseList = new ArrayList<>();
+        for (CodigoEntradaFinanceiro codigoEntradaFinanceiro : this.codigoEntradaFinanceiroRepository.findAll(pageable)) {
+            responseList.add(new CodigoEntradaFinanceiroResponse().toResponseList(codigoEntradaFinanceiro));
+        }
+
+
+        return null;
     }
 
     @Override
