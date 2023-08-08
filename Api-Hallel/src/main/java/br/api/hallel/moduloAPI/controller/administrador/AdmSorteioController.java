@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.controller;
+package br.api.hallel.moduloAPI.controller.administrador;
 
 import br.api.hallel.moduloAPI.model.Sorteio;
 import br.api.hallel.moduloAPI.payload.requerimento.RecompensaRequest;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/sorteio")
+@RequestMapping("/api/administrador/sorteios")
 @CrossOrigin("*")
-public class SorteioController {
+public class AdmSorteioController {
 
     @Autowired
     private SorteioService service;

@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.controller;
+package br.api.hallel.moduloAPI.controller.administrador;
 
 import br.api.hallel.moduloAPI.model.MembroGoogle;
 import br.api.hallel.moduloAPI.payload.requerimento.SolicitarCadastroGoogle;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/google")
-public class GoogleController {
+public class AdmGoogleController {
 
     @Autowired
     private MembroService service;

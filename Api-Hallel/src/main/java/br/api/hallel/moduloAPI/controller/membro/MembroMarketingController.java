@@ -1,6 +1,5 @@
-package br.api.hallel.moduloAPI.controller;
+package br.api.hallel.moduloAPI.controller.membro;
 
-import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.MembroMarketing;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;

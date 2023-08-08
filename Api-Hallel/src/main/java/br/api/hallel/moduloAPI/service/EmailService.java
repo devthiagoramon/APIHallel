@@ -1,9 +1,9 @@
 package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.Associado;
+import br.api.hallel.moduloAPI.payload.requerimento.EmailRequest;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EmailInterface;
-import br.api.hallel.moduloAPI.payload.requerimento.EmailRequest;
 import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

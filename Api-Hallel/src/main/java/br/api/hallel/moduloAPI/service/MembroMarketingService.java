@@ -1,15 +1,14 @@
 package br.api.hallel.moduloAPI.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import br.api.hallel.moduloAPI.model.MembroMarketing;
 import br.api.hallel.moduloAPI.repository.MembroMarketingRepository;
 import br.api.hallel.moduloAPI.service.interfaces.MembroMarketingInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.api.hallel.moduloAPI.model.MembroMarketing;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MembroMarketingService implements MembroMarketingInterface {

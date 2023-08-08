@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.controller;
+package br.api.hallel.moduloAPI.controller.administrador;
 
 import br.api.hallel.moduloAPI.model.LocalEvento;
 import br.api.hallel.moduloAPI.payload.requerimento.LocalEventoReq;
@@ -13,29 +13,29 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/locais")
+@RequestMapping("/api/administrador/locais")
 public class LocaisEventosController {
 
     @Autowired
     private LocalEventoService service;
 
     @GetMapping("")
-    public ResponseEntity<List<LocalEvento>> listTodosLocaisEventos(){
+    public ResponseEntity<List<LocalEvento>> listTodosLocaisEventos() {
         return ResponseEntity.status(200).body(this.service.listarTodosLocalEvento());
     }
 
     @GetMapping("/listLocalizacao")
-    public ResponseEntity<List<LocalEventoLocalizacaoResponse>> listTodosLocaisEventosLocalizacao(){
+    public ResponseEntity<List<LocalEventoLocalizacaoResponse>> listTodosLocaisEventosLocalizacao() {
         return ResponseEntity.status(200).body(this.service.listarTodasLocalizacaoLocalEvento());
     }
 
     @GetMapping("/{id}/list")
-    public ResponseEntity<LocalEventoResponse> listLocalEventoById(@PathVariable String id){
+    public ResponseEntity<LocalEventoResponse> listLocalEventoById(@PathVariable String id) {
         return ResponseEntity.status(200).body(this.service.listarLocalEventoPorId(id));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<LocalEvento> createLocalEvento(@RequestBody LocalEventoReq localEventoReq){
+    public ResponseEntity<LocalEvento> createLocalEvento(@RequestBody LocalEventoReq localEventoReq) {
         return ResponseEntity.status(201).body(this.service.adicionarLocalEvento(localEventoReq));
     }
 
@@ -45,12 +45,9 @@ public class LocaisEventosController {
     }
 
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity<String> deleteLocalEvento(@PathVariable String id){
+    public ResponseEntity<String> deleteLocalEvento(@PathVariable String id) {
         this.service.excluirLocalEvento(id);
         return ResponseEntity.status(200).body("Local evento deletado");
     }
-
-
-
 
 }

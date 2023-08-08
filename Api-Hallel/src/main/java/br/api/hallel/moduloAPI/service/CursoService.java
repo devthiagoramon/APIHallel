@@ -2,14 +2,14 @@ package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.*;
-import br.api.hallel.moduloAPI.repository.AssociadoRepository;
-import br.api.hallel.moduloAPI.repository.CursoRepository;
-import br.api.hallel.moduloAPI.service.interfaces.CursoInterface;
 import br.api.hallel.moduloAPI.payload.requerimento.AddCursoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.AssociadoReq;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoCursoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.moduloAPI.payload.resposta.DescricaoCursoRes;
+import br.api.hallel.moduloAPI.repository.AssociadoRepository;
+import br.api.hallel.moduloAPI.repository.CursoRepository;
+import br.api.hallel.moduloAPI.service.interfaces.CursoInterface;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

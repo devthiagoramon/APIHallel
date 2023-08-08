@@ -1,17 +1,14 @@
 package br.api.hallel.moduloAPI.service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
+import br.api.hallel.moduloAPI.model.Administrador;
 import br.api.hallel.moduloAPI.model.ERole;
 import br.api.hallel.moduloAPI.model.Role;
+import br.api.hallel.moduloAPI.model.StatusMembro;
+import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
+import br.api.hallel.moduloAPI.payload.resposta.MessageResposta;
 import br.api.hallel.moduloAPI.repository.AdministradorRepository;
 import br.api.hallel.moduloAPI.repository.RoleRepository;
 import br.api.hallel.moduloAPI.service.interfaces.AdministradorInterface;
-import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
-import br.api.hallel.moduloAPI.payload.resposta.MessageResposta;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.api.hallel.moduloAPI.model.Administrador;
-import br.api.hallel.moduloAPI.model.StatusMembro;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AdministradorService implements AdministradorInterface {

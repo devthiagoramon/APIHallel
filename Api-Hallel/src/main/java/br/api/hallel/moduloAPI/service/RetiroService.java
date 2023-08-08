@@ -8,7 +8,6 @@ import br.api.hallel.moduloAPI.payload.resposta.AlimentoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.RetiroResponse;
 import br.api.hallel.moduloAPI.repository.RetiroRepository;
 import br.api.hallel.moduloAPI.service.interfaces.RetiroInterface;
-import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

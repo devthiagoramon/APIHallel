@@ -2,13 +2,12 @@ package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.model.EntradaFinanceiraResponseUltimas;
 import br.api.hallel.moduloAPI.model.Financeiro;
-import br.api.hallel.moduloAPI.model.GastoFinanceiro;
 import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
-import br.api.hallel.moduloAPI.repository.ReceitaFinanceiraRepository;
-import br.api.hallel.moduloAPI.service.interfaces.ReceitaInterface;
 import br.api.hallel.moduloAPI.payload.requerimento.ReceitaReq;
 import br.api.hallel.moduloAPI.payload.resposta.ReceitasDiaAtualResponse;
 import br.api.hallel.moduloAPI.payload.resposta.ReceitasSemanaAtualResponse;
+import br.api.hallel.moduloAPI.repository.ReceitaFinanceiraRepository;
+import br.api.hallel.moduloAPI.service.interfaces.ReceitaInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

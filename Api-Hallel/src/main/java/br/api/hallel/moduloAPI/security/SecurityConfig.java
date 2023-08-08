@@ -40,11 +40,10 @@ public class SecurityConfig {
             "/api/eventos/"};
 
     private String endpointsPermitidasAdm[] =
-            {"/api/administrador/**", "/api/cursos/**", "/api/financeiro/**",
-            "/api/associados/listByMes", "/api/associados/listAll",
-                    "/api/associados/{id}", "/api/associados/delete/{id}", "/api/associados/update/{id}",
-            "/api/associados/getAllPagamentos", "/getPagamentosAssociado/{id}", "/api/associados/pagos", "/api/associados/pendetes",
-            "/api/associados/naopagos", "/api/associados/metodo/credito", "/api/associados/metodo/debito", "/api/associados/metodo/dinheiro"};
+            {"/api/administrador/**", "/api/administrador/cursos/**", "/api/financeiro/**",
+            "/api/administrador/associados/**", "/api/administrador/doacoes/**",
+            "/api/administrador/eventos/**", "/api/administrador/loja/produtos/**",
+            "/api/administrador/retiros/**", "/api/administrador/sorteios/**", "/api/administrador/locais/**"};
     private String endpointsMembros[] = {"/api/associados/criar/{idMembro}"};
     private String endpointsAssociado[] = {"/api/associados/meusCursos/{idAssociado}", "/api/associados/pagarAssosiacao/{idAssociado}"};
 

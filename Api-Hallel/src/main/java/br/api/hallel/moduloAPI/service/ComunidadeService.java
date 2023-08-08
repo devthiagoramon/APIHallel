@@ -5,10 +5,10 @@ import br.api.hallel.moduloAPI.model.Doacao;
 import br.api.hallel.moduloAPI.repository.ComunidadeRepository;
 import br.api.hallel.moduloAPI.service.interfaces.ComunidadeInterface;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 

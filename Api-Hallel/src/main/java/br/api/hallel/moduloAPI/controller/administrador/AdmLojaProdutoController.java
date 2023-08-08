@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.controller;
+package br.api.hallel.moduloAPI.controller.administrador;
 
 import br.api.hallel.moduloAPI.model.Produto;
 import br.api.hallel.moduloAPI.payload.requerimento.ProdutoReq;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/loja/produto")
+@RequestMapping("/api/administrador/loja/produtos")
 @CrossOrigin("*")
-public class ProdutoController{
+public class AdmLojaProdutoController {
 
     @Autowired
     private ProdutoService produtoService;
@@ -33,13 +33,13 @@ public class ProdutoController{
         return ResponseEntity.status(201).body(this.produtoService.listProdutoById(idProduto));
     }
 
-    @PostMapping("/updateProduto/{idProduto}")
+    @PutMapping("/updateProduto/{idProduto}")
     public ResponseEntity<ProdutoResponse> updateProdutoById(@PathVariable(value = "idProduto") String idProduto,
                                                              @RequestBody ProdutoReq produtoReq) {
         return ResponseEntity.status(200).body(this.produtoService.updateProduto(idProduto, produtoReq));
     }
 
-    @PostMapping("/deleteProduto/{idProduto}")
+    @DeleteMapping("/deleteProduto/{idProduto}")
     public ResponseEntity<?> deleteProduto(@PathVariable(value = "idProduto") String idProduto) {
         this.produtoService.deleteProduto(idProduto);
         return ResponseEntity.status(204).build();

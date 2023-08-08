@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.controller;
+package br.api.hallel.moduloAPI.controller.administrador;
 
 import br.api.hallel.moduloAPI.payload.requerimento.EmailRequest;
 import br.api.hallel.moduloAPI.service.EmailService;

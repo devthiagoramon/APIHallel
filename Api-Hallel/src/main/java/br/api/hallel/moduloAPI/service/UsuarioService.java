@@ -1,16 +1,15 @@
 package br.api.hallel.moduloAPI.service;
 
-import java.util.List;
-
+import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.model.StatusMembro;
+import br.api.hallel.moduloAPI.model.Usuario;
 import br.api.hallel.moduloAPI.repository.UsuarioRepository;
 import br.api.hallel.moduloAPI.service.interfaces.UsuarioInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.model.StatusMembro;
-import br.api.hallel.moduloAPI.model.Usuario;
+import java.util.List;
 
 @Service
 public class UsuarioService implements UsuarioInterface {

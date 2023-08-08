@@ -1,14 +1,13 @@
-package br.api.hallel.moduloAPI.controller;
+package br.api.hallel.moduloAPI.controller.administrador;
 
-import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.AtividadesCurso;
 import br.api.hallel.moduloAPI.model.Curso;
 import br.api.hallel.moduloAPI.model.ModulosCurso;
 import br.api.hallel.moduloAPI.payload.requerimento.AddCursoReq;
-import br.api.hallel.moduloAPI.service.AssociadoService;
 import br.api.hallel.moduloAPI.service.CursoService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +19,13 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cursos")
 @CrossOrigin(origins = "*")
-public class CursoController {
+@RequestMapping("/api/administrador/curso")
+@Slf4j
+public class AdmCursoController {
 
     @Autowired
     private CursoService service;
-    @Autowired
-    private AssociadoService associadoService;
 
     @PostMapping("/create")
     public ResponseEntity<Curso> createCurso(@RequestBody AddCursoReq cursoReq) {
@@ -54,15 +52,9 @@ public class CursoController {
         return ResponseEntity.status(200).body(this.service.updateCurso(id, curso.toCurso()));
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCurso(@PathVariable String id) {
         this.service.deleteCurso(id);
-        return ResponseEntity.status(204).build();
-    }
-
-    @PostMapping("/matricular/{idAssociado}/{idCurso}")
-    public ResponseEntity<?> addParticipante(@PathVariable(value = "idAssociado") String idAssociado, @PathVariable(value = "idCurso") String idCurso) throws AssociadoNotFoundException {
-        this.service.addAssociadoCurso(idAssociado, idCurso);
         return ResponseEntity.status(204).build();
     }
 
@@ -93,42 +85,4 @@ public class CursoController {
         }
         return ResponseEntity.ok().build();
     }
-
-
-    @PostMapping("/concluir")
-    public ResponseEntity<Associado> concluirCurso(@RequestParam(value = "idCurso") String idCurso,
-                                                   @RequestParam(value = "idAssociado") String idAssociado) {
-        return ResponseEntity.status(204).body(this.service.concluirCurso(idCurso, idAssociado));
-    }
-
-    @PostMapping("/atividade/concluir")
-    public ResponseEntity<Associado> concluirAtvidade(@RequestParam(value = "idAssociado") String idAssociado,
-                                                      @RequestParam(value = "idCurso") String idCurso, @RequestBody AtividadesCurso atividadesCurso) {
-
-        return ResponseEntity.status(204).body(this.service.concluirAtividade(atividadesCurso.getTituloAtividade(), idAssociado, idCurso));
-    }
-
-    @PostMapping("/favorite")
-    public ResponseEntity<Associado> favoriteCurso(@RequestParam(value = "idAssociado") String idAssociado,
-                                                   @RequestParam(value = "idCurso")String idCurso) {
-        return ResponseEntity.ok().body(this.service.favoriteCurso(idAssociado, idCurso));
-    }
-
-    @GetMapping("/desempenho/{id}")
-    public ResponseEntity<Double> desempenhoCurso(@PathVariable String id) {
-        return ResponseEntity.status(200).body(this.service.desempenhoCurso(id));
-    }
-
-    @PostMapping("/concluirModulo/{idAssociado}")
-    public ResponseEntity<Associado> concluirModulo(@RequestBody ModulosCurso modulosCurso,
-                                                    @PathVariable String idAssociado) {
-        return ResponseEntity.ok().body(this.service.concluirModuloCurso(modulosCurso, idAssociado));
-    }
-
-    @GetMapping("/desempenhoCurso")
-    public ResponseEntity<String> desempenhoDoCurso(@RequestParam(value = "idCurso") String idCurso,
-                                                    @RequestParam(value = "idAssociado") String idAssociado) {
-        return ResponseEntity.ok().body(this.service.desempenhoDoCurso(idAssociado, idCurso));
-    }
-
 }

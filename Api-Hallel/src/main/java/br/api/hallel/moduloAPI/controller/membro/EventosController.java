@@ -1,8 +1,5 @@
-package br.api.hallel.moduloAPI.controller;
+package br.api.hallel.moduloAPI.controller.membro;
 
-import br.api.hallel.moduloAPI.model.DespesaEvento;
-import br.api.hallel.moduloAPI.model.Eventos;
-import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
@@ -25,38 +22,37 @@ public class EventosController {
     private EventosService service;
 
     @GetMapping("")
-    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos(){
+    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos() {
         return ResponseEntity.status(200).body(service.listEventosToVisualizar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventosResponse> listEventoByIdController(@PathVariable(value = "id") String id){
+    public ResponseEntity<EventosResponse> listEventoByIdController(@PathVariable(value = "id") String id) {
         return ResponseEntity.status(201).body(service.listarEventoById(id));
     }
 
     @GetMapping("/{nome}")
-    public ResponseEntity<EventosResponse> listEventoByNomeController(@PathVariable(value = "nome") String nome){
+    public ResponseEntity<EventosResponse> listEventoByNomeController(@PathVariable(value = "nome") String nome) {
         return ResponseEntity.status(201).body(service.listarEventosByTitulo(nome));
     }
 
     @GetMapping("/update/{id}")
     public ResponseEntity<EventosResponse> updateEventos(@PathVariable(value = "id") String id,
-                                                         @RequestBody EventosRequest request){
+                                                         @RequestBody EventosRequest request) {
         return ResponseEntity.status(200).body(service.updateEventoById(id, request));
     }
 
     @GetMapping("/delete/{id}")
-    public ResponseEntity<?> deleteEventoById(@PathVariable String id){
+    public ResponseEntity<?> deleteEventoById(@PathVariable String id) {
         this.service.deleteEventoById(id);
         return ResponseEntity.status(204).build();
     }
 
     @PostMapping("/adicionarMembro")
     public ResponseEntity<String> adicionarMembro(@RequestParam(value = "titulo") String titulo,
-                                             @RequestParam(value = "emailUser") String emailUser){
-        return ResponseEntity.ok().body(this.service.adicionarMembro(titulo,emailUser));
+                                                  @RequestParam(value = "emailUser") String emailUser) {
+        return ResponseEntity.ok().body(this.service.adicionarMembro(titulo, emailUser));
     }
-
 
 
 }

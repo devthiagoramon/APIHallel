@@ -3,14 +3,13 @@ package br.api.hallel.moduloAPI.service;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.AssociadoStatus;
 import br.api.hallel.moduloAPI.model.Transacao;
+import br.api.hallel.moduloAPI.payload.requerimento.TransacaoRequerimento;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.TransacaoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.TransacaoInterface;
-import br.api.hallel.moduloAPI.payload.requerimento.TransacaoRequerimento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
