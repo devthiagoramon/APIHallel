@@ -1,5 +1,10 @@
 package br.api.hallel.moduloAPI.controller.administrador;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
+import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoEntradaEventoRes;
+import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
 import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.EventoArquivado;
 import br.api.hallel.moduloAPI.model.Eventos;
@@ -15,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,6 +33,8 @@ public class AdmEventosController {
     private EventosService eventosService;
     @Autowired
     private EventoArquivadoService eventoArquivadoService;
+    @Autowired
+    private PagamentoEntradaEventoService pagamentoEntradaService;
 
 
     @PostMapping("/create")
@@ -49,18 +57,18 @@ public class AdmEventosController {
     }
 
     @GetMapping("/{idEvento}/list")
-    public ResponseEntity<EventosResponse> listarEventoByIdEvento(@PathVariable(value = "idEvento") String idEvento){
+    public ResponseEntity<EventosResponse> listarEventoByIdEvento(@PathVariable(value = "idEvento") String idEvento) {
         return ResponseEntity.status(200).body(this.eventosService.listarEventoById(idEvento));
     }
 
 
     @GetMapping("/{idEvento}/arquivar")
-    public void arquivarEvento(@PathVariable(value = "idEvento") String id){
+    public void arquivarEvento(@PathVariable(value = "idEvento") String id) {
         this.eventoArquivadoService.addEventoArquivado(id);
     }
 
     @GetMapping("/{idEvento}/desarquivar")
-    public void desarquivarEvento(@PathVariable(value = "idEvento") String idEvento){
+    public void desarquivarEvento(@PathVariable(value = "idEvento") String idEvento) {
         this.eventoArquivadoService.retirarEventoArquivado(idEvento);
     }
 
@@ -119,5 +127,26 @@ public class AdmEventosController {
         return ResponseEntity.status(200).body(this.eventosService.listarDespesasInEvento(idEvento));
     }
 
+    @PostMapping("/solicitarPagamento/entrada/{idMembro}")
+    public ResponseEntity<?> solicitarPagamentoEntrada( PagamentoEntradaEventoReq request,
+                                                       @PathVariable(value = "idMembro") String idMembro) {
 
+
+        request.setValor(20.0);
+        request.setDate(new Date());
+        request.setIdMembroPagador(idMembro);
+        request.setStatus(StatusEntradaEvento.ANDAMENTO);
+
+        if (pagamentoEntradaService.receberIdMembro(idMembro,request)) {
+            return ResponseEntity.accepted().build();
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/{idEvento}/atualizar/pagamento")
+    public ResponseEntity<PagamentoEntradaEventoRes> atualizarListaEventosInPagamentos(@PathVariable(value = "idEvento")
+                                                                                       String idEvento) {
+        return ResponseEntity.status(200).body(this.eventosService.atualizarListaEvento(idEvento));
+    }
 }

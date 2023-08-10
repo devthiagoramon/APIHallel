@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.resposta.LocalEventoLocalizacaoResponse;
 import lombok.Data;
@@ -23,6 +24,8 @@ public class EventosRequest {
     private String imagem;
 
     private List<String> palestrantes;
+    private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
+
 
 
     public Eventos toCreateRequest(LocalEvento localEventoAtualizado){

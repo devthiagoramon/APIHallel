@@ -1,5 +1,7 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoEntradaEventoRes;
 import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
@@ -30,5 +32,8 @@ public interface EventosInterface {
     void excluirDespesaInEvento(String idEvento, Integer idDespesaEvento);
     List<DespesaEvento> listarDespesasInEvento(String idEvento);
     List<EventosVisualizacaoResponse> listEventosToVisualizar();
-
+    List<EventosVisualizacaoResponse> listByPage(int page);
+    Boolean solicitarPagamentoEntrada(String idEvento, String idMembro,
+                                      PagamentoEntradaEventoReq request);
+    PagamentoEntradaEventoRes atualizarListaEvento(String idEvento);
 }

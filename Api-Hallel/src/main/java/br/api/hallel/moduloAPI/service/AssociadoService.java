@@ -4,6 +4,7 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
+import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoAssociadoService;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.AssociadoStatus;
 import br.api.hallel.moduloAPI.model.Membro;
@@ -34,6 +35,8 @@ public class AssociadoService implements AssociadoInterface {
 
     @Autowired
     private MembroRepository membroRepository;
+    @Autowired
+    private PagamentoAssociadoService pagamentoAssociadoService;
 
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -223,7 +226,9 @@ public class AssociadoService implements AssociadoInterface {
 
             associado.getPagamentosAssociados().add(pagamentoAssociado);
             associado.getMesesPagos().add(new Date());
+
             this.associadoRepository.save(associado);
+            this.pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
             return true;
         } else {
             return false;
@@ -231,7 +236,8 @@ public class AssociadoService implements AssociadoInterface {
     }
 
     @Override
-    public Boolean criarAssociado(String idMembro, PagamentoAssociadoRequest pagamentoAssociadoRequest) {
+    public Boolean criarAssociado(String idMembro,
+                                  PagamentoAssociadoRequest pagamentoAssociadoRequest) {
 
         Optional<Membro> optional = this.membroRepository.findById(idMembro);
 
@@ -272,6 +278,7 @@ public class AssociadoService implements AssociadoInterface {
 
         pagamentoAssociado.setIdAssociadoPagador(associadoSalvoBD.getId());
 
+        pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
         return true;
     }
 
@@ -294,7 +301,7 @@ public class AssociadoService implements AssociadoInterface {
         Associado associado = optional.get();
         PagamentosAssociado pagamentosAssociado = null;
         for (PagamentosAssociado pagamentoAssociadoObj : associado.getPagamentosAssociados()) {
-            if(formatter.format(pagamentoAssociadoObj.getDate()).substring(3).equals(mes+"/"+ano)){
+            if (formatter.format(pagamentoAssociadoObj.getDate()).substring(3).equals(mes + "/" + ano)) {
                 pagamentosAssociado = pagamentoAssociadoObj;
             }
         }

@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.payload.resposta;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +34,7 @@ public class EventosResponse {
     private List<DespesaEvento> despesas;
 
     private List<String> palestrantes;
+    private List<PagamentoEntradaEvento> pagamentoEntradaEventos;
 
     public EventosResponse toEventosResponse(Eventos eventos) {
 
@@ -77,6 +79,7 @@ public class EventosResponse {
                 getParticipantesEspeciais(),
                 getDestaque(),
                 getDespesas(),
-                getPalestrantes());
+                getPalestrantes(),
+                getPagamentoEntradaEventos());
     }
 }

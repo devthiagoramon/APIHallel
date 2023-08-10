@@ -1,5 +1,10 @@
 package br.api.hallel.moduloAPI.service;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
+import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoEntradaEventoRes;
+import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
 import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.LocalEvento;
@@ -12,8 +17,10 @@ import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.repository.LocalEventoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventosInterface;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,7 +29,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@Slf4j
+@Log4j2
 public class EventosService implements EventosInterface {
 
     @Autowired
@@ -30,11 +37,9 @@ public class EventosService implements EventosInterface {
     @Autowired
     private MembroService membroService;
     @Autowired
-    private ComunidadeService comunidadeService;
-
-    @Autowired
     private LocalEventoRepository localEventoRepository;
-
+    @Autowired
+    PagamentoEntradaEventoService pagamentoEntradaService;
 
     //CRIA EVENTOS
     @Override
@@ -44,9 +49,10 @@ public class EventosService implements EventosInterface {
         LocalEventoLocalizacaoRequest localEventoRequest = evento.getLocalEventoRequest();
 
         Optional<LocalEvento> optional = localEventoRepository.findById(localEventoRequest.getId());
-        if (optional.isEmpty()){
+        if (optional.isEmpty()) {
             return null;
         }
+
         return this.repository.insert(evento.toCreateRequest(optional.get()));
     }
 
@@ -98,6 +104,57 @@ public class EventosService implements EventosInterface {
         return listaResponse;
     }
 
+    @Override
+    public List<EventosVisualizacaoResponse> listByPage(int page) {
+        List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
+        Pageable pageable = PageRequest.of(page, 15);
+
+        for (Eventos eventos : this.repository.findAll(pageable)) {
+            listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+        }
+
+        log.info("Eventos para visualização listados!");
+
+        return listaResponse;
+    }
+
+    @Override
+    public Boolean solicitarPagamentoEntrada(String idEvento, String idMembro, PagamentoEntradaEventoReq request) {
+
+
+        request.setIdMembroPagador(idMembro);
+        request.setStatus(StatusEntradaEvento.ANDAMENTO);
+
+        this.pagamentoEntradaService.cadastrar(request);
+
+        return true;
+    }
+
+    @Override
+    public PagamentoEntradaEventoRes atualizarListaEvento(String id) {
+
+        PagamentoEntradaEventoRes pagamentoResponse =
+                this.pagamentoEntradaService.listarPorId(id);
+
+        if(pagamentoResponse.getEventosList() == null){
+
+            List<Eventos> listaEventos = new ArrayList<>();
+
+            for (Eventos eventos : this.repository.findAll()) {
+                listaEventos.add(eventos);
+            }
+
+            pagamentoResponse.setEventosList(listaEventos);
+            this.pagamentoEntradaService.editar(id, new PagamentoEntradaEventoRes().toPagamentoEntradaReq(pagamentoResponse));
+
+            return pagamentoResponse;
+        }else{
+
+        }
+
+        return null;
+    }
+
 
     //LISTA O EVENTO PELO SEU NOME
     @Override
@@ -122,7 +179,7 @@ public class EventosService implements EventosInterface {
         LocalEventoLocalizacaoRequest localEventoRequest = request.getLocalEventoRequest();
 
         Optional<LocalEvento> optional = localEventoRepository.findById(localEventoRequest.getId());
-        if (optional.isEmpty()){
+        if (optional.isEmpty()) {
             return null;
         }
 
@@ -136,7 +193,7 @@ public class EventosService implements EventosInterface {
         eventoOld.setHorario(request.getHorario());
         eventoOld.setLocalEvento(optional.get());
 
-        if(request.getPalestrantes() != null || request.getPalestrantes().size() == 0) {
+        if (request.getPalestrantes() != null || request.getPalestrantes().size() == 0) {
             eventoOld.setPalestrantes(request.getPalestrantes());
         }
 
@@ -307,9 +364,9 @@ public class EventosService implements EventosInterface {
 
         this.repository.save(evento);
 
-        log.info("Despesa de id "+idDespesaEvento+" evento "+evento.getTitulo()+" editado com sucesso");
+        log.info("Despesa de id " + idDespesaEvento + " evento " + evento.getTitulo() + " editado com sucesso");
 
-        return "Despesa de id "+idDespesaEvento+" evento "+evento.getTitulo()+" editado com sucesso";
+        return "Despesa de id " + idDespesaEvento + " evento " + evento.getTitulo() + " editado com sucesso";
     }
 
     @Override
@@ -324,8 +381,8 @@ public class EventosService implements EventosInterface {
             }
         }
 
-        if(indexDespesa == -1){
-            log.info("Despesa com id: "+idDespesaEvento+", inexistente");
+        if (indexDespesa == -1) {
+            log.info("Despesa com id: " + idDespesaEvento + ", inexistente");
             return;
         }
 

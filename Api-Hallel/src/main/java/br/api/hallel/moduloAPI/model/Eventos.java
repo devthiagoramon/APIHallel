@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.model;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,7 @@ public class Eventos {
 
     private List<DespesaEvento> despesas;
     private List<String> palestrantes;
+    private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
 
     public Eventos(String descricao, String titulo, String date, LocalEvento localEvento, String horario, String imagem, List<String> palestrantes) {
         this.descricao = descricao;

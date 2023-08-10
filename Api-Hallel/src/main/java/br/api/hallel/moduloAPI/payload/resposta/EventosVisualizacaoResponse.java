@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.payload.resposta;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.LocalEvento;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class EventosVisualizacaoResponse {
     private Boolean destaque;
     private String horario;
     private List<String> palestrantes;
+    private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
 
     public EventosVisualizacaoResponse toListEventosResponse(Eventos eventos) {
         EventosVisualizacaoResponse response = new EventosVisualizacaoResponse();
