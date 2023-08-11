@@ -20,9 +20,11 @@ public class Membro extends Usuario implements UserDetails {
     private String nome;
     private String senha;
     private String email;
-    private String dataNascimento;
+    private String cpf;
+    private Date dataNascimento;
     private StatusMembro status;
     private Integer idade;
+    private String telefone;
     private String image;
     private String funcao;
     private Boolean doador;
@@ -33,7 +35,7 @@ public class Membro extends Usuario implements UserDetails {
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
-    public Membro(String nome, String senha, String email, String dataNascimento, StatusMembro status){
+    public Membro(String nome, String senha, String email, Date dataNascimento, StatusMembro status){
         this.nome = nome;
         this.senha = senha;
         this.email = email;

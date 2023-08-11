@@ -10,6 +10,7 @@ import br.api.hallel.moduloAPI.model.AssociadoStatus;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
@@ -236,49 +237,28 @@ public class AssociadoService implements AssociadoInterface {
     }
 
     @Override
-    public Boolean criarAssociado(String idMembro,
-                                  PagamentoAssociadoRequest pagamentoAssociadoRequest) {
-
-        Optional<Membro> optional = this.membroRepository.findById(idMembro);
-
-        if (optional.isEmpty()) {
-            return false;
-        }
-
-        Membro membro = optional.get();
-
-        /*
-         * Ser deletado após atualização do financeiro
-         */
-
-        CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
-        codigoEntradaFinanceiro.setId("Teste");
-        codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
-        codigoEntradaFinanceiro.setNumeroCodigo(10.3);
-        pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
-        pagamentoAssociadoRequest.setMetodoPagamento(MetodosPagamentosFinanceiro.PIX);
-
-        PagamentosAssociado pagamentoAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
+    public Boolean criarAssociado(VirarAssociadoRequest virarAssociadoRequest) {
+        PagamentosAssociado pagamentoAssociado = virarAssociadoRequest.getPagamentoAssociadoRequest().toPagamentoAssociado();
         ArrayList<PagamentosAssociado> pagamentosAssociados = new ArrayList<>();
         pagamentosAssociados.add(pagamentoAssociado);
 
         List<Date> mesesPagos = new ArrayList<>();
         mesesPagos.add(pagamentoAssociado.getDate());
 
-        Associado associadoNovo = new Associado();
+        Associado associadoNovo = virarAssociadoRequest.toAssociado();
 
-        associadoNovo.setNome(membro.getNome());
         associadoNovo.setIsAssociado(AssociadoStatus.PAGO);
         associadoNovo.setPagamentosAssociados(pagamentosAssociados);
         associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociado));
         associadoNovo.setMensalidadePaga(true);
         associadoNovo.setMesesPagos(mesesPagos);
+        associadoNovo.setCartaoAssociado(virarAssociadoRequest.toCartaoAssociado());
 
         Associado associadoSalvoBD = this.associadoRepository.insert(associadoNovo);
 
         pagamentoAssociado.setIdAssociadoPagador(associadoSalvoBD.getId());
 
-        pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
+        pagamentoAssociadoService.cadastrar(virarAssociadoRequest.getPagamentoAssociadoRequest());
         return true;
     }
 

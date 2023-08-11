@@ -18,7 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Associado extends Membro {
+public class
+Associado extends Membro {
 
     private Eventos eventoParticipando;
     private AssociadoStatus isAssociado;
@@ -27,6 +28,7 @@ public class Associado extends Membro {
     private String dataNascimentoAssociado;
     private Double desempenhoTotalCursos;
     private ArrayList<Curso> historicoCurso;
+    private CartaoAssociado cartaoAssociado;
     private HashMap<AtividadesCurso, Boolean> associadoAtividadesCurso;
     private ArrayList<Curso> cursosFavoritos;
     private ArrayList<Curso> cursosInscritos;

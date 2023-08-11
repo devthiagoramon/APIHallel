@@ -4,6 +4,7 @@ import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociad
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 import br.api.hallel.moduloAPI.service.AssociadoService;
@@ -41,10 +42,9 @@ public class AdmAssociadoController {
     }
 
     //CRIAR/ADICIONAR UM ASSOCIADO
-    @PostMapping("/criar/{idMembro}")
-    public ResponseEntity<Boolean> createAssociado(@PathVariable String idMembro) {
-        PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
-        Boolean booleanResposta = this.service.criarAssociado(idMembro, pagamentoAssociadoRequest);
+    @PostMapping("/criar")
+    public ResponseEntity<Boolean> createAssociado(@RequestBody VirarAssociadoRequest virarAssociadoRequest) {
+        Boolean booleanResposta = this.service.criarAssociado(virarAssociadoRequest);
         if (booleanResposta) {
             return ResponseEntity.status(200).body(true);
         } else {
