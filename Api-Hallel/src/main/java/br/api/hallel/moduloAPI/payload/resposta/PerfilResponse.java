@@ -5,13 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PerfilResponse {
 
     private String nome;
-    private String dataAniversario;
+    private Date dataAniversario;
     private String email;
     private StatusMembro status;
     private Integer idade;

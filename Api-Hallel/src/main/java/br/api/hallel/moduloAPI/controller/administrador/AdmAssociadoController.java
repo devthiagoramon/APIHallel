@@ -42,15 +42,6 @@ public class AdmAssociadoController {
     }
 
     //CRIAR/ADICIONAR UM ASSOCIADO
-    @PostMapping("/criar")
-    public ResponseEntity<Boolean> createAssociado(@RequestBody VirarAssociadoRequest virarAssociadoRequest) {
-        Boolean booleanResposta = this.service.criarAssociado(virarAssociadoRequest);
-        if (booleanResposta) {
-            return ResponseEntity.status(200).body(true);
-        } else {
-            return ResponseEntity.status(402).body(false);
-        }
-    }
 
     //LISTAR UM ASSOCIADO POR ID
     @GetMapping("/{id}")
