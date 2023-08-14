@@ -17,7 +17,7 @@ public class PagamentoAssociadoRequest {
     private CodigoEntradaFinanceiro codigo;
     private Date date;
     private double valor;
-    private MetodosPagamentosFinanceiro metodoPagamento;
+    private Integer metodoPagamentoNum;
     private List<Associado> para; // Opcional
     private String idAssociado;
 
@@ -26,7 +26,21 @@ public class PagamentoAssociadoRequest {
         pagamentoAssociado.setCodigo(this.codigo);
         pagamentoAssociado.setDate(new Date());
         pagamentoAssociado.setValor((double) 25.00);
-        pagamentoAssociado.setMetodoPagamento(this.metodoPagamento);
+
+        switch (metodoPagamentoNum){
+            case 1:
+                pagamentoAssociado.setMetodoPagamento(MetodosPagamentosFinanceiro.PIX);
+                break;
+            case 2:
+                pagamentoAssociado.setMetodoPagamento(MetodosPagamentosFinanceiro.CARTAO_MAQUINA);
+                break;
+            case 3:
+                pagamentoAssociado.setMetodoPagamento(MetodosPagamentosFinanceiro.CARTAO_DEBITO);
+                break;
+            case 4:
+                pagamentoAssociado.setMetodoPagamento(MetodosPagamentosFinanceiro.CARTAO_CREDITO);
+                break;
+        }
         pagamentoAssociado.setPara(this.para);
         // Isso só ocorre se o associado já estiver cadastro no BD
         if(this.idAssociado != null) {

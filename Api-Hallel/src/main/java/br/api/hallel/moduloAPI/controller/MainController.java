@@ -12,6 +12,7 @@ import br.api.hallel.moduloAPI.security.services.JwtService;
 import br.api.hallel.moduloAPI.service.CursoService;
 import br.api.hallel.moduloAPI.service.MainService;
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
+@Log4j2
 public class MainController {
 
     @Autowired
@@ -87,6 +89,5 @@ public class MainController {
         this.cursoService.removeAssociadoCurso(idAssociado, idCurso);
         return ResponseEntity.status(202).build();
     }
-
 
 }

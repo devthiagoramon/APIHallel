@@ -38,7 +38,7 @@ public class PagamentoAssociadoService implements MetodosCRUDFinanceiro<Pagament
             pagamentosAssociadoOld.setValor(request.getValor());
             pagamentosAssociadoOld.setPara(request.getPara());
             pagamentosAssociadoOld.setIdAssociadoPagador(request.getIdAssociado());
-            pagamentosAssociadoOld.setMetodoPagamento(request.getMetodoPagamento());
+            pagamentosAssociadoOld.setMetodoPagamento(request.toPagamentoAssociado().getMetodoPagamento());
             this.pagamentoAssociadoRepository.save(pagamentosAssociadoOld);
             log.info("Pagamento associado (id: " + id + ") alterado com sucesso");
             return true;

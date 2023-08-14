@@ -222,7 +222,6 @@ public class AssociadoService implements AssociadoInterface {
             codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
             codigoEntradaFinanceiro.setNumeroCodigo(10.3);
             pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
-            pagamentoAssociadoRequest.setMetodoPagamento(MetodosPagamentosFinanceiro.PIX);
             PagamentosAssociado pagamentoAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
 
             associado.getPagamentosAssociados().add(pagamentoAssociado);
@@ -238,27 +237,32 @@ public class AssociadoService implements AssociadoInterface {
 
     @Override
     public Boolean criarAssociado(VirarAssociadoRequest virarAssociadoRequest) {
-        PagamentosAssociado pagamentoAssociado = virarAssociadoRequest.getPagamentoAssociadoRequest().toPagamentoAssociado();
+        PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
+
+        List<Associado> para = Arrays.stream(virarAssociadoRequest.getPara()).toList();
+        pagamentoAssociadoRequest.setPara(para);
+        pagamentoAssociadoRequest.setMetodoPagamentoNum(virarAssociadoRequest.getMetodoPagamentoNum());
+
         ArrayList<PagamentosAssociado> pagamentosAssociados = new ArrayList<>();
-        pagamentosAssociados.add(pagamentoAssociado);
+        pagamentosAssociados.add(pagamentoAssociadoRequest.toPagamentoAssociado());
 
         List<Date> mesesPagos = new ArrayList<>();
-        mesesPagos.add(pagamentoAssociado.getDate());
+        mesesPagos.add(pagamentoAssociadoRequest.getDate());
 
         Associado associadoNovo = virarAssociadoRequest.toAssociado();
 
         associadoNovo.setIsAssociado(AssociadoStatus.PAGO);
         associadoNovo.setPagamentosAssociados(pagamentosAssociados);
-        associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociado));
+        associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociadoRequest.toPagamentoAssociado()));
         associadoNovo.setMensalidadePaga(true);
         associadoNovo.setMesesPagos(mesesPagos);
         associadoNovo.setCartaoAssociado(virarAssociadoRequest.toCartaoAssociado());
 
         Associado associadoSalvoBD = this.associadoRepository.insert(associadoNovo);
 
-        pagamentoAssociado.setIdAssociadoPagador(associadoSalvoBD.getId());
+        pagamentoAssociadoRequest.setIdAssociado(associadoSalvoBD.getId());
 
-        pagamentoAssociadoService.cadastrar(virarAssociadoRequest.getPagamentoAssociadoRequest());
+        pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
         return true;
     }
 

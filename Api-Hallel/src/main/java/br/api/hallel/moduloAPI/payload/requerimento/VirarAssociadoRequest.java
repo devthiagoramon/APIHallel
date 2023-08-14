@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VirarAssociadoRequest {
+
     private AssociadoRequest associadoRequest;
-    private PagamentoAssociadoRequest pagamentoAssociadoRequest;
+    private Associado para[];
+    private int metodoPagamentoNum;
 
     public CartaoAssociado toCartaoAssociado() {
         CartaoAssociado cartaoAssociado = new CartaoAssociado();
