@@ -45,6 +45,11 @@ public class AdmEventosController {
         return ResponseEntity.status(201).body(eventosService.createEvento(request));
     }
 
+    @GetMapping("")
+    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos(){
+        return ResponseEntity.status(200).body(eventosService.listEventosToVisualizar());
+    }
+
     @PostMapping("/{id}/edit")
     public EventosResponse updateEventos(@PathVariable(value = "id") String id,
                                          @RequestBody EventosRequest request) {
@@ -127,26 +132,30 @@ public class AdmEventosController {
         return ResponseEntity.status(200).body(this.eventosService.listarDespesasInEvento(idEvento));
     }
 
-    @PostMapping("/solicitarPagamento/entrada/{idMembro}")
-    public ResponseEntity<?> solicitarPagamentoEntrada( PagamentoEntradaEventoReq request,
-                                                       @PathVariable(value = "idMembro") String idMembro) {
-
+    @PostMapping("/{idEvento}/solicitarPagamento/entrada/{idMembro}")
+    public ResponseEntity<?> solicitarPagamentoEntrada(PagamentoEntradaEventoReq request,
+                                                       @PathVariable(value = "idMembro") String idMembro,
+                                                       @PathVariable(value = "idEvento") String idEvento) {
 
         request.setValor(20.0);
         request.setDate(new Date());
         request.setIdMembroPagador(idMembro);
         request.setStatus(StatusEntradaEvento.ANDAMENTO);
 
-        if (pagamentoEntradaService.receberIdMembro(idMembro,request)) {
+        if (eventosService.solicitarPagamentoEntrada(idEvento, idMembro, request)) {
             return ResponseEntity.accepted().build();
         }
 
         return ResponseEntity.badRequest().build();
     }
+    @PostMapping("/confirmar/{idPagamento}/entrada/{idEvento}")
+    public ResponseEntity<?> confirmarPagamentoEntrada(@PathVariable(value = "idPagamento") String idPagamento,
+                                                       @PathVariable(value = "idEvento") String idEvento) {
 
-    @GetMapping("/{idEvento}/atualizar/pagamento")
-    public ResponseEntity<PagamentoEntradaEventoRes> atualizarListaEventosInPagamentos(@PathVariable(value = "idEvento")
-                                                                                       String idEvento) {
-        return ResponseEntity.status(200).body(this.eventosService.atualizarListaEvento(idEvento));
+        if (eventosService.aceitarSolicitacaoPagamento(idPagamento,idEvento )) {
+            return ResponseEntity.accepted().build();
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 }

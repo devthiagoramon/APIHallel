@@ -32,7 +32,6 @@ public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
         response.setMetodoPagamento(pagamento.getMetodoPagamento());
         response.setStatus(getStatus());
         response.setIdMembroPagador(pagamento.getIdMembroPagador());
-        response.setEventosList(pagamento.getEventosList());
 
         return response;
     }
@@ -46,7 +45,6 @@ public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
         request.setMetodoPagamento(pagamentoResponse.getMetodoPagamento());
         request.setIdMembroPagador(pagamentoResponse.getIdMembroPagador());
         request.setStatus(pagamentoResponse.getStatus());
-        request.setEventosList(getEventosList());
 
         return request;
     }

@@ -22,7 +22,7 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
     @Nullable
     @NotBlank
     private String idEvento;
-    private List<Eventos> eventosList;
+
 
     public PagamentoEntradaEvento toPagamentoEntradaEvento() {
         PagamentoEntradaEvento pagamento = new PagamentoEntradaEvento();
@@ -32,9 +32,21 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         pagamento.setValor(getValor());
         pagamento.setStatusEntrada(getStatus());
         pagamento.setIdMembroPagador(getIdMembroPagador());
-        pagamento.setEventosList(getEventosList());
         pagamento.setIdEvento(getIdEvento());
 
+        return pagamento;
+    }
+
+    public PagamentoEntradaEvento toPag(PagamentoEntradaEvento pagamentoNew) {
+        PagamentoEntradaEvento pagamento = new PagamentoEntradaEvento();
+
+        pagamento.setCodigo(pagamentoNew.getCodigo());
+        pagamento.setDate(pagamentoNew.getDate());
+        pagamento.setMetodoPagamento(pagamentoNew.getMetodoPagamento());
+        pagamento.setValor(pagamentoNew.getValor());
+        pagamento.setStatusEntrada(pagamentoNew.getStatusEntrada());
+        pagamento.setIdMembroPagador(pagamentoNew.getIdMembroPagador());
+        pagamento.setIdEvento(pagamentoNew.getIdEvento());
         return pagamento;
     }
 

@@ -35,5 +35,5 @@ public interface EventosInterface {
     List<EventosVisualizacaoResponse> listByPage(int page);
     Boolean solicitarPagamentoEntrada(String idEvento, String idMembro,
                                       PagamentoEntradaEventoReq request);
-    PagamentoEntradaEventoRes atualizarListaEvento(String idEvento);
+    Boolean aceitarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento);
 }

@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/administrador/curso")
+@RequestMapping("/api/administrador/cursos")
 @Slf4j
 public class AdmCursoController {
 

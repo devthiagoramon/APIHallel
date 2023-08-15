@@ -1,9 +1,12 @@
 package br.api.hallel.moduloAPI.service;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoEntradaEventoRes;
+import br.api.hallel.moduloAPI.financeiroNovo.repository.EntradasFinanceiroRepository;
+import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoEntradaEventoRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
 import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
@@ -18,6 +21,7 @@ import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.repository.LocalEventoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventosInterface;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,11 +39,13 @@ public class EventosService implements EventosInterface {
     @Autowired
     private EventosRepository repository;
     @Autowired
+    private PagamentoEntradaEventoRepository pagamentoRepository;
+    @Autowired
     private MembroService membroService;
     @Autowired
     private LocalEventoRepository localEventoRepository;
     @Autowired
-    PagamentoEntradaEventoService pagamentoEntradaService;
+    private PagamentoEntradaEventoService pagamentoEntradaService;
 
     //CRIA EVENTOS
     @Override
@@ -120,41 +126,63 @@ public class EventosService implements EventosInterface {
 
     @Override
     public Boolean solicitarPagamentoEntrada(String idEvento, String idMembro, PagamentoEntradaEventoReq request) {
-
-
         request.setIdMembroPagador(idMembro);
         request.setStatus(StatusEntradaEvento.ANDAMENTO);
 
-        this.pagamentoEntradaService.cadastrar(request);
+        Eventos eventos = this.repository.findById(idEvento).isPresent() ?
+                this.repository.findById(idEvento).get() : null;
 
+
+        if (eventos.getPagamentoEntradaEventoList() == null) {
+            List<PagamentoEntradaEvento> list = new ArrayList<>();
+            list.add(request.toPagamentoEntradaEvento());
+            eventos.setPagamentoEntradaEventoList(list);
+
+        } else {
+            eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
+        }
+
+        log.info(eventos.getPagamentoEntradaEventoList());
+
+        this.repository.save(eventos);
+        this.pagamentoEntradaService.cadastrar(request);
         return true;
     }
 
     @Override
-    public PagamentoEntradaEventoRes atualizarListaEvento(String id) {
+    public Boolean aceitarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento) {
+        PagamentoEntradaEvento pagamento = this.pagamentoRepository.findById(idSolicitacaoPagamento).isPresent() ?
+                this.pagamentoRepository.findById(idSolicitacaoPagamento).get() : null;
 
-        PagamentoEntradaEventoRes pagamentoResponse =
-                this.pagamentoEntradaService.listarPorId(id);
+        Eventos eventos = this.repository.findById(idEvento).isPresent() ?
+                this.repository.findById(idEvento).get() : null;
 
-        if(pagamentoResponse.getEventosList() == null){
+        EntradasFinanceiro entradaOld = new EntradasFinanceiro();
+        entradaOld.setDate(pagamento.getDate());
+        entradaOld.setMetodoPagamento(pagamento.getMetodoPagamento());
+        entradaOld.setValor(pagamento.getValor());
+        entradaOld.setCodigo(pagamento.getCodigo());
 
-            List<Eventos> listaEventos = new ArrayList<>();
+        EntradasFinanceiro entradaNew = new EntradasFinanceiro();
+        for (PagamentoEntradaEvento pagamentoEntrada : eventos.getPagamentoEntradaEventoList()) {
+            entradaNew.setDate(pagamentoEntrada.getDate());
+            entradaNew.setMetodoPagamento(pagamentoEntrada.getMetodoPagamento());
+            entradaNew.setValor(pagamentoEntrada.getValor());
+            entradaNew.setCodigo(pagamentoEntrada.getCodigo());
 
-            for (Eventos eventos : this.repository.findAll()) {
-                listaEventos.add(eventos);
+            if (entradaOld.equals(entradaNew)) {
+                pagamento.setStatusEntrada(StatusEntradaEvento.CONFIRMADO);
+                int index = eventos.getPagamentoEntradaEventoList().indexOf(entradaOld);
+                eventos.getPagamentoEntradaEventoList().set(index, new PagamentoEntradaEventoReq().toPag(pagamentoEntrada));
+
+                break;
             }
-
-            pagamentoResponse.setEventosList(listaEventos);
-            this.pagamentoEntradaService.editar(id, new PagamentoEntradaEventoRes().toPagamentoEntradaReq(pagamentoResponse));
-
-            return pagamentoResponse;
-        }else{
-
         }
 
-        return null;
+        this.pagamentoRepository.save(pagamento);
+        this.repository.save(eventos);
+        return true;
     }
-
 
     //LISTA O EVENTO PELO SEU NOME
     @Override

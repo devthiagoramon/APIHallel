@@ -41,8 +41,6 @@ public class AdmAssociadoController {
         return this.service.listAllAssociadoByMesAno(mes, ano);
     }
 
-    //CRIAR/ADICIONAR UM ASSOCIADO
-
     //LISTAR UM ASSOCIADO POR ID
     @GetMapping("/{id}")
     public Associado listAssociadoById(@PathVariable String id) {

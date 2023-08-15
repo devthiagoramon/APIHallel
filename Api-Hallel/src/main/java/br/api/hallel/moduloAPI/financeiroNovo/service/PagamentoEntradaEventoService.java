@@ -3,6 +3,7 @@ package br.api.hallel.moduloAPI.financeiroNovo.service;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoEntradaEventoRes;
+import br.api.hallel.moduloAPI.financeiroNovo.repository.EntradasFinanceiroRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoEntradaEventoRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +22,15 @@ public class PagamentoEntradaEventoService implements
 
     @Autowired
     private PagamentoEntradaEventoRepository pagamentoEntradaEventoRepository;
+    @Autowired
+    private EntradasFinanceiroRepository repository;
 
     @Override
     public Boolean cadastrar(PagamentoEntradaEventoReq request) {
         PagamentoEntradaEvento pagamentoEntradaEvento =
                 this.pagamentoEntradaEventoRepository.insert(request.toPagamentoEntradaEvento());
         log.info("Pagamento de um evento(id: " + pagamentoEntradaEvento.getId() + ") salvo no sistema");
-        return true;
-    }
-
-    public Boolean receberIdMembro(String idMembro, PagamentoEntradaEventoReq request){
-
-        request.setIdMembroPagador(idMembro);
-        cadastrar(request);
-
+        this.repository.save(pagamentoEntradaEvento);
         return true;
     }
 
