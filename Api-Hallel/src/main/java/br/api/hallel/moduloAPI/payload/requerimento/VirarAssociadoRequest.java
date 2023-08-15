@@ -4,33 +4,45 @@ import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.CartaoAssociado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class VirarAssociadoRequest {
 
-    private AssociadoRequest associadoRequest;
-    private Associado para[];
+    private String nome;
+    private String email;
+    private String cpf;
+    private String telefone;
+    private Date dataNascimento;
+    private String num_cartao;
+    private Date data_validade_cartao;
+    private Integer cvc_cartao;
+    private String nome_titular_cartao;
+    private String endereco_cartao;
+    private Associado[] para;
     private int metodoPagamentoNum;
+
+    public VirarAssociadoRequest() {
+    }
 
     public CartaoAssociado toCartaoAssociado() {
         CartaoAssociado cartaoAssociado = new CartaoAssociado();
-        cartaoAssociado.setNumeroCartao(associadoRequest.getNum_cartao());
-        cartaoAssociado.setCvc(associadoRequest.getCvc_cartao());
-        cartaoAssociado.setDataValidadeCartao(associadoRequest.getData_validade_cartao());
-        cartaoAssociado.setEndereco(associadoRequest.getNome());
-        cartaoAssociado.setNomeTitular(associadoRequest.getEmail());
+        cartaoAssociado.setNumeroCartao(getNum_cartao());
+        cartaoAssociado.setCvc(getCvc_cartao());
+        cartaoAssociado.setDataValidadeCartao(getData_validade_cartao());
+        cartaoAssociado.setEndereco(getNome());
+        cartaoAssociado.setNomeTitular(getEmail());
         return cartaoAssociado;
     }
 
     public Associado toAssociado(){
         Associado associado = new Associado();
-        associado.setNome(associadoRequest.getNome());
-        associado.setCpf(associadoRequest.getCpf());
-        associado.setDataNascimento(associadoRequest.getDataNascimento());
-        associado.setTelefone(associadoRequest.getTelefone());
+        associado.setNome(getNome());
+        associado.setCpf(getCpf());
+        associado.setDataNascimento(getDataNascimento());
+        associado.setTelefone(getTelefone());
         return associado;
     }
 }

@@ -284,11 +284,15 @@ public class AssociadoService implements AssociadoInterface {
         }
         Associado associado = optional.get();
         PagamentosAssociado pagamentosAssociado = null;
-        for (PagamentosAssociado pagamentoAssociadoObj : associado.getPagamentosAssociados()) {
-            if (formatter.format(pagamentoAssociadoObj.getDate()).substring(3).equals(mes + "/" + ano)) {
-                pagamentosAssociado = pagamentoAssociadoObj;
+        if(associado.getPagamentosAssociados() != null){
+            for (PagamentosAssociado pagamentoAssociadoObj : associado.getPagamentosAssociados()) {
+                if (formatter.format(pagamentoAssociadoObj.getDate()).substring(3).equals(mes + "/" + ano)) {
+                    pagamentosAssociado = pagamentoAssociadoObj;
+                }
             }
         }
+
+
         return new PagamentoAssociadoResponse(pagamentosAssociado);
     }
 
