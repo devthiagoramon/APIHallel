@@ -16,12 +16,11 @@ public class VirarAssociadoRequest {
     private String cpf;
     private String telefone;
     private Date dataNascimento;
-    private String num_cartao;
-    private Date data_validade_cartao;
-    private Integer cvc_cartao;
-    private String nome_titular_cartao;
-    private String endereco_cartao;
-    private Associado[] para;
+    private String numCartao;
+    private Date dataValidadeCartao;
+    private Integer cvcCartao;
+    private String nomeTitularCartao;
+    private String enderecoCartao;
     private int metodoPagamentoNum;
 
     public VirarAssociadoRequest() {
@@ -29,9 +28,9 @@ public class VirarAssociadoRequest {
 
     public CartaoAssociado toCartaoAssociado() {
         CartaoAssociado cartaoAssociado = new CartaoAssociado();
-        cartaoAssociado.setNumeroCartao(getNum_cartao());
-        cartaoAssociado.setCvc(getCvc_cartao());
-        cartaoAssociado.setDataValidadeCartao(getData_validade_cartao());
+        cartaoAssociado.setNumeroCartao(getNumCartao());
+        cartaoAssociado.setCvc(getCvcCartao());
+        cartaoAssociado.setDataValidadeCartao(getDataValidadeCartao());
         cartaoAssociado.setEndereco(getNome());
         cartaoAssociado.setNomeTitular(getEmail());
         return cartaoAssociado;

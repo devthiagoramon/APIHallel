@@ -20,10 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -61,10 +63,12 @@ public class AssociadoService implements AssociadoInterface {
             associadoResponseProv.setNome(associado.getNome());
             if (associado.getMesesPagos() != null) {
                 for (Date mesPagamento : associado.getMesesPagos()) {
-                    if (formatter.format(mesPagamento).substring(3).equals(mes + "/" + ano)) {
-                        hasPago = true;
-                        associadoResponseProv.setStatus(AssociadoStatus.PAGO);
-                        associadoResponseProv.setDataPagamento(mesPagamento);
+                    if (mesPagamento != null) {
+                        if (formatter.format(mesPagamento).substring(3).equals(mes + "/" + ano)) {
+                            hasPago = true;
+                            associadoResponseProv.setStatus(AssociadoStatus.PAGO);
+                            associadoResponseProv.setDataPagamento(mesPagamento);
+                        }
                     }
                 }
             }
@@ -239,20 +243,37 @@ public class AssociadoService implements AssociadoInterface {
     public Boolean criarAssociado(VirarAssociadoRequest virarAssociadoRequest) {
         PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
 
-        List<Associado> para = Arrays.stream(virarAssociadoRequest.getPara()).toList();
-        pagamentoAssociadoRequest.setPara(para);
+//        List<Associado> para = Arrays.stream(virarAssociadoRequest.getPara()).toList();
+//        pagamentoAssociadoRequest.setPara(para);
         pagamentoAssociadoRequest.setMetodoPagamentoNum(virarAssociadoRequest.getMetodoPagamentoNum());
+        pagamentoAssociadoRequest.setPara(null);
+
+        CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
+        codigoEntradaFinanceiro.setId("743fsagw1");
+        codigoEntradaFinanceiro.setNomeCodigo("Virando associado");
+        codigoEntradaFinanceiro.setNumeroCodigo(2.3);
+        pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
 
         ArrayList<PagamentosAssociado> pagamentosAssociados = new ArrayList<>();
         pagamentosAssociados.add(pagamentoAssociadoRequest.toPagamentoAssociado());
 
         List<Date> mesesPagos = new ArrayList<>();
-        mesesPagos.add(pagamentoAssociadoRequest.getDate());
+        mesesPagos.add(new Date());
 
         Associado associadoNovo = virarAssociadoRequest.toAssociado();
 
-        associadoNovo.setIsAssociado(AssociadoStatus.PAGO);
+        LocalDate dataAniversario = virarAssociadoRequest
+                .getDataNascimento()
+                .toInstant()
+                .atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+
+        LocalDate dataAtual = LocalDate.now(ZoneId.of("America/Puerto_Rico"));
+
+        Period period = Period.between(dataAniversario, dataAtual);
+
         associadoNovo.setPagamentosAssociados(pagamentosAssociados);
+        associadoNovo.setIdade(period.getYears());
+        associadoNovo.setIsAssociado(AssociadoStatus.PAGO);
         associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociadoRequest.toPagamentoAssociado()));
         associadoNovo.setMensalidadePaga(true);
         associadoNovo.setMesesPagos(mesesPagos);
@@ -284,7 +305,7 @@ public class AssociadoService implements AssociadoInterface {
         }
         Associado associado = optional.get();
         PagamentosAssociado pagamentosAssociado = null;
-        if(associado.getPagamentosAssociados() != null){
+        if (associado.getPagamentosAssociados() != null) {
             for (PagamentosAssociado pagamentoAssociadoObj : associado.getPagamentosAssociados()) {
                 if (formatter.format(pagamentoAssociadoObj.getDate()).substring(3).equals(mes + "/" + ano)) {
                     pagamentosAssociado = pagamentoAssociadoObj;
