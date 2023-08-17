@@ -5,6 +5,7 @@ import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
+import br.api.hallel.moduloAPI.payload.resposta.AssociadoPerfilResponse;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 
 import java.util.Date;
@@ -38,4 +39,6 @@ public interface AssociadoInterface {
     List<Date> listarDatasPagas(String idAssociado);
 
     PagamentoAssociadoResponse listarPagamentoByMesAno(String idAssociado, String mes, String ano);
+
+    AssociadoPerfilResponse visualizarPerfilAssociado(String idAssociado);
 }

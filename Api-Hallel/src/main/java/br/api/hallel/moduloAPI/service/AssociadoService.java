@@ -5,16 +5,15 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoAssociadoService;
-import br.api.hallel.moduloAPI.model.Associado;
-import br.api.hallel.moduloAPI.model.AssociadoStatus;
-import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.model.Transacao;
+import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
+import br.api.hallel.moduloAPI.payload.resposta.AssociadoPerfilResponse;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
+import br.api.hallel.moduloAPI.repository.RoleRepository;
 import br.api.hallel.moduloAPI.service.interfaces.AssociadoInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -28,6 +27,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -41,6 +41,8 @@ public class AssociadoService implements AssociadoInterface {
     @Autowired
     private PagamentoAssociadoService pagamentoAssociadoService;
 
+    @Autowired
+    private RoleRepository roleRepository;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 
@@ -243,6 +245,14 @@ public class AssociadoService implements AssociadoInterface {
     public Boolean criarAssociado(VirarAssociadoRequest virarAssociadoRequest) {
         PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
 
+        Optional<Membro> optionalMembro = membroRepository.findById(virarAssociadoRequest.getIdMembro());
+
+        if (optionalMembro.isEmpty()) {
+            return false;
+        }
+
+        Membro membro = optionalMembro.get();
+
 //        List<Associado> para = Arrays.stream(virarAssociadoRequest.getPara()).toList();
 //        pagamentoAssociadoRequest.setPara(para);
         pagamentoAssociadoRequest.setMetodoPagamentoNum(virarAssociadoRequest.getMetodoPagamentoNum());
@@ -278,6 +288,20 @@ public class AssociadoService implements AssociadoInterface {
         associadoNovo.setMensalidadePaga(true);
         associadoNovo.setMesesPagos(mesesPagos);
         associadoNovo.setCartaoAssociado(virarAssociadoRequest.toCartaoAssociado());
+        associadoNovo.setSenha(membro.getSenha());
+
+        Set<Role> roles = new HashSet<>();
+        Optional<Role> optionalAssociado = roleRepository.findByName(ERole.ROLE_ASSOCIADO);
+        Optional<Role> optionalUser = roleRepository.findByName(ERole.ROLE_USER);
+        Role roleUser = null;
+        Role roleAssociado = null;
+        if (optionalAssociado.isPresent() && optionalUser.isPresent()) {
+            roleUser = optionalUser.get();
+            roleAssociado = optionalAssociado.get();
+        }
+        roles.add(roleAssociado);
+        roles.add(roleUser);
+        associadoNovo.setRoles(roles);
 
         Associado associadoSalvoBD = this.associadoRepository.insert(associadoNovo);
 
@@ -315,6 +339,16 @@ public class AssociadoService implements AssociadoInterface {
 
 
         return new PagamentoAssociadoResponse(pagamentosAssociado);
+    }
+
+    @Override
+    public AssociadoPerfilResponse visualizarPerfilAssociado(String idAssociado) {
+        Optional<Associado> optional = associadoRepository.findById(idAssociado);
+        if (optional.isEmpty()) {
+            return null;
+        }
+        Associado associado = optional.get();
+        return new AssociadoPerfilResponse().toAssociadoPerfilResponse(associado);
     }
 
     private Date getDataExpiroAssociacao(PagamentosAssociado pagamentosAssociado) {

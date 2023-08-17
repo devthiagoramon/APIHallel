@@ -11,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class VirarAssociadoRequest {
 
+    private String idMembro;
     private String nome;
     private String email;
     private String cpf;

@@ -1,5 +1,7 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.payload.resposta.AssociadoPerfilResponse;
+import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.moduloAPI.service.AssociadoService;
 import br.api.hallel.moduloAPI.service.CursoService;
@@ -37,5 +39,11 @@ public class AssociadoController {
             return ResponseEntity.status(402).body(false);
         }
     }
+
+    @GetMapping("/perfil/{idAssociado}")
+    public ResponseEntity<AssociadoPerfilResponse> visualizarPerfilAssociado(@PathVariable String idAssociado){
+        return ResponseEntity.status(200).body(this.service.visualizarPerfilAssociado(idAssociado));
+    }
+
 
 }
