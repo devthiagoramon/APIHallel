@@ -41,6 +41,7 @@ public class VirarAssociadoRequest {
         Associado associado = new Associado();
         associado.setNome(getNome());
         associado.setCpf(getCpf());
+        associado.setEmail(getEmail());
         associado.setDataNascimento(getDataNascimento());
         associado.setTelefone(getTelefone());
         return associado;

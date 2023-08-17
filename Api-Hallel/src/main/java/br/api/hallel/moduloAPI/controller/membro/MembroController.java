@@ -26,7 +26,7 @@ public class MembroController {
         return ResponseEntity.status(200).body(perfil);
     }
 
-    @PostMapping( "/virarAssociado")
+    @PostMapping("/virarAssociado")
     public ResponseEntity<Boolean> createAssociado(@RequestBody VirarAssociadoRequest virarAssociadoRequest) {
         Boolean booleanResposta = this.associadoService.criarAssociado(virarAssociadoRequest);
         if (booleanResposta) {
