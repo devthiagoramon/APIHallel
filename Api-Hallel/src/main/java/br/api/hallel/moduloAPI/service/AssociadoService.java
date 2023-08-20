@@ -1,16 +1,17 @@
 package br.api.hallel.moduloAPI.service;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
-import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoAssociadoService;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.PagarAssociacaoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPerfilResponse;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
+import br.api.hallel.moduloAPI.payload.resposta.PagamentoAssociadoPerfilResponse;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.repository.RoleRepository;
@@ -27,7 +28,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -216,19 +216,29 @@ public class AssociadoService implements AssociadoInterface {
     }
 
     @Override
-    public Boolean pagarAssociacao(String idAssociado) {
-        Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
+    public Boolean pagarAssociacao(PagarAssociacaoRequest pagarAssociacaoRequest) {
+        Optional<Associado> optional = this.associadoRepository.findById(pagarAssociacaoRequest.getIdAssociado());
         if (optional.isPresent()) {
             Associado associado = optional.get();
 
-            // temporario
             PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
             CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
             codigoEntradaFinanceiro.setId("Teste");
             codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
             codigoEntradaFinanceiro.setNumeroCodigo(10.3);
             pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
+            pagamentoAssociadoRequest.setMetodoPagamentoNum(pagarAssociacaoRequest.getNumMetodoPagamento());
             PagamentosAssociado pagamentoAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
+
+            LocalDate dataAtual = LocalDate
+                    .of(Integer.parseInt(pagarAssociacaoRequest.getAno()),
+                            Integer.parseInt(pagarAssociacaoRequest.getMes()),
+                            LocalDate.now(ZoneId.of("America/Puerto_Rico")).getDayOfMonth());
+            pagamentoAssociado
+                    .setDataPaga(Date.from(dataAtual.atStartOfDay(ZoneId.of("America/Puerto_Rico"))
+                            .toInstant()));
+
+            associado.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociado));
 
             associado.getPagamentosAssociados().add(pagamentoAssociado);
             associado.getMesesPagos().add(new Date());
@@ -264,8 +274,14 @@ public class AssociadoService implements AssociadoInterface {
         codigoEntradaFinanceiro.setNumeroCodigo(2.3);
         pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
 
+        PagamentosAssociado pagamentosAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
+        LocalDate dataToPaga = LocalDate.now(ZoneId.of("America/Puerto_Rico"));
+        pagamentosAssociado
+                .setDataPaga(Date.from(dataToPaga.atStartOfDay(ZoneId.of("America/Puerto_Rico"))
+                        .toInstant()));
+
         ArrayList<PagamentosAssociado> pagamentosAssociados = new ArrayList<>();
-        pagamentosAssociados.add(pagamentoAssociadoRequest.toPagamentoAssociado());
+        pagamentosAssociados.add(pagamentosAssociado);
 
         List<Date> mesesPagos = new ArrayList<>();
         mesesPagos.add(new Date());
@@ -284,7 +300,7 @@ public class AssociadoService implements AssociadoInterface {
         associadoNovo.setPagamentosAssociados(pagamentosAssociados);
         associadoNovo.setIdade(period.getYears());
         associadoNovo.setIsAssociado(AssociadoStatus.PAGO);
-        associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociadoRequest.toPagamentoAssociado()));
+        associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentosAssociado));
         associadoNovo.setMensalidadePaga(true);
         associadoNovo.setMesesPagos(mesesPagos);
         associadoNovo.setCartaoAssociado(virarAssociadoRequest.toCartaoAssociado());
@@ -349,6 +365,39 @@ public class AssociadoService implements AssociadoInterface {
         }
         Associado associado = optional.get();
         return new AssociadoPerfilResponse().toAssociadoPerfilResponse(associado);
+    }
+
+    @Override
+    public PagamentoAssociadoPerfilResponse listarPagamentoPerfilByMesAno(String idAssociado, String mes, String ano) {
+        Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
+        if (optional.isEmpty()) {
+            return null;
+        }
+        Associado associado = optional.get();
+        PagamentosAssociado pagamentosAssociado = null;
+        if (associado.getPagamentosAssociados() != null) {
+            for (PagamentosAssociado pagamentoAssociadoObj : associado.getPagamentosAssociados()) {
+                if (formatter.format(pagamentoAssociadoObj.getDataPaga()).substring(3).equals(mes + "/" + ano)) {
+                    pagamentosAssociado = pagamentoAssociadoObj;
+                }
+            }
+        }
+
+        if(pagamentosAssociado != null) {
+            return new PagamentoAssociadoPerfilResponse(pagamentosAssociado);
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public CartaoAssociado cartaoAssociado(String idAssociado) {
+        Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
+        if (optional.isEmpty()) {
+            return null;
+        }
+        Associado associado = optional.get();
+        return associado.getCartaoAssociado();
     }
 
     private Date getDataExpiroAssociacao(PagamentosAssociado pagamentosAssociado) {

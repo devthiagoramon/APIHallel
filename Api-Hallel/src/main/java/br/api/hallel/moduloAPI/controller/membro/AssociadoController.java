@@ -1,8 +1,12 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
+import br.api.hallel.moduloAPI.model.CartaoAssociado;
+import br.api.hallel.moduloAPI.payload.requerimento.PagarAssociacaoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPerfilResponse;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
+import br.api.hallel.moduloAPI.payload.resposta.PagamentoAssociadoPerfilResponse;
 import br.api.hallel.moduloAPI.service.AssociadoService;
 import br.api.hallel.moduloAPI.service.CursoService;
 import lombok.Data;
@@ -31,9 +35,9 @@ public class AssociadoController {
         return ResponseEntity.status(201).body(this.cursoService.listCursoByAssociado(id));
     }
 
-    @GetMapping("/pagarAssociacao/{idAssociado}")
-    public ResponseEntity<Boolean> pagarAssociacao(@PathVariable String idAssociado) {
-        if (this.service.pagarAssociacao(idAssociado)) {
+    @PostMapping("/pagarAssociacao")
+    public ResponseEntity<Boolean> pagarAssociacao(@RequestBody PagarAssociacaoRequest pagarAssociacaoRequest) {
+        if (this.service.pagarAssociacao(pagarAssociacaoRequest)) {
             return ResponseEntity.status(200).body(true);
         } else {
             return ResponseEntity.status(402).body(false);
@@ -45,5 +49,17 @@ public class AssociadoController {
         return ResponseEntity.status(200).body(this.service.visualizarPerfilAssociado(idAssociado));
     }
 
+    @GetMapping("/perfil/pagamento/{idAssociado}")
+    public ResponseEntity<PagamentoAssociadoPerfilResponse> listarPagamentoAssociadoPerfilByMesAndAno
+            (@PathVariable String idAssociado,
+             @RequestParam(value = "mes") String mes,
+             @RequestParam(value = "ano") String ano){
+        return ResponseEntity.status(200).body(this.service.listarPagamentoPerfilByMesAno(idAssociado, mes, ano));
+    }
+
+    @GetMapping("/cartaoAssociado/{idAssociado}")
+    public ResponseEntity<CartaoAssociado> listarCartaoAssociado(@PathVariable String idAssociado){
+        return ResponseEntity.status(200).body(this.service.cartaoAssociado(idAssociado));
+    }
 
 }

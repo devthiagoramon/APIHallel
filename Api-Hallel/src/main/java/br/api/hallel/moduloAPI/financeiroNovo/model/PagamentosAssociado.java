@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 @Document
@@ -18,6 +19,8 @@ import java.util.List;
 public class PagamentosAssociado extends EntradasFinanceiro{
     @Nullable
     private List<Associado> para;
+
+    private Date dataPaga;
     @Nullable
     private String idAssociadoPagador;
 }

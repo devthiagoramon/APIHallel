@@ -32,8 +32,8 @@ public class VirarAssociadoRequest {
         cartaoAssociado.setNumeroCartao(getNumCartao());
         cartaoAssociado.setCvc(getCvcCartao());
         cartaoAssociado.setDataValidadeCartao(getDataValidadeCartao());
-        cartaoAssociado.setEndereco(getNome());
-        cartaoAssociado.setNomeTitular(getEmail());
+        cartaoAssociado.setEndereco(getEnderecoCartao());
+        cartaoAssociado.setNomeTitular(getNomeTitularCartao());
         return cartaoAssociado;
     }
 
