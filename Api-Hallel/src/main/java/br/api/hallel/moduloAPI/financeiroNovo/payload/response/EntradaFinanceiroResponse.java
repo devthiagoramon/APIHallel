@@ -20,9 +20,11 @@ public class EntradaFinanceiroResponse {
     private MetodosPagamentosFinanceiro metodoPagamento;
 
     public EntradaFinanceiroResponse toResponseList(EntradasFinanceiro entradasFinanceiro){
+
         if(entradasFinanceiro == null){
             return null;
         }
+
         EntradaFinanceiroResponse response = new EntradaFinanceiroResponse();
         response.setId(entradasFinanceiro.getId());
         response.setCodigo(entradasFinanceiro.getCodigo());

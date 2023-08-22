@@ -89,6 +89,10 @@ public class FinanceiroNovoController {
         return ResponseEntity.ok().body(this.entradaService.listByPage(pagina));
     }
 
+    @GetMapping("/entradas/ultimasEntradas")
+    public ResponseEntity<List<EntradaFinanceiroResponse>> listUltimasEntradas(){
+        return ResponseEntity.ok().body(this.entradaService.listUltimasEntradas());
+    }
     /**
      * Requisições de Saída
      */
@@ -142,5 +146,9 @@ public class FinanceiroNovoController {
         return ResponseEntity.ok().body(this.saidaService.listarPorId(id));
     }
 
+    @GetMapping("/saidas/ultimasSaidas")
+    public ResponseEntity<List<SaidaFinanceiroResponse>> listUltimasSaidas(){
+        return ResponseEntity.ok().body(this.saidaService.listarUltimasSaidas());
+    }
 
 }

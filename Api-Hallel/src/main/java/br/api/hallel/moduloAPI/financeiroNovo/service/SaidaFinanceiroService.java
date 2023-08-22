@@ -1,8 +1,13 @@
 package br.api.hallel.moduloAPI.financeiroNovo.service;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.DespesaEvento;
+import br.api.hallel.moduloAPI.financeiroNovo.model.DespesaRetiro;
+import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.SaidaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.SaidaFinanceiroRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.SaidaFinanceiroResponse;
+import br.api.hallel.moduloAPI.financeiroNovo.repository.DespesaEventoRepository;
+import br.api.hallel.moduloAPI.financeiroNovo.repository.DespesasRetiroRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.SaidaFinanceiroRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,10 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
 
     @Autowired
     private SaidaFinanceiroRepository saidaFinanceiroRepository;
+    @Autowired
+    private DespesaEventoRepository despesaEventoRepository;
+    @Autowired
+    private DespesasRetiroRepository despesasRetiroRepository;
 
     @Override
     public SaidaFinanceiro cadastrar(SaidaFinanceiroRequest request) {
@@ -60,16 +69,28 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
         for (SaidaFinanceiro saida : this.saidaFinanceiroRepository.findAll()) {
             responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(saida));
         }
+
+
+
         return responseList;
     }
 
     @Override
     public List<SaidaFinanceiroResponse> listByPage(int pagina) {
-        Pageable pageable = PageRequest.of(pagina,15);
+        Pageable pageable = PageRequest.of(pagina,5);
         List<SaidaFinanceiroResponse> responseList = new ArrayList<>();
-        for (SaidaFinanceiro saida : this.saidaFinanceiroRepository.findAll()) {
+        for (SaidaFinanceiro saida : this.saidaFinanceiroRepository.findAll(pageable)) {
             responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(saida));
         }
+
+        for (DespesaEvento despesaEvento : this.despesaEventoRepository.findAll(pageable)) {
+            responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(despesaEvento));
+        }
+
+        for (DespesaRetiro despesaRetiro : this.despesasRetiroRepository.findAll(pageable)) {
+            responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(despesaRetiro));
+        }
+
         return responseList;
     }
 
@@ -78,4 +99,32 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
         Optional<SaidaFinanceiro> optional = this.saidaFinanceiroRepository.findById(id);
         return new SaidaFinanceiroResponse().toDespesaResponseList(optional.orElse(null));
     }
+
+
+    public List<SaidaFinanceiroResponse> listarUltimasSaidas(){
+
+        Pageable pageable = PageRequest.of(0,5);
+        List<SaidaFinanceiroResponse> responseList = new ArrayList<>();
+
+        List<SaidaFinanceiro> saidaFinanceiros = new ArrayList<>();
+
+        for (SaidaFinanceiro saida : this.saidaFinanceiroRepository.findAll(pageable)) {
+            saidaFinanceiros.add(saida);
+        }
+
+        for (DespesaEvento despesaEvento : this.despesaEventoRepository.findAll(pageable)) {
+            saidaFinanceiros.add(despesaEvento);
+        }
+
+        for (DespesaRetiro despesaRetiro : this.despesasRetiroRepository.findAll(pageable)) {
+            saidaFinanceiros.add(despesaRetiro);
+        }
+
+        for (SaidaFinanceiro saidaFinanceiro : saidaFinanceiros) {
+            responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(saidaFinanceiro));
+        }
+
+        return responseList;
+    }
+
 }
