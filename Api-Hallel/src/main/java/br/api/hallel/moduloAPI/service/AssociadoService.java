@@ -221,30 +221,54 @@ public class AssociadoService implements AssociadoInterface {
         if (optional.isPresent()) {
             Associado associado = optional.get();
 
-            PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
-            CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
-            codigoEntradaFinanceiro.setId("Teste");
-            codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
-            codigoEntradaFinanceiro.setNumeroCodigo(10.3);
-            pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
-            pagamentoAssociadoRequest.setMetodoPagamentoNum(pagarAssociacaoRequest.getNumMetodoPagamento());
-            PagamentosAssociado pagamentoAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
+            LocalDate dataExpiroLocalDate = associado.getDataExpiroAssociacao().toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+            LocalDate dataUltimoPagamento = associado.getPagamentosAssociados().get(associado.getPagamentosAssociados().size()-1).getDataPaga().toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+            Period period = Period.between(dataUltimoPagamento, dataExpiroLocalDate);
 
-            LocalDate dataAtual = LocalDate
-                    .of(Integer.parseInt(pagarAssociacaoRequest.getAno()),
-                            Integer.parseInt(pagarAssociacaoRequest.getMes()),
-                            LocalDate.now(ZoneId.of("America/Puerto_Rico")).getDayOfMonth());
-            pagamentoAssociado
-                    .setDataPaga(Date.from(dataAtual.atStartOfDay(ZoneId.of("America/Puerto_Rico"))
-                            .toInstant()));
+            if(period.getMonths() < 2) {
+                PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
+                CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
+                codigoEntradaFinanceiro.setId("Teste");
+                codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
+                codigoEntradaFinanceiro.setNumeroCodigo(10.3);
+                pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
+                pagamentoAssociadoRequest.setMetodoPagamentoNum(pagarAssociacaoRequest.getNumMetodoPagamento());
+                LocalDate dataAtual = LocalDate
+                        .of(Integer.parseInt(pagarAssociacaoRequest.getAno()),
+                                Integer.parseInt(pagarAssociacaoRequest.getMes()),
+                                LocalDate.now(ZoneId.of("America/Puerto_Rico")).getDayOfMonth());
+                pagamentoAssociadoRequest
+                        .setDataPaga(Date.from(dataAtual.atStartOfDay(ZoneId.of("America/Puerto_Rico"))
+                                .toInstant()));
+                PagamentosAssociado pagamentoAssociadoOBJ = pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
+                associado.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociadoOBJ));
+                associado.getPagamentosAssociados().add(pagamentoAssociadoOBJ);
+            }else{
+                for (int i = 1; i <= period.getMonths(); i++) {
+                    PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
+                    CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
+                    codigoEntradaFinanceiro.setId("Teste");
+                    codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
+                    codigoEntradaFinanceiro.setNumeroCodigo(10.3);
+                    pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
+                    pagamentoAssociadoRequest.setMetodoPagamentoNum(pagarAssociacaoRequest.getNumMetodoPagamento());
+                    LocalDate dataAtualFor = LocalDate
+                            .of(Integer.parseInt(pagarAssociacaoRequest.getAno()),
+                                    Integer.parseInt(pagarAssociacaoRequest.getMes()),
+                                    LocalDate.now(ZoneId.of("America/Puerto_Rico")).getDayOfMonth());
+                    dataAtualFor = dataAtualFor.minusMonths(period.getMonths()-i);
+                    pagamentoAssociadoRequest
+                            .setDataPaga(Date.from(dataAtualFor.atStartOfDay(ZoneId.of("America/Puerto_Rico"))
+                                    .toInstant()));
+                    PagamentosAssociado pagamentoAssociadoOBJ = pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
+                    associado.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociadoOBJ));
+                    associado.getPagamentosAssociados().add(pagamentoAssociadoOBJ);
+                }
+            }
 
-            associado.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociado));
-
-            associado.getPagamentosAssociados().add(pagamentoAssociado);
             associado.getMesesPagos().add(new Date());
 
             this.associadoRepository.save(associado);
-            this.pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
             return true;
         } else {
             return false;
@@ -263,51 +287,63 @@ public class AssociadoService implements AssociadoInterface {
 
         Membro membro = optionalMembro.get();
 
-//        List<Associado> para = Arrays.stream(virarAssociadoRequest.getPara()).toList();
-//        pagamentoAssociadoRequest.setPara(para);
+        /*
+            Configurando o codigo de entrada do financeiro e salvando no PagamentoAssociadoRequest e
+            em seguida inserindo esse objeto no banco de dados
+         */
+
         pagamentoAssociadoRequest.setMetodoPagamentoNum(virarAssociadoRequest.getMetodoPagamentoNum());
         pagamentoAssociadoRequest.setPara(null);
-
         CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
-        codigoEntradaFinanceiro.setId("743fsagw1");
+        codigoEntradaFinanceiro.setId("643536fash27743");
         codigoEntradaFinanceiro.setNomeCodigo("Virando associado");
         codigoEntradaFinanceiro.setNumeroCodigo(2.3);
         pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
-
-        PagamentosAssociado pagamentosAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
-
         LocalDate dataToPaga = LocalDate.now(ZoneId.of("America/Puerto_Rico"));
-        pagamentosAssociado
+        pagamentoAssociadoRequest
                 .setDataPaga(Date.from(dataToPaga.atStartOfDay(ZoneId.of("America/Puerto_Rico"))
                         .toInstant()));
+        PagamentosAssociado pagamentoAssociadoOBJ = pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
 
-        ArrayList<PagamentosAssociado> pagamentosAssociados = new ArrayList<>();
-        pagamentosAssociados.add(pagamentosAssociado);
-
-        List<Date> mesesPagos = new ArrayList<>();
-        mesesPagos.add(new Date());
-
-        Associado associadoNovo = virarAssociadoRequest.toAssociado();
-
-        pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
+        /*
+            Pegar a idade do associado
+         */
         LocalDate dataAniversario = virarAssociadoRequest
                 .getDataNascimento()
                 .toInstant()
                 .atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
-
         LocalDate dataAtual = LocalDate.now(ZoneId.of("America/Puerto_Rico"));
-
         Period period = Period.between(dataAniversario, dataAtual);
 
+        /*
+            Criamos um array de pagamento do associado e colocamos o objeto do bd
+            em que foi feito o cadastro
+         */
+        ArrayList<PagamentosAssociado> pagamentosAssociados = new ArrayList<>();
+        pagamentosAssociados.add(pagamentoAssociadoOBJ);
+
+        /*
+            Criamos um array de meses pagos e colocamos a data em que foi feito a transação
+         */
+        List<Date> mesesPagos = new ArrayList<>();
+        mesesPagos.add(new Date());
+
+        // Configurando todos os dados do novo associado
+
+        Associado associadoNovo = virarAssociadoRequest.toAssociado();
         associadoNovo.setPagamentosAssociados(pagamentosAssociados);
         associadoNovo.setIdade(period.getYears());
         associadoNovo.setIsAssociado(AssociadoStatus.PAGO);
-        associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentosAssociado));
+        associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociadoOBJ));
         associadoNovo.setMensalidadePaga(true);
         associadoNovo.setMesesPagos(mesesPagos);
         associadoNovo.setCartaoAssociado(virarAssociadoRequest.toCartaoAssociado());
         associadoNovo.setSenha(membro.getSenha());
 
+        /*
+            Definindo a roles do novo associado para acesso a novas urls e novas funcionalidades
+            da API
+         */
         Set<Role> roles = new HashSet<>();
         Optional<Role> optionalAssociado = roleRepository.findByName(ERole.ROLE_ASSOCIADO);
         Optional<Role> optionalUser = roleRepository.findByName(ERole.ROLE_USER);
@@ -322,8 +358,6 @@ public class AssociadoService implements AssociadoInterface {
         associadoNovo.setRoles(roles);
 
         Associado associadoSalvoBD = this.associadoRepository.insert(associadoNovo);
-
-        pagamentoAssociadoRequest.setIdAssociado(associadoSalvoBD.getId());
 
         return true;
     }
@@ -403,7 +437,7 @@ public class AssociadoService implements AssociadoInterface {
 
     private Date getDataExpiroAssociacao(PagamentosAssociado pagamentosAssociado) {
         LocalDate dataExpiro = pagamentosAssociado
-                .getDate()
+                .getDataPaga()
                 .toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();

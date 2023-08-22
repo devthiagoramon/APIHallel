@@ -22,10 +22,10 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
     private EntradasFinanceiroRepository entradasFinanceiroRepository;
 
     @Override
-    public Boolean cadastrar(EntradaFinanceiroRequest request) {
+    public EntradasFinanceiro cadastrar(EntradaFinanceiroRequest request) {
         EntradasFinanceiro entradasFinanceiro = this.entradasFinanceiroRepository.insert(request.toEntradaFinanceiro());
         log.info("Entrada financeiro (id: " + entradasFinanceiro.getId() + ") adicionado com sucesso");
-        return true;
+        return entradasFinanceiro;
     }
 
     @Override
@@ -60,8 +60,6 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
         for (EntradasFinanceiro financeiro : this.entradasFinanceiroRepository.findAll()) {
             responseList.add(new EntradaFinanceiroResponse().toResponseList(financeiro));
         }
-
-        
 
         return responseList;
     }

@@ -18,6 +18,7 @@ public class PagamentoAssociadoRequest {
     private Date date;
     private double valor;
     private Integer metodoPagamentoNum;
+    private Date dataPaga;
     private List<Associado> para; // Opcional
     private String idAssociado;
 
@@ -42,6 +43,7 @@ public class PagamentoAssociadoRequest {
                 break;
         }
         pagamentoAssociado.setPara(this.para);
+        pagamentoAssociado.setDataPaga(this.dataPaga);
         // Isso só ocorre se o associado já estiver cadastro no BD
         if(this.idAssociado != null) {
             pagamentoAssociado.setIdAssociadoPagador(this.idAssociado);

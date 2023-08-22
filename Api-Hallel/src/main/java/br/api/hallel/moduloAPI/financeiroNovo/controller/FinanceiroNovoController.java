@@ -35,8 +35,7 @@ public class FinanceiroNovoController {
 
     @PostMapping("/entrada/adicionar")
     public ResponseEntity<?> adicionarEntrada(@RequestBody EntradaFinanceiroRequest request) {
-        if (this.entradaService.cadastrar(request)) {
-
+        if (this.entradaService.cadastrar(request) != null) {
             return ResponseEntity.accepted().build();
         } else {
             return ResponseEntity.badRequest().build();
@@ -96,7 +95,7 @@ public class FinanceiroNovoController {
 
     @PostMapping("/saida/adicionar")
     public ResponseEntity<?> adicionarSaida(@RequestBody SaidaFinanceiroRequest request) {
-        if (this.saidaService.cadastrar(request)) {
+        if (this.saidaService.cadastrar(request) != null) {
 
             return ResponseEntity.accepted().build();
         } else {
