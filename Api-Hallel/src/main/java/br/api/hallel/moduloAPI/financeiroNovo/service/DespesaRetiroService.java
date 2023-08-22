@@ -22,10 +22,10 @@ public class DespesaRetiroService implements MetodosCRUDFinanceiro<DespesaRetiro
     private DespesasRetiroRepository despesasRetiroRepository;
 
     @Override
-    public Boolean cadastrar(DespesaRetiroRequest request) {
+    public DespesaRetiro cadastrar(DespesaRetiroRequest request) {
         DespesaRetiro despesaRetiro = this.despesasRetiroRepository.insert(request.toDespesaRetiro());
         log.info("Despesa Retiro (id: " + despesaRetiro.getId() + ") adicionada com sucesso");
-        return true;
+        return despesaRetiro;
     }
 
     @Override

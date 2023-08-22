@@ -22,10 +22,10 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
     private SaidaFinanceiroRepository saidaFinanceiroRepository;
 
     @Override
-    public Boolean cadastrar(SaidaFinanceiroRequest request) {
+    public SaidaFinanceiro cadastrar(SaidaFinanceiroRequest request) {
         SaidaFinanceiro saidaFinanceiro = this.saidaFinanceiroRepository.insert(request.toSaidaFinanceiro());
         log.info("Saida financeiro (id: " + saidaFinanceiro.getId() + ") adicionada com sucesso");
-        return true;
+        return saidaFinanceiro;
     }
 
     @Override

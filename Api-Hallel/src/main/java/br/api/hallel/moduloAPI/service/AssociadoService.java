@@ -275,6 +275,7 @@ public class AssociadoService implements AssociadoInterface {
         pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
 
         PagamentosAssociado pagamentosAssociado = pagamentoAssociadoRequest.toPagamentoAssociado();
+
         LocalDate dataToPaga = LocalDate.now(ZoneId.of("America/Puerto_Rico"));
         pagamentosAssociado
                 .setDataPaga(Date.from(dataToPaga.atStartOfDay(ZoneId.of("America/Puerto_Rico"))
@@ -288,6 +289,7 @@ public class AssociadoService implements AssociadoInterface {
 
         Associado associadoNovo = virarAssociadoRequest.toAssociado();
 
+        pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
         LocalDate dataAniversario = virarAssociadoRequest
                 .getDataNascimento()
                 .toInstant()
@@ -323,7 +325,6 @@ public class AssociadoService implements AssociadoInterface {
 
         pagamentoAssociadoRequest.setIdAssociado(associadoSalvoBD.getId());
 
-        pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
         return true;
     }
 

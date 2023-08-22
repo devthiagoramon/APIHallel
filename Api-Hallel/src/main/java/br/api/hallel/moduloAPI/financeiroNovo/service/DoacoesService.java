@@ -22,10 +22,10 @@ public class DoacoesService implements MetodosCRUDFinanceiro<Doacoes, DoacaoRequ
     private DoacoesRepository doacoesRepository;
 
     @Override
-    public Boolean cadastrar(DoacaoRequest request) {
+    public Doacoes cadastrar(DoacaoRequest request) {
         Doacoes doacao = this.doacoesRepository.insert(request.toDoacoes());
         log.info("Doação (id: " + doacao.getId() + ") salva com sucesso");
-        return true;
+        return doacao;
     }
 
     @Override

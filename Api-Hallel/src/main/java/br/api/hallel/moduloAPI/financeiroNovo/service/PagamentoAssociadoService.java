@@ -22,10 +22,10 @@ public class PagamentoAssociadoService implements MetodosCRUDFinanceiro<Pagament
     private PagamentoAssociadoRepository pagamentoAssociadoRepository;
 
     @Override
-    public Boolean cadastrar(PagamentoAssociadoRequest request) {
+    public PagamentosAssociado cadastrar(PagamentoAssociadoRequest request) {
         PagamentosAssociado pagamentosAssociado = this.pagamentoAssociadoRepository.insert(request.toPagamentoAssociado());
         log.info("Pagamento associado (id: " + pagamentosAssociado.getId() + ") salvo no sistema");
-        return true;
+        return pagamentosAssociado;
     }
 
     @Override

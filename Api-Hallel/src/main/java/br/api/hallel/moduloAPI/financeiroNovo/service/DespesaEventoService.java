@@ -22,10 +22,10 @@ public class DespesaEventoService implements MetodosCRUDFinanceiro<DespesaEvento
     private DespesaEventoRepository despesaEventoRepository;
 
     @Override
-    public Boolean cadastrar(DespesaEventoRequest request) {
+    public DespesaEvento cadastrar(DespesaEventoRequest request) {
         DespesaEvento despesaEvento = this.despesaEventoRepository.insert(request.toDespesaEvento());
         log.info("Despesa Evento (id: " + despesaEvento.getId() + ") adicionado com sucesso");
-        return true;
+        return despesaEvento;
     }
 
     @Override

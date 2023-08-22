@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ Associado extends Membro {
     private ArrayList<ModulosCurso> modulosCursosCompletos;
     private Boolean mensalidadePaga;
     private List<Date> mesesPagos;
+
+    @DBRef
     private List<PagamentosAssociado> pagamentosAssociados;
 
 }

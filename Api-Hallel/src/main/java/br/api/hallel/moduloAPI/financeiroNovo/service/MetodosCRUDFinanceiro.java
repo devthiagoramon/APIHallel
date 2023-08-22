@@ -9,7 +9,7 @@ import java.util.List;
  * @param <RE> Representa a classe response a qual vaidar uma resposta
  */
 public interface MetodosCRUDFinanceiro<T, RQ, RE> {
-    public Boolean cadastrar(RQ request);
+    public T cadastrar(RQ request);
     public Boolean editar(String id, RQ request);
     public Boolean deletar(String id);
     public List<RE> listarAll();

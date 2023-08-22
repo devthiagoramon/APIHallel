@@ -26,12 +26,12 @@ public class PagamentoEntradaEventoService implements
     private EntradasFinanceiroRepository repository;
 
     @Override
-    public Boolean cadastrar(PagamentoEntradaEventoReq request) {
+    public PagamentoEntradaEvento cadastrar(PagamentoEntradaEventoReq request) {
         PagamentoEntradaEvento pagamentoEntradaEvento =
                 this.pagamentoEntradaEventoRepository.insert(request.toPagamentoEntradaEvento());
         log.info("Pagamento de um evento(id: " + pagamentoEntradaEvento.getId() + ") salvo no sistema");
         this.repository.save(pagamentoEntradaEvento);
-        return true;
+        return pagamentoEntradaEvento;
     }
 
     @Override

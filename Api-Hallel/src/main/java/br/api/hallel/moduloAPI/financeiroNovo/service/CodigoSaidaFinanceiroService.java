@@ -20,10 +20,10 @@ public class CodigoSaidaFinanceiroService implements MetodosCRUDFinanceiro<Codig
     private CodigoSaidaFinanceiroRepository codigoSaidaFinanceiroRepository;
 
     @Override
-    public Boolean cadastrar(CodigoSaidaFinanceiroRequest request) {
+    public CodigoSaidaFinanceiro cadastrar(CodigoSaidaFinanceiroRequest request) {
         CodigoSaidaFinanceiro codigoSaida = this.codigoSaidaFinanceiroRepository.insert(request.toCodigoSaidaFinanceiro());
         log.info("Cadastrando codigo de saida financeiro " + codigoSaida.getId());
-        return true;
+        return codigoSaida;
     }
 
     @Override
