@@ -35,12 +35,7 @@ public class FinanceiroNovoController {
 
     @PostMapping("/entrada/adicionar")
     public ResponseEntity<?> adicionarEntrada(@RequestBody EntradaFinanceiroRequest request) {
-        if (this.entradaService.cadastrar(request)) {
-
-            return ResponseEntity.accepted().build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity.accepted().body(this.entradaService.cadastrar(request));
     }
 
     @PutMapping("/entrada/editar/{id}")
@@ -96,12 +91,7 @@ public class FinanceiroNovoController {
 
     @PostMapping("/saida/adicionar")
     public ResponseEntity<?> adicionarSaida(@RequestBody SaidaFinanceiroRequest request) {
-        if (this.saidaService.cadastrar(request)) {
-
-            return ResponseEntity.accepted().build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity.accepted().body(this.saidaService.cadastrar(request));
     }
 
     @PutMapping("/saida/editar/{id}")

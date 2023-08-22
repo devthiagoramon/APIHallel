@@ -1,16 +1,12 @@
 package br.api.hallel.moduloAPI.payload.resposta;
 
-import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.AssociadoStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor

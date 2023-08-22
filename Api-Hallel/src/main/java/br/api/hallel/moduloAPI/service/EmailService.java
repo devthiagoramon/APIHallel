@@ -12,8 +12,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Service
@@ -23,8 +24,6 @@ public class EmailService implements EmailInterface {
     private final JavaMailSender javaMailSender;
     @Autowired
     private AssociadoRepository associadoRepository;
-    @Autowired
-    private MembroService membroService;
 
     public EmailService(final JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
@@ -39,7 +38,7 @@ public class EmailService implements EmailInterface {
             if (verifiqAniversario(associado)) {
 
                 mensagem.setTo(associado.getEmail());
-                mensagem.setSubject("Parabéns, "+associado.getNome()+"!");
+                mensagem.setSubject("Parabéns, " + associado.getNome() + "!");
                 mensagem.setText(request.getConteudo());
 
                 javaMailSender.send(mensagem);
@@ -61,7 +60,7 @@ public class EmailService implements EmailInterface {
             if (verifiqAniversario(associado)) {
                 try {
                     helper.setTo(associado.getEmail());
-                    helper.setSubject("Parabéns, "+associado.getNome()+"!");
+                    helper.setSubject("Parabéns, " + associado.getNome() + "!");
                     helper.setText(request.getConteudo(), true);
 
                     javaMailSender.send(mimeMessage);
@@ -85,28 +84,24 @@ public class EmailService implements EmailInterface {
 
     private Boolean verifiqAniversario(Associado associado) {
 
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM");
+        if (associado.getDataNascimento() != null) {
 
-        try {
+            LocalDate dataNascimento = associado.getDataNascimento().toInstant().
+                    atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+            LocalDate dateAtual = new Date().toInstant().
+                    atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
 
-            if(associado.getDataNascimentoAssociado().isEmpty()){
-                return false;
-            }
+            log.info("Data de nascimento do usuário '"+associado.getNome()+"' : "+dataNascimento);
+            log.info("Data atual: "+dateAtual);
 
-            Date date = format.parse(associado.getDataNascimentoAssociado());
-            Date dateAtual = format.parse(getDataAtual());
-
-            if (date.compareTo(dateAtual) == 0) {
-                log.info("Aniversariante: "+associado.getNome());
+            if (dateAtual.getDayOfMonth() == dataNascimento.getDayOfMonth()
+                    && dateAtual.getMonthValue() == dataNascimento.getMonthValue()) {
+                log.info("Aniversariante: " + associado.getNome());
                 return true;
             }
-
-            return false;
-
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         }
 
+        return false;
     }
 }
 

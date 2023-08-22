@@ -1,7 +1,6 @@
 package br.api.hallel.moduloAPI.financeiroNovo.payload.response;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.DespesaEvento;
-
 import lombok.Data;
 
 @Data

@@ -5,7 +5,6 @@ import br.api.hallel.moduloAPI.model.Recompensa;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import java.util.List;
 
 @Data

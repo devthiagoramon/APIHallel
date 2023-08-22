@@ -1,15 +1,14 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
-import br.api.hallel.moduloAPI.model.*;
-import br.api.hallel.moduloAPI.payload.resposta.LocalEventoLocalizacaoResponse;
+import br.api.hallel.moduloAPI.model.Eventos;
+import br.api.hallel.moduloAPI.model.LocalEvento;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor

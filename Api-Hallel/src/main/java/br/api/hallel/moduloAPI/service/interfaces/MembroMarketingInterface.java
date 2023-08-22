@@ -1,8 +1,8 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
-import java.util.List;
-
 import br.api.hallel.moduloAPI.model.MembroMarketing;
+
+import java.util.List;
 
 public interface MembroMarketingInterface {
 

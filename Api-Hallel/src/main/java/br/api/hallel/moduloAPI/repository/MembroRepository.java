@@ -1,14 +1,11 @@
 package br.api.hallel.moduloAPI.repository;
 
-import java.lang.Enum;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.model.StatusMembro;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface MembroRepository extends MongoRepository<Membro, String>{
     

@@ -3,12 +3,9 @@ package br.api.hallel.moduloAPI.financeiroNovo.payload.request;
 import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
-import br.api.hallel.moduloAPI.model.Eventos;
 import com.mongodb.lang.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class PagamentoEntradaEventoReq extends EntradasFinanceiro {

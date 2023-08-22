@@ -1,9 +1,7 @@
 package br.api.hallel.moduloAPI.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-
 import br.api.hallel.moduloAPI.model.Administrador;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
