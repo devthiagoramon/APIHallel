@@ -4,7 +4,7 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -18,8 +18,7 @@ public class ScriptsAssociado {
     @Autowired
     private AssociadoRepository associadoRepository;
 
-    /*
-    @Bean
+    @Scheduled(cron = "59 59 23 ? * *")
     public void fixAssociadosPagamentos() {
         List<Associado> associados = associadoRepository.findAll();
 
@@ -50,6 +49,5 @@ public class ScriptsAssociado {
         }
 
     }
-    */
 
 }

@@ -1,6 +1,5 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
-import br.api.hallel.moduloAPI.financeiroNovo.model.MetodosPagamentosFinanceiro;
 import br.api.hallel.moduloAPI.model.CartaoAssociado;
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;

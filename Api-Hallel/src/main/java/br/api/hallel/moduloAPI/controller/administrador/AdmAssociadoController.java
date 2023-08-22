@@ -3,8 +3,6 @@ package br.api.hallel.moduloAPI.controller.administrador;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Transacao;
-import br.api.hallel.moduloAPI.payload.requerimento.PagamentoAssociadoRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
 import br.api.hallel.moduloAPI.service.AssociadoService;

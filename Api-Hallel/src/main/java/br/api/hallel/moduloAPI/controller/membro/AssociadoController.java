@@ -1,10 +1,8 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
-import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
 import br.api.hallel.moduloAPI.model.CartaoAssociado;
 import br.api.hallel.moduloAPI.payload.requerimento.PagarAssociacaoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPerfilResponse;
-import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.moduloAPI.payload.resposta.PagamentoAssociadoPerfilResponse;
 import br.api.hallel.moduloAPI.service.AssociadoService;

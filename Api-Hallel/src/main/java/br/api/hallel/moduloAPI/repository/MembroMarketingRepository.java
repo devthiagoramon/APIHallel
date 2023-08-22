@@ -1,11 +1,9 @@
 package br.api.hallel.moduloAPI.repository;
 
-import java.util.Optional;
-
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-
 import br.api.hallel.moduloAPI.model.MembroMarketing;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
 
 public interface MembroMarketingRepository extends MongoRepository<MembroMarketing, String>{
 

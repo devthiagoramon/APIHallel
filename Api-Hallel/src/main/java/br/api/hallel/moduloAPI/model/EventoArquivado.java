@@ -1,7 +1,5 @@
 package br.api.hallel.moduloAPI.model;
 
-import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
-import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

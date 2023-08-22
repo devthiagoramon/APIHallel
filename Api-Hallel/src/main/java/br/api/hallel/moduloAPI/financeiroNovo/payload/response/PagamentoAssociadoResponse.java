@@ -3,7 +3,6 @@ package br.api.hallel.moduloAPI.financeiroNovo.payload.response;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import br.api.hallel.moduloAPI.model.Associado;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 

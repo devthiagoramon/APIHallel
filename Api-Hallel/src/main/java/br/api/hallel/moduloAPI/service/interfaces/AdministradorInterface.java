@@ -1,11 +1,11 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
-import java.util.List;
-
 import br.api.hallel.moduloAPI.model.Administrador;
 import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public interface AdministradorInterface {
     

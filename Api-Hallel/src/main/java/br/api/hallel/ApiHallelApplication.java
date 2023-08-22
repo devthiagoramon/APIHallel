@@ -3,16 +3,13 @@ package br.api.hallel;
 import br.api.hallel.config.MariaDBConfig;
 import br.api.hallel.config.MongoDBConfig;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringApplicationExtensionsKt;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
-import org.springframework.orm.hibernate5.SpringSessionContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @Import({MongoDBConfig.class, MariaDBConfig.class})
+@EnableScheduling
 public class ApiHallelApplication {
 
 	public static void main(String[] args) {
