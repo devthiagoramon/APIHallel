@@ -43,7 +43,8 @@ public class SecurityConfig {
             {"/api/administrador/**", "/api/administrador/cursos/**", "/api/financeiro/**",
             "/api/administrador/associados/**", "/api/administrador/doacoes/**",
             "/api/administrador/eventos/**", "/api/administrador/loja/produtos/**",
-            "/api/administrador/retiros/**", "/api/administrador/sorteios/**", "/api/administrador/locais/**"};
+            "/api/administrador/retiros/**", "/api/administrador/sorteios/**", "/api/administrador/locais/**," +
+                    "/api/financeiro/**"};
     private String endpointsMembros[] = {"/api/membros/**", "/api/eventos/**", "/api/cursos/**"};
     private String endpointsAssociado[] = {"/api/cursos/**", "/api/associados/**"};
 
