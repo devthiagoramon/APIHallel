@@ -1,9 +1,10 @@
 package br.api.hallel.moduloAPI.financeiroNovo.controller;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.EntradaFinanceiroRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.EntradaFinanceiroResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.service.EntradasFinanceiraService;
-import br.api.hallel.moduloAPI.financeiroNovo.service.SaidaFinanceiroService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/administrador/financeiro/entradas")
+@Log4j2
 public class AdmEntradasFinanceiro {
 
     @Autowired
@@ -29,6 +31,11 @@ public class AdmEntradasFinanceiro {
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @PostMapping("/adicionar/multi")
+    public ResponseEntity<List<EntradasFinanceiro>> adicionarMultiEntradas(@RequestBody List<EntradaFinanceiroRequest> financeiroList) {
+        return ResponseEntity.accepted().body(this.entradaService.cadastrarMultiValores(financeiroList));
     }
 
     @PutMapping("/editar/{id}")
