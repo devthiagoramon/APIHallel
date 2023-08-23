@@ -90,4 +90,19 @@ public class AdmEntradasFinanceiro {
         return ResponseEntity.ok().body(this.entradaService.listUltimasEntradas());
     }
 
+    @GetMapping("/totalPaginas")
+    public ResponseEntity<Integer> getTotalPaginasEntradas(@RequestParam(value = "mes") String mes,
+                                                           @RequestParam(value = "ano") String ano){
+        return ResponseEntity.ok().body(this.entradaService.getTotalPages(mes, ano));
+    }
+
+    @GetMapping("/list/data")
+    public ResponseEntity<List<EntradaFinanceiroResponse>> listDataByPagina(
+            @RequestParam(value = "mes") String mes,
+            @RequestParam(value = "ano") String ano,
+            @RequestParam(value = "page") int pagina){
+        return ResponseEntity.ok().body(this.entradaService.listEntradasByMesAndAno(pagina, mes, ano));
+
+    }
+
 }

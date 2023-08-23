@@ -5,6 +5,7 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.EntradaFinanceiroRequest;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.EntradaFinanceiroResponse;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.EntradasResponseComparator;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.DoacoesRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.EntradasFinanceiroRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoAssociadoRepository;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +33,8 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
 
     @Autowired
     private DoacoesRepository doacoesRepository;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     public EntradasFinanceiro cadastrar(EntradaFinanceiroRequest request) {
@@ -147,5 +151,83 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
         }
 
         return responseList;
+    }
+
+    public List<EntradaFinanceiroResponse> listEntradasByMesAndAno(int numPage, String mes, String ano) {
+        Pageable pageable = PageRequest.of(numPage, 15);
+
+        List<EntradaFinanceiroResponse> responseList = new ArrayList<>();
+        List<EntradasFinanceiro> entradasFinanceiros = new ArrayList<>();
+        int indexTotal = pageable.getPageNumber() * pageable.getPageSize();
+
+        for (EntradasFinanceiro entradasFinanceiro : this.entradasFinanceiroRepository.findAll()) {
+            if (sdf.format(entradasFinanceiro.getDate()).substring(3).equals(mes + "/" + ano)) {
+                entradasFinanceiros.add(entradasFinanceiro);
+            }
+        }
+
+        for (PagamentosAssociado pagamentosAssociado : this.pagamentoAssociadoRepository.findAll()) {
+            if (sdf.format(pagamentosAssociado.getDate()).substring(3).equals(mes + "/" + ano)) {
+                entradasFinanceiros.add(pagamentosAssociado);
+            }
+        }
+
+        for (Doacoes doacoes : this.doacoesRepository.findAll()) {
+            if (sdf.format(doacoes.getDate()).substring(3).equals(mes + "/" + ano)) {
+                entradasFinanceiros.add(doacoes);
+            }
+        }
+        if (indexTotal == 0) {
+            indexTotal = 15;
+        }
+
+        int indexInicial = indexTotal - 15;
+
+        if (entradasFinanceiros.size() > indexTotal) {
+            for (int i = indexInicial; i < indexTotal; i++) {
+                EntradasFinanceiro entradaOBJ = entradasFinanceiros.get(i);
+                if (entradaOBJ != null) {
+                    responseList.add(new EntradaFinanceiroResponse().toResponseList(entradaOBJ));
+                }
+            }
+        }else{
+            for (EntradasFinanceiro entradasFinanceiro : entradasFinanceiros) {
+                responseList.add(new EntradaFinanceiroResponse().toResponseList(entradasFinanceiro));
+            }
+        }
+
+        Collections.sort(responseList, new EntradasResponseComparator());
+
+        return responseList;
+}
+
+
+    // Por mês
+    public Integer getTotalPages(String mes, String ano) {
+        int numTotalEntradas = 0;
+        int numTotalPagamentos = 0;
+        int numTotalDoacoes = 0;
+
+        int tamanhoPagina = 15;
+
+        for (EntradasFinanceiro entradasFinanceiro : this.entradasFinanceiroRepository.findAll()) {
+            if (sdf.format(entradasFinanceiro.getDate()).substring(3).equals(mes + "/" + ano)) {
+                numTotalEntradas++;
+            }
+        }
+
+        for (PagamentosAssociado pagamentosAssociado : this.pagamentoAssociadoRepository.findAll()) {
+            if (sdf.format(pagamentosAssociado.getDate()).substring(3).equals(mes + "/" + ano)) {
+                numTotalPagamentos++;
+            }
+        }
+
+        for (Doacoes doacoes : this.doacoesRepository.findAll()) {
+            if (sdf.format(doacoes.getDate()).substring(3).equals(mes + "/" + ano)) {
+                numTotalDoacoes++;
+            }
+        }
+
+        return (int) Math.ceil((double) (numTotalDoacoes + numTotalEntradas + numTotalPagamentos) / tamanhoPagina);
     }
 }
