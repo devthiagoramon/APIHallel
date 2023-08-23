@@ -127,7 +127,9 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
 
         Collections.sort(entradas);
 
-        for (EntradasFinanceiro entrada : entradas) {
+
+        for (int i = 0; i < 5; i++) {
+            EntradasFinanceiro entrada = entradas.get(i);
             responseList.add(new EntradaFinanceiroResponse().toResponseList(entrada));
         }
 
