@@ -27,6 +27,11 @@ public class AdmSaidaEntradaFinanceiro {
         }
     }
 
+    @PostMapping("/adicionar/multi")
+    public ResponseEntity<?> adicionarMultiSaidas(@RequestBody List<SaidaFinanceiroRequest> requestList) {
+        return ResponseEntity.accepted().body(this.saidaService.cadastrarMultiValores(requestList));
+    }
+
     @PutMapping("/editar/{id}")
     public ResponseEntity<?> editarSaida(@PathVariable String id,
                                          @RequestBody SaidaFinanceiroRequest request) {
