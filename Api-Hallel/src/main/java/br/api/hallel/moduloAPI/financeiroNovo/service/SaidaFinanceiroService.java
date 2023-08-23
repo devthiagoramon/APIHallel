@@ -37,6 +37,20 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
         return saidaFinanceiro;
     }
 
+    public List<SaidaFinanceiro> cadastrarMultiValores(List<SaidaFinanceiroRequest> requests){
+        List<SaidaFinanceiro> saidaList = new ArrayList<>();
+        int i = 0;
+        if(requests != null){
+            for (SaidaFinanceiroRequest request : requests) {
+                saidaList.add(request.toSaidaFinanceiro());
+                i++;
+            }
+            log.info(i+" saídas foram cadastradas!");
+        }
+
+        return saidaList.isEmpty() ? null : this.saidaFinanceiroRepository.saveAll(saidaList);
+    }
+
     @Override
     public Boolean editar(String id, SaidaFinanceiroRequest request) {
         Optional<SaidaFinanceiro> optional = this.saidaFinanceiroRepository.findById(id);
@@ -69,7 +83,6 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
         for (SaidaFinanceiro saida : this.saidaFinanceiroRepository.findAll()) {
             responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(saida));
         }
-
 
 
         return responseList;

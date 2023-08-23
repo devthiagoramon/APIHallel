@@ -45,12 +45,14 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
 
     public List<EntradasFinanceiro> cadastrarMultiValores(List<EntradaFinanceiroRequest> requests) {
         if (requests != null) {
+            int i = 0;
 
             List<EntradasFinanceiro> financeiroList = new ArrayList<>();
             for (EntradaFinanceiroRequest request : requests) {
                 financeiroList.add(request.toEntradaFinanceiro());
+                i++;
             }
-
+            log.info(i+" entradas foram cadastradas!");
             return this.entradasFinanceiroRepository.saveAll(financeiroList);
         }
         return null;
