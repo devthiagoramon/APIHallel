@@ -39,6 +39,19 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
         return entradasFinanceiro;
     }
 
+    public List<EntradasFinanceiro> cadastrarMultiValores(List<EntradaFinanceiroRequest> requests) {
+        if (requests != null) {
+
+            List<EntradasFinanceiro> financeiroList = new ArrayList<>();
+            for (EntradaFinanceiroRequest request : requests) {
+                financeiroList.add(request.toEntradaFinanceiro());
+            }
+
+            return this.entradasFinanceiroRepository.saveAll(financeiroList);
+        }
+        return null;
+    }
+
     @Override
     public Boolean editar(String id, EntradaFinanceiroRequest request) {
         Optional<EntradasFinanceiro> optional = this.entradasFinanceiroRepository.findById(id);
@@ -108,7 +121,7 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
         return new EntradaFinanceiroResponse().toResponseList(optional.orElse(null));
     }
 
-    public List<EntradaFinanceiroResponse> listUltimasEntradas(){
+    public List<EntradaFinanceiroResponse> listUltimasEntradas() {
         Pageable pageable = PageRequest.of(0, 5);
 
         List<EntradaFinanceiroResponse> responseList = new ArrayList<>();

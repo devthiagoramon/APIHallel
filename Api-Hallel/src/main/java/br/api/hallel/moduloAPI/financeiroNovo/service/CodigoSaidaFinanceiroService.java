@@ -5,6 +5,7 @@ import br.api.hallel.moduloAPI.financeiroNovo.payload.request.CodigoSaidaFinance
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.CodigoSaidaFinanceiroResponse;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.CodigoSaidaFinanceiroRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @Log4j2
 public class CodigoSaidaFinanceiroService implements MetodosCRUDFinanceiro<CodigoSaidaFinanceiro, CodigoSaidaFinanceiroRequest, CodigoSaidaFinanceiroResponse> {
 
+    @Autowired
     private CodigoSaidaFinanceiroRepository codigoSaidaFinanceiroRepository;
 
     @Override
