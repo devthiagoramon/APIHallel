@@ -97,7 +97,7 @@ public class AdmEntradasFinanceiro {
     }
 
     @GetMapping("/list/data")
-    public ResponseEntity<List<EntradaFinanceiroResponse>> listDataByPagina(
+    public ResponseEntity<List<EntradaFinanceiroResponse>> listByDataAndPagina(
             @RequestParam(value = "mes") String mes,
             @RequestParam(value = "ano") String ano,
             @RequestParam(value = "page") int pagina){

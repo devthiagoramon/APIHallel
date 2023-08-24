@@ -26,7 +26,7 @@ public class SaidaFinanceiroResponse {
         SaidaFinanceiroResponse response = new SaidaFinanceiroResponse();
         response.setId(saidaFinanceiro.getId());
         response.setCodigo(saidaFinanceiro.getCodigo());
-        response.setData(saidaFinanceiro.getData());
+        response.setData(saidaFinanceiro.getDate());
         response.setValor(saidaFinanceiro.getValor());
         response.setMetodoPagamento(saidaFinanceiro.getMetodoPagamento());
 

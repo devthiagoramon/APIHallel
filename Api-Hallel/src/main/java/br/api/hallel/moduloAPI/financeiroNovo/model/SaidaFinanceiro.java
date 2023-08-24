@@ -15,7 +15,7 @@ public class SaidaFinanceiro {
 
     private String id;
     private CodigoSaidaFinanceiro codigo;
-    private Date data;
+    private Date date;
     private Double valor;
     private MetodosPagamentosFinanceiro metodoPagamento;
 

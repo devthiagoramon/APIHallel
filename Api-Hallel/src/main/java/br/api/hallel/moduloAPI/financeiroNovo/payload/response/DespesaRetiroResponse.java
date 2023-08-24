@@ -12,7 +12,7 @@ public class DespesaRetiroResponse extends SaidaFinanceiroResponse{
         DespesaRetiroResponse response = new DespesaRetiroResponse();
         response.setId(despesaRetiro.getId());
         response.setCodigo(despesaRetiro.getCodigo());
-        response.setData(despesaRetiro.getData());
+        response.setData(despesaRetiro.getDate());
         response.setValor(despesaRetiro.getValor());
         response.setMetodoPagamento(despesaRetiro.getMetodoPagamento());
 

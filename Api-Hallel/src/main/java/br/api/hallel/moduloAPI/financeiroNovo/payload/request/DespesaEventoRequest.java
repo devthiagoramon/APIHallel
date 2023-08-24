@@ -6,7 +6,7 @@ public class DespesaEventoRequest extends DespesaRequest{
     public DespesaEvento toDespesaEvento() {
         DespesaEvento despesaEvento = new DespesaEvento();
         despesaEvento.setCodigo(getCodigo());
-        despesaEvento.setData(getData());
+        despesaEvento.setDate(getData());
         despesaEvento.setValor(getValor());
         despesaEvento.setMetodoPagamento(getMetodoPagamento());
         return despesaEvento;

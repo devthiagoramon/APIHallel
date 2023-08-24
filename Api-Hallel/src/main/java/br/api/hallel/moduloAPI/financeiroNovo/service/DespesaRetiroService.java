@@ -34,7 +34,7 @@ public class DespesaRetiroService implements MetodosCRUDFinanceiro<DespesaRetiro
         if (optional.isPresent()) {
             DespesaRetiro despesaRetiroOld = optional.get();
             despesaRetiroOld.setCodigo(request.getCodigo());
-            despesaRetiroOld.setData(request.getData());
+            despesaRetiroOld.setDate(request.getData());
             despesaRetiroOld.setValor(request.getValor());
             despesaRetiroOld.setMetodoPagamento(request.getMetodoPagamento());
             this.despesasRetiroRepository.save(despesaRetiroOld);

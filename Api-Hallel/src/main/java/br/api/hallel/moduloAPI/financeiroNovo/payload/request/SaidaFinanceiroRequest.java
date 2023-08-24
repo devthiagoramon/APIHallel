@@ -22,7 +22,7 @@ public class SaidaFinanceiroRequest {
     public SaidaFinanceiro toSaidaFinanceiro(){
         SaidaFinanceiro saidaFinanceiro = new SaidaFinanceiro();
         saidaFinanceiro.setCodigo(this.getCodigo());
-        saidaFinanceiro.setData(this.getData());
+        saidaFinanceiro.setDate(this.getData());
         saidaFinanceiro.setValor(this.getValor());
         saidaFinanceiro.setMetodoPagamento(this.getMetodoPagamento());
         return saidaFinanceiro;

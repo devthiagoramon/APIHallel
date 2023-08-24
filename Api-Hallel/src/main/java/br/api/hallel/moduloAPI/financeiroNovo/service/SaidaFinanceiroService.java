@@ -1,11 +1,11 @@
 package br.api.hallel.moduloAPI.financeiroNovo.service;
 
-import br.api.hallel.moduloAPI.financeiroNovo.model.DespesaEvento;
-import br.api.hallel.moduloAPI.financeiroNovo.model.DespesaRetiro;
-import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
-import br.api.hallel.moduloAPI.financeiroNovo.model.SaidaFinanceiro;
+import br.api.hallel.moduloAPI.financeiroNovo.model.*;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.SaidaFinanceiroRequest;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.EntradaFinanceiroResponse;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.EntradasResponseComparator;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.SaidaFinanceiroResponse;
+import br.api.hallel.moduloAPI.financeiroNovo.payload.response.SaidaFinanceiroResponseComparator;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.DespesaEventoRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.DespesasRetiroRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.SaidaFinanceiroRepository;
@@ -15,7 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +31,8 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
     private DespesaEventoRepository despesaEventoRepository;
     @Autowired
     private DespesasRetiroRepository despesasRetiroRepository;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     public SaidaFinanceiro cadastrar(SaidaFinanceiroRequest request) {
@@ -57,7 +61,7 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
         if (optional.isPresent()) {
             SaidaFinanceiro saidaFinanceiroOld = optional.get();
             saidaFinanceiroOld.setCodigo(request.getCodigo());
-            saidaFinanceiroOld.setData(request.getData());
+            saidaFinanceiroOld.setDate(request.getData());
             saidaFinanceiroOld.setMetodoPagamento(request.getMetodoPagamento());
             saidaFinanceiroOld.setValor(request.getValor());
             saidaFinanceiroRepository.save(saidaFinanceiroOld);
@@ -140,4 +144,81 @@ public class SaidaFinanceiroService implements MetodosCRUDFinanceiro<SaidaFinanc
         return responseList;
     }
 
+    public Integer getTotalPages(String mes, String ano) {
+        int numTotalSaidas = 0;
+        int numTotalDespesaRetiro = 0;
+        int numTotalDespesaEvento = 0;
+
+        int tamanhoPagina = 15;
+
+        for (SaidaFinanceiro saidaFinanceiro : this.saidaFinanceiroRepository.findAll()) {
+            if (sdf.format(saidaFinanceiro.getDate()).substring(3).equals(mes + "/" + ano)) {
+                numTotalSaidas++;
+            }
+        }
+
+        for (DespesaRetiro despesaRetiro : this.despesasRetiroRepository.findAll()) {
+            if (sdf.format(despesaRetiro.getDate()).substring(3).equals(mes + "/" + ano)) {
+                numTotalDespesaRetiro++;
+            }
+        }
+
+        for (DespesaEvento despesaEvento : this.despesaEventoRepository.findAll()) {
+            if (sdf.format(despesaEvento.getDate()).substring(3).equals(mes + "/" + ano)) {
+                numTotalDespesaEvento++;
+            }
+        }
+
+        return (int) Math.ceil((double) (numTotalDespesaEvento + numTotalSaidas + numTotalDespesaRetiro) / tamanhoPagina);
+    }
+
+    public List<SaidaFinanceiroResponse> listEntradasByMesAndAno(int numPage, String mes, String ano) {
+
+        Pageable pageable = PageRequest.of(numPage, 15);
+
+        List<SaidaFinanceiroResponse> responseList = new ArrayList<>();
+        List<SaidaFinanceiro> saidaFinanceiros = new ArrayList<>();
+        int indexTotal = pageable.getPageNumber() * pageable.getPageSize();
+
+        for (SaidaFinanceiro saidaFinanceiro : this.saidaFinanceiroRepository.findAll()) {
+            if (sdf.format(saidaFinanceiro.getDate()).substring(3).equals(mes + "/" + ano)) {
+                saidaFinanceiros.add(saidaFinanceiro);
+            }
+        }
+
+        for (DespesaRetiro despesaRetiro : this.despesasRetiroRepository.findAll()) {
+            if (sdf.format(despesaRetiro.getDate()).substring(3).equals(mes + "/" + ano)) {
+                saidaFinanceiros.add(despesaRetiro);
+            }
+        }
+
+        for (DespesaEvento despesaEvento : this.despesaEventoRepository.findAll()) {
+            if (sdf.format(despesaEvento.getDate()).substring(3).equals(mes + "/" + ano)) {
+                saidaFinanceiros.add(despesaEvento);
+            }
+        }
+        if (indexTotal == 0) {
+            indexTotal = 15;
+        }
+
+        int indexInicial = indexTotal - 15;
+
+        if (saidaFinanceiros.size() > indexTotal) {
+            for (int i = indexInicial; i < indexTotal; i++) {
+                SaidaFinanceiro saidaFinanceiro = saidaFinanceiros.get(i);
+                if (saidaFinanceiro != null) {
+                    responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(saidaFinanceiro));
+                }
+            }
+        }else{
+            for (SaidaFinanceiro saidaFinanceiro : saidaFinanceiros) {
+                responseList.add(new SaidaFinanceiroResponse().toDespesaResponseList(saidaFinanceiro));
+            }
+        }
+
+        Collections.sort(responseList, new SaidaFinanceiroResponseComparator());
+
+        return responseList;
+
+    }
 }

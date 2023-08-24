@@ -34,7 +34,7 @@ public class DespesaEventoService implements MetodosCRUDFinanceiro<DespesaEvento
         if (optional.isPresent()) {
             DespesaEvento despesaEventoOld = optional.get();
             despesaEventoOld.setCodigo(request.getCodigo());
-            despesaEventoOld.setData(request.getData());
+            despesaEventoOld.setDate(request.getData());
             despesaEventoOld.setValor(request.getValor());
             despesaEventoOld.setMetodoPagamento(request.getMetodoPagamento());
             this.despesaEventoRepository.save(despesaEventoOld);

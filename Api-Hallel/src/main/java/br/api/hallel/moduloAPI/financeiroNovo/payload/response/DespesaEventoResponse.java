@@ -12,7 +12,7 @@ public class DespesaEventoResponse extends SaidaFinanceiroResponse {
         DespesaEventoResponse response = new DespesaEventoResponse();
         response.setId(despesaEvento.getId());
         response.setCodigo(despesaEvento.getCodigo());
-        response.setData(despesaEvento.getData());
+        response.setData(despesaEvento.getDate());
         response.setValor(despesaEvento.getValor());
         response.setMetodoPagamento(despesaEvento.getMetodoPagamento());
 
