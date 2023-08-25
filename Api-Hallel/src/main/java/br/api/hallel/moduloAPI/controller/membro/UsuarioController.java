@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
 import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.service.UsuarioService;
+import br.api.hallel.moduloAPI.service.main.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

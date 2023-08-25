@@ -5,7 +5,7 @@ import br.api.hallel.moduloAPI.model.AtividadesCurso;
 import br.api.hallel.moduloAPI.model.Curso;
 import br.api.hallel.moduloAPI.model.ModulosCurso;
 import br.api.hallel.moduloAPI.payload.requerimento.AddCursoReq;
-import br.api.hallel.moduloAPI.service.CursoService;
+import br.api.hallel.moduloAPI.service.cursos.CursoService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

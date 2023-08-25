@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.main;
 
 import br.api.hallel.moduloAPI.model.MembroGoogle;
 import br.api.hallel.moduloAPI.repository.MembroGoogleRepository;

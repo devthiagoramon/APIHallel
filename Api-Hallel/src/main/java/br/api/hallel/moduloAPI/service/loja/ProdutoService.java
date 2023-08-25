@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.loja;
 
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.model.Produto;
@@ -6,6 +6,7 @@ import br.api.hallel.moduloAPI.payload.requerimento.ProdutoReq;
 import br.api.hallel.moduloAPI.payload.resposta.ProdutoResponse;
 import br.api.hallel.moduloAPI.repository.ProdutoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.ProdutoInterface;
+import br.api.hallel.moduloAPI.service.main.MembroService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

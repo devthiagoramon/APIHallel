@@ -5,7 +5,7 @@ import br.api.hallel.moduloAPI.payload.requerimento.AlimentoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.RetiroRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AlimentoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.RetiroResponse;
-import br.api.hallel.moduloAPI.service.RetiroService;
+import br.api.hallel.moduloAPI.service.retiro.RetiroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.financeiro;
 
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.AssociadoStatus;
@@ -6,6 +6,7 @@ import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.requerimento.TransacaoRequerimento;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.TransacaoRepository;
+import br.api.hallel.moduloAPI.service.financeiro.ComunidadeService;
 import br.api.hallel.moduloAPI.service.interfaces.TransacaoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.eventos;
 
 import br.api.hallel.moduloAPI.model.EventoArquivado;
 import br.api.hallel.moduloAPI.model.Eventos;

@@ -2,8 +2,8 @@ package br.api.hallel.moduloAPI.controller.membro;
 
 import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
-import br.api.hallel.moduloAPI.service.AssociadoService;
-import br.api.hallel.moduloAPI.service.MembroService;
+import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
+import br.api.hallel.moduloAPI.service.main.MembroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

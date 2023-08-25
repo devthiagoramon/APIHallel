@@ -9,8 +9,8 @@ import br.api.hallel.moduloAPI.payload.requerimento.SolicitarCadastroRequeriment
 import br.api.hallel.moduloAPI.payload.resposta.AuthenticationResponse;
 import br.api.hallel.moduloAPI.payload.resposta.DescricaoCursoRes;
 import br.api.hallel.moduloAPI.security.services.JwtService;
-import br.api.hallel.moduloAPI.service.CursoService;
-import br.api.hallel.moduloAPI.service.MainService;
+import br.api.hallel.moduloAPI.service.cursos.CursoService;
+import br.api.hallel.moduloAPI.service.main.MainService;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

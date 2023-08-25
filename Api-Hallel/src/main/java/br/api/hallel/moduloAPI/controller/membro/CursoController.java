@@ -4,7 +4,7 @@ import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.AtividadesCurso;
 import br.api.hallel.moduloAPI.model.ModulosCurso;
-import br.api.hallel.moduloAPI.service.CursoService;
+import br.api.hallel.moduloAPI.service.cursos.CursoService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

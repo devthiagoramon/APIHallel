@@ -3,8 +3,9 @@ package br.api.hallel.moduloAPI.controller.administrador;
 import br.api.hallel.moduloAPI.model.Administrador;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
-import br.api.hallel.moduloAPI.service.AdministradorService;
-import br.api.hallel.moduloAPI.service.MembroService;
+import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
+import br.api.hallel.moduloAPI.service.main.AdministradorService;
+import br.api.hallel.moduloAPI.service.main.MembroService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class AdministradorController {
     }
 
     @GetMapping("/membros")
-    public ResponseEntity<List<Membro>> listAllMembros() {
+    public ResponseEntity<List<MembroResponse>> listAllMembros() {
         return ResponseEntity.status(200).body(membroService.listAllMembros());
     }
 

@@ -4,7 +4,7 @@ import br.api.hallel.moduloAPI.model.Doacao;
 import br.api.hallel.moduloAPI.model.DoacaoObjeto;
 import br.api.hallel.moduloAPI.payload.resposta.DoacoesDinheiroListaAdmResponse;
 import br.api.hallel.moduloAPI.payload.resposta.DoacoesObjetoListaAdmResponse;
-import br.api.hallel.moduloAPI.service.DoacaoService;
+import br.api.hallel.moduloAPI.service.financeiro.DoacaoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

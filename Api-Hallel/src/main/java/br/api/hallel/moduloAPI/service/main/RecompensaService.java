@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.main;
 
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Recompensa;
@@ -8,6 +8,7 @@ import br.api.hallel.moduloAPI.payload.requerimento.RecompensaRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoSorteioResponse;
 import br.api.hallel.moduloAPI.payload.resposta.SorteioResponse;
 import br.api.hallel.moduloAPI.repository.SorteioRepository;
+import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import br.api.hallel.moduloAPI.service.interfaces.RecompensaInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

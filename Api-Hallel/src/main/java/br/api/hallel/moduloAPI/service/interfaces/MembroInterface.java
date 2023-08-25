@@ -10,7 +10,7 @@ public interface MembroInterface {
 
     public Membro createMembro(Membro membro);
 
-    public List<Membro> listAllMembros();
+    public List<MembroResponse> listAllMembros();
 
     public Membro listMembroId(String id);
 

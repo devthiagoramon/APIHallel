@@ -22,7 +22,7 @@ public class Membro extends Usuario implements UserDetails {
     private String email;
     private String cpf;
     private Date dataNascimento;
-    private StatusMembro status;
+    private StatusMembro statusMembro;
     private Integer idade;
     private String telefone;
     private String image;
@@ -35,12 +35,12 @@ public class Membro extends Usuario implements UserDetails {
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
-    public Membro(String nome, String senha, String email, Date dataNascimento, StatusMembro status){
+    public Membro(String nome, String senha, String email, Date dataNascimento, StatusMembro statusMembro){
         this.nome = nome;
         this.senha = senha;
         this.email = email;
         this.dataNascimento = dataNascimento;
-        this.status = status;
+        this.statusMembro = statusMembro;
     }
 
     @Override

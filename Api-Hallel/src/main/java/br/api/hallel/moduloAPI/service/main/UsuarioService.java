@@ -1,8 +1,9 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.main;
 
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.model.StatusMembro;
 import br.api.hallel.moduloAPI.model.Usuario;
+import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.repository.UsuarioRepository;
 import br.api.hallel.moduloAPI.service.interfaces.UsuarioInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class UsuarioService implements UsuarioInterface {
         if (verificarSeExiste(membro)) {
             return false;
         }
-        membro.setStatus(StatusMembro.PENDENTE);
+        membro.setStatusMembro(StatusMembro.PENDENTE);
         this.membroService.createMembro(membro);
         return true;
     }
@@ -63,8 +64,8 @@ public class UsuarioService implements UsuarioInterface {
     //MÉTODO PARA VERIFICAR SE EXISTE UM USUÁRIO NO SISTEMA
     private boolean verificarSeExiste(Membro membro) {
         boolean existe = false;
-        List<Membro> membros = this.membroService.listAllMembros();
-        for (Membro membroList : membros) {
+        List<MembroResponse> membros = this.membroService.listAllMembros();
+        for (MembroResponse membroList : membros) {
             if (membroList.getNome().equals(membro.getNome())) {
                 existe = true;
             }

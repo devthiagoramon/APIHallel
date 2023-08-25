@@ -1,10 +1,9 @@
 package br.api.hallel.scripts.associado;
 
 import br.api.hallel.moduloAPI.payload.requerimento.EmailRequest;
-import br.api.hallel.moduloAPI.service.EmailService;
+import br.api.hallel.moduloAPI.service.main.EmailService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.eventos;
 
 import br.api.hallel.moduloAPI.model.LocalEvento;
 import br.api.hallel.moduloAPI.payload.requerimento.LocalEventoReq;

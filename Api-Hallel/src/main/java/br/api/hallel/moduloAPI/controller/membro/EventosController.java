@@ -3,7 +3,7 @@ package br.api.hallel.moduloAPI.controller.membro;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
-import br.api.hallel.moduloAPI.service.EventosService;
+import br.api.hallel.moduloAPI.service.eventos.EventosService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

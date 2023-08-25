@@ -2,7 +2,7 @@ package br.api.hallel.moduloAPI.controller;
 
 import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.requerimento.TransacaoRequerimento;
-import br.api.hallel.moduloAPI.service.TransacaoService;
+import br.api.hallel.moduloAPI.service.financeiro.TransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

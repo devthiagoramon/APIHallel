@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.main;
 
 import br.api.hallel.moduloAPI.exceptions.SolicitarCadastroException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
@@ -16,6 +16,7 @@ import br.api.hallel.moduloAPI.repository.MembroGoogleRepository;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.repository.RoleRepository;
 import br.api.hallel.moduloAPI.security.services.JwtService;
+import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import br.api.hallel.moduloAPI.service.interfaces.MainInterface;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -89,7 +90,7 @@ public class MainService implements MainInterface {
 
             var membro = membroRepository.findByEmail(loginRequerimento.getEmail()).get();
 
-            if (membro.getStatus().equals(StatusMembro.ATIVO)) {
+            if (membro.getStatusMembro().equals(StatusMembro.ATIVO)) {
 
                 //SE EXISTE, O MEMBRO VEM COMO ATIVO, POIS ESTÁ ACESSANDO AO SITE
                 var jwtToken = jwtService.generateToken(membro);
@@ -158,7 +159,7 @@ public class MainService implements MainInterface {
             var membroGoogle = googleRepository.findByEmail(loginRequerimentoGoogle.getEmail()).get();
             System.out.println("Membro Google" );
 
-            if (membroGoogle.getStatus().equals(StatusMembro.ATIVO)) {
+            if (membroGoogle.getStatusMembro().equals(StatusMembro.ATIVO)) {
                 var jwtToken = jwtService.generateToken(membroGoogle);
 
                 System.out.println("CERTO");
@@ -202,7 +203,7 @@ public class MainService implements MainInterface {
         membro.setEmail(solicitarCadastroRequerimento.getEmail());
         membro.setSenha(encoder.encode(solicitarCadastroRequerimento.getSenha()));
         membro.setRoles(roles);
-        membro.setStatus(StatusMembro.PENDENTE);
+        membro.setStatusMembro(StatusMembro.PENDENTE);
 
         //SALVA NO BD E GERA O TOKEN PARA O USUARIO
         if (membro.getEmail() != null &&
@@ -236,7 +237,7 @@ public class MainService implements MainInterface {
         membro.setEmail(solicitarCadastroGoogle.getEmail());
         membro.setSenha(encoder.encode(solicitarCadastroGoogle.getSenha()));
         membro.setRoles(roles);
-        membro.setStatus(StatusMembro.PENDENTE);
+        membro.setStatusMembro(StatusMembro.PENDENTE);
 
         if (solicitarCadastroGoogle.getEmail() != null &&
                 solicitarCadastroGoogle.getNome() != null &&

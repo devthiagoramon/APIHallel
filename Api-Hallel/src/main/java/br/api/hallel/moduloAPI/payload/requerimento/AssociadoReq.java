@@ -24,7 +24,7 @@ public class AssociadoReq {
         associadoVal.setEmail(associado.getEmail());
         associadoVal.setDataNascimentoAssociado(associado.getDataNascimentoAssociado());
         associadoVal.setIsAssociado(associado.getIsAssociado());
-        associadoVal.setStatus(associado.getStatus());
+        associadoVal.setStatusMembro(associado.getStatusMembro());
 
         return associadoVal;
     }

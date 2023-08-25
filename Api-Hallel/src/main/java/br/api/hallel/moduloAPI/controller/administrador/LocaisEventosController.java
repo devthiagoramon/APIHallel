@@ -4,7 +4,7 @@ import br.api.hallel.moduloAPI.model.LocalEvento;
 import br.api.hallel.moduloAPI.payload.requerimento.LocalEventoReq;
 import br.api.hallel.moduloAPI.payload.resposta.LocalEventoLocalizacaoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.LocalEventoResponse;
-import br.api.hallel.moduloAPI.service.LocalEventoService;
+import br.api.hallel.moduloAPI.service.eventos.LocalEventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

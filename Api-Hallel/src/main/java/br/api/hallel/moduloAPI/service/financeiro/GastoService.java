@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.financeiro;
 
 import br.api.hallel.moduloAPI.model.Financeiro;
 import br.api.hallel.moduloAPI.model.GastoFinanceiro;

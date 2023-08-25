@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.cursos;
 
 import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.*;
@@ -9,8 +9,10 @@ import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.moduloAPI.payload.resposta.DescricaoCursoRes;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.CursoRepository;
+import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import br.api.hallel.moduloAPI.service.interfaces.CursoInterface;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,17 +26,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
+@Log4j2
 public class CursoService implements CursoInterface {
 
     @Autowired
     private CursoRepository cursoRepository;
     @Autowired
     private AssociadoRepository associadoRepository;
-
     @Autowired
     private AssociadoService associadoService;
 
+    //CRUD para criar curso
     @Override
     public Curso createCurso(AddCursoReq cursoReq) {
         return this.cursoRepository.insert(cursoReq.toCurso());
@@ -63,14 +65,14 @@ public class CursoService implements CursoInterface {
 
         Curso cursoNew = cursoOld;
 
-        Boolean ifExists = false;
+        boolean ifExists = false;
 
         if (associado.getCursosInscritos() != null) {
 
             for (Curso cursosInscritos : associado.getCursosInscritos()) {
-                    System.out.println("opa mermao");
-                    ifExists = true;
-                }
+                System.out.println("opa mermao");
+                ifExists = true;
+            }
 
 
             if (ifExists) {
@@ -100,6 +102,7 @@ public class CursoService implements CursoInterface {
 
     }
 
+    //Listar informações de um curso através da inscrição de um usuário
     @Override
     public List<CursosAssociadoRes> listCursoByAssociado(String idUsuario) {
 
@@ -107,7 +110,7 @@ public class CursoService implements CursoInterface {
         List<CursosAssociadoRes> cursosDoUser = new ArrayList<>();
 
         todosCursos.forEach(curso -> {
-            if(curso.getParticipantes()!=null){
+            if (curso.getParticipantes() != null) {
                 curso.getParticipantes().forEach(participante -> {
                     if (participante.getId().equals(idUsuario)) {
                         CursosAssociadoRes cursosProv = new CursosAssociadoRes(
@@ -123,6 +126,8 @@ public class CursoService implements CursoInterface {
         return cursosDoUser;
     }
 
+    //Adiciona usuário ao curso
+    //Como parâmetro Id do associado e do Curso
     @Override
     public void addAssociadoCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException {
 
@@ -146,7 +151,6 @@ public class CursoService implements CursoInterface {
                 }
             }
 
-
             if (isExists) {
             } else {
                 if (!associado.getIsAssociado().equals(AssociadoStatus.PAGO)) {
@@ -169,6 +173,7 @@ public class CursoService implements CursoInterface {
         this.updateCursoAndAssociado(idCurso, curso, associado);
     }
 
+    //lista os módulos do curso
     public List<ModulosCurso> listModuloByIdCurso(String id) {
 
         var curso = listCursoById(id);
@@ -176,19 +181,22 @@ public class CursoService implements CursoInterface {
         return curso.getModulos().stream().collect(Collectors.toList());
     }
 
+    //Lista os integrantes de um curso, como parâmetro Id do curso
     @Override
     public List<Associado> listUserContainsCurso(String id) {
-        var curso = this.cursoRepository.findById(id).get();
+        Curso curso = this.cursoRepository.findById(id).get();
         return curso.getParticipantes().stream().collect(Collectors.toList());
     }
 
+    //Lista todas as atividades de um curso, como parâmetro Id do curso
     @Override
     public List<AtividadesCurso> listAllAtividadesByCurso(String id) {
-        var curso = this.cursoRepository.findById(id).get();
+        Curso curso = this.cursoRepository.findById(id).get();
 
         return curso.getAtividades().stream().collect(Collectors.toList());
     }
 
+    //Retorna o desempenho de um usuário no curso
     @Override
     public String desempenhoDoCurso(String idAssociado, String idCurso) {
         var associado = this.associadoRepository.findById(idAssociado).get();
@@ -210,11 +218,13 @@ public class CursoService implements CursoInterface {
         return new DecimalFormat("0.00").format(resultado);
     }
 
+    //Por enquanto, inutilizável
     @Override
     public void generatePDF(HttpServletResponse response) throws IOException {
 
     }
 
+    //Descrição de um curso
     @Override
     public DescricaoCursoRes descCursoById(String id) {
         DescricaoCursoRes descricaoCurso = new DescricaoCursoRes();
@@ -245,6 +255,7 @@ public class CursoService implements CursoInterface {
         return descricaoCurso;
     }
 
+    //Associado concluir curso
     @Override
     public Associado concluirCurso(String idCurso, String idAssociado) {
         var curso = this.listCursoById(idCurso);
@@ -265,6 +276,7 @@ public class CursoService implements CursoInterface {
         return this.associadoRepository.save(associado);
     }
 
+    //Associado concluir atividade de um curso
     @Override
     public Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso) {
         var curso = this.listCursoById(idCurso);
@@ -287,6 +299,7 @@ public class CursoService implements CursoInterface {
         return this.associadoRepository.save(associado);
     }
 
+    //Desempenho total de cursos
     @Override
     public Double desempenhoCurso(String idAssociado) {
         var associado = this.associadoRepository.findById(idAssociado).get();
@@ -303,6 +316,7 @@ public class CursoService implements CursoInterface {
         return associado.getDesempenhoTotalCursos();
     }
 
+    //Associado favoritar um curso
     @Override
     public Associado favoriteCurso(String idAssociado, String idCurso) {
 
@@ -321,6 +335,7 @@ public class CursoService implements CursoInterface {
         return this.associadoRepository.save(associado);
     }
 
+    //Usuário concluir um módulo do curso
     @Override
     public Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado) {
         var associado = this.associadoService.listAssociadoById(idAssociado);
@@ -336,6 +351,7 @@ public class CursoService implements CursoInterface {
         return this.associadoRepository.save(associado);
     }
 
+    //Remover um associado do curso
     @Override
     public void removeAssociadoCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException {
         Curso curso = this.listCursoById(idCurso);
@@ -360,7 +376,7 @@ public class CursoService implements CursoInterface {
 
             for (Curso cursosIncritos :
                     associado.getCursosInscritos()) {
-                if (cursosIncritos.getId() != curso.getId()) {
+                if (!cursosIncritos.getId().equals(curso.getId())) {
                     indexCursoInscrito++;
                 }
             }
@@ -373,9 +389,8 @@ public class CursoService implements CursoInterface {
         }
 
         log.info("Usuário removido!");
-        updateCurso(idCurso, curso);
-        updateCursoAndAssociado(idCurso, curso, associado);
+        this.updateCurso(idCurso, curso);
+        this.updateCursoAndAssociado(idCurso, curso, associado);
     }
-
 
 }

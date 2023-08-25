@@ -3,7 +3,7 @@ package br.api.hallel.moduloAPI.controller.administrador;
 import br.api.hallel.moduloAPI.model.Produto;
 import br.api.hallel.moduloAPI.payload.requerimento.ProdutoReq;
 import br.api.hallel.moduloAPI.payload.resposta.ProdutoResponse;
-import br.api.hallel.moduloAPI.service.ProdutoService;
+import br.api.hallel.moduloAPI.service.loja.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

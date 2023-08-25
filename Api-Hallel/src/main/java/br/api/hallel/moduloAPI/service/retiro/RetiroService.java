@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.retiro;
 
 import br.api.hallel.moduloAPI.model.Alimentos;
 import br.api.hallel.moduloAPI.model.Retiro;
@@ -7,6 +7,7 @@ import br.api.hallel.moduloAPI.payload.requerimento.RetiroRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AlimentoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.RetiroResponse;
 import br.api.hallel.moduloAPI.repository.RetiroRepository;
+import br.api.hallel.moduloAPI.service.eventos.AlimentoService;
 import br.api.hallel.moduloAPI.service.interfaces.RetiroInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Transacao;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPagamentosRes;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponseList;
-import br.api.hallel.moduloAPI.service.AssociadoService;
+import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

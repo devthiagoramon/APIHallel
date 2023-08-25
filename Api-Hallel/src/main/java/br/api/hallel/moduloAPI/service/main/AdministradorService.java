@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.service;
+package br.api.hallel.moduloAPI.service.main;
 
 import br.api.hallel.moduloAPI.model.Administrador;
 import br.api.hallel.moduloAPI.model.ERole;
@@ -10,6 +10,7 @@ import br.api.hallel.moduloAPI.repository.AdministradorRepository;
 import br.api.hallel.moduloAPI.repository.RoleRepository;
 import br.api.hallel.moduloAPI.service.interfaces.AdministradorInterface;
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Log4j2
 public class AdministradorService implements AdministradorInterface {
 
     @Autowired
@@ -34,25 +36,27 @@ public class AdministradorService implements AdministradorInterface {
     @Autowired
     private PasswordEncoder encoder;
 
-    Logger logger = LoggerFactory.getLogger(AdministradorService.class);
 
-
-
-    //FAZ O CADASTRO DE UM ADIMISTRADOR
+    //Método para adicionar/inserir um administrador no banco de dados
     @Override
     public ResponseEntity<?> inserirAdministrador(@Valid CadAdministradorRequerimento administradorReq) {
+        /*
+        * existsBy: método criado na classe repository disponibilizado pelo Spring boot;
+        * Verifica se existe um administrador já existe com esse email;
+         */
         if(repository.existsByEmail(administradorReq.getEmail())){
-            logger.error("EMAIL JÁ EXISTE!");
+            log.error("EMAIL JÁ EXISTE!");
             return ResponseEntity.badRequest().body(new MessageResposta("Error: email já existente"));
         }
 
+        //Cria um novo administrador
         Administrador administrador = new Administrador();
 
         administrador.setNome(administradorReq.getNome());
         administrador.setEmail(administradorReq.getEmail());
         administrador.setSenha(encoder.encode(administradorReq.getSenha()));
         administrador.setSenhaAcesso(administradorReq.getSenhaAcesso());
-        administrador.setStatus(StatusMembro.ATIVO);
+        administrador.setStatusMembro(StatusMembro.ATIVO);
 
         Set<String> strRoles = administradorReq.getRoles();
         Set<Role> roles = new HashSet<>();
@@ -85,7 +89,7 @@ public class AdministradorService implements AdministradorInterface {
 
         administrador.setRoles(roles);
         repository.save(administrador);
-        logger.info("ADMIN SALVO!");
+        log.info("ADMIN SALVO!");
 
         return ResponseEntity.ok().body(new MessageResposta("Administrador adicionado com sucesso!"));
     }
@@ -106,12 +110,12 @@ public class AdministradorService implements AdministradorInterface {
         if (optional.isPresent()) {
             Administrador administrador = optional.get();
             administrador.setSenhaAcesso("");
-            logger.info("ADMIN ENCONTRADO!");
+            log.info("ADMIN ENCONTRADO!");
 
             return administrador;
 
         } else {
-            logger.error("ADMIN NÃO  ENCONTRADO!");
+            log.error("ADMIN NÃO  ENCONTRADO!");
 
             throw new IllegalArgumentException("Administrador não encontrado");
         }
@@ -121,7 +125,7 @@ public class AdministradorService implements AdministradorInterface {
     //LISTA UM ADMINISTRADOR PELO EMAIL DELE
     @Override
     public Administrador findAdministradorEmail(String email) {
-        logger.info("ADMIN ENCONTRADO!");
+        log.info("ADMIN ENCONTRADO!");
 
         return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
     }
@@ -148,7 +152,7 @@ public class AdministradorService implements AdministradorInterface {
         Administrador administrador = findAdministrador(id);
 
         this.repository.delete(administrador);
-        logger.info("ADMIN REMOVIDO!");
+        log.info("ADMIN REMOVIDO!");
 
         return "Professor deletado com sucesso";
     }
@@ -163,7 +167,7 @@ public class AdministradorService implements AdministradorInterface {
 
         this.repository.save(administradorAlterado);
 
-        logger.info("ADMIN ALTERADO");
+        log.info("ADMIN ALTERADO");
 
         return "Administrador alterado com sucesso";
     }
@@ -176,13 +180,13 @@ public class AdministradorService implements AdministradorInterface {
         if(administradorNovo.getSenhaAcesso()==null){
             throw new IllegalArgumentException("Senha de acesso não preenchida");
         }
-        if(administradorNovo.getStatus() != StatusMembro.ATIVO){
+        if(administradorNovo.getStatusMembro() != StatusMembro.ATIVO){
             throw new IllegalArgumentException("Status invalido para um administrador, deve ser ativo");
         }
 
         administrador = administradorNovo;
 
-        logger.info("INFORMAÇÕES DO ADM SALVO COM SUCESSO!");
+        log.info("INFORMAÇÕES DO ADM SALVO COM SUCESSO!");
 
         return administrador;
     }
