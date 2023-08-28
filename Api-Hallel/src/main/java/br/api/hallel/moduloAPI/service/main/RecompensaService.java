@@ -29,7 +29,7 @@ public class RecompensaService implements RecompensaInterface {
     @Autowired
     private SorteioRepository sorteioRepository;
 
-
+    //Adiciona o associado que teve o pagamento em dia ao Sorteio
     @Override
     public SorteioResponse addToSort(String idSorteio, String idAssociado) {
 
@@ -66,6 +66,7 @@ public class RecompensaService implements RecompensaInterface {
         return new SorteioResponse().toSorteioResponse(response);
     }
 
+     //Envia a recompensa ao associado Sorteado
     @Override
     public AssociadoSorteioResponse sendRecompensa(String idSorteio, RecompensaRequest recompensa) {
 
@@ -100,6 +101,7 @@ public class RecompensaService implements RecompensaInterface {
         return new AssociadoSorteioResponse().toResponse(associado);
     }
 
+    //Compara a data atual com a data de pagamento do associado
     private Boolean compareDates(Associado associado) {
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");

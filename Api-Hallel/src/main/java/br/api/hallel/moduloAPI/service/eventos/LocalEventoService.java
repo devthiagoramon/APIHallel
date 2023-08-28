@@ -18,11 +18,16 @@ public class LocalEventoService implements LocalEventoInterface {
     @Autowired
     private LocalEventoRepository repository;
 
+    /*
+    -Adiciona um Local de evento no banco de dados
+    -Para facilitar na hora de adicionar locais frequentes no evento
+     */
     @Override
     public LocalEvento adicionarLocalEvento(LocalEventoReq localEventoReq) {
         return this.repository.insert(localEventoReq.toLocalEvento());
     }
 
+    //Editar o local do evento
     @Override
     public LocalEvento editarLocalEvento(String idLocalEvento, LocalEventoReq newLocalEvento) {
         LocalEvento localEventoAntigo = listarLocalEventoPorId(idLocalEvento).toLocalEvento();
@@ -35,11 +40,13 @@ public class LocalEventoService implements LocalEventoInterface {
         return localEventoAntigo;
     }
 
+    //Excluir um local de evento
     @Override
     public void excluirLocalEvento(String id) {
         this.repository.deleteById(id);
     }
 
+    //Listar todos os locais de evento
     @Override
     public List<LocalEventoLocalizacaoResponse> listarTodasLocalizacaoLocalEvento() {
         List<LocalEvento> localEventos = listarTodosLocalEvento();
@@ -56,6 +63,7 @@ public class LocalEventoService implements LocalEventoInterface {
         return this.repository.findAll();
     }
 
+    //Listar um local de evento, tendo como parâmetro o Id
     @Override
     public LocalEventoResponse listarLocalEventoPorId(String id) {
         boolean present = this.repository.findById(id).isPresent();

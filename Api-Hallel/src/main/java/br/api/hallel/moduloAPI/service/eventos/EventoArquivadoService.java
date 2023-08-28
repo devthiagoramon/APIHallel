@@ -20,6 +20,7 @@ public class EventoArquivadoService implements EventoArquivadoInterface {
     @Autowired
     private EventosService eventosService;
 
+    //Deixa um evento arquivado no Banco, e remove ele da Tabela de 'Eventos'
     @Override
     public void addEventoArquivado(String idEvento) {
         EventosResponse eventosResponse = eventosService.listarEventoById(idEvento);
@@ -29,6 +30,7 @@ public class EventoArquivadoService implements EventoArquivadoInterface {
         this.repository.insert(new EventoArquivado().arquivarEvento(evento));
     }
 
+    //Retira o evento do arquivado, e deixa ele de volta pra Tabela de 'Eventos'
     @Override
     public void retirarEventoArquivado(String idEventoArquivado) {
         EventoArquivado eventoArquivado = this.repository.findById(idEventoArquivado).get() != null ? this.repository.findById(idEventoArquivado).get() : null;
@@ -37,11 +39,13 @@ public class EventoArquivadoService implements EventoArquivadoInterface {
         this.repository.deleteById(idEventoArquivado);
     }
 
+    //Remover um evento arquivado
     @Override
     public void excluirEventoArquivado(String idEvento) {
 
     }
 
+    //Listar todos os eventos arquivados
     @Override
     public List<EventoArquivado> listarEventosArquivados() {
         return this.repository.findAll();

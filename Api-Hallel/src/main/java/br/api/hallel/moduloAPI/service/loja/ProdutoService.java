@@ -26,6 +26,10 @@ public class ProdutoService implements ProdutoInterface {
     @Autowired
     private MembroService membroService;
 
+    /*
+    PARTE DA LOJA (INCOMPLETO - 28/08/2023)
+     */
+
     @Override
     public Produto createProduto(ProdutoReq produto) {
         log.info("Produto Criado!");

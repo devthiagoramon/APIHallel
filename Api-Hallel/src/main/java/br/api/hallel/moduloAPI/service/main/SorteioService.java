@@ -19,11 +19,13 @@ public class SorteioService implements SorteioInterface {
     @Autowired
     private SorteioRepository repository;
 
+    //Criar um sorteio
     @Override
     public Sorteio createSorteio(SorteioRequest sorteio) {
         return this.repository.insert(sorteio.toSorteio());
     }
 
+    //Listar os sorteios ocorridos
     @Override
     public List<SorteioResponse> listAllSorteio() {
         List<SorteioResponse> listaSorteio = new ArrayList<>();
@@ -36,6 +38,7 @@ public class SorteioService implements SorteioInterface {
         return listaSorteio;
     }
 
+    //Listar um sorteio pelo Id
     @Override
     public SorteioResponse listSorteioById(String idSorteio) {
 
@@ -50,6 +53,7 @@ public class SorteioService implements SorteioInterface {
         return null;
     }
 
+    //Atualizar as informações do sorteio
     @Override
     public SorteioResponse updateSorteioById(String idSorteio, SorteioRequest sorteioRequest) {
 
@@ -62,6 +66,7 @@ public class SorteioService implements SorteioInterface {
         return new SorteioResponse().toSorteioResponse(sorteioResponse);
     }
 
+    //Remover sorteio do Banco
     @Override
     public void deleteSorteioById(String idSorteio) {
 

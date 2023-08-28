@@ -4,60 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f5f9317-e28e-4c02-9653-3c837c4f8fbe" name="Changes" comment="Organizando o Controller do Financeiro + adiconando Controller de Códigos">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="3f5f9317-e28e-4c02-9653-3c837c4f8fbe" name="Changes" comment="Comentando os códigos - pt1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/FinanceiroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/FinanceiroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/TransacaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/TransacaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmAssociadoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmAssociadoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmCursoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmCursoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmDoacaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmDoacaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmGoogleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmGoogleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmLojaProdutoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmLojaProdutoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmRetiroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmRetiroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmSorteioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmSorteioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdministradorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdministradorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/LocaisEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/LocaisEventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/AssociadoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/AssociadoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/CursoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/CursoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/DoacaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/DoacaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroMarketingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroMarketingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/UsuarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Membro.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Membro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/AssociadoReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/AssociadoReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/AssociadoCursoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/AssociadoCursoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/MembroResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/MembroResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/MembroRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/MembroRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/AdministradorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/AdministradorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/AlimentoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/AlimentoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/AssociadoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/AssociadoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/CodigoSaidaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/CodigoSaidaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/ComunidadeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/ComunidadeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/CursoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/cursos/CursoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/DoacaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/DoacaoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/EventoArquivadoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventoArquivadoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/FinanceiroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/FinanceiroService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/GastoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/GastoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/LocalEventoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/LocalEventoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/MainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MainService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/MembroGoogleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroGoogleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/MembroMarketingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroMarketingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/MembroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/ProdutoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/loja/ProdutoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/ReceitaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/ReceitaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/RecompensaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/RecompensaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/RetiroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/retiro/RetiroService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/SorteioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/SorteioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/TransacaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/TransacaoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/UsuarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/MembroInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/MembroInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/scripts/associado/ScriptEmails.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/scripts/associado/ScriptEmails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/AlimentoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/AlimentoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventoArquivadoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventoArquivadoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/LocalEventoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/LocalEventoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/loja/ProdutoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/loja/ProdutoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/RecompensaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/RecompensaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/SorteioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/SorteioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/retiro/RetiroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/retiro/RetiroService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,33 +66,33 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2S9htoK4vOfDaRQoAacRxXZqflm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "miguel",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Usuario/IdeaProjects/HALLEL/API/hallel2/APIHallel",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "4320ef9457d5975e5e53c3ce5d8a7cbf",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;miguel&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario/IdeaProjects/HALLEL/API/hallel2/APIHallel&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;4320ef9457d5975e5e53c3ce5d8a7cbf&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\APIHallelTeste\Api-Hallel\src\main\java\br\api\hallel\moduloAPI\financeiroNovo\service" />
@@ -199,7 +155,8 @@
       <workItem from="1692741560296" duration="167000" />
       <workItem from="1692741740809" duration="2678000" />
       <workItem from="1692751781648" duration="2714000" />
-      <workItem from="1692987345126" duration="3455000" />
+      <workItem from="1692987345126" duration="5039000" />
+      <workItem from="1693228705885" duration="1252000" />
     </task>
     <task id="LOCAL-00001" summary="Commit Miguel - alimentos">
       <created>1688576809654</created>
@@ -240,11 +197,30 @@
       <option name="project" value="LOCAL" />
       <updated>1692742979891</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Comentando os códigos - pt1">
+      <option name="closed" value="true" />
+      <created>1692990872200</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1692990872200</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit Miguel - alimentos" />
@@ -252,6 +228,7 @@
     <MESSAGE value="Organizando o Controller e as endpoints - 08/08" />
     <MESSAGE value="Otimizando alguns imports, e adicionando Scheduled para automatizar emails e o pagamento do associado" />
     <MESSAGE value="Organizando o Controller do Financeiro + adiconando Controller de Códigos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Organizando o Controller do Financeiro + adiconando Controller de Códigos" />
+    <MESSAGE value="Comentando os códigos - pt1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comentando os códigos - pt1" />
   </component>
 </project>

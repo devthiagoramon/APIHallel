@@ -96,6 +96,7 @@ public class EventosService implements EventosInterface {
         return null;
     }
 
+    //LISTAR EVENTOS NA HOMEPAGE
     @Override
     public List<EventosVisualizacaoResponse> listEventosToVisualizar() {
         List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
@@ -108,6 +109,7 @@ public class EventosService implements EventosInterface {
         return listaResponse;
     }
 
+    //Listar eventos por página
     @Override
     public List<EventosVisualizacaoResponse> listByPage(int page) {
         List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
@@ -122,6 +124,7 @@ public class EventosService implements EventosInterface {
         return listaResponse;
     }
 
+    //Solicitar a entrada do evento (precisa pagar a entrada)
     @Override
     public Boolean solicitarPagamentoEntrada(String idEvento, String idMembro, PagamentoEntradaEventoReq request) {
         request.setIdMembroPagador(idMembro);
@@ -147,6 +150,7 @@ public class EventosService implements EventosInterface {
         return true;
     }
 
+    //Administrador aceita o pagamento realizado pelo membro que deseja participar do evento
     @Override
     public Boolean aceitarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento) {
         PagamentoEntradaEvento pagamento = this.pagamentoRepository.findById(idSolicitacaoPagamento).isPresent() ?
@@ -271,7 +275,7 @@ public class EventosService implements EventosInterface {
         return "Evento não encontrado";
     }
 
-
+    //Lista eventos por ordem alfabética
     @Override
     public List<EventosVisualizacaoResponse> listEventoOrdemAlfabetica() {
 
@@ -285,6 +289,7 @@ public class EventosService implements EventosInterface {
         return listResponse;
     }
 
+    //Lista membros de um evento
     @Override
     public List<Membro> listMembrosEventos(String id) {
 
@@ -296,6 +301,7 @@ public class EventosService implements EventosInterface {
     }
 
 
+    //Eventos em Destaque na HomePage
     @Override
     public EventosVisualizacaoResponse addDestaqueToEvento(String idEvento) {
 
@@ -315,6 +321,7 @@ public class EventosService implements EventosInterface {
 
     }
 
+    //Remover esse destaque da HomePage
     @Override
     public EventosVisualizacaoResponse removeDestaqueToEvento(String idEvento) {
 
@@ -334,6 +341,7 @@ public class EventosService implements EventosInterface {
         }
     }
 
+    //Listar os eventos em Destaque
     @Override
     public List<EventosVisualizacaoResponse> listEventosDestaque() {
 
@@ -348,6 +356,7 @@ public class EventosService implements EventosInterface {
         return responseList;
     }
 
+    //Adicionar despesas de um evento
     @Override
     public EventosResponse adicionarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();
@@ -362,6 +371,7 @@ public class EventosService implements EventosInterface {
         return new EventosResponse().toEventosResponse(evento);
     }
 
+    //Editar a despesa desse evento
     @Override
     public String editarDespesaInEvento(String idEvento, Integer idDespesaEvento, DespesaEventoRequest despesaEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();
@@ -395,6 +405,7 @@ public class EventosService implements EventosInterface {
         return "Despesa de id " + idDespesaEvento + " evento " + evento.getTitulo() + " editado com sucesso";
     }
 
+    //Remover a despesa desse evento
     @Override
     public void excluirDespesaInEvento(String idEvento, Integer idDespesaEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();
@@ -416,6 +427,7 @@ public class EventosService implements EventosInterface {
         this.repository.save(evento);
     }
 
+    //Listar todas as despesas do evento
     @Override
     public List<DespesaEvento> listarDespesasInEvento(String idEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();

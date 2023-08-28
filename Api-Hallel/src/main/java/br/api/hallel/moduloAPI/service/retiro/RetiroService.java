@@ -25,11 +25,13 @@ public class RetiroService implements RetiroInterface {
     @Autowired
     private AlimentoService alimentoService;
 
+    //Salva Retiro no Banco de Dados
     @Override
     public Retiro createRetiro(RetiroRequest request) {
         return request != null ? this.repository.save(request.toRetiro()) : null;
     }
 
+    //Lista todos os retiros no banco de dados
     @Override
     public List<RetiroResponse> listAllRetiros() {
 
@@ -42,6 +44,7 @@ public class RetiroService implements RetiroInterface {
         return responseList;
     }
 
+    //Listar um retiro, tendo como parâmetro seu Id
     @Override
     public RetiroResponse listRetiroById(String id) {
         Retiro retiro = this.repository.findById(id).isPresent() ?
@@ -50,6 +53,7 @@ public class RetiroService implements RetiroInterface {
         return new RetiroResponse().toResponse(retiro);
     }
 
+    //Atualizar um retiro
     @Override
     public RetiroResponse updateRetiroById(RetiroRequest request, String id) {
 
@@ -62,6 +66,7 @@ public class RetiroService implements RetiroInterface {
         return new RetiroResponse().toResponse(response);
     }
 
+    //Remover um retiro
     @Override
     public void deleteRetiroById(String id) {
         if (this.listRetiroById(id) != null) {
@@ -71,6 +76,7 @@ public class RetiroService implements RetiroInterface {
         }
     }
 
+    //Adicionar doações de Alimentos ao retiro
     @Override
     public AlimentoReq addAlimentosRetiro(String idRetiro, AlimentoReq alimentoReq) {
 
@@ -94,6 +100,7 @@ public class RetiroService implements RetiroInterface {
         return alimentoReq;
     }
 
+    //remover doações de alimento do retiro
     @Override
     public AlimentoReq removeAlimentoRetiro(String idRetiro, AlimentoReq alimentoReq) {
 
@@ -127,6 +134,7 @@ public class RetiroService implements RetiroInterface {
         return null;
     }
 
+    //Atualizar os alimentos doados no retiro
     @Override
     public AlimentoReq atualizarAlimentoRetiro(String idRetiro, AlimentoReq alimentoReq) {
 
@@ -165,6 +173,7 @@ public class RetiroService implements RetiroInterface {
         return null;
     }
 
+    //Listar todos os alimentos doados no retiro (Id)
     @Override
     public List<AlimentoResponse> listAllAlimentosByRetiro(String idRetiro) {
 

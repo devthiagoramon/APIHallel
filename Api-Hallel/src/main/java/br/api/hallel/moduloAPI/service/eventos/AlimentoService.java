@@ -19,11 +19,13 @@ public class AlimentoService implements AlimentosInterface {
     @Autowired
     private AlimentosRepository repository;
 
+    //Salvar um alimento no banco de dados (para evento)
     @Override
     public Alimentos createAlimento(AlimentoReq req) {
         return this.repository.insert(req.toAlimentos());
     }
 
+    //Listar todos os alimentos salvos no banco de dados (para evento)
     @Override
     public List<AlimentoResponse> listAllAlimentos() {
         List<AlimentoResponse> responseList = new ArrayList<>();
@@ -33,6 +35,7 @@ public class AlimentoService implements AlimentosInterface {
         return responseList;
     }
 
+    //Pegar um alimento tendo como parametro seu Id
     @Override
     public AlimentoResponse listAlimentoById(String id) {
         Alimentos alimentos = this.repository.findById(id).isPresent() ?
@@ -41,6 +44,7 @@ public class AlimentoService implements AlimentosInterface {
         return new AlimentoResponse().toResponse(alimentos);
     }
 
+    //Atualizar um alimento tendo como argumento um Id
     @Override
     public AlimentoResponse updateAlimentoById(String id, AlimentoReq alimentoReq) {
         Alimentos alimentosRequest = alimentoReq.toAlimentos();
@@ -52,6 +56,7 @@ public class AlimentoService implements AlimentosInterface {
         return new AlimentoResponse().toResponse(response);
     }
 
+    //Deletar um alimento tendo como um argumento um Id
     @Override
     public void deleteAlimentoById(String id) {
         if (this.listAlimentoById(id) != null) {
@@ -61,6 +66,7 @@ public class AlimentoService implements AlimentosInterface {
         }
     }
 
+    //Deletar um alimento, tendo como parâmetro o próprio Obj de alimento
     @Override
     public void deleteAlimentoByObj(AlimentoReq alimentoReq) {
 
