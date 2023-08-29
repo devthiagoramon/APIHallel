@@ -10,11 +10,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PagarAssociacaoRequest {
+
     private String idAssociado;
+    private String email;
     private int numMetodoPagamento;
     @Nullable
     private CartaoAssociado cartaoAssociado;
     private String mes;
     private String ano;
+
+    public PagarAssociacaoRequest pagarRequest(){
+        PagarAssociacaoRequest pagarRequest = new PagarAssociacaoRequest();
+        pagarRequest.setIdAssociado(this.getIdAssociado());
+        pagarRequest.setNumMetodoPagamento(this.getNumMetodoPagamento());
+        pagarRequest.setCartaoAssociado(this.getCartaoAssociado());
+        pagarRequest.setAno(this.getAno());
+        pagarRequest.setMes(this.getMes());
+        return pagarRequest;
+    }
+
+    public PagarAssociacaoRequest pagarParaAlguem(){
+        PagarAssociacaoRequest pagarRequest = new PagarAssociacaoRequest();
+        pagarRequest.setEmail(this.getEmail());
+        pagarRequest.setNumMetodoPagamento(this.getNumMetodoPagamento());
+        pagarRequest.setCartaoAssociado(this.getCartaoAssociado());
+        return pagarRequest;
+    }
 
 }

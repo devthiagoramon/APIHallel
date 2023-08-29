@@ -34,18 +34,12 @@ public interface AssociadoInterface {
     List<Transacao> listPagamentoCredito();
     List<Transacao> listPagamentoDebito();
     List<Transacao> listPagamentoDinheiro();
-
     Boolean pagarAssociacao(PagarAssociacaoRequest pagarAssociacaoRequest);
-
+    Boolean pagarAlguemAssociado(PagarAssociacaoRequest pagarAssociacaoRequest);
     Boolean criarAssociado(VirarAssociadoRequest virarAssociadoRequest);
-
     List<Date> listarDatasPagas(String idAssociado);
-
     PagamentoAssociadoResponse listarPagamentoByMesAno(String idAssociado, String mes, String ano);
-
     AssociadoPerfilResponse visualizarPerfilAssociado(String idAssociado);
-
     PagamentoAssociadoPerfilResponse listarPagamentoPerfilByMesAno(String idAssociado, String mes, String ano);
-
     CartaoAssociado cartaoAssociado(String idAssociado);
 }

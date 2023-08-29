@@ -35,7 +35,16 @@ public class AssociadoController {
 
     @PostMapping("/pagarAssociacao")
     public ResponseEntity<Boolean> pagarAssociacao(@RequestBody PagarAssociacaoRequest pagarAssociacaoRequest) {
-        if (this.service.pagarAssociacao(pagarAssociacaoRequest)) {
+        if (this.service.pagarAssociacao(pagarAssociacaoRequest.pagarRequest())) {
+            return ResponseEntity.status(200).body(true);
+        } else {
+            return ResponseEntity.status(402).body(false);
+        }
+    }
+
+    @PostMapping("/pagarAssociacao/alguem")
+    public ResponseEntity<Boolean> pagarAssociacaoParaAlguem(@RequestBody PagarAssociacaoRequest pagarAssociacaoRequest) {
+        if (this.service.pagarAlguemAssociado(pagarAssociacaoRequest.pagarParaAlguem())) {
             return ResponseEntity.status(200).body(true);
         } else {
             return ResponseEntity.status(402).body(false);

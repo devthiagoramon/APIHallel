@@ -217,14 +217,15 @@ public class AssociadoService implements AssociadoInterface {
     @Override
     public Boolean pagarAssociacao(PagarAssociacaoRequest pagarAssociacaoRequest) {
         Optional<Associado> optional = this.associadoRepository.findById(pagarAssociacaoRequest.getIdAssociado());
+
         if (optional.isPresent()) {
             Associado associado = optional.get();
 
             LocalDate dataExpiroLocalDate = associado.getDataExpiroAssociacao().toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
-            LocalDate dataUltimoPagamento = associado.getPagamentosAssociados().get(associado.getPagamentosAssociados().size()-1).getDataPaga().toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+            LocalDate dataUltimoPagamento = associado.getPagamentosAssociados().get(associado.getPagamentosAssociados().size() - 1).getDataPaga().toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
             Period period = Period.between(dataUltimoPagamento, dataExpiroLocalDate);
 
-            if(period.getMonths() < 2) {
+            if (period.getMonths() < 2) {
                 PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
                 CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
                 codigoEntradaFinanceiro.setId("Teste");
@@ -242,7 +243,7 @@ public class AssociadoService implements AssociadoInterface {
                 PagamentosAssociado pagamentoAssociadoOBJ = pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
                 associado.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociadoOBJ));
                 associado.getPagamentosAssociados().add(pagamentoAssociadoOBJ);
-            }else{
+            } else {
                 for (int i = 1; i <= period.getMonths(); i++) {
                     PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
                     CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
@@ -255,7 +256,7 @@ public class AssociadoService implements AssociadoInterface {
                             .of(Integer.parseInt(pagarAssociacaoRequest.getAno()),
                                     Integer.parseInt(pagarAssociacaoRequest.getMes()),
                                     LocalDate.now(ZoneId.of("America/Puerto_Rico")).getDayOfMonth());
-                    dataAtualFor = dataAtualFor.minusMonths(period.getMonths()-i);
+                    dataAtualFor = dataAtualFor.minusMonths(period.getMonths() - i);
                     pagamentoAssociadoRequest
                             .setDataPaga(Date.from(dataAtualFor.atStartOfDay(ZoneId.of("America/Puerto_Rico"))
                                     .toInstant()));
@@ -272,6 +273,31 @@ public class AssociadoService implements AssociadoInterface {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Boolean pagarAlguemAssociado(PagarAssociacaoRequest pagarRequest) {
+
+        Optional<Associado> optional = this.associadoRepository.findByEmail(pagarRequest.getEmail());
+
+        if (optional.isPresent()) {
+            Associado associado = optional.get();
+
+            PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
+            CodigoEntradaFinanceiro codigoEntradaFinanceiro = new CodigoEntradaFinanceiro();
+            codigoEntradaFinanceiro.setId("Teste");
+            codigoEntradaFinanceiro.setNomeCodigo("PagamentoAssociado");
+            codigoEntradaFinanceiro.setNumeroCodigo(10.3);
+            pagamentoAssociadoRequest.setCodigo(codigoEntradaFinanceiro);
+            pagamentoAssociadoRequest.setMetodoPagamentoNum(pagarRequest.getNumMetodoPagamento());
+            PagamentosAssociado pagamentoAssociadoOBJ = pagamentoAssociadoService.cadastrar(pagamentoAssociadoRequest);
+
+            this.associadoRepository.save(associado);
+            return true;
+        }
+
+
+        return false;
     }
 
     @Override
@@ -417,9 +443,9 @@ public class AssociadoService implements AssociadoInterface {
             }
         }
 
-        if(pagamentosAssociado != null) {
+        if (pagamentosAssociado != null) {
             return new PagamentoAssociadoPerfilResponse(pagamentosAssociado);
-        }else{
+        } else {
             return null;
         }
     }
