@@ -62,7 +62,7 @@ public class AdmSorteioController {
     @PostMapping("/enviarRecompensa/{idSorteio}")
     public ResponseEntity<AssociadoSorteioResponse> addRecompensa (@RequestBody RecompensaRequest request,
                                                                    @PathVariable (value = "idSorteio") String idSorteio){
-        return ResponseEntity.status(201).body(this.recompensaService.sendRecompensa(idSorteio, request));
+        return ResponseEntity.status(201).body(this.service.realizarSorteio(idSorteio, request));
     }
 
 }

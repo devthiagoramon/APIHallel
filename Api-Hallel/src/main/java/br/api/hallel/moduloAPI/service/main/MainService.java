@@ -27,6 +27,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 
 @Service
@@ -68,15 +71,15 @@ public class MainService implements MainInterface {
                 )
         );
 
-        if(associadoService.findByEmail(loginRequerimento.getEmail()) != null){
+        if (associadoService.findByEmail(loginRequerimento.getEmail()) != null) {
             Associado associado = associadoService.findByEmail(loginRequerimento.getEmail());
-            if(associado.getMensalidadePaga()) {
+            if (associado.getMensalidadePaga()) {
                 var jwtToken = jwtService.generateToken(associado);
                 AssociadoResponse associadoResponse = new AssociadoResponse();
                 associadoResponse.setId(associado.getId());
                 associadoResponse.setRoles(associado.getRoles());
 
-                log.info(associado.getNome()+ " logando");
+                log.info(associado.getNome() + " logando");
                 return AuthenticationResponse.builder()
                         .token(jwtToken)
                         .objeto(associadoResponse)
@@ -102,7 +105,7 @@ public class MainService implements MainInterface {
 
                 if (membro.getNome() != null && membro.getEmail() != null
                         && membro.getSenha() != null) {
-                    log.info(membro.getNome()+ " logando");
+                    log.info(membro.getNome() + " logando");
                     return AuthenticationResponse.builder()
                             .token(jwtToken)
                             .objeto(membroResponse)
@@ -157,7 +160,7 @@ public class MainService implements MainInterface {
             System.out.println("FAZENDO O IF ELSE ");
 
             var membroGoogle = googleRepository.findByEmail(loginRequerimentoGoogle.getEmail()).get();
-            System.out.println("Membro Google" );
+            System.out.println("Membro Google");
 
             if (membroGoogle.getStatusMembro().equals(StatusMembro.ATIVO)) {
                 var jwtToken = jwtService.generateToken(membroGoogle);
@@ -254,6 +257,25 @@ public class MainService implements MainInterface {
         }
 
 
+    }
+
+    public static Date getDataAtual() {
+        return new Date();
+    }
+
+    public static Boolean comparateDatas(Date date1, Date date2) {
+        LocalDate data1 = date1.toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+        LocalDate data2 = date2.toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+
+        log.info(data1);
+        log.info(data2);
+
+        if (data1.compareTo(data2) >= 0) {
+            log.info(data1+" é antes da dataAtual: "+data2);
+            return true;
+        }
+
+        return false;
     }
 
 }

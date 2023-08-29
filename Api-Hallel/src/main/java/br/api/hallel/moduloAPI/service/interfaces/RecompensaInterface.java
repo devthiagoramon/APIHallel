@@ -6,5 +6,5 @@ import br.api.hallel.moduloAPI.payload.resposta.SorteioResponse;
 
 public interface RecompensaInterface {
     SorteioResponse addToSort(String idSorteio, String idAssociado);
-    AssociadoSorteioResponse sendRecompensa(String idSorteio, RecompensaRequest recompensa);
+
 }

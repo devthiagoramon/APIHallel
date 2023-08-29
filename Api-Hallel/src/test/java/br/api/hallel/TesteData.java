@@ -1,62 +1,33 @@
 package br.api.hallel;
 
+import br.api.hallel.moduloAPI.service.main.MainService;
 import org.junit.jupiter.api.Test;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.WeekFields;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TesteData {
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-
-
     @Test
     void dataFormatadaString(){
-    }
+        Date date1 = null;
 
-    @Test
-    void semanhaAtual(){
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-
-        ZoneId TZ = ZoneId.of("America/Puerto_Rico");
-
-        ArrayList<String> datasStrings = new ArrayList<>();
-
-        Locale locale = new Locale("pt", "br");
-        DayOfWeek firstDay = WeekFields.of(locale).getFirstDayOfWeek();
-        LocalDate ldStart = LocalDate.now(TZ).with(TemporalAdjusters.previousOrSame(firstDay));
-        DayOfWeek lastDay = DayOfWeek.of(((firstDay.getValue() + 5) % DayOfWeek.values().length) + 1);
-        LocalDate ldEnd = LocalDate.now(TZ).with(TemporalAdjusters.nextOrSame(lastDay));
-
-        List<LocalDate> totalDates = new ArrayList<>();
-
-        while (!ldStart.isAfter(ldEnd)){
-            totalDates.add(ldStart);
-            ldStart = ldStart.plusDays(1);
+        try {
+            date1 = new SimpleDateFormat("YYYY/MM/dd").parse("2005/12/23");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
-        HashMap<String, Double> mapaValores = new HashMap<>();
 
-        totalDates.forEach(datas -> {
-            mapaValores.put(formatter.format(datas), 0.0);
-        });
+        Date date2 = MainService.getDataAtual();
 
-        for (String data :
-                mapaValores.keySet()) {
-            System.out.println(data);
+        if(MainService.comparateDatas(date1,date2)){
+            System.out.println("Retornou verdadeiro!");
+        }else{
+            System.out.println("Retornou falso");
         }
 
     }
 
-    @Test
-    void testeString() {
-        String nome = "17/06/2023";
-        System.out.println(nome.substring(3));
-    }
 
 }
