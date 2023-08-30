@@ -121,17 +121,6 @@ public class MembroService implements MembroInterface {
         }
     }
 
-
-    @Override
-    public List<Membro> findByStatusAtivo() {
-        return this.repository.findByStatusEquals(StatusMembro.ATIVO);
-    }
-
-    @Override
-    public List<Membro> findByStatusPendente() {
-        return this.repository.findByStatusEquals(StatusMembro.PENDENTE);
-    }
-
     @Override
     public Membro findByEmail(String email) {
         return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
@@ -168,9 +157,4 @@ public class MembroService implements MembroInterface {
         }
         return responseList;
     }
-
-    public List<Membro> findByStatusInativo() {
-        return this.repository.findByStatusEquals(StatusMembro.INATIVO);
-    }
-
 }

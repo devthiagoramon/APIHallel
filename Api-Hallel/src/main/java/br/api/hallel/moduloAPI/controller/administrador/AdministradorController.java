@@ -50,21 +50,6 @@ public class AdministradorController {
         return this.service.deletarAdministrador(id);
     }
 
-    @GetMapping("/membros/ativo")
-    public ResponseEntity<List<Membro>> listMembroAtivo() {
-        return ResponseEntity.status(200).body(membroService.findByStatusAtivo());
-    }
-
-    @GetMapping("/membros/pendente")
-    public ResponseEntity<List<Membro>> listMembroPendente() {
-        return ResponseEntity.status(200).body(membroService.findByStatusPendente());
-    }
-
-    @GetMapping("/membros/inativo")
-    public ResponseEntity<List<Membro>> listMembroInativo() {
-        return ResponseEntity.status(200).body(membroService.findByStatusInativo());
-    }
-
     @GetMapping("/membros")
     public ResponseEntity<List<MembroResponse>> listAllMembros() {
         return ResponseEntity.status(200).body(membroService.listAllMembros());

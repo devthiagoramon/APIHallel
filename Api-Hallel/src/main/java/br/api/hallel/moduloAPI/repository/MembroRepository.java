@@ -11,8 +11,6 @@ import java.util.Optional;
 @Repository
 public interface MembroRepository extends MongoRepository<Membro, String> {
 
-    List<Membro> findByStatusEquals(Enum<StatusMembro> status);
-
     Optional<Membro> findByEmailAndSenha(String email, String senha);
 
     Optional<Membro> findByEmail(String email);

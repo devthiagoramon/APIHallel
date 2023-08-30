@@ -20,10 +20,6 @@ public interface MembroInterface {
 
     public Membro findByEmailAndPassword(String email, String senha);
 
-    public List<Membro> findByStatusAtivo();
-
-    public List<Membro> findByStatusPendente();
-
     public Membro findByEmail(String email);
 
     PerfilResponse visualizarPerfil(String id) throws IllegalAccessException;
