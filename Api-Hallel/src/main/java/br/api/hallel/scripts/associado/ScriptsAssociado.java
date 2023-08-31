@@ -18,7 +18,7 @@ public class ScriptsAssociado {
     @Autowired
     private AssociadoRepository associadoRepository;
 
-    @Scheduled(cron = "59 59 23 ? * *")
+    @Scheduled(cron = "00 00 00 ? * *")
     public void fixAssociadosPagamentos() {
         List<Associado> associados = associadoRepository.findAll();
 

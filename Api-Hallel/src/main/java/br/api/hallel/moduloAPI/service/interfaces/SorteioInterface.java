@@ -15,5 +15,5 @@ public interface SorteioInterface {
     SorteioResponse updateSorteioById(String idSorteio, SorteioRequest sorteioRequest);
     void deleteSorteioById(String idSorteio);
     AssociadoSorteioResponse realizarSorteio(String idSorteio, RecompensaRequest recompensa);
-    SorteioResponse adicionarAssociadoAoSorteio(String idSorteio, String idAssociado);
+    SorteioResponse adicionarAssociadoAoSorteio();
 }

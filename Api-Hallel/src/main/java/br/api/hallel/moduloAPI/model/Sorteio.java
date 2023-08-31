@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 @Document
@@ -15,8 +16,8 @@ public class Sorteio {
     private String id;
     private String titulo;
     private String descricao;
-    private String data;
-    List<Associado> sorteioAssociados;
-    List<Associado> ultimosAssociados;
+    private Date data;
+    private List<Associado> sorteioAssociados;
+    private List<Associado> ultimosAssociados;
 
 }

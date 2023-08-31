@@ -4,11 +4,13 @@ import br.api.hallel.moduloAPI.model.Sorteio;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 public class SorteioRequest {
     private String titulo;
-    private String data;
+    private Date data;
     private String descricao;
 
     public Sorteio toSorteio(){

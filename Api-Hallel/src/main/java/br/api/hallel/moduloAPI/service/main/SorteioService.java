@@ -16,7 +16,8 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -79,7 +80,7 @@ public class SorteioService implements SorteioInterface {
     @Override
     public void deleteSorteioById(String idSorteio) {
 
-        if(listAllSorteio() == null){
+        if (listAllSorteio() == null) {
             this.repository.deleteById(idSorteio);
         }
 
@@ -95,19 +96,19 @@ public class SorteioService implements SorteioInterface {
 
         System.out.println("tamanho da lista" + sorteio.getSorteioAssociados().size());
 
-        System.out.println("index: "+indexRandom+ ", "+associado.getNome());
+        System.out.println("index: " + indexRandom + ", " + associado.getNome());
 
-        if(associado.getRecompensas() != null){
+        if (associado.getRecompensas() != null) {
             associado.getRecompensas().add(recompensa.toRecompensa());
-        }else{
+        } else {
             List<Recompensa> listaRecompensas = new ArrayList<>();
             listaRecompensas.add(recompensa.toRecompensa());
             associado.setRecompensas(listaRecompensas);
         }
 
-        if(sorteio.getUltimosAssociados() != null){
+        if (sorteio.getUltimosAssociados() != null) {
             sorteio.getUltimosAssociados().add(associado);
-        }else{
+        } else {
             List<Associado> listaAssociados = new ArrayList<>();
             listaAssociados.add(associado);
             sorteio.setUltimosAssociados(listaAssociados);
@@ -121,61 +122,80 @@ public class SorteioService implements SorteioInterface {
 
     //Adiciona o associado que teve o pagamento em dia ao Sorteio
     @Override
-    public SorteioResponse adicionarAssociadoAoSorteio(String idSorteio, String idAssociado) {
+    public SorteioResponse adicionarAssociadoAoSorteio() {
 
-        Sorteio sorteio = this.repository.findById(idSorteio).get();
+        Sorteio sorteio = getSorteioDoMes();
+        List<Associado> associadoToSorteioList = new ArrayList<>();
+        LocalDate mesHoje = this.convertToLocalDate(new Date());
 
-        Associado associado = associadoService.listAssociadoById(idAssociado);
-        AssociadoReq req = new AssociadoReq();
+        for (Associado associado : this.associadoService.listAllAssociado()) {
+            if (associado.getMesesPagos() != null) {
+                for (Date mesesPago : associado.getMesesPagos()) {
+                    LocalDate mesPago = this.convertToLocalDate(mesesPago);
 
-        if (compareDates(associado)) {
-
-            String dia = String.valueOf(MainService.getDataAtual()).substring(0, 2);
-
-            if (Integer.parseInt(dia) < 31) {
-
-                Associado associadoReq = req.toAssociado(associado);
-
-                if (sorteio.getSorteioAssociados() != null) {
-                    sorteio.getSorteioAssociados().
-                            add(associadoReq);
-                } else {
-                    List<Associado> listAssociado = new ArrayList<>();
-                    listAssociado.add(associadoReq);
-                    sorteio.setSorteioAssociados(listAssociado);
+                    if (mesPago.getMonthValue() == mesHoje.getMonthValue()) {
+                        log.info("Associado Id (" + associado.getId() + ") pagou esse mês, " + mesPago);
+                        log.info("Associado Id (" + associado.getId() + ") adicionado à lista de associados");
+                        associadoToSorteioList.add(associado);
+                        break;
+                    }
                 }
 
-                log.info("ASSOCIADO COM RECOMPENSA");
             }
-
         }
 
+        for (Associado associadoBD : associadoToSorteioList) {
+
+            AssociadoReq req = new AssociadoReq();
+            Associado associadoReq = req.toAssociado(associadoBD);
+
+            if (sorteio.getSorteioAssociados() != null) {
+
+                boolean ifExists = false;
+
+                for (Associado sorteioAssociado : sorteio.getSorteioAssociados()) {
+                    if (associadoReq.getId().equals(sorteioAssociado.getId())) {
+                        ifExists = true;
+                        log.info("Associado Id(" + associadoBD.getId() + ")já está presente no sorteio");
+                        break;
+                    }
+                }
+
+                if (!ifExists) {
+                    sorteio.getSorteioAssociados().
+                            add(associadoReq);
+                }
+
+            } else {
+                List<Associado> listAssociado = new ArrayList<>();
+                listAssociado.add(associadoReq);
+                sorteio.setSorteioAssociados(listAssociado);
+            }
+        }
 
         Sorteio response = this.repository.save(sorteio);
-
         return new SorteioResponse().toSorteioResponse(response);
     }
 
+    public Sorteio getSorteioDoMes() {
+        LocalDate mesHoje = new Date().toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+        Sorteio sorteio = null;
 
-    //Compara a data atual com a data de pagamento do associado
-    private Boolean compareDates(Associado associado) {
+        for (Sorteio sorteios : this.repository.findAll()) {
+            LocalDate mesSorteio = sorteios.getData().toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
 
+            if (mesHoje.getMonthValue() == mesSorteio.getMonthValue()) {
+                sorteio = sorteios;
 
-
-//        try {
-//            Date date = format.parse(associado.getTransacao().getDataExp());
-//            Date dateAtual = format.parse(getDataAtual());
-//
-//            if (date.compareTo(dateAtual) < 0) {
-//                return false;
-//            } else {
-//                return true;
-//            }
-//
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
-        return true;
+                log.info("esse mes tem sorteio: " + sorteios.toString());
+                break;
+            }
+        }
+        return sorteio;
     }
 
+    private LocalDate convertToLocalDate(Date date) {
+        LocalDate dataConvertida = date.toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+        return dataConvertida;
+    }
 }

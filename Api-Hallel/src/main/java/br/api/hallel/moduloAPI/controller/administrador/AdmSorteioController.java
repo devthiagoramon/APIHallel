@@ -31,7 +31,9 @@ public class AdmSorteioController {
 
     @GetMapping("")
     public ResponseEntity<List<SorteioResponse>> listAllSorteios(){
-        return ResponseEntity.status(200).body(this.service.listAllSorteio());
+        this.service.getSorteioDoMes();
+        return null;
+        //return ResponseEntity.status(200).body(this.service.listAllSorteio());
     }
 
     @GetMapping("/{idSorteio}")
@@ -52,11 +54,9 @@ public class AdmSorteioController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/adicionarAssociado/{idSorteio}/{idAssociado}")
-    public ResponseEntity<SorteioResponse> sortToRecompensa(@PathVariable(value = "idSorteio") String idSorteio,
-                                                          @PathVariable(value = "idAssociado") String idAssociado ) {
-
-        return ResponseEntity.status(201).body(this.recompensaService.addToSort(idSorteio, idAssociado));
+    @PostMapping("/adicionarAssociado")
+    public ResponseEntity<SorteioResponse> sortToRecompensa() {
+        return ResponseEntity.status(201).body(this.service.adicionarAssociadoAoSorteio());
     }
 
     @PostMapping("/enviarRecompensa/{idSorteio}")

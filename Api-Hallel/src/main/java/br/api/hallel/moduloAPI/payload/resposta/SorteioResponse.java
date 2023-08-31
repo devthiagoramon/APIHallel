@@ -4,13 +4,14 @@ import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Sorteio;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
 public class SorteioResponse {
     private String id;
     private String titulo;
-    private String data;
+    private Date data;
     private String descricao;
     List<Associado> sorteioAssociados;
 
