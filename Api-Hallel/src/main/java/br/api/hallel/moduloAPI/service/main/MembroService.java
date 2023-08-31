@@ -121,6 +121,7 @@ public class MembroService implements MembroInterface {
         }
     }
 
+
     @Override
     public Membro findByEmail(String email) {
         return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
@@ -157,4 +158,6 @@ public class MembroService implements MembroInterface {
         }
         return responseList;
     }
+
+
 }

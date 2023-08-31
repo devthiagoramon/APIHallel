@@ -179,6 +179,7 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
                 entradasFinanceiros.add(doacoes);
             }
         }
+
         if (indexTotal == 0) {
             indexTotal = 15;
         }
