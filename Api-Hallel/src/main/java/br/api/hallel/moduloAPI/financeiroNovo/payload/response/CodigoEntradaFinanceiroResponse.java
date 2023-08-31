@@ -7,6 +7,8 @@ import lombok.Data;
 public class CodigoEntradaFinanceiroResponse {
 
     private String id;
+    private String nomeCodigo;
+    private Double numeroCodigo;
 
     public CodigoEntradaFinanceiroResponse toResponseList(CodigoEntradaFinanceiro codigo){
         if(codigo == null){
@@ -14,6 +16,8 @@ public class CodigoEntradaFinanceiroResponse {
         }
         CodigoEntradaFinanceiroResponse response = new CodigoEntradaFinanceiroResponse();
         response.setId(codigo.getId());
+        response.setNumeroCodigo(codigo.getNumeroCodigo());
+        response.setNomeCodigo(codigo.getNomeCodigo());
         return response;
     }
 }
