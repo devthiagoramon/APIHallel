@@ -7,16 +7,14 @@ import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEv
 import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoEntradaEventoRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
 import br.api.hallel.moduloAPI.model.*;
-import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.LocalEventoLocalizacaoRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.*;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.repository.LocalEventoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventosInterface;
 import br.api.hallel.moduloAPI.service.main.MembroService;
+import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,16 +120,10 @@ public class EventosService implements EventosInterface {
 
     //Solicitar a entrada do evento (precisa pagar a entrada)
     @Override
-    public Boolean solicitarPagamentoEntrada(@NotNull PagamentoEntradaEventoReq request, Eventos eventos, Membro membro) {
-        request.setStatus(StatusEntradaEvento.ANDAMENTO);
-        request.setMembro(membro);
-        request.setEventos(eventos);
-        CartaoAssociado cart = new CartaoAssociado();
-        cart.setCvc(123);
-        cart.setNomeTitular("Miguel Arcanjo Brasil de Lima");
-        cart.setEndereco("Rua jose da Costa tapajos");
-        cart.setDataValidadeCartao(new Date());
-        request.setCartaoAssociado(cart);
+    public Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request, Eventos eventos, Membro membro) {
+        log.info("126 - FUNCIONANDO");
+        log.info("129 - FUNCIONANDO");
+        log.info("137 - FUNCIONANDO");
 
 
         if (eventos.getPagamentoEntradaEventoList() == null) {
@@ -140,14 +132,18 @@ public class EventosService implements EventosInterface {
             eventos.setPagamentoEntradaEventoList(list);
 
         } else {
+            log.info(request.toPagamentoEntradaEvento().toString());
             eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
+
         }
 
-        log.info(request.getEventos().getPagamentoEntradaEventoList());
+        log.info("148 - FUNCIONANDO");
 
-        this.repository.save(eventos);
-        this.membroService.updateMembro(membro.getId(), membro);
-        this.pagamentoEntradaService.cadastrar(request);
+
+//
+//        this.repository.save(eventos);
+//        this.membroService.updateMembro(membro.getId(), membro);
+//        this.pagamentoEntradaService.cadastrar(request);
 
         return true;
     }
@@ -262,6 +258,8 @@ public class EventosService implements EventosInterface {
             Eventos eventos = eventosOptional.get();
             Membro membro = this.membroService.listMembroId(inscreverEventoRequest.getIdMembro());
 
+            log.info("LINHA 265 - FUNCIONANDO");
+
             if (eventos.getIntegrantes() == null) {
                 List<Membro> membros = new ArrayList<>();
                 membros.add(membro);
@@ -270,6 +268,7 @@ public class EventosService implements EventosInterface {
                 eventos.getIntegrantes().add(membro);
             }
 
+            log.info("LINHA 275 - FUNCIONANDO");
             if (membro.getEventosParticipando() == null) {
                 List<Eventos> eventosList = new ArrayList<>();
                 eventosList.add(eventos);
@@ -278,7 +277,25 @@ public class EventosService implements EventosInterface {
                 membro.getEventosParticipando().add(eventos);
             }
 
-            this.solicitarPagamentoEntrada(inscreverEventoRequest.getPagamentoEntradaEvento(),eventos , membro);
+            log.info("LINHA 283 - FUNCIONANDO");
+
+            log.info(membro.getNome());
+            log.info(eventos.getTitulo());
+            log.info(inscreverEventoRequest.toString());
+
+            PagamentoEntradaEventoReq request = new PagamentoEntradaEventoReq();
+            request.setStatus(StatusEntradaEvento.ANDAMENTO);
+            request.setMembro(membro);
+            request.setEventos(eventos);
+            CartaoAssociado cart = new CartaoAssociado();
+            cart.setCvc(123);
+            cart.setNomeTitular("Miguel Arcanjo Brasil de Lima");
+            cart.setEndereco("Rua jose da Costa tapajos");
+            cart.setDataValidadeCartao(new Date());
+            request.setCartaoAssociado(cart);
+            inscreverEventoRequest.setPagamentoEntradaEvento(request);
+
+            this.solicitarPagamentoEntrada(inscreverEventoRequest.getPagamentoEntradaEvento(), eventos, membro);
             return true;
         }
 

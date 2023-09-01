@@ -60,9 +60,7 @@ public class EventosController {
         inscreverEventoRequest.setIdMembro("63a3b4b7e406ee6f97314f27");
         inscreverEventoRequest.setNumMetodoPagamento(1);
         inscreverEventoRequest.setEmailMembroPagador("miguel@gmail.com");
-        PagamentoEntradaEventoReq pag = new PagamentoEntradaEventoReq();
-        inscreverEventoRequest.setPagamentoEntradaEvento(pag);
-
+        log.info(inscreverEventoRequest.toString());
         if (this.service.inscreverEvento(inscreverEventoRequest)) {
             return ResponseEntity.accepted().body(true);
         }
