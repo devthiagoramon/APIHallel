@@ -3,6 +3,9 @@ package br.api.hallel.moduloAPI.financeiroNovo.payload.request;
 import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
+import br.api.hallel.moduloAPI.model.CartaoAssociado;
+import br.api.hallel.moduloAPI.model.Eventos;
+import br.api.hallel.moduloAPI.model.Membro;
 import com.mongodb.lang.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -15,11 +18,11 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
     private StatusEntradaEvento status;
     @Nullable
     @NotBlank
-    private String idMembroPagador;
+    private Eventos eventos;
     @Nullable
     @NotBlank
-    private String idEvento;
-
+    private Membro membro;
+    private CartaoAssociado cartaoAssociado;
 
     public PagamentoEntradaEvento toPagamentoEntradaEvento() {
         PagamentoEntradaEvento pagamento = new PagamentoEntradaEvento();
@@ -28,9 +31,9 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         pagamento.setMetodoPagamento(getMetodoPagamento());
         pagamento.setValor(getValor());
         pagamento.setStatusEntrada(getStatus());
-        pagamento.setIdMembroPagador(getIdMembroPagador());
-        pagamento.setIdEvento(getIdEvento());
-
+        pagamento.setMembro(getMembro());
+        pagamento.setEventos(getEventos());
+        pagamento.setCartaoAssociado(getCartaoAssociado());
         return pagamento;
     }
 
@@ -42,8 +45,8 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         pagamento.setMetodoPagamento(pagamentoNew.getMetodoPagamento());
         pagamento.setValor(pagamentoNew.getValor());
         pagamento.setStatusEntrada(pagamentoNew.getStatusEntrada());
-        pagamento.setIdMembroPagador(pagamentoNew.getIdMembroPagador());
-        pagamento.setIdEvento(pagamentoNew.getIdEvento());
+        pagamento.setMembro(pagamentoNew.getMembro());
+        pagamento.setEventos(pagamentoNew.getEventos());
         return pagamento;
     }
 

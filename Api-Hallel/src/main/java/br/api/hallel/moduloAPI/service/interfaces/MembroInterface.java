@@ -8,20 +8,22 @@ import java.util.List;
 
 public interface MembroInterface {
 
-    public Membro createMembro(Membro membro);
+    Membro createMembro(Membro membro);
 
-    public List<MembroResponse> listAllMembros();
+    List<MembroResponse> listAllMembros();
 
-    public Membro listMembroId(String id);
+    Membro listMembroId(String id);
+    Membro updateMembro(String idMembro,Membro membro);
 
-    public Membro updatePerfilMembro(String id, Membro membroModel);
+    Membro updatePerfilMembro(String id, Membro membroModel);
 
-    public void deleteMembroById(String id);
+    void deleteMembroById(String id);
 
-    public Membro findByEmailAndPassword(String email, String senha);
+    Membro findByEmailAndPassword(String email, String senha);
 
-    public Membro findByEmail(String email);
+    Membro findByEmail(String email);
 
     PerfilResponse visualizarPerfil(String id) throws IllegalAccessException;
+
     List<MembroResponse> listByPage(int pagina);
 }

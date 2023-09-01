@@ -22,7 +22,7 @@ public class EventoArquivado {
     private Long quantidadeMembros;
     private Long maxMembros;
     private String titulo;
-    private ArrayList<Membro> integrantes;
+    private List<Membro> integrantes;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
     private String date;
@@ -41,7 +41,7 @@ public class EventoArquivado {
         arquivado.setId(eventos.getId());
         arquivado.setAdministrador(eventos.getAdministrador());
         arquivado.setDescricao(eventos.getDescricao());
-        arquivado.setAssociadoParticipando(eventos.getAssociadoParticipando());
+        arquivado.setAssociadoParticipando(eventos.getAssociadosParticipando());
         arquivado.setQuantidadeMembros(eventos.getQuantidadeMembros());
         arquivado.setMaxMembros(eventos.getMaxMembros());
         arquivado.setTitulo(eventos.getTitulo());
@@ -67,7 +67,7 @@ public class EventoArquivado {
         eventoDesarquivado.setId(getId());
         eventoDesarquivado.setAdministrador(getAdministrador());
         eventoDesarquivado.setDescricao(getDescricao());
-        eventoDesarquivado.setAssociadoParticipando(getAssociadoParticipando());
+        eventoDesarquivado.setAssociadosParticipando(getAssociadoParticipando());
         eventoDesarquivado.setQuantidadeMembros(getQuantidadeMembros());
         eventoDesarquivado.setMaxMembros(getMaxMembros());
         eventoDesarquivado.setTitulo(getTitulo());

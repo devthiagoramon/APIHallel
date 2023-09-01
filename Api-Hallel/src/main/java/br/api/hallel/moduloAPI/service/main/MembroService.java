@@ -64,6 +64,15 @@ public class MembroService implements MembroInterface {
         }
     }
 
+    @Override
+    public Membro updateMembro(String idMembro, Membro membroRequest) {
+        Membro membro = membroRequest;
+        membro.setId(idMembro);
+        log.info("Atualizando o membro Id("+idMembro+")");
+
+        return this.repository.save(membro);
+    }
+
     //Atualizar Informações do Membro pelo id
     @Override
     public Membro updatePerfilMembro(String id, Membro membroModel) {

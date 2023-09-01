@@ -35,7 +35,19 @@ public class EventosRequest {
 
         return getEventos(localEventoAtualizado);
     }
-
+    public EventosRequest toEventoRequest(Eventos eventos){
+        EventosRequest request = new EventosRequest();
+        request.setDescricao(eventos.getDescricao());
+        request.setTitulo(eventos.getTitulo());
+        request.setDate(eventos.getDate());
+        request.setLocalEventoRequest(new LocalEventoLocalizacaoRequest().toRequest(eventos.getLocalEvento()));
+        request.setLocalEvento(eventos.getLocalEvento());
+        request.setHorario(eventos.getHorario());
+        request.setImagem(eventos.getImagem());
+        request.setPalestrantes(eventos.getPalestrantes());
+        request.setPagamentoEntradaEventoList(eventos.getPagamentoEntradaEventoList());
+        return request;
+    }
     @NotNull
     private Eventos getEventos(LocalEvento localEventoAtualizado) {
         Eventos evento = new Eventos();

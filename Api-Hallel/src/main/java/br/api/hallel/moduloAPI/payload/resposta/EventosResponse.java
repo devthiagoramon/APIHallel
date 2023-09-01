@@ -21,7 +21,7 @@ public class EventosResponse {
     private Long maxMembros;
     private String titulo;
 
-    private ArrayList<Membro> integrantes;
+    private List<Membro> integrantes;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
     private String date;
@@ -43,7 +43,7 @@ public class EventosResponse {
         response.setId(eventos.getId());
         response.setAdministrador(eventos.getAdministrador());
         response.setDescricao(eventos.getDescricao());
-        response.setAssociadoParticipando(eventos.getAssociadoParticipando());
+        response.setAssociadoParticipando(eventos.getAssociadosParticipando());
         response.setQuantidadeMembros(eventos.getQuantidadeMembros());
         response.setMaxMembros(eventos.getMaxMembros());
         response.setTitulo(eventos.getTitulo());

@@ -1,5 +1,8 @@
 package br.api.hallel.moduloAPI.financeiroNovo.model;
 
+import br.api.hallel.moduloAPI.model.CartaoAssociado;
+import br.api.hallel.moduloAPI.model.Eventos;
+import br.api.hallel.moduloAPI.model.Membro;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +23,7 @@ public class PagamentoEntradaEvento extends EntradasFinanceiro {
      */
 
     private StatusEntradaEvento statusEntrada;
-    private String idEvento;
-    private String idMembroPagador;
+    private Eventos eventos;
+    private Membro membro;
+    private CartaoAssociado cartaoAssociado;
 }

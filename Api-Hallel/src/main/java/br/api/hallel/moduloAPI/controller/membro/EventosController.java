@@ -1,6 +1,10 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
+import br.api.hallel.moduloAPI.model.CartaoAssociado;
+import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,10 +53,20 @@ public class EventosController {
         return ResponseEntity.status(204).build();
     }
 
-    @PostMapping("/adicionarMembro")
-    public ResponseEntity<String> adicionarMembro(@RequestParam(value = "titulo") String titulo,
-                                                  @RequestParam(value = "emailUser") String emailUser) {
-        return ResponseEntity.ok().body(this.service.adicionarMembro(titulo, emailUser));
+    @PostMapping("/inscrever")
+    public ResponseEntity<Boolean> adicionarMembro() {
+        InscreverEventoRequest inscreverEventoRequest = new InscreverEventoRequest();
+        inscreverEventoRequest.setIdEvento("64b030780dfb1a1620eecb57");
+        inscreverEventoRequest.setIdMembro("63a3b4b7e406ee6f97314f27");
+        inscreverEventoRequest.setNumMetodoPagamento(1);
+        inscreverEventoRequest.setEmailMembroPagador("miguel@gmail.com");
+        PagamentoEntradaEventoReq pag = new PagamentoEntradaEventoReq();
+        inscreverEventoRequest.setPagamentoEntradaEvento(pag);
+
+        if (this.service.inscreverEvento(inscreverEventoRequest)) {
+            return ResponseEntity.accepted().body(true);
+        }
+        return ResponseEntity.accepted().body(false);
     }
 
 

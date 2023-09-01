@@ -4,6 +4,7 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
 import br.api.hallel.moduloAPI.model.Eventos;
+import br.api.hallel.moduloAPI.model.Membro;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,8 @@ import java.util.List;
 public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
 
     private StatusEntradaEvento status;
-    private String idMembroPagador;
+    private Membro membroPagador;
+    private Eventos eventos;
     private List<Eventos> eventosList;
 
     public PagamentoEntradaEventoRes toPagamentoEntradaEventoRes(PagamentoEntradaEvento pagamento){
@@ -28,7 +30,8 @@ public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
         response.setData(pagamento.getDate());
         response.setMetodoPagamento(pagamento.getMetodoPagamento());
         response.setStatus(getStatus());
-        response.setIdMembroPagador(pagamento.getIdMembroPagador());
+        response.setMembroPagador(pagamento.getMembro());
+        response.setEventos(pagamento.getEventos());
 
         return response;
     }
@@ -40,7 +43,8 @@ public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
         request.setDate(pagamentoResponse.getData());
         request.setValor(pagamentoResponse.getValor());
         request.setMetodoPagamento(pagamentoResponse.getMetodoPagamento());
-        request.setIdMembroPagador(pagamentoResponse.getIdMembroPagador());
+        request.setMembro(pagamentoResponse.getMembroPagador());
+        request.setEventos(pagamentoResponse.getEventos());
         request.setStatus(pagamentoResponse.getStatus());
 
         return request;

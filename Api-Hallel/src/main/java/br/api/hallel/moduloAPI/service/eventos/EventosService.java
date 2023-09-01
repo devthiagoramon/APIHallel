@@ -6,12 +6,10 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
 import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoEntradaEventoRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
-import br.api.hallel.moduloAPI.model.DespesaEvento;
-import br.api.hallel.moduloAPI.model.Eventos;
-import br.api.hallel.moduloAPI.model.LocalEvento;
-import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.LocalEventoLocalizacaoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
@@ -20,15 +18,13 @@ import br.api.hallel.moduloAPI.repository.LocalEventoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventosInterface;
 import br.api.hallel.moduloAPI.service.main.MembroService;
 import lombok.extern.log4j.Log4j2;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Log4j2
@@ -126,12 +122,16 @@ public class EventosService implements EventosInterface {
 
     //Solicitar a entrada do evento (precisa pagar a entrada)
     @Override
-    public Boolean solicitarPagamentoEntrada(String idEvento, String idMembro, PagamentoEntradaEventoReq request) {
-        request.setIdMembroPagador(idMembro);
+    public Boolean solicitarPagamentoEntrada(@NotNull PagamentoEntradaEventoReq request, Eventos eventos, Membro membro) {
         request.setStatus(StatusEntradaEvento.ANDAMENTO);
-
-        Eventos eventos = this.repository.findById(idEvento).isPresent() ?
-                this.repository.findById(idEvento).get() : null;
+        request.setMembro(membro);
+        request.setEventos(eventos);
+        CartaoAssociado cart = new CartaoAssociado();
+        cart.setCvc(123);
+        cart.setNomeTitular("Miguel Arcanjo Brasil de Lima");
+        cart.setEndereco("Rua jose da Costa tapajos");
+        cart.setDataValidadeCartao(new Date());
+        request.setCartaoAssociado(cart);
 
 
         if (eventos.getPagamentoEntradaEventoList() == null) {
@@ -143,10 +143,12 @@ public class EventosService implements EventosInterface {
             eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
         }
 
-        log.info(eventos.getPagamentoEntradaEventoList());
+        log.info(request.getEventos().getPagamentoEntradaEventoList());
 
         this.repository.save(eventos);
+        this.membroService.updateMembro(membro.getId(), membro);
         this.pagamentoEntradaService.cadastrar(request);
+
         return true;
     }
 
@@ -253,26 +255,34 @@ public class EventosService implements EventosInterface {
 
     //ADICIONA UM MEMBRO AO EVENTO
     @Override
-    public String adicionarMembro(String titulo, String emailUser) {
-        Optional<Eventos> optional = this.repository.findByTitulo(titulo);
+    public Boolean inscreverEvento(InscreverEventoRequest inscreverEventoRequest) {
+        Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
 
-        if (optional.isPresent()) {
-            Eventos evento = optional.get();
-            if (evento.getIntegrantes() != null) {
-                evento.getIntegrantes().add(membroService.findByEmail(emailUser));
+        if (eventosOptional.isPresent()) {
+            Eventos eventos = eventosOptional.get();
+            Membro membro = this.membroService.listMembroId(inscreverEventoRequest.getIdMembro());
+
+            if (eventos.getIntegrantes() == null) {
+                List<Membro> membros = new ArrayList<>();
+                membros.add(membro);
+                eventos.setIntegrantes(membros);
             } else {
-                ArrayList<Membro> integrantes = new ArrayList<>();
-                integrantes.add(membroService.findByEmail(emailUser));
-                evento.setIntegrantes(integrantes);
+                eventos.getIntegrantes().add(membro);
             }
-            log.info("MEMBRO CADASTRADO AO EVENTO!");
-            this.repository.save(evento);
 
-            return "Membro cadastrado no evento com sucesso";
+            if (membro.getEventosParticipando() == null) {
+                List<Eventos> eventosList = new ArrayList<>();
+                eventosList.add(eventos);
+                membro.setEventosParticipando(eventosList);
+            } else {
+                membro.getEventosParticipando().add(eventos);
+            }
+
+            this.solicitarPagamentoEntrada(inscreverEventoRequest.getPagamentoEntradaEvento(),eventos , membro);
+            return true;
         }
-        log.info("EVENTO NÃO ECONTRADO!");
 
-        return "Evento não encontrado";
+        return false;
     }
 
     //Lista eventos por ordem alfabética

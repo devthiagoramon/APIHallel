@@ -18,12 +18,12 @@ public class Eventos {
 
     @Id
     private String id;
-    private List<Associado> associadoParticipando;
+    private List<Associado> associadosParticipando;
     private String descricao;
     private Long quantidadeMembros;
     private Long maxMembros;
     private String titulo;
-    private ArrayList<Membro> integrantes;
+    private List<Membro> integrantes;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
     private String date;
@@ -47,7 +47,7 @@ public class Eventos {
         this.palestrantes = palestrantes;
     }
 
-    public Eventos(List<Associado> associadoParticipando,
+    public Eventos(List<Associado> membroParticipando,
                    String descricao,
                    Long quantidadeMembros,
                    Long maxMembros,
@@ -64,7 +64,7 @@ public class Eventos {
                    List<String> palestrantes
                    ) {
 
-        this.associadoParticipando = associadoParticipando;
+        this.associadosParticipando = associadosParticipando;
         this.descricao = descricao;
         this.quantidadeMembros = quantidadeMembros;
         this.maxMembros = maxMembros;

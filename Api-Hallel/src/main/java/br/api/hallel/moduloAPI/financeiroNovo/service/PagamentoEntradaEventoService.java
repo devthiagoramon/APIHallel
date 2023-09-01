@@ -45,7 +45,6 @@ public class PagamentoEntradaEventoService implements
             pagamentoEntradaEventoOld.setDate(request.getDate());
             pagamentoEntradaEventoOld.setValor(request.getValor());
             pagamentoEntradaEventoOld.setStatusEntrada(request.getStatus());
-            pagamentoEntradaEventoOld.setIdMembroPagador(request.getIdMembroPagador());
             pagamentoEntradaEventoOld.setMetodoPagamento(request.getMetodoPagamento());
             this.pagamentoEntradaEventoRepository.save(pagamentoEntradaEventoOld);
 
