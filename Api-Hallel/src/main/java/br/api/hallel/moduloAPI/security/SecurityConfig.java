@@ -37,7 +37,7 @@ public class SecurityConfig {
             "/api/listarCurso",
             "/api/descCurso/{id}",
             "/api/matricularParticipante/{idAssociado}/{idCurso}",
-            "/api/eventos/", "/api/doacao/**"};
+            "/api/eventos", "/api/doacao/**"};
 
     private String endpointsPermitidasAdm[] =
             {"/api/administrador/**", "/api/administrador/cursos/**",

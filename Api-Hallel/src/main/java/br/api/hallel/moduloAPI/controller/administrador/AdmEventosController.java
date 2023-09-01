@@ -43,11 +43,6 @@ public class AdmEventosController {
         return ResponseEntity.status(201).body(eventosService.createEvento(request));
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos(){
-        return ResponseEntity.status(200).body(eventosService.listEventosToVisualizar());
-    }
-
     @PostMapping("/{id}/edit")
     public EventosResponse updateEventos(@PathVariable(value = "id") String id,
                                          @RequestBody EventosRequest request) {

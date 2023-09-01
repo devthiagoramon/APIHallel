@@ -220,8 +220,9 @@ public class EventosService implements EventosInterface {
         eventoOld.setDate(request.getDate());
         eventoOld.setHorario(request.getHorario());
         eventoOld.setLocalEvento(optional.get());
+        eventoOld.setDestaque(request.getDestaque());
 
-        if (request.getPalestrantes() != null || request.getPalestrantes().size() == 0) {
+        if (request.getPalestrantes() != null || request.getPalestrantes().isEmpty()) {
             eventoOld.setPalestrantes(request.getPalestrantes());
         }
 

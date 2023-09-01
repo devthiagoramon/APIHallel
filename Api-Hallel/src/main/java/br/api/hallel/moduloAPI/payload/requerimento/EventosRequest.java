@@ -15,16 +15,14 @@ import java.util.List;
 public class EventosRequest {
     private String descricao;
     private String titulo;
-
     private String date;
     private LocalEventoLocalizacaoRequest localEventoRequest;
     private LocalEvento localEvento;
     private String horario;
     private String imagem;
-
     private List<String> palestrantes;
     private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
-
+    private Boolean destaque;
 
 
     public Eventos toCreateRequest(LocalEvento localEventoAtualizado){
@@ -46,6 +44,7 @@ public class EventosRequest {
         request.setImagem(eventos.getImagem());
         request.setPalestrantes(eventos.getPalestrantes());
         request.setPagamentoEntradaEventoList(eventos.getPagamentoEntradaEventoList());
+        request.setDestaque(eventos.getDestaque());
         return request;
     }
     @NotNull
@@ -69,6 +68,7 @@ public class EventosRequest {
         evento.setHorario(getHorario());
         evento.setDate(getDate());
         evento.setLocalEvento(localEventoAtualizado);
+        evento.setDestaque(getDestaque());
         return evento;
     }
 
@@ -89,6 +89,7 @@ public class EventosRequest {
         evento.setHorario(getHorario());
         evento.setDate(getDate());
         evento.setLocalEvento(localEventoAtualizado);
+        evento.setDestaque(getDestaque());
         return evento;
     }
 }
