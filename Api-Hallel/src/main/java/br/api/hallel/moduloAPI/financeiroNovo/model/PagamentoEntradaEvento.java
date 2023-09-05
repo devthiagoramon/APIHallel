@@ -1,8 +1,10 @@
 package br.api.hallel.moduloAPI.financeiroNovo.model;
 
+import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
 import br.api.hallel.moduloAPI.model.CartaoAssociado;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.payload.requerimento.EventoInscritoReq;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
 public class PagamentoEntradaEvento extends EntradasFinanceiro {
 
@@ -22,8 +23,13 @@ public class PagamentoEntradaEvento extends EntradasFinanceiro {
     * Andamento = pagamento em andamento.
      */
 
+    public PagamentoEntradaEvento(){
+        setStatusEntrada(StatusEntradaEvento.ANDAMENTO);
+    }
+
     private StatusEntradaEvento statusEntrada;
-    private Eventos eventos;
-    private Membro membro;
+    private String idEventos;
+    private String emailMembroPagador;
     private CartaoAssociado cartaoAssociado;
+
 }

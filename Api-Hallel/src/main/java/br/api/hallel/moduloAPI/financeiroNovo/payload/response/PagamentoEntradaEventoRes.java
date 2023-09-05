@@ -5,6 +5,7 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.payload.requerimento.EventoInscritoReq;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,8 @@ import java.util.List;
 public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
 
     private StatusEntradaEvento status;
-    private Membro membroPagador;
-    private Eventos eventos;
+    private String emailMembroPagador;
+    private String idEventos;
     private List<Eventos> eventosList;
 
     public PagamentoEntradaEventoRes toPagamentoEntradaEventoRes(PagamentoEntradaEvento pagamento){
@@ -30,8 +31,8 @@ public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
         response.setData(pagamento.getDate());
         response.setMetodoPagamento(pagamento.getMetodoPagamento());
         response.setStatus(getStatus());
-        response.setMembroPagador(pagamento.getMembro());
-        response.setEventos(pagamento.getEventos());
+        response.setIdEventos(pagamento.getEmailMembroPagador());
+        response.setEmailMembroPagador(pagamento.getIdEventos());
 
         return response;
     }
@@ -43,8 +44,8 @@ public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
         request.setDate(pagamentoResponse.getData());
         request.setValor(pagamentoResponse.getValor());
         request.setMetodoPagamento(pagamentoResponse.getMetodoPagamento());
-        request.setMembro(pagamentoResponse.getMembroPagador());
-        request.setEventos(pagamentoResponse.getEventos());
+        request.setEmailMembroPagador(pagamentoResponse.getEmailMembroPagador());
+        request.setIdEvento(pagamentoResponse.getIdEventos());
         request.setStatus(pagamentoResponse.getStatus());
 
         return request;
