@@ -1,8 +1,5 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
-import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
-import br.api.hallel.moduloAPI.model.CartaoAssociado;
-import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
@@ -13,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,7 +24,7 @@ public class EventosController {
 
     @GetMapping("")
     public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos() {
-        return ResponseEntity.status(200).body(service.listEventosToVisualizar());
+        return ResponseEntity.status(200).body(service.listEventosSemDestaqueToVisualizar());
     }
 
     @GetMapping("/{id}")

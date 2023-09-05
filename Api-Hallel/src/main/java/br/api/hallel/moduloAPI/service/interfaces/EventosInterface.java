@@ -9,7 +9,6 @@ import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
-import jdk.jfr.Event;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ public interface EventosInterface {
 
     EventosVisualizacaoResponse removeDestaqueToEvento(String idEvento);
 
-    List<EventosVisualizacaoResponse> listEventosDestaque();
+    List<EventosVisualizacaoResponse> listEventosDestacados();
 
     EventosResponse adicionarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento);
 
@@ -47,7 +46,9 @@ public interface EventosInterface {
 
     List<DespesaEvento> listarDespesasInEvento(String idEvento);
 
-    List<EventosVisualizacaoResponse> listEventosToVisualizar();
+    List<EventosVisualizacaoResponse> listEventosSemDestaqueToVisualizar();
+
+    List<EventosVisualizacaoResponse> listEventosDestacadosToVisualizar();
 
     List<EventosVisualizacaoResponse> listByPage(int page);
 

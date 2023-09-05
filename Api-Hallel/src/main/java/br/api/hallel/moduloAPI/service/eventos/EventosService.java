@@ -92,14 +92,30 @@ public class EventosService implements EventosInterface {
 
     //LISTAR EVENTOS NA HOMEPAGE
     @Override
-    public List<EventosVisualizacaoResponse> listEventosToVisualizar() {
+    public List<EventosVisualizacaoResponse> listEventosSemDestaqueToVisualizar() {
         List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
-
-        this.repository.findAll().forEach(eventos -> {
-            listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+        this.repository.findAll().forEach(eventos ->{
+            if(eventos.getDestaque() == null){
+                listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+            }else {
+                if (!eventos.getDestaque()) {
+                    listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+                }
+            }
         });
+        return listaResponse;
+    }
 
-        log.info("Eventos para visualização listados!");
+    @Override
+    public List<EventosVisualizacaoResponse> listEventosDestacadosToVisualizar(){
+        List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
+        this.repository.findAll().forEach(eventos -> {
+            if(eventos.getDestaque() != null) {
+                if (eventos.getDestaque()) {
+                    listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+                }
+            }
+        });
         return listaResponse;
     }
 
@@ -371,7 +387,7 @@ public class EventosService implements EventosInterface {
 
     //Listar os eventos em Destaque
     @Override
-    public List<EventosVisualizacaoResponse> listEventosDestaque() {
+    public List<EventosVisualizacaoResponse> listEventosDestacados() {
 
         List<EventosVisualizacaoResponse> responseList = new ArrayList<>();
 

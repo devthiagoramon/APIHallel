@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventosVisualizacaoResponse {
-
+    private String id;
     private String titulo;
     private String descricao;
     private String date;
@@ -26,6 +26,7 @@ public class EventosVisualizacaoResponse {
 
     public EventosVisualizacaoResponse toListEventosResponse(Eventos eventos) {
         EventosVisualizacaoResponse response = new EventosVisualizacaoResponse();
+        response.setId(eventos.getId());
         response.setTitulo(eventos.getTitulo());
         response.setDescricao(eventos.getDescricao());
         response.setDate(eventos.getDate());

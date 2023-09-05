@@ -94,9 +94,15 @@ public class MainController {
         return ResponseEntity.status(202).build();
     }
 
-    @GetMapping("/eventos/home")
-    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos(){
-        return ResponseEntity.status(200).body(eventosService.listEventosToVisualizar());
+    @GetMapping("/home/eventos/semDestaque")
+    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventosSemDestaque(){
+        return ResponseEntity.status(200).body(eventosService.listEventosSemDestaqueToVisualizar());
     }
+
+    @GetMapping("/home/eventos/destacados")
+    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventosDestacados(){
+        return ResponseEntity.status(200).body(eventosService.listEventosDestacadosToVisualizar());
+    }
+
 
 }

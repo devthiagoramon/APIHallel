@@ -1,7 +1,5 @@
 package br.api.hallel.moduloAPI.controller.administrador;
 
-import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
-import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
 import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.EventoArquivado;
@@ -18,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -92,7 +89,7 @@ public class AdmEventosController {
 
     @GetMapping("/destaques")
     public List<EventosVisualizacaoResponse> listAllEventsByDestaque() {
-        return this.eventosService.listEventosDestaque();
+        return this.eventosService.listEventosDestacados();
     }
 
     @GetMapping("/{id}/get/participantes")
