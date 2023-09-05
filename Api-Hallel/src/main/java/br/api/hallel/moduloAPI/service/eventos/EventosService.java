@@ -331,13 +331,18 @@ public class EventosService implements EventosInterface {
 
     //Lista membros de um evento
     @Override
-    public List<Membro> listMembrosEventos(String id) {
+    public List<Membro> listParticipantesEventos(String id) {
 
         EventosResponse eventosResponse = this.listarEventoById(id);
 
-        log.info("Listando membros participando de um evento");
+        log.info("Listando participantes de um evento");
 
-        return eventosResponse.getIntegrantes();
+
+        if(eventosResponse.getIntegrantes() != null) {
+            return eventosResponse.getIntegrantes();
+        }else{
+            return null;
+        }
     }
 
 

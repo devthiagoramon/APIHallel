@@ -88,13 +88,13 @@ public class AdmEventosController {
     }
 
     @GetMapping("/destaques")
-    public List<EventosVisualizacaoResponse> listAllEventsByDestaque() {
+    public List<EventosVisualizacaoResponse> listParticipantesEventos() {
         return this.eventosService.listEventosDestacados();
     }
 
     @GetMapping("/{id}/get/participantes")
-    public List<Membro> listAllEventsByDestaque(@PathVariable(value = "id") String id) {
-        return this.eventosService.listMembrosEventos(id);
+    public List<Membro> listParticipantesEventos(@PathVariable(value = "id") String id) {
+        return this.eventosService.listParticipantesEventos(id);
     }
 
     @PostMapping("/{id}/despesa/add")

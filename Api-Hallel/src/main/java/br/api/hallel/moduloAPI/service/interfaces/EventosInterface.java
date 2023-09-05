@@ -30,7 +30,7 @@ public interface EventosInterface {
 
     List<EventosVisualizacaoResponse> listEventoOrdemAlfabetica();
 
-    List<Membro> listMembrosEventos(String id);
+    List<Membro> listParticipantesEventos(String id);
 
     EventosVisualizacaoResponse addDestaqueToEvento(String idEvento);
 
