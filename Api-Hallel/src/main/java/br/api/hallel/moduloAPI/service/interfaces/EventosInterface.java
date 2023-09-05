@@ -9,7 +9,6 @@ import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
-import jdk.jfr.Event;
 
 import java.util.List;
 
@@ -51,7 +50,7 @@ public interface EventosInterface {
 
     List<EventosVisualizacaoResponse> listByPage(int page);
 
-    Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request, Eventos eventos, Membro membro);
+    Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request);
 
     Boolean aceitarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento);
 }

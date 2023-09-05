@@ -57,9 +57,8 @@ public class EventosController {
     public ResponseEntity<Boolean> adicionarMembro() {
         InscreverEventoRequest inscreverEventoRequest = new InscreverEventoRequest();
         inscreverEventoRequest.setIdEvento("64b030780dfb1a1620eecb57");
-        inscreverEventoRequest.setIdMembro("63a3b4b7e406ee6f97314f27");
-        inscreverEventoRequest.setNumMetodoPagamento(1);
         inscreverEventoRequest.setEmailMembroPagador("miguel@gmail.com");
+        inscreverEventoRequest.setNumMetodoPagamento(1);
         log.info(inscreverEventoRequest.toString());
         if (this.service.inscreverEvento(inscreverEventoRequest)) {
             return ResponseEntity.accepted().body(true);

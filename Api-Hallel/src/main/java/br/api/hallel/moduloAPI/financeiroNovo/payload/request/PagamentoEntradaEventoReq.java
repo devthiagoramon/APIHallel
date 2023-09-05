@@ -4,7 +4,6 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.model.CartaoAssociado;
-import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
 import com.mongodb.lang.Nullable;
 import jakarta.validation.constraints.NotBlank;
@@ -22,10 +21,10 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
     private StatusEntradaEvento status;
     @Nullable
     @NotBlank
-    private Eventos eventos;
+    private String idEvento;
     @Nullable
     @NotBlank
-    private Membro membro;
+    private String emailMembroPagador;
     private CartaoAssociado cartaoAssociado;
 
     public PagamentoEntradaEvento toPagamentoEntradaEvento() {
@@ -35,8 +34,8 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         pagamento.setMetodoPagamento(getMetodoPagamento());
         pagamento.setValor(getValor());
         pagamento.setStatusEntrada(getStatus());
-        pagamento.setMembro(getMembro());
-        pagamento.setEventos(getEventos());
+        pagamento.setIdEventos(getIdEvento());
+        pagamento.setEmailMembroPagador(getEmailMembroPagador());
         pagamento.setCartaoAssociado(getCartaoAssociado());
         return pagamento;
     }
@@ -49,8 +48,8 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         pagamento.setMetodoPagamento(pagamentoNew.getMetodoPagamento());
         pagamento.setValor(pagamentoNew.getValor());
         pagamento.setStatusEntrada(pagamentoNew.getStatusEntrada());
-        pagamento.setMembro(pagamentoNew.getMembro());
-        pagamento.setEventos(pagamentoNew.getEventos());
+        pagamento.setEmailMembroPagador(pagamentoNew.getEmailMembroPagador());
+        pagamento.setIdEventos(pagamentoNew.getIdEventos());
         return pagamento;
     }
 

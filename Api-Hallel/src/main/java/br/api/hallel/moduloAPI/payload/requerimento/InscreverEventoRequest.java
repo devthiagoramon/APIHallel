@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InscreverEventoRequest {
     private String idEvento;
-    private String idMembro;
     private String emailMembroPagador;
     private int numMetodoPagamento;
     private String mes;
@@ -21,7 +20,6 @@ public class InscreverEventoRequest {
     public InscreverEventoRequest toInscreverEventoRequest(){
         InscreverEventoRequest request = new InscreverEventoRequest();
         request.setIdEvento(getIdEvento());
-        request.setIdMembro(getIdMembro());
         request.setEmailMembroPagador(getEmailMembroPagador());
         request.setNumMetodoPagamento(getNumMetodoPagamento());
         request.setMes(getMes());
