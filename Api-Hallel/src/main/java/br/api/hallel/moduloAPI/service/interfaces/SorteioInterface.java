@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
+import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Sorteio;
 import br.api.hallel.moduloAPI.payload.requerimento.RecompensaRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.SorteioRequest;
@@ -15,5 +16,8 @@ public interface SorteioInterface {
     SorteioResponse updateSorteioById(String idSorteio, SorteioRequest sorteioRequest);
     void deleteSorteioById(String idSorteio);
     AssociadoSorteioResponse realizarSorteio(String idSorteio, RecompensaRequest recompensa);
+
+    List<Associado> listAssociadosSorteadoByDate(String mes, String ano);
+
     SorteioResponse adicionarAssociadoAoSorteio();
 }

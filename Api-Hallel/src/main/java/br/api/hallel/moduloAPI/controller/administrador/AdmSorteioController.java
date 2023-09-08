@@ -29,12 +29,18 @@ public class AdmSorteioController {
         return ResponseEntity.status(200).body(this.service.createSorteio(request));
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<SorteioResponse>> listAllSorteios(){
+    @GetMapping("/mesAtual")
+    public ResponseEntity<List<SorteioResponse>> listSorteioMes(){
         this.service.getSorteioDoMes();
         return null;
         //return ResponseEntity.status(200).body(this.service.listAllSorteio());
     }
+
+    @GetMapping("")
+    public ResponseEntity<List<SorteioResponse>> listAllSorteios(){
+        return ResponseEntity.ok().body(this.service.listAllSorteio());
+    }
+
 
     @GetMapping("/{idSorteio}")
     public ResponseEntity<SorteioResponse> listSorteiosById(@PathVariable(value = "idSorteio") String idSorteio){

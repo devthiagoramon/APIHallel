@@ -120,6 +120,14 @@ public class SorteioService implements SorteioInterface {
         return new AssociadoSorteioResponse().toResponse(associado);
     }
 
+    @Override
+    public List<Associado> listAssociadosSorteadoByDate(String mes, String ano) {
+
+        Sorteio sorteio = getSorteioDoMes();
+
+        return sorteio.getSorteioAssociados();
+    }
+
     //Adiciona o associado que teve o pagamento em dia ao Sorteio
     @Override
     public SorteioResponse adicionarAssociadoAoSorteio() {
@@ -180,10 +188,8 @@ public class SorteioService implements SorteioInterface {
     public Sorteio getSorteioDoMes() {
         LocalDate mesHoje = new Date().toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
         Sorteio sorteio = null;
-
         for (Sorteio sorteios : this.repository.findAll()) {
             LocalDate mesSorteio = sorteios.getData().toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
-
             if (mesHoje.getMonthValue() == mesSorteio.getMonthValue()) {
                 sorteio = sorteios;
 
