@@ -17,6 +17,7 @@ public class Sorteio {
     private String titulo;
     private String descricao;
     private Date data;
+    private List<ItensSorteio> itensSorteios;
     private List<Associado> sorteioAssociados;
     private List<Associado> ultimosAssociados;
 

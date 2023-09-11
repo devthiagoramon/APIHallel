@@ -22,7 +22,7 @@ public class EntradasFinanceiro implements Comparable<EntradasFinanceiro>{
 
     @Override
     public int compareTo(@NotNull EntradasFinanceiro o) {
-        if(this.date != null) {
+        if(this.date != null && o.getDate()!=null) {
             return o.getDate().compareTo(this.getDate());
         }else{
             return -1;
