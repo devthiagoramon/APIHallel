@@ -267,7 +267,6 @@ public class EventosService implements EventosInterface {
     @Override
     public void deleteEventoById(String id) {
 
-
         if (listarEventoById(id) != null) {
 
             this.repository.deleteById(id);
@@ -286,12 +285,6 @@ public class EventosService implements EventosInterface {
         Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
 
         if (eventosOptional.isPresent()) {
-
-            log.info("LINHA 265 - FUNCIONANDO");
-
-
-            log.info("LINHA 283 - FUNCIONANDO");
-
             log.info(inscreverEventoRequest.toString());
 
             PagamentoEntradaEventoReq request = new PagamentoEntradaEventoReq();
@@ -337,14 +330,12 @@ public class EventosService implements EventosInterface {
 
         log.info("Listando participantes de um evento");
 
-
         if(eventosResponse.getIntegrantes() != null) {
             return eventosResponse.getIntegrantes();
         }else{
             return null;
         }
     }
-
 
     //Eventos em Destaque na HomePage
     @Override

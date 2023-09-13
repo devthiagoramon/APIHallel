@@ -55,4 +55,6 @@ public interface EventosInterface {
     Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request);
 
     Boolean aceitarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento);
+
+
 }
