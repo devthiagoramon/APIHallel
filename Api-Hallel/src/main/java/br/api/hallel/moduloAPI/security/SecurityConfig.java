@@ -48,7 +48,7 @@ public class SecurityConfig {
             "/api/administrador/retiros/**", "/api/administrador/sorteios/**", "/api/administrador/locais/**",
             "/api/administrador/financeiro/**"};
     private String endpointsMembros[] = {"/api/membros/**", "/api/eventos/**", "/api/cursos/**"};
-    private String endpointsAssociado[] = {"/api/cursos/**", "/api/associados/**"};
+    private String endpointsAssociado[] = {"/api/cursos/**", "/api/associados/**", "/api/sorteios/**"};
 
     private AuthEntryPointJwt unauthorizedHandler;
 

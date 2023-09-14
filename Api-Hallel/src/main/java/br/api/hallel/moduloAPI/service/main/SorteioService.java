@@ -8,6 +8,7 @@ import br.api.hallel.moduloAPI.payload.requerimento.AssociadoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.RecompensaRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.SorteioRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoSorteioResponse;
+import br.api.hallel.moduloAPI.payload.resposta.PerfilAssociadoSorteiosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.SorteioResponse;
 import br.api.hallel.moduloAPI.repository.SorteioRepository;
 import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
@@ -16,6 +17,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -28,6 +30,8 @@ public class SorteioService implements SorteioInterface {
     private SorteioRepository repository;
     @Autowired
     private AssociadoService associadoService;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     //Criar um sorteio
     @Override
@@ -183,6 +187,21 @@ public class SorteioService implements SorteioInterface {
 
         Sorteio response = this.repository.save(sorteio);
         return new SorteioResponse().toSorteioResponse(response);
+    }
+
+    @Override
+    public List<PerfilAssociadoSorteiosResponse> listAllSorteioPerfilAssociado(String mes, String ano) {
+
+        List<Sorteio> sorteios = this.repository.findAll();
+        List<PerfilAssociadoSorteiosResponse> responses = new ArrayList<>();
+
+        for (Sorteio sorteio : sorteios) {
+            if(sdf.format(sorteio.getData()).substring(3).equals(mes+"/"+ano)) {
+                responses.add(PerfilAssociadoSorteiosResponse.toPerfilAssociadoSorteiosResponse(sorteio));
+            }
+        }
+
+        return responses;
     }
 
     public Sorteio getSorteioDoMes() {
