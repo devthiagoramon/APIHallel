@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
 
@@ -281,7 +282,7 @@ public class EventosService implements EventosInterface {
 
     //ADICIONA UM MEMBRO AO EVENTO
     @Override
-    public Boolean inscreverEvento(InscreverEventoRequest inscreverEventoRequest) {
+    public Boolean inscreverEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest) {
         Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
 
         if (eventosOptional.isPresent()) {

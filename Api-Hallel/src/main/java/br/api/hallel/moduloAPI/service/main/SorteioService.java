@@ -98,9 +98,6 @@ public class SorteioService implements SorteioInterface {
         int indexRandom = new Random().nextInt(sorteio.getSorteioAssociados().size());
         Associado associado = sorteio.getSorteioAssociados().get(indexRandom);
 
-        System.out.println("tamanho da lista" + sorteio.getSorteioAssociados().size());
-
-        System.out.println("index: " + indexRandom + ", " + associado.getNome());
 
         if (associado.getRecompensas() != null) {
             associado.getRecompensas().add(recompensa.toRecompensa());
@@ -196,7 +193,7 @@ public class SorteioService implements SorteioInterface {
         List<PerfilAssociadoSorteiosResponse> responses = new ArrayList<>();
 
         for (Sorteio sorteio : sorteios) {
-            if(sdf.format(sorteio.getData()).substring(3).equals(mes+"/"+ano)) {
+            if (sdf.format(sorteio.getData()).substring(3).equals(mes + "/" + ano)) {
                 responses.add(PerfilAssociadoSorteiosResponse.toPerfilAssociadoSorteiosResponse(sorteio));
             }
         }
