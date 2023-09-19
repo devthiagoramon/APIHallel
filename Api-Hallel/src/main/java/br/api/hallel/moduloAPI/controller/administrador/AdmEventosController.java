@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,8 +36,8 @@ public class AdmEventosController {
     @PostMapping("/create")
     public ResponseEntity<Eventos> createEventos(@RequestBody EventosRequest request) {
 
+        request.setDate(new Date());
         log.info("Create eventos acessado infos:\n{\n titulo:" + request.getTitulo());
-
         return ResponseEntity.status(201).body(eventosService.createEvento(request));
     }
 

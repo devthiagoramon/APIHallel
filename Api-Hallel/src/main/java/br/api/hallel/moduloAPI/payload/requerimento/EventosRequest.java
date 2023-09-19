@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -15,7 +16,7 @@ import java.util.List;
 public class EventosRequest {
     private String descricao;
     private String titulo;
-    private String date;
+    private Date date;
     private LocalEventoLocalizacaoRequest localEventoRequest;
     private LocalEvento localEvento;
     private String horario;

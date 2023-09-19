@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Document
@@ -25,7 +26,7 @@ public class EventoArquivado {
     private List<Membro> integrantes;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
-    private String date;
+    private Date date;
     private LocalEvento localEvento;
     private String horario;
     private String imagem;

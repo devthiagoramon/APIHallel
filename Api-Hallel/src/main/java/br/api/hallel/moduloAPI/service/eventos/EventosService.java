@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -74,6 +75,11 @@ public class EventosService implements EventosInterface {
         log.info("Eventos listados!");
 
         return listaResponse;
+    }
+
+    public List<String> listAllEventosId(){
+         List<String> stringList = this.repository.findAll().stream().map(Eventos::getId).collect(Collectors.toList());
+         return stringList;
     }
 
     //LISTA APENAS UM EVENTO PELO SEU ID

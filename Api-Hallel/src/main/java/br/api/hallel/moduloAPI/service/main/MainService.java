@@ -271,9 +271,10 @@ public class MainService implements MainInterface {
         log.info(data2);
 
         if (data1.compareTo(data2) >= 0) {
-            log.info(data1+" é antes da dataAtual: "+data2);
+            log.info(data1+" é antes, ou igual a dataAtual: "+data2);
             return true;
         }
+        log.info(data1+" é depois da dataAtual: "+data2);
 
         return false;
     }

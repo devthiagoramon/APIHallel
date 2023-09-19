@@ -13,9 +13,4 @@ public interface EventosRepository extends MongoRepository<Eventos, String> {
     Optional<Eventos> findByTitulo(String titulo);
     List<Eventos> findAllByDestaqueEquals(Boolean isTrue);
     List<Eventos> findAllByOrderByTituloAsc();
-
-    @Aggregation(pipeline = {
-            "{$group: {_id: null, total: {$sum: \"$despesas\"}}}"
-    })
-    Double getDespesas();
 }

@@ -5,10 +5,12 @@ import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.repository.EventoArquivadoRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventoArquivadoInterface;
+import br.api.hallel.moduloAPI.service.main.MainService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,9 +27,13 @@ public class EventoArquivadoService implements EventoArquivadoInterface {
     public void addEventoArquivado(String idEvento) {
         EventosResponse eventosResponse = eventosService.listarEventoById(idEvento);
         Eventos evento = eventosResponse.toEvento();
-        eventosService.deleteEventoById(idEvento);
-        log.info("Evento " + evento.getTitulo() + " arquivado");
-        this.repository.insert(new EventoArquivado().arquivarEvento(evento));
+
+        if(!MainService.comparateDatas(evento.getDate(),new Date())){
+            eventosService.deleteEventoById(idEvento);
+            log.info("Evento " + evento.getId()+ " já ocorreu... Sendo arquivado");
+            this.repository.insert(new EventoArquivado().arquivarEvento(evento));
+        }
+
     }
 
     //Retira o evento do arquivado, e deixa ele de volta pra Tabela de 'Eventos'

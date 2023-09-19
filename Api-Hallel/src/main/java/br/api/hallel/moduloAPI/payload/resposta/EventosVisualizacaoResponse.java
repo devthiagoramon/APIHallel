@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ public class EventosVisualizacaoResponse {
     private String id;
     private String titulo;
     private String descricao;
-    private String date;
+    private Date date;
     private String imagem;
     private LocalEvento localEvento;
     private Boolean destaque;

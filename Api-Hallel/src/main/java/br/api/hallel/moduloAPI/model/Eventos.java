@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Document
@@ -26,7 +27,7 @@ public class Eventos {
     private List<Membro> integrantes;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
-    private String date;
+    private Date date;
     private LocalEvento localEvento;
     private String horario;
     private String imagem;
@@ -37,7 +38,7 @@ public class Eventos {
     private List<String> palestrantes;
     private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
 
-    public Eventos(String descricao, String titulo, String date, LocalEvento localEvento, String horario, String imagem, List<String> palestrantes) {
+    public Eventos(String descricao, String titulo, Date date, LocalEvento localEvento, String horario, String imagem, List<String> palestrantes) {
         this.descricao = descricao;
         this.titulo = titulo;
         this.date = date;
@@ -55,7 +56,7 @@ public class Eventos {
                    ArrayList<Membro> integrantes,
                    MembroMarketing membroMarketing,
                    Administrador administrador,
-                   String date,
+                   Date date,
                    LocalEvento localEvento,
                    String horario,
                    String imagem,

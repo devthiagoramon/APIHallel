@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -24,7 +25,7 @@ public class EventosResponse {
     private List<Membro> integrantes;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
-    private String date;
+    private Date date;
     private LocalEvento localEvento;
     private String horario;
     private String imagem;
