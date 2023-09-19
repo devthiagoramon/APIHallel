@@ -95,10 +95,10 @@ public class EventosService implements EventosInterface {
     @Override
     public List<EventosVisualizacaoResponse> listEventosSemDestaqueToVisualizar() {
         List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
-        this.repository.findAll().forEach(eventos ->{
-            if(eventos.getDestaque() == null){
+        this.repository.findAll().forEach(eventos -> {
+            if (eventos.getDestaque() == null) {
                 listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
-            }else {
+            } else {
                 if (!eventos.getDestaque()) {
                     listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
                 }
@@ -108,10 +108,10 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public List<EventosVisualizacaoResponse> listEventosDestacadosToVisualizar(){
+    public List<EventosVisualizacaoResponse> listEventosDestacadosToVisualizar() {
         List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
         this.repository.findAll().forEach(eventos -> {
-            if(eventos.getDestaque() != null) {
+            if (eventos.getDestaque() != null) {
                 if (eventos.getDestaque()) {
                     listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
                 }
@@ -166,7 +166,7 @@ public class EventosService implements EventosInterface {
             membro.getEventosParticipando().add(eventos);
         }
 
-        if(request.getCartaoAssociado() != null){
+        if (request.getCartaoAssociado() != null) {
             request.setStatus(StatusEntradaEvento.CONFIRMADO);
 
         }
@@ -202,6 +202,41 @@ public class EventosService implements EventosInterface {
 
             if (entradaOld.equals(entradaNew)) {
                 pagamento.setStatusEntrada(StatusEntradaEvento.CONFIRMADO);
+                int index = eventos.getPagamentoEntradaEventoList().indexOf(entradaOld);
+                eventos.getPagamentoEntradaEventoList().set(index, new PagamentoEntradaEventoReq().toPag(pagamentoEntrada));
+
+                break;
+            }
+        }
+
+        this.pagamentoRepository.save(pagamento);
+        this.repository.save(eventos);
+        return true;
+    }
+
+    @Override
+    public Boolean recusarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento) {
+        PagamentoEntradaEvento pagamento = this.pagamentoRepository.findById(idSolicitacaoPagamento).isPresent() ?
+                this.pagamentoRepository.findById(idSolicitacaoPagamento).get() : null;
+
+        Eventos eventos = this.repository.findById(idEvento).isPresent() ?
+                this.repository.findById(idEvento).get() : null;
+
+        EntradasFinanceiro entradaOld = new EntradasFinanceiro();
+        entradaOld.setDate(pagamento.getDate());
+        entradaOld.setMetodoPagamento(pagamento.getMetodoPagamento());
+        entradaOld.setValor(pagamento.getValor());
+        entradaOld.setCodigo(pagamento.getCodigo());
+
+        EntradasFinanceiro entradaNew = new EntradasFinanceiro();
+        for (PagamentoEntradaEvento pagamentoEntrada : eventos.getPagamentoEntradaEventoList()) {
+            entradaNew.setDate(pagamentoEntrada.getDate());
+            entradaNew.setMetodoPagamento(pagamentoEntrada.getMetodoPagamento());
+            entradaNew.setValor(pagamentoEntrada.getValor());
+            entradaNew.setCodigo(pagamentoEntrada.getCodigo());
+
+            if (entradaOld.equals(entradaNew)) {
+                pagamento.setStatusEntrada(StatusEntradaEvento.RECUSADO);
                 int index = eventos.getPagamentoEntradaEventoList().indexOf(entradaOld);
                 eventos.getPagamentoEntradaEventoList().set(index, new PagamentoEntradaEventoReq().toPag(pagamentoEntrada));
 
@@ -330,9 +365,9 @@ public class EventosService implements EventosInterface {
 
         log.info("Listando participantes de um evento");
 
-        if(eventosResponse.getIntegrantes() != null) {
+        if (eventosResponse.getIntegrantes() != null) {
             return eventosResponse.getIntegrantes();
-        }else{
+        } else {
             return null;
         }
     }

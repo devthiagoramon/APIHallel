@@ -132,4 +132,15 @@ public class AdmEventosController {
 
         return ResponseEntity.badRequest().build();
     }
+
+    @PostMapping("/recusar/{idPagamento}/entrada/{idEvento}")
+    public ResponseEntity<?> recusarPagamentoEntrada(@PathVariable(value = "idPagamento") String idPagamento,
+                                                       @PathVariable(value = "idEvento") String idEvento) {
+
+        if (eventosService.recusarSolicitacaoPagamento(idPagamento,idEvento )) {
+            return ResponseEntity.accepted().build();
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
 }
