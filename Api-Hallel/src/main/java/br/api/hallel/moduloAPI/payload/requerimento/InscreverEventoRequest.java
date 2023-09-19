@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class InscreverEventoRequest {
     private String idEvento;
     private String emailMembroPagador;
+    private String cpf;
     private int numMetodoPagamento;
     private String mes;
     private String ano;
