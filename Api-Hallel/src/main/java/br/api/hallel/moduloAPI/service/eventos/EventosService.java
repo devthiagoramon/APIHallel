@@ -151,8 +151,13 @@ public class EventosService implements EventosInterface {
         request.setNome(membro.getNome());
         request.setIdade(membro.getIdade());
 
-        if (membro.getCpf() != null|| !membro.getCpf().isEmpty()) {
-            request.setCpf(membro.getCpf());
+        log.info("Linha 154");
+        if (membro.getCpf() != null) {
+            if (!membro.getCpf().isEmpty()) {
+                log.info(membro.getCpf());
+                request.setCpf(membro.getCpf());
+                log.info("Linha 157");
+            }
         }
 
         Date date = new Date();
@@ -185,6 +190,16 @@ public class EventosService implements EventosInterface {
 
         }
 
+        if (eventos.getIntegrantes() == null) {
+            List<Membro> listMembros = new ArrayList<>();
+            listMembros.add(membro);
+            eventos.setIntegrantes(listMembros);
+
+            log.info(eventos.getIntegrantes().toString());
+        } else {
+            log.info(eventos.getIntegrantes().toString());
+            eventos.getIntegrantes().add(membro);
+        }
 
         log.info("148 - FUNCIONANDO");
 
