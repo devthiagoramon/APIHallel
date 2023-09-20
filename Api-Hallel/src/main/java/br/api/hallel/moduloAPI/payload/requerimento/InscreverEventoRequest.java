@@ -13,9 +13,11 @@ public class InscreverEventoRequest {
     private String idEvento;
     private String emailMembroPagador;
     private String cpf;
+    private String nome;
+    private Integer idade;
     private int numMetodoPagamento;
-    private String mes;
-    private String ano;
+    private Integer mes;
+    private Integer ano;
     private PagamentoEntradaEventoReq pagamentoEntradaEvento;
 
     public InscreverEventoRequest toInscreverEventoRequest(){

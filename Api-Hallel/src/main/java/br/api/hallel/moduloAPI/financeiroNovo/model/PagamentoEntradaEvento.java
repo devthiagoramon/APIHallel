@@ -30,6 +30,9 @@ public class PagamentoEntradaEvento extends EntradasFinanceiro {
     private StatusEntradaEvento statusEntrada;
     private String idEventos;
     private String emailMembroPagador;
+    private String nome;
+    private Integer idade;
+    private String cpf;
     private CartaoAssociado cartaoAssociado;
 
 }

@@ -25,6 +25,9 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
     @Nullable
     @NotBlank
     private String emailMembroPagador;
+    private String nome;
+    private Integer idade;
+    private String cpf;
     private CartaoAssociado cartaoAssociado;
 
     public PagamentoEntradaEvento toPagamentoEntradaEvento() {
@@ -37,6 +40,9 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         pagamento.setIdEventos(getIdEvento());
         pagamento.setEmailMembroPagador(getEmailMembroPagador());
         pagamento.setCartaoAssociado(getCartaoAssociado());
+        pagamento.setNome(getNome());
+        pagamento.setCpf(getCpf());
+        pagamento.setIdade(getIdade());
         return pagamento;
     }
 
@@ -50,6 +56,10 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         pagamento.setStatusEntrada(pagamentoNew.getStatusEntrada());
         pagamento.setEmailMembroPagador(pagamentoNew.getEmailMembroPagador());
         pagamento.setIdEventos(pagamentoNew.getIdEventos());
+        pagamento.setNome(pagamento.getNome());
+        pagamento.setCpf(pagamento.getCpf());
+        pagamento.setIdade(pagamento.getIdade());
+
         return pagamento;
     }
 

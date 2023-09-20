@@ -22,8 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -77,9 +78,9 @@ public class EventosService implements EventosInterface {
         return listaResponse;
     }
 
-    public List<String> listAllEventosId(){
-         List<String> stringList = this.repository.findAll().stream().map(Eventos::getId).collect(Collectors.toList());
-         return stringList;
+    public List<String> listAllEventosId() {
+        List<String> stringList = this.repository.findAll().stream().map(Eventos::getId).collect(Collectors.toList());
+        return stringList;
     }
 
     //LISTA APENAS UM EVENTO PELO SEU ID
@@ -142,6 +143,27 @@ public class EventosService implements EventosInterface {
         return listaResponse;
     }
 
+    public void preencherFormularioInscricaoComBanco(Membro membro, String idEvento) {
+
+        InscreverEventoRequest request = new InscreverEventoRequest();
+        request.setIdEvento(idEvento);
+        request.setEmailMembroPagador(membro.getEmail());
+        request.setNome(membro.getNome());
+        request.setIdade(membro.getIdade());
+
+        if (membro.getCpf() != null|| !membro.getCpf().isEmpty()) {
+            request.setCpf(membro.getCpf());
+        }
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+
+        request.setAno(localDate.getYear());
+        request.setMes(localDate.getMonthValue());
+
+        inscreverEvento(request);
+    }
+
     //Solicitar a entrada do evento (precisa pagar a entrada)
     @Override
     public Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request) {
@@ -162,6 +184,7 @@ public class EventosService implements EventosInterface {
             eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
 
         }
+
 
         log.info("148 - FUNCIONANDO");
 
@@ -323,7 +346,7 @@ public class EventosService implements EventosInterface {
 
     //ADICIONA UM MEMBRO AO EVENTO
     @Override
-    public Boolean inscreverEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest) {
+    public Boolean inscreverEvento(InscreverEventoRequest inscreverEventoRequest) {
         Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
 
         if (eventosOptional.isPresent()) {
@@ -332,12 +355,6 @@ public class EventosService implements EventosInterface {
             PagamentoEntradaEventoReq request = new PagamentoEntradaEventoReq();
             request.setIdEvento(inscreverEventoRequest.getIdEvento());
             request.setEmailMembroPagador(inscreverEventoRequest.getEmailMembroPagador());
-            CartaoAssociado cart = new CartaoAssociado();
-            cart.setCvc(123);
-            cart.setNomeTitular("Miguel Arcanjo Brasil de Lima");
-            cart.setEndereco("Rua jose da Costa tapajos");
-            cart.setDataValidadeCartao(new Date());
-            request.setCartaoAssociado(cart);
             inscreverEventoRequest.setPagamentoEntradaEvento(request);
 
             log.info(request.getIdEvento());

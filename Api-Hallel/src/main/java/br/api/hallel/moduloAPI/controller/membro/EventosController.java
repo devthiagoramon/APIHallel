@@ -1,10 +1,12 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
+import br.api.hallel.moduloAPI.service.main.MembroService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ public class EventosController {
 
     @Autowired
     private EventosService service;
+    @Autowired
+    private MembroService membroService;
 
     @GetMapping("")
     public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos() {
@@ -49,18 +53,26 @@ public class EventosController {
         return ResponseEntity.status(204).build();
     }
 
-    @PostMapping("/inscrever")
-    public ResponseEntity<Boolean> adicionarMembro() {
-        InscreverEventoRequest inscreverEventoRequest = new InscreverEventoRequest();
-        inscreverEventoRequest.setIdEvento("64b030780dfb1a1620eecb57");
-        inscreverEventoRequest.setEmailMembroPagador("miguel@gmail.com");
-        inscreverEventoRequest.setNumMetodoPagamento(1);
+    public Boolean adicionarMembro(InscreverEventoRequest inscreverEventoRequest) {
+
         log.info(inscreverEventoRequest.toString());
         if (this.service.inscreverEvento(inscreverEventoRequest)) {
-            return ResponseEntity.accepted().body(true);
+            return true;
         }
-        return ResponseEntity.accepted().body(false);
+        return false;
     }
 
+    @PostMapping("/verificarEmail/{email}/{idEvento}")
+    public ResponseEntity<Boolean> verificarEmailMembro(@PathVariable(value = "email") String email,
+                                                        @PathVariable(value = "idEvento") String idEvento) {
 
+        Membro membroBD = this.membroService.findByEmail(email);
+
+        if (membroBD != null) {
+            this.service.preencherFormularioInscricaoComBanco(membroBD, idEvento);
+            return ResponseEntity.accepted().body(true);
+        }
+
+        return ResponseEntity.accepted().body(false);
+    }
 }
