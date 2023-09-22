@@ -62,17 +62,27 @@ public class EventosController {
         return false;
     }
 
-    @PostMapping("/verificarEmail/{email}/{idEvento}")
-    public ResponseEntity<Boolean> verificarEmailMembro(@PathVariable(value = "email") String email,
-                                                        @PathVariable(value = "idEvento") String idEvento) {
-
-        Membro membroBD = this.membroService.findByEmail(email);
-
-        if (membroBD != null) {
-            this.service.preencherFormularioInscricaoComBanco(membroBD, idEvento);
+    @GetMapping("/verificarEmail/{email}")
+    public ResponseEntity<Boolean> verificarEmailMembro(@PathVariable(value = "email") String email){
+        Membro membroDb = this.membroService.findByEmail(email);
+        if (membroDb!=null) {
             return ResponseEntity.accepted().body(true);
         }
-
         return ResponseEntity.accepted().body(false);
     }
+
+
+//    @PostMapping("/verificarEmail/{email}/{idEvento}")
+//    public ResponseEntity<Boolean> verificarEmailMembro(@PathVariable(value = "email") String email,
+//                                                        @PathVariable(value = "idEvento") String idEvento) {
+//
+//        Membro membroBD = this.membroService.findByEmail(email);
+//
+//        if (membroBD != null) {
+//            this.service.preencherFormularioInscricaoComBanco(membroBD, idEvento);
+//            return ResponseEntity.accepted().body(true);
+//        }
+//
+//        return ResponseEntity.accepted().body(false);
+//    }
 }
