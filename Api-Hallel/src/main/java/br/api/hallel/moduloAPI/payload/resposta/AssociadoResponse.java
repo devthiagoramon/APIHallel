@@ -20,4 +20,14 @@ public class AssociadoResponse {
     private List<Recompensa> recompensas;
     private Set<Role> roles;
 
+    private String cpf;
+    private Integer idade;
+
+    public AssociadoResponse(String id, String nome, String email, List<Recompensa> recompensas, Set<Role> roles) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.recompensas = recompensas;
+        this.roles = roles;
+    }
 }

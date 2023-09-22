@@ -1,11 +1,12 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
-import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
-import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
+import br.api.hallel.moduloAPI.payload.resposta.*;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
+import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import br.api.hallel.moduloAPI.service.main.MembroService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class EventosController {
     private EventosService service;
     @Autowired
     private MembroService membroService;
+    @Autowired
+    private AssociadoService associadoService;
 
     @GetMapping("")
     public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos() {
@@ -62,13 +65,23 @@ public class EventosController {
         return false;
     }
 
-    @GetMapping("/verificarEmail/{email}")
-    public ResponseEntity<Boolean> verificarEmailMembro(@PathVariable(value = "email") String email){
-        Membro membroDb = this.membroService.findByEmail(email);
-        if (membroDb!=null) {
-            return ResponseEntity.accepted().body(true);
+    @GetMapping("/verificarUsuario/{idUser}")
+    public ResponseEntity<EventoUsuarioVerifyResponse> verificarIdMembro(@PathVariable(value = "idUser") String id) {
+
+        Associado associadoDb = associadoService.listAssociadoById(id);
+        Membro membroDb = this.membroService.listMembroId(id);
+
+        if (associadoDb != null) {
+            return ResponseEntity
+                    .ok()
+                    .body(new EventoUsuarioVerifyResponse().toEventoUsuarioVerifyResponse(associadoDb));
         }
-        return ResponseEntity.accepted().body(false);
+        if (membroDb != null) {
+            return ResponseEntity
+                    .ok()
+                    .body(new EventoUsuarioVerifyResponse().toEventoUsuarioVerifyResponse(membroDb));
+        }
+        return ResponseEntity.accepted().body(null);
     }
 
 

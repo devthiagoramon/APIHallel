@@ -26,4 +26,5 @@ public interface MembroInterface {
     PerfilResponse visualizarPerfil(String id) throws IllegalAccessException;
 
     List<MembroResponse> listByPage(int pagina);
+
 }

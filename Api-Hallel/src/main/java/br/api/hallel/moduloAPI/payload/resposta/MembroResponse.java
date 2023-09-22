@@ -21,7 +21,16 @@ public class MembroResponse {
     private String email;
     private StatusMembro statusMembro;
     private Set<Role> roles;
+    private String cpf;
+    private Integer idade;
 
+    public MembroResponse(String id, String nome, String email, StatusMembro statusMembro, Set<Role> roles) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.statusMembro = statusMembro;
+        this.roles = roles;
+    }
 
     public MembroResponse toList(Membro membro) {
         MembroResponse response = new MembroResponse();
