@@ -1,13 +1,8 @@
 package br.api.hallel.moduloAPI.financeiroNovo.model;
 
-import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
-import br.api.hallel.moduloAPI.model.CartaoAssociado;
-import br.api.hallel.moduloAPI.model.Eventos;
-import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.payload.requerimento.EventoInscritoReq;
+import br.api.hallel.moduloAPI.model.CartaoCredito;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -33,6 +28,6 @@ public class PagamentoEntradaEvento extends EntradasFinanceiro {
     private String nome;
     private Integer idade;
     private String cpf;
-    private CartaoAssociado cartaoAssociado;
+    private CartaoCredito cartaoCredito;
 
 }

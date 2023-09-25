@@ -362,7 +362,7 @@ public class AssociadoService implements AssociadoInterface {
         associadoNovo.setDataExpiroAssociacao(getDataExpiroAssociacao(pagamentoAssociadoOBJ));
         associadoNovo.setMensalidadePaga(true);
         associadoNovo.setMesesPagos(mesesPagos);
-        associadoNovo.setCartaoAssociado(virarAssociadoRequest.toCartaoAssociado());
+        associadoNovo.setCartaoCredito(virarAssociadoRequest.toCartaoAssociado());
         associadoNovo.setSenha(membro.getSenha());
 
         /*
@@ -451,13 +451,13 @@ public class AssociadoService implements AssociadoInterface {
     }
 
     @Override
-    public CartaoAssociado cartaoAssociado(String idAssociado) {
+    public CartaoCredito cartaoAssociado(String idAssociado) {
         Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
         if (optional.isEmpty()) {
             return null;
         }
         Associado associado = optional.get();
-        return associado.getCartaoAssociado();
+        return associado.getCartaoCredito();
     }
 
     private Date getDataExpiroAssociacao(PagamentosAssociado pagamentosAssociado) {

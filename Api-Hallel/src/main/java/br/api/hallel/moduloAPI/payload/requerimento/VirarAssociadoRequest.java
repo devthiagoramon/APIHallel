@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
 import br.api.hallel.moduloAPI.model.Associado;
-import br.api.hallel.moduloAPI.model.CartaoAssociado;
+import br.api.hallel.moduloAPI.model.CartaoCredito;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -27,14 +27,14 @@ public class VirarAssociadoRequest {
     public VirarAssociadoRequest() {
     }
 
-    public CartaoAssociado toCartaoAssociado() {
-        CartaoAssociado cartaoAssociado = new CartaoAssociado();
-        cartaoAssociado.setNumeroCartao(getNumCartao());
-        cartaoAssociado.setCvc(getCvcCartao());
-        cartaoAssociado.setDataValidadeCartao(getDataValidadeCartao());
-        cartaoAssociado.setEndereco(getEnderecoCartao());
-        cartaoAssociado.setNomeTitular(getNomeTitularCartao());
-        return cartaoAssociado;
+    public CartaoCredito toCartaoAssociado() {
+        CartaoCredito cartaoCredito = new CartaoCredito();
+        cartaoCredito.setNumeroCartao(getNumCartao());
+        cartaoCredito.setCvc(getCvcCartao());
+        cartaoCredito.setDataValidadeCartao(getDataValidadeCartao());
+        cartaoCredito.setEndereco(getEnderecoCartao());
+        cartaoCredito.setNomeTitular(getNomeTitularCartao());
+        return cartaoCredito;
     }
 
     public Associado toAssociado(){

@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartaoAssociado {
+public class CartaoCredito {
     private String numeroCartao;
     private Date dataValidadeCartao;
     private Integer cvc;

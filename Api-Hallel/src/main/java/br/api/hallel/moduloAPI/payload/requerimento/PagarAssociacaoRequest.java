@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
-import br.api.hallel.moduloAPI.model.CartaoAssociado;
+import br.api.hallel.moduloAPI.model.CartaoCredito;
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class PagarAssociacaoRequest {
     private String email;
     private int numMetodoPagamento;
     @Nullable
-    private CartaoAssociado cartaoAssociado;
+    private CartaoCredito cartaoCredito;
     private String mes;
     private String ano;
 
@@ -23,7 +23,7 @@ public class PagarAssociacaoRequest {
         PagarAssociacaoRequest pagarRequest = new PagarAssociacaoRequest();
         pagarRequest.setIdAssociado(this.getIdAssociado());
         pagarRequest.setNumMetodoPagamento(this.getNumMetodoPagamento());
-        pagarRequest.setCartaoAssociado(this.getCartaoAssociado());
+        pagarRequest.setCartaoCredito(this.getCartaoCredito());
         pagarRequest.setAno(this.getAno());
         pagarRequest.setMes(this.getMes());
         return pagarRequest;
@@ -33,7 +33,7 @@ public class PagarAssociacaoRequest {
         PagarAssociacaoRequest pagarRequest = new PagarAssociacaoRequest();
         pagarRequest.setEmail(this.getEmail());
         pagarRequest.setNumMetodoPagamento(this.getNumMetodoPagamento());
-        pagarRequest.setCartaoAssociado(this.getCartaoAssociado());
+        pagarRequest.setCartaoCredito(this.getCartaoCredito());
         return pagarRequest;
     }
 

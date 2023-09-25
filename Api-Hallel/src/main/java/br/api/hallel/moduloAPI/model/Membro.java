@@ -30,7 +30,7 @@ public class Membro extends Usuario implements UserDetails {
     private Boolean doador;
     private Integer quantidadeDoacoes;
     private List<Eventos> eventosParticipando;
-    private CartaoAssociado cartaoMembro;
+    private CartaoCredito cartaoMembro;
     private Map<String, Object> atributtes;
 
     @DBRef

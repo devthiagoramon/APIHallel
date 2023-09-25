@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.payload.resposta;
 
 import br.api.hallel.moduloAPI.model.Associado;
-import br.api.hallel.moduloAPI.model.CartaoAssociado;
+import br.api.hallel.moduloAPI.model.CartaoCredito;
 import br.api.hallel.moduloAPI.model.Membro;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,7 @@ public class EventoUsuarioVerifyResponse {
     private String cpf;
     private Integer idade;
 
-    private CartaoAssociado cartaoCredito;
+    private CartaoCredito cartaoCredito;
     private boolean isMembro;
     private boolean isAssociado;
 
@@ -28,7 +28,7 @@ public class EventoUsuarioVerifyResponse {
             setCpf(associado.getCpf());
             setIdade(associado.getIdade());
             setEmail(associado.getEmail());
-            setCartaoCredito(associado.getCartaoAssociado());
+            setCartaoCredito(associado.getCartaoCredito());
             setAssociado(true);
         }else if (object instanceof Membro membro){
             setId(membro.getId());

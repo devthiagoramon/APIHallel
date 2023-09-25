@@ -29,7 +29,7 @@ Associado extends Membro {
     private String dataNascimentoAssociado;
     private Double desempenhoTotalCursos;
     private ArrayList<Curso> historicoCurso;
-    private CartaoAssociado cartaoAssociado;
+    private CartaoCredito cartaoCredito;
     private HashMap<AtividadesCurso, Boolean> associadoAtividadesCurso;
     private ArrayList<Curso> cursosFavoritos;
     private ArrayList<Curso> cursosInscritos;

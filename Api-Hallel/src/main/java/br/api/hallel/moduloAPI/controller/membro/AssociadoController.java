@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
-import br.api.hallel.moduloAPI.model.CartaoAssociado;
+import br.api.hallel.moduloAPI.model.CartaoCredito;
 import br.api.hallel.moduloAPI.payload.requerimento.PagarAssociacaoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPerfilResponse;
 import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
@@ -65,7 +65,7 @@ public class AssociadoController {
     }
 
     @GetMapping("/cartaoAssociado/{idAssociado}")
-    public ResponseEntity<CartaoAssociado> listarCartaoAssociado(@PathVariable String idAssociado){
+    public ResponseEntity<CartaoCredito> listarCartaoAssociado(@PathVariable String idAssociado){
         return ResponseEntity.status(200).body(this.service.cartaoAssociado(idAssociado));
     }
 

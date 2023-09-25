@@ -3,8 +3,8 @@ package br.api.hallel.moduloAPI.financeiroNovo.payload.request;
 import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
-import br.api.hallel.moduloAPI.model.CartaoAssociado;
-import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.model.CartaoCredito;
+import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import com.mongodb.lang.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -24,11 +24,11 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
     private String idEvento;
     @Nullable
     @NotBlank
-    private String emailMembroPagador;
+    private String email;
     private String nome;
     private Integer idade;
     private String cpf;
-    private CartaoAssociado cartaoAssociado;
+    private CartaoCredito cartaoCredito;
 
     public PagamentoEntradaEvento toPagamentoEntradaEvento() {
         PagamentoEntradaEvento pagamento = new PagamentoEntradaEvento();
@@ -38,13 +38,25 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         pagamento.setValor(getValor());
         pagamento.setStatusEntrada(getStatus());
         pagamento.setIdEventos(getIdEvento());
-        pagamento.setEmailMembroPagador(getEmailMembroPagador());
-        pagamento.setCartaoAssociado(getCartaoAssociado());
+        pagamento.setEmailMembroPagador(getEmail());
+        pagamento.setCartaoCredito(getCartaoCredito());
         pagamento.setNome(getNome());
         pagamento.setCpf(getCpf());
         pagamento.setIdade(getIdade());
         return pagamento;
     }
+
+    public PagamentoEntradaEventoReq toPagamentoEntradaEventoReq(InscreverEventoRequest inscreverEventoRequest){
+        PagamentoEntradaEventoReq req = new PagamentoEntradaEventoReq();
+        req.setIdEvento(inscreverEventoRequest.getIdEvento());
+        req.setEmail(inscreverEventoRequest.getEmail());
+        req.setNome(inscreverEventoRequest.getNome());
+        req.setIdade(inscreverEventoRequest.getIdade());
+        req.setCpf(inscreverEventoRequest.getCpf());
+        req.setCartaoCredito(inscreverEventoRequest.getCartaoCredito());
+        return req;
+    }
+
 
     public PagamentoEntradaEvento toPag(PagamentoEntradaEvento pagamentoNew) {
         PagamentoEntradaEvento pagamento = new PagamentoEntradaEvento();

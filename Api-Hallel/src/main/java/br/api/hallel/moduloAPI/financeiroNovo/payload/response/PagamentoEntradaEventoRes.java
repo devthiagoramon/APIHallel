@@ -4,8 +4,6 @@ import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
 import br.api.hallel.moduloAPI.model.Eventos;
-import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.payload.requerimento.EventoInscritoReq;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,7 +42,7 @@ public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
         request.setDate(pagamentoResponse.getData());
         request.setValor(pagamentoResponse.getValor());
         request.setMetodoPagamento(pagamentoResponse.getMetodoPagamento());
-        request.setEmailMembroPagador(pagamentoResponse.getEmailMembroPagador());
+        request.setEmail(pagamentoResponse.getEmailMembroPagador());
         request.setIdEvento(pagamentoResponse.getIdEventos());
         request.setStatus(pagamentoResponse.getStatus());
 
