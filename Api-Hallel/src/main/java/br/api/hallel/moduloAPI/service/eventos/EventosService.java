@@ -173,9 +173,7 @@ public class EventosService implements EventosInterface {
 
     //Solicitar a entrada do evento (precisa pagar a entrada)
     @Override
-    public Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request, Membro membro) {
-
-        Eventos eventos = this.repository.findById(request.getIdEvento()).get();
+    public Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request, Membro membro, Eventos eventos) {
 
         if (eventos.getPagamentoEntradaEventoList() == null) {
             List<PagamentoEntradaEvento> list = new ArrayList<>();
@@ -211,7 +209,6 @@ public class EventosService implements EventosInterface {
         this.repository.save(eventos);
         this.membroService.updateMembro(membro.getId(), membro);
         this.pagamentoEntradaService.cadastrar(request);
-
 
         return true;
     }
@@ -385,10 +382,10 @@ public class EventosService implements EventosInterface {
     @Override
     public Boolean inscreverEvento(InscreverEventoRequest inscreverEventoRequest) {
         Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
-
+        Eventos evento = null;
         if (eventosOptional.isPresent()) {
 
-            Eventos evento = eventosOptional.get();
+            evento = eventosOptional.get();
             Membro membroNovo = null;
             // Parte evento
 
@@ -411,12 +408,10 @@ public class EventosService implements EventosInterface {
                 evento.getIntegrantes().add(membroNovo);
             }
 
-            this.repository.save(evento);
-
             // Parte financeiro
             PagamentoEntradaEventoReq pagamentoEntradaEventoReq = new
                     PagamentoEntradaEventoReq().toPagamentoEntradaEventoReq(inscreverEventoRequest);
-            this.solicitarPagamentoEntrada(pagamentoEntradaEventoReq, membroNovo);
+            this.solicitarPagamentoEntrada(pagamentoEntradaEventoReq, membroNovo, evento);
             return true;
         }
 
