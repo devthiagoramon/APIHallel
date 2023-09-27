@@ -184,7 +184,6 @@ public class EventosService implements EventosInterface {
 
         } else {
             eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
-
         }
 
         if (eventos.getIntegrantes() == null) {
@@ -207,10 +206,12 @@ public class EventosService implements EventosInterface {
         if (request.getCartaoCredito() != null) {
             request.setStatus(StatusEntradaEvento.CONFIRMADO);
         }
+        System.out.println("Cheguei aqui: 210");
 
         this.repository.save(eventos);
         this.membroService.updateMembro(membro.getId(), membro);
         this.pagamentoEntradaService.cadastrar(request);
+
 
         return true;
     }
@@ -400,6 +401,7 @@ public class EventosService implements EventosInterface {
                 Optional<Associado> optional = this.associadoRepository
                         .findById(inscreverEventoRequest.getId());
                 Associado associado = optional.orElse(null);
+                membroNovo = associado;
                 evento.getIntegrantes().add(associado);
             } else if (inscreverEventoRequest.isMembro()) {
                 membroNovo = this.membroService.listMembroId(inscreverEventoRequest.getId());
