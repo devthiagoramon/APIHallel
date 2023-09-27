@@ -3,6 +3,7 @@ package br.api.hallel.moduloAPI.controller.membro;
 import br.api.hallel.moduloAPI.model.MembroMarketing;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
+import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
 import br.api.hallel.moduloAPI.service.main.MembroMarketingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class MembroMarketingController {
     }
 
     @GetMapping("/eventos")
-    public ResponseEntity<List<EventosResponse>> listAllEventos(){
+    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos(){
         return ResponseEntity.status(200).body(eventosService.listarAllEventos());
     }
 

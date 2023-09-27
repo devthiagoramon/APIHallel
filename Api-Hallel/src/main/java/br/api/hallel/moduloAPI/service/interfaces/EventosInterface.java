@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
 import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public interface EventosInterface {
 
-    List<EventosResponse> listarAllEventos();
+    List<EventosVisualizacaoResponse> listarAllEventos();
 
     EventosResponse listarEventoById(String id);
 
@@ -57,4 +58,7 @@ public interface EventosInterface {
     Boolean aceitarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento);
     Boolean recusarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento);
 
+    Boolean verificarIsInscrito(String idEvento, String idUser);
+
+    StatusEntradaEvento verificarSituacaoMembroEmEvento(String idEvento, String emailMembro);
 }

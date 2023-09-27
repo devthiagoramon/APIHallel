@@ -31,7 +31,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 public class SecurityConfig {
 
     private String endpointsPermitidosAll[] = {"/api/login",
-            "/api/isTokenExpired/{token}",
+            "/api/home/isTokenExpired",
             "/api/solicitarCadastro",
             "/api/administrador/create",
             "/api/listarCurso",
@@ -40,7 +40,9 @@ public class SecurityConfig {
             "/api/eventos",
             "/api/doacao/**",
             "/api/home/eventos/semDestaque",
-            "/api/home/eventos/participarEvento"};
+            "/api/home/eventos/participarEvento",
+            "/api/home/eventos/listar"
+    };
 
     private String endpointsPermitidasAdm[] =
             {"/api/administrador/**", "/api/administrador/cursos/**",

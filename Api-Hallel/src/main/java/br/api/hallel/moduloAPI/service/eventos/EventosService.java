@@ -34,7 +34,7 @@ public class EventosService implements EventosInterface {
     @Autowired
     private EventosRepository repository;
     @Autowired
-    private PagamentoEntradaEventoRepository pagamentoRepository;
+    private PagamentoEntradaEventoRepository pagamentoEntradaEventoRepository;
     @Autowired
     private MembroService membroService;
 
@@ -67,12 +67,12 @@ public class EventosService implements EventosInterface {
 
     //LISTA OS EVENTOS JÁ CRIADOS
     @Override
-    public List<EventosResponse> listarAllEventos() {
+    public List<EventosVisualizacaoResponse> listarAllEventos() {
 
-        List<EventosResponse> listaResponse = new ArrayList<>();
+        List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
 
         this.repository.findAll().forEach(eventos -> {
-            listaResponse.add(new EventosResponse().toEventosResponse(eventos));
+            listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
         });
 
         log.info("Eventos listados!");
@@ -183,9 +183,7 @@ public class EventosService implements EventosInterface {
             list.add(request.toPagamentoEntradaEvento());
             eventos.setPagamentoEntradaEventoList(list);
 
-            log.info(request.toPagamentoEntradaEvento().toString());
         } else {
-            log.info(request.toPagamentoEntradaEvento().toString());
             eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
 
         }
@@ -195,9 +193,7 @@ public class EventosService implements EventosInterface {
             listMembros.add(membro);
             eventos.setIntegrantes(listMembros);
 
-            log.info(eventos.getIntegrantes().toString());
         } else {
-            log.info(eventos.getIntegrantes().toString());
             eventos.getIntegrantes().add(membro);
         }
 
@@ -211,7 +207,6 @@ public class EventosService implements EventosInterface {
 
         if (request.getCartaoCredito() != null) {
             request.setStatus(StatusEntradaEvento.CONFIRMADO);
-
         }
 
         this.repository.save(eventos);
@@ -224,8 +219,8 @@ public class EventosService implements EventosInterface {
     //Administrador aceita o pagamento realizado pelo membro que deseja participar do evento
     @Override
     public Boolean aceitarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento) {
-        PagamentoEntradaEvento pagamento = this.pagamentoRepository.findById(idSolicitacaoPagamento).isPresent() ?
-                this.pagamentoRepository.findById(idSolicitacaoPagamento).get() : null;
+        PagamentoEntradaEvento pagamento = this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento).isPresent() ?
+                this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento).get() : null;
 
         Eventos eventos = this.repository.findById(idEvento).isPresent() ?
                 this.repository.findById(idEvento).get() : null;
@@ -252,15 +247,15 @@ public class EventosService implements EventosInterface {
             }
         }
 
-        this.pagamentoRepository.save(pagamento);
+        this.pagamentoEntradaEventoRepository.save(pagamento);
         this.repository.save(eventos);
         return true;
     }
 
     @Override
     public Boolean recusarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento) {
-        PagamentoEntradaEvento pagamento = this.pagamentoRepository.findById(idSolicitacaoPagamento).isPresent() ?
-                this.pagamentoRepository.findById(idSolicitacaoPagamento).get() : null;
+        PagamentoEntradaEvento pagamento = this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento).isPresent() ?
+                this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento).get() : null;
 
         Eventos eventos = this.repository.findById(idEvento).isPresent() ?
                 this.repository.findById(idEvento).get() : null;
@@ -287,9 +282,38 @@ public class EventosService implements EventosInterface {
             }
         }
 
-        this.pagamentoRepository.save(pagamento);
+        this.pagamentoEntradaEventoRepository.save(pagamento);
         this.repository.save(eventos);
         return true;
+    }
+
+    @Override
+    public Boolean verificarIsInscrito(String idEvento, String idUser) {
+        Optional<Eventos> optional = this.repository.findById(idEvento);
+        boolean isInscrito = false;
+        if (optional.isPresent()) {
+            Eventos evento = optional.get();
+            for (Membro integrante : evento.getIntegrantes()) {
+                if (integrante.getId().equals(idUser)) {
+                    isInscrito = true;
+                }
+            }
+        }
+        return isInscrito;
+    }
+
+    @Override
+    public StatusEntradaEvento verificarSituacaoMembroEmEvento(String idEvento, String emailMembro) {
+
+        Optional<PagamentoEntradaEvento> optional = pagamentoEntradaEventoRepository.findByIdEventos(idEvento);
+        StatusEntradaEvento statusEntradaEvento = null;
+        if (optional.isPresent()) {
+            PagamentoEntradaEvento pagamentoEntradaEvento = optional.get();
+            if (pagamentoEntradaEvento.getEmailMembroPagador().equals(emailMembro)) {
+                statusEntradaEvento = pagamentoEntradaEvento.getStatusEntrada();
+            }
+        }
+        return statusEntradaEvento;
     }
 
     //LISTA O EVENTO PELO SEU NOME
@@ -365,23 +389,24 @@ public class EventosService implements EventosInterface {
         if (eventosOptional.isPresent()) {
 
             Eventos evento = eventosOptional.get();
+            Membro membroNovo = null;
             // Parte evento
 
-            if(evento.getIntegrantes() == null){
+            if (evento.getIntegrantes() == null) {
                 List<Membro> membros = new ArrayList<>();
                 evento.setIntegrantes(membros);
             }
-            if(inscreverEventoRequest.isAssociado()){
+            if (inscreverEventoRequest.isAssociado()) {
                 Optional<Associado> optional = this.associadoRepository
                         .findById(inscreverEventoRequest.getId());
                 Associado associado = optional.orElse(null);
                 evento.getIntegrantes().add(associado);
-            }else if(inscreverEventoRequest.isMembro()){
-                Membro membro = this.membroService.listMembroId(inscreverEventoRequest.getId());
-                evento.getIntegrantes().add(membro);
-            }else {
-                Membro membroEvento = inscreverEventoRequest.toMembroEvento();
-                evento.getIntegrantes().add(membroEvento);
+            } else if (inscreverEventoRequest.isMembro()) {
+                membroNovo = this.membroService.listMembroId(inscreverEventoRequest.getId());
+                evento.getIntegrantes().add(membroNovo);
+            } else {
+                membroNovo = inscreverEventoRequest.toMembroEvento();
+                evento.getIntegrantes().add(membroNovo);
             }
             this.repository.save(evento);
 

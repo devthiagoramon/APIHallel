@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
@@ -83,6 +84,18 @@ public class EventosController {
         }
         return ResponseEntity.accepted().body(null);
     }
+
+    @GetMapping("/verificarInscrito")
+    public ResponseEntity<Boolean> verificarIsInscrito(@RequestParam(value = "idEvento") String idEvento,
+                                                       @RequestParam(value = "idUser") String idUser) {
+        return ResponseEntity.ok(this.service.verificarIsInscrito(idEvento, idUser));
+    }
+
+    @GetMapping("/verificarSituaçãoEmEvento")
+    public ResponseEntity<StatusEntradaEvento> verificarSituacaoMembroEmEvento(@RequestParam(value = "idEvento") String idEvento, @RequestParam(value = "email") String emailMembro){
+        return ResponseEntity.ok(this.service.verificarSituacaoMembroEmEvento(idEvento, emailMembro));
+    }
+
 
 //    @PostMapping("/participarEvento")
 //    public ResponseEntity<Boolean> participarEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest){

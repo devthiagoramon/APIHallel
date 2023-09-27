@@ -63,8 +63,8 @@ public class MainController {
 
     }
 
-    @GetMapping("/isTokenExpired/{token}")
-    public ResponseEntity<Boolean> isTokenValid(@PathVariable String token){
+    @GetMapping("/home/isTokenExpired")
+    public ResponseEntity<Boolean> isTokenValid(@RequestParam(value = "token") String token){
         token = token.replace("Bearer ", "");
         return ResponseEntity.ok().body(jwtService.isTokenExpired(token));
     }
@@ -103,6 +103,11 @@ public class MainController {
     @GetMapping("/home/eventos/destacados")
     public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventosDestacados(){
         return ResponseEntity.status(200).body(eventosService.listEventosDestacadosToVisualizar());
+    }
+
+    @GetMapping("/home/eventos/listar")
+    public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEvento(){
+        return ResponseEntity.ok(eventosService.listarAllEventos());
     }
 
     @PostMapping("/home/eventos/participarEvento")
