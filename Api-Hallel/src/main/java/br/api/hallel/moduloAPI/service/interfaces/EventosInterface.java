@@ -61,4 +61,6 @@ public interface EventosInterface {
     Boolean verificarIsInscrito(String idEvento, String idUser);
 
     StatusEntradaEvento verificarSituacaoMembroEmEvento(String idEvento, String emailMembro);
+
+    List<EventosResponse> listarEventosInscritos(String iduser);
 }

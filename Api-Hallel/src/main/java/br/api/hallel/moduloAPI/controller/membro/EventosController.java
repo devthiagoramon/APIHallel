@@ -66,6 +66,11 @@ public class EventosController {
         return false;
     }
 
+    @GetMapping("/eventosInscritos")
+    public ResponseEntity<List<EventosResponse>> listEventosInscritos(@RequestParam(value = "idUser") String iduser){
+        return ResponseEntity.ok(this.service.listarEventosInscritos(iduser));
+    }
+
     @GetMapping("/verificarUsuario/{idUser}")
     public ResponseEntity<EventoUsuarioVerifyResponse> verificarIdMembro(@PathVariable(value = "idUser") String id) {
 

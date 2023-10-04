@@ -313,6 +313,21 @@ public class EventosService implements EventosInterface {
         return statusEntradaEvento;
     }
 
+    @Override
+    public List<EventosResponse> listarEventosInscritos(String iduser) {
+        List<EventosResponse> eventosResponses = new ArrayList<>();
+        for (Eventos eventos : this.repository.findAll()) {
+            if(eventos.getIntegrantes()!=null) {
+                for (Membro integrante : eventos.getIntegrantes()) {
+                    if (integrante.getId().equals(iduser)) {
+                        eventosResponses.add(new EventosResponse().toEventosResponse(eventos));
+                    }
+                }
+            }
+        }
+        return eventosResponses;
+    }
+
     //LISTA O EVENTO PELO SEU NOME
     @Override
     public EventosResponse listarEventosByTitulo(String nome) {
