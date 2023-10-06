@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Membro;
@@ -72,7 +73,7 @@ public class EventosController {
     }
 
     @GetMapping("/verificarUsuario/{idUser}")
-    public ResponseEntity<EventoUsuarioVerifyResponse> verificarIdMembro(@PathVariable(value = "idUser") String id) {
+    public ResponseEntity<EventoUsuarioVerifyResponse> verificarIdMembro(@PathVariable(value = "idUser") String id) throws AssociadoNotFoundException {
 
         Associado associadoDb = associadoService.listAssociadoById(id);
         Membro membroDb = this.membroService.listMembroId(id);

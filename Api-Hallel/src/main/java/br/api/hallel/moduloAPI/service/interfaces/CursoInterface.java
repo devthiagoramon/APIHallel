@@ -26,11 +26,11 @@ public interface CursoInterface {
     String desempenhoDoCurso(String idAssociado, String idCurso);
     DescricaoCursoRes descCursoById(String id);
 
-    Associado concluirCurso(String idCurso, String idAssociado);
-    Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso);
+    Associado concluirCurso(String idCurso, String idAssociado) throws AssociadoNotFoundException;
+    Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso) throws AssociadoNotFoundException;
     Double desempenhoCurso( String idAssociado);
-    Associado favoriteCurso(String idAssociado, String idCurso);
-    Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado);
+    Associado favoriteCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException;
+    Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado) throws AssociadoNotFoundException;
     void removeAssociadoCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException;
 
     void generatePDF(HttpServletResponse response) throws IOException;

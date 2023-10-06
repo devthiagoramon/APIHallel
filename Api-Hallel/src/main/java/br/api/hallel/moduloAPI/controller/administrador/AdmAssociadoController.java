@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.controller.administrador;
 
+import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Transacao;
@@ -41,7 +42,7 @@ public class AdmAssociadoController {
 
     //LISTAR UM ASSOCIADO POR ID
     @GetMapping("/{id}")
-    public Associado listAssociadoById(@PathVariable String id) {
+    public Associado listAssociadoById(@PathVariable String id) throws AssociadoNotFoundException {
         return this.service.listAssociadoById(id);
     }
 
@@ -66,7 +67,11 @@ public class AdmAssociadoController {
     //LISTAR PAGAMENTOS DE UM ASSOCIADO
     @GetMapping("/getPagamentoAssociado/{id}")
     public AssociadoPagamentosRes getAssociadoPagamentoById(@PathVariable String id) {
-        return this.service.getAssociadoPagamentoById(id);
+        try {
+            return this.service.getAssociadoPagamentoById(id);
+        } catch (AssociadoNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //LISTAR ASSOCIADOS PAGOS (STATUS DO ASSOCIADO)

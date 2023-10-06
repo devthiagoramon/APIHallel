@@ -57,19 +57,23 @@ public class CursoController {
     @PostMapping("/concluir")
     public ResponseEntity<Associado> concluirCurso(@RequestParam(value = "idCurso") String idCurso,
                                                    @RequestParam(value = "idAssociado") String idAssociado) {
-        return ResponseEntity.status(204).body(this.service.concluirCurso(idCurso, idAssociado));
+        try {
+            return ResponseEntity.status(204).body(this.service.concluirCurso(idCurso, idAssociado));
+        } catch (AssociadoNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/atividade/concluir")
     public ResponseEntity<Associado> concluirAtvidade(@RequestParam(value = "idAssociado") String idAssociado,
-                                                      @RequestParam(value = "idCurso") String idCurso, @RequestBody AtividadesCurso atividadesCurso) {
+                                                      @RequestParam(value = "idCurso") String idCurso, @RequestBody AtividadesCurso atividadesCurso) throws AssociadoNotFoundException {
 
         return ResponseEntity.status(204).body(this.service.concluirAtividade(atividadesCurso.getTituloAtividade(), idAssociado, idCurso));
     }
 
     @PostMapping("/favorite")
     public ResponseEntity<Associado> favoriteCurso(@RequestParam(value = "idAssociado") String idAssociado,
-                                                   @RequestParam(value = "idCurso") String idCurso) {
+                                                   @RequestParam(value = "idCurso") String idCurso) throws AssociadoNotFoundException {
         return ResponseEntity.ok().body(this.service.favoriteCurso(idAssociado, idCurso));
     }
 
@@ -80,7 +84,7 @@ public class CursoController {
 
     @PostMapping("/concluirModulo/{idAssociado}")
     public ResponseEntity<Associado> concluirModulo(@RequestBody ModulosCurso modulosCurso,
-                                                    @PathVariable String idAssociado) {
+                                                    @PathVariable String idAssociado) throws AssociadoNotFoundException {
         return ResponseEntity.ok().body(this.service.concluirModuloCurso(modulosCurso, idAssociado));
     }
 

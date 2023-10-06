@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service.financeiro;
 
+import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
@@ -16,6 +17,8 @@ import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.repository.RoleRepository;
 import br.api.hallel.moduloAPI.service.interfaces.AssociadoInterface;
+import ch.qos.logback.classic.spi.IThrowableProxy;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +32,8 @@ import java.time.ZoneId;
 import java.util.*;
 
 @Service
-@Slf4j
+@Log
+
 public class AssociadoService implements AssociadoInterface {
 
     @Autowired
@@ -43,9 +47,6 @@ public class AssociadoService implements AssociadoInterface {
     @Autowired
     private RoleRepository roleRepository;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-
-    Logger logger = LoggerFactory.getLogger(AssociadoService.class);
 
     @Override
     public List<Associado> listAllAssociado() {
@@ -84,11 +85,19 @@ public class AssociadoService implements AssociadoInterface {
 
     //LISTA TODOS OS ASSOCIADOS
     @Override
-    public Associado listAssociadoById(String id) {
+    public Associado listAssociadoById(String id) throws AssociadoNotFoundException {
 
-        logger.info("ASSOCIADO LISTADO!");
+        log.info("ASSOCIADO LISTADO!");
 
-        return this.associadoRepository.findById(id).isPresent() ? this.associadoRepository.findById(id).get() : null;
+        if (this.associadoRepository.findById(id).isPresent()) {
+            return this.associadoRepository.findById(id).get();
+
+        } else {
+            throw new AssociadoNotFoundException("Associado não encontrado");
+
+        }
+
+
     }
 
     //DELETA UM ASSOCIADO PELO ID DELE
@@ -99,7 +108,7 @@ public class AssociadoService implements AssociadoInterface {
         if (optional.isPresent()) {
             Associado associado = optional.get();
 
-            logger.info("ASSOCIADO REMOVIDO!");
+            log.info("ASSOCIADO REMOVIDO!");
 
             this.associadoRepository.delete(associado);
         }
@@ -117,11 +126,11 @@ public class AssociadoService implements AssociadoInterface {
 
             associadoOptional = associado;
 
-            logger.info("ASSOCIADO ATUALIZADO!");
+            log.info("ASSOCIADO ATUALIZADO!");
 
             return this.associadoRepository.save(associado);
         } else {
-            logger.warn("ASSOCIADO NÃO ENCONTRADO!");
+            log.warning("ASSOCIADO NÃO ENCONTRADO!");
 
             return null;
         }
@@ -143,7 +152,7 @@ public class AssociadoService implements AssociadoInterface {
     }
 
     @Override
-    public AssociadoPagamentosRes getAssociadoPagamentoById(String id) {
+    public AssociadoPagamentosRes getAssociadoPagamentoById(String id) throws AssociadoNotFoundException {
         Associado associado = listAssociadoById(id);
 
         return new AssociadoPagamentosRes(associado.getNome(), associado.getEmail(), associado.getIsAssociado());

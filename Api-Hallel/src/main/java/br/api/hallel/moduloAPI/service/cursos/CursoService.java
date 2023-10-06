@@ -257,7 +257,7 @@ public class CursoService implements CursoInterface {
 
     //Associado concluir curso
     @Override
-    public Associado concluirCurso(String idCurso, String idAssociado) {
+    public Associado concluirCurso(String idCurso, String idAssociado) throws AssociadoNotFoundException {
         var curso = this.listCursoById(idCurso);
         var associado = this.associadoService.listAssociadoById(idAssociado);
 
@@ -278,7 +278,7 @@ public class CursoService implements CursoInterface {
 
     //Associado concluir atividade de um curso
     @Override
-    public Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso) {
+    public Associado concluirAtividade(String tituloAtividade, String idAssociado, String idCurso) throws AssociadoNotFoundException {
         var curso = this.listCursoById(idCurso);
         var associado = associadoService.listAssociadoById(idAssociado);
 
@@ -318,7 +318,7 @@ public class CursoService implements CursoInterface {
 
     //Associado favoritar um curso
     @Override
-    public Associado favoriteCurso(String idAssociado, String idCurso) {
+    public Associado favoriteCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException {
 
         var curso = this.listCursoById(idCurso);
         var associado = this.associadoService.listAssociadoById(idAssociado);
@@ -337,7 +337,7 @@ public class CursoService implements CursoInterface {
 
     //Usuário concluir um módulo do curso
     @Override
-    public Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado) {
+    public Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado) throws AssociadoNotFoundException {
         var associado = this.associadoService.listAssociadoById(idAssociado);
 
         if (associado.getModulosCursosCompletos() == null) {
