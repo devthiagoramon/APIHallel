@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.exceptions;
+package br.api.hallel.moduloAPI.exceptions.associado;
 
 public class AssociadoNotFoundException extends Exception{
 

@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.controller;
 
-import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
+import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarCadastroException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
 import br.api.hallel.moduloAPI.model.Curso;

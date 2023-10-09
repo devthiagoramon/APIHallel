@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.service.financeiro;
 
-import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
+import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.model.CodigoEntradaFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentosAssociado;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
@@ -17,11 +17,7 @@ import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.repository.RoleRepository;
 import br.api.hallel.moduloAPI.service.interfaces.AssociadoInterface;
-import ch.qos.logback.classic.spi.IThrowableProxy;
 import lombok.extern.java.Log;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +46,7 @@ public class AssociadoService implements AssociadoInterface {
 
     @Override
     public List<Associado> listAllAssociado() {
-        return this.associadoRepository.findAll();
+        return this.associadoRepository.findAll().isEmpty() ? this.associadoRepository.findAll() : null;
     }
 
     @Override
@@ -102,7 +98,7 @@ public class AssociadoService implements AssociadoInterface {
 
     //DELETA UM ASSOCIADO PELO ID DELE
     @Override
-    public void deleteAssociado(String id) {
+    public void deleteAssociado(String id) throws AssociadoNotFoundException {
         Optional<Associado> optional = this.associadoRepository.findById(id);
 
         if (optional.isPresent()) {
@@ -113,11 +109,13 @@ public class AssociadoService implements AssociadoInterface {
             this.associadoRepository.delete(associado);
         }
 
+        throw new AssociadoNotFoundException("Não foi possível remover o Associado Id("+id+")");
+
     }
 
     //ATUALIZA INFORMAÇÕES SOBRE O ASSOCIADO
     @Override
-    public Associado updateAssociadoById(String id, Associado associado) {
+    public Associado updateAssociadoById(String id, Associado associado) throws AssociadoNotFoundException {
 
         Optional<Associado> optional = this.associadoRepository.findById(id);
 
@@ -129,11 +127,9 @@ public class AssociadoService implements AssociadoInterface {
             log.info("ASSOCIADO ATUALIZADO!");
 
             return this.associadoRepository.save(associado);
-        } else {
-            log.warning("ASSOCIADO NÃO ENCONTRADO!");
-
-            return null;
         }
+        throw new AssociadoNotFoundException("Não foi possível remover o Associado Id("+id+")");
+
     }
 
     @Override

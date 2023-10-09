@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.service.cursos;
 
-import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
+import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.AddCursoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.AssociadoReq;
@@ -13,7 +13,6 @@ import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import br.api.hallel.moduloAPI.service.interfaces.CursoInterface;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

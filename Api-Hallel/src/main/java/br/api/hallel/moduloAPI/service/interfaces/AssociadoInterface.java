@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
-import br.api.hallel.moduloAPI.exceptions.AssociadoNotFoundException;
+import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.response.PagamentoAssociadoResponse;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.CartaoCredito;
@@ -20,9 +20,9 @@ public interface AssociadoInterface {
     List<Associado> listAllAssociado();
     List<AssociadoResponseList> listAllAssociadoByMesAno(String mes, String ano);
     Associado listAssociadoById(String id) throws AssociadoNotFoundException;
-    void deleteAssociado(String id);
+    void deleteAssociado(String id) throws AssociadoNotFoundException;
 
-    Associado updateAssociadoById(String id, Associado associado);
+    Associado updateAssociadoById(String id, Associado associado) throws AssociadoNotFoundException;
 
     List<AssociadoPagamentosRes> getAllPagamentosAssociados();
 

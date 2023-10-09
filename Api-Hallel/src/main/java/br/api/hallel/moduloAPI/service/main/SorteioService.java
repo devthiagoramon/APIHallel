@@ -1,6 +1,7 @@
 package br.api.hallel.moduloAPI.service.main;
 
 
+import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Recompensa;
 import br.api.hallel.moduloAPI.model.Sorteio;
@@ -116,7 +117,11 @@ public class SorteioService implements SorteioInterface {
         }
 
         this.repository.save(sorteio);
-        this.associadoService.updateAssociadoById(associado.getId(), associado);
+        try {
+            this.associadoService.updateAssociadoById(associado.getId(), associado);
+        } catch (AssociadoNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         return new AssociadoSorteioResponse().toResponse(associado);
     }
