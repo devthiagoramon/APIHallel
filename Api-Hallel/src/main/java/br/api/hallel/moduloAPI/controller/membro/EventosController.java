@@ -33,7 +33,7 @@ public class EventosController {
 
     @GetMapping("")
     public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos() {
-        return ResponseEntity.status(200).body(service.listEventosSemDestaqueToVisualizar());
+        return ResponseEntity.ok().body(service.listEventosSemDestaqueToVisualizar());
     }
 
     @GetMapping("/{id}")

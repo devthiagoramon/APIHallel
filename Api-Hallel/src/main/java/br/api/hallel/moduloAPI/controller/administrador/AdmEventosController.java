@@ -1,9 +1,8 @@
 package br.api.hallel.moduloAPI.controller.administrador;
 
+import br.api.hallel.moduloAPI.exceptions.ApiError;
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
 import br.api.hallel.moduloAPI.model.DespesaEvento;
-import br.api.hallel.moduloAPI.model.EventoArquivado;
-import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
@@ -13,6 +12,7 @@ import br.api.hallel.moduloAPI.service.eventos.EventoArquivadoService;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,11 +34,12 @@ public class AdmEventosController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Eventos> createEventos(@RequestBody EventosRequest request) {
+    public ResponseEntity<?> createEventos(@RequestBody EventosRequest request) {
 
         request.setDate(new Date());
         log.info("Create eventos acessado infos:\n{\n titulo:" + request.getTitulo());
-        return ResponseEntity.status(201).body(eventosService.createEvento(request));
+
+        return ResponseEntity.status(200).body(eventosService.createEvento(request));
     }
 
     @PostMapping("/{id}/edit")
@@ -69,46 +70,61 @@ public class AdmEventosController {
     }
 
     @GetMapping("/arquivados")
-    public ResponseEntity<List<EventoArquivado>> eventosArquivados() {
-        return ResponseEntity.ok().body(this.eventoArquivadoService.listarEventosArquivados());
+    public ResponseEntity<?> eventosArquivados() {
+        if (this.eventoArquivadoService.listarEventosArquivados() != null) {
+            return ResponseEntity.ok().body(this.eventoArquivadoService.listarEventosArquivados());
+
+        }
+        return new ResponseEntity<>(new ApiError(400, "Nenhum evento arquivo para listar", new Date()),
+                HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/asc")
-    public List<EventosVisualizacaoResponse> getEventsByOrderAsc() {
-        return this.eventosService.listEventoOrdemAlfabetica();
+    public ResponseEntity<?> getEventsByOrderAsc() {
+        if (!this.eventosService.listEventoOrdemAlfabetica().isEmpty()) {
+            return ResponseEntity.status(200).body(this.eventosService.listEventoOrdemAlfabetica());
+
+        }
+        return new ResponseEntity<>(new ApiError(400, "Nenhum evento para listar", new Date()),
+                HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/addDestaque/{id}")
-    public EventosVisualizacaoResponse addDestaqueToEvent(@PathVariable(value = "id") String id) {
-        return this.eventosService.addDestaqueToEvento(id);
+    public ResponseEntity<EventosVisualizacaoResponse> addDestaqueToEvent(@PathVariable(value = "id") String id) {
+        return ResponseEntity.status(200).body(this.eventosService.addDestaqueToEvento(id));
     }
 
     @PostMapping("/removeDestaque/{id}")
-    public EventosVisualizacaoResponse removeDestaqueToEvent(@PathVariable(value = "id") String id) {
-        return this.eventosService.removeDestaqueToEvento(id);
+    public ResponseEntity<EventosVisualizacaoResponse> removeDestaqueToEvent(@PathVariable(value = "id") String id) {
+        return ResponseEntity.status(200).body(this.eventosService.removeDestaqueToEvento(id));
     }
 
     @GetMapping("/destaques")
-    public List<EventosVisualizacaoResponse> listParticipantesEventos() {
-        return this.eventosService.listEventosDestacados();
+    public ResponseEntity<?> listParticipantesEventos() {
+        List<EventosVisualizacaoResponse> eventosVisualizacaoResponses = this.eventosService.listEventosDestacados();
+        if (!eventosVisualizacaoResponses.isEmpty()) {
+            return ResponseEntity.status(200).body(eventosVisualizacaoResponses);
+        }
+        return new ResponseEntity<>(new ApiError(400, "Nenhum evento em destaque", new Date()), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/{id}/get/participantes")
-    public List<Membro> listParticipantesEventos(@PathVariable(value = "id") String id) {
-        return this.eventosService.listParticipantesEventos(id);
+    public ResponseEntity<List<Membro>> listParticipantesEventos(@PathVariable(value = "id") String id) {
+        return ResponseEntity.status(200).body(this.eventosService.listParticipantesEventos(id));
     }
 
     @PostMapping("/{id}/despesa/add")
     public ResponseEntity<EventosResponse> adicionarDespesaNoEvento(@PathVariable(value = "id") String idEvento,
                                                                     @RequestBody DespesaEventoRequest despesaEventoRequest) {
-        return ResponseEntity.status(201).body(this.eventosService.adicionarDespesaInEvento(idEvento, despesaEventoRequest));
+
+        return ResponseEntity.status(200).body(this.eventosService.adicionarDespesaInEvento(idEvento, despesaEventoRequest));
     }
 
     @PutMapping("/{idEvento}/despesa/{idDespesa}/edit")
     public ResponseEntity<String> editarDespesaNoEvento(@PathVariable(value = "idEvento") String idEvento,
                                                         @PathVariable(value = "idDespesa") Integer idDespesa,
                                                         @RequestBody DespesaEventoRequest despesaEventoRequestNew) {
-        return ResponseEntity.status(202).body(this.eventosService.editarDespesaInEvento(idEvento, idDespesa, despesaEventoRequestNew));
+        return ResponseEntity.status(200).body(this.eventosService.editarDespesaInEvento(idEvento, idDespesa, despesaEventoRequestNew));
     }
 
     @DeleteMapping("/{idEvento}/despesa/{idDespesa}/delete")
@@ -119,15 +135,19 @@ public class AdmEventosController {
     }
 
     @GetMapping("/{idEvento}/despesa/listAll")
-    public ResponseEntity<List<DespesaEvento>> listarTodasDespesasNoEvento(@PathVariable(value = "idEvento") String idEvento) {
-        return ResponseEntity.status(200).body(this.eventosService.listarDespesasInEvento(idEvento));
+    public ResponseEntity<?> listarTodasDespesasNoEvento(@PathVariable(value = "idEvento") String idEvento) {
+        List<DespesaEvento> despesas = this.eventosService.listarDespesasInEvento(idEvento);
+        if (!despesas.isEmpty()) {
+            return ResponseEntity.status(200).body(despesas);
+        }
+        return new ResponseEntity<>(new ApiError(400,"Nenhuma despesa cadastrada",new Date()),HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/confirmar/{idPagamento}/entrada/{idEvento}")
     public ResponseEntity<?> confirmarPagamentoEntrada(@PathVariable(value = "idPagamento") String idPagamento,
                                                        @PathVariable(value = "idEvento") String idEvento) {
 
-        if (eventosService.aceitarSolicitacaoPagamento(idPagamento,idEvento )) {
+        if (eventosService.aceitarSolicitacaoPagamento(idPagamento, idEvento)) {
             return ResponseEntity.accepted().build();
         }
 
@@ -136,9 +156,9 @@ public class AdmEventosController {
 
     @PostMapping("/recusar/{idPagamento}/entrada/{idEvento}")
     public ResponseEntity<?> recusarPagamentoEntrada(@PathVariable(value = "idPagamento") String idPagamento,
-                                                       @PathVariable(value = "idEvento") String idEvento) {
+                                                     @PathVariable(value = "idEvento") String idEvento) {
 
-        if (eventosService.recusarSolicitacaoPagamento(idPagamento,idEvento )) {
+        if (eventosService.recusarSolicitacaoPagamento(idPagamento, idEvento)) {
             return ResponseEntity.accepted().build();
         }
 

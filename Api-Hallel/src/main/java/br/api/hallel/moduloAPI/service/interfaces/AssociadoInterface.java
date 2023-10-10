@@ -37,7 +37,7 @@ public interface AssociadoInterface {
     List<Transacao> listPagamentoDinheiro();
     Boolean pagarAssociacao(PagarAssociacaoRequest pagarAssociacaoRequest);
     Boolean pagarAlguemAssociado(PagarAssociacaoRequest pagarAssociacaoRequest);
-    Boolean criarAssociado(VirarAssociadoRequest virarAssociadoRequest);
+    Boolean criarAssociado(VirarAssociadoRequest virarAssociadoRequest) throws AssociadoNotFoundException;
     List<Date> listarDatasPagas(String idAssociado);
     PagamentoAssociadoResponse listarPagamentoByMesAno(String idAssociado, String mes, String ano);
     AssociadoPerfilResponse visualizarPerfilAssociado(String idAssociado);

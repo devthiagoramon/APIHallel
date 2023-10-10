@@ -1,5 +1,7 @@
 package br.api.hallel.moduloAPI.service.eventos;
 
+import br.api.hallel.moduloAPI.exceptions.events.EventoIllegalArumentException;
+import br.api.hallel.moduloAPI.exceptions.events.EventoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
@@ -24,7 +26,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,16 +53,22 @@ public class EventosService implements EventosInterface {
     //CRIA EVENTOS
     @Override
     public Eventos createEvento(EventosRequest evento) {
-        log.info("EVENT0 CRIADO!");
+
+        if (evento.getTitulo() == null || evento.getTitulo().isEmpty()  ) {
+            throw new EventoIllegalArumentException("Não foi possível criar o evento.");
+        }
 
         LocalEventoLocalizacaoRequest localEventoRequest = evento.getLocalEventoRequest();
 
         Optional<LocalEvento> optional = localEventoRepository.findById(localEventoRequest.getId());
+
         if (optional.isEmpty()) {
             return null;
         }
 
+        log.info("EVENT0 CRIADO!");
         return this.repository.insert(evento.toCreateRequest(optional.get()));
+
     }
 
     public Eventos createEvento(Eventos evento) {
@@ -98,7 +109,7 @@ public class EventosService implements EventosInterface {
             return response.toEventosResponse(eventos);
         }
 
-        return null;
+        throw new EventoNotFoundException("Evento id ("+id+")não encontrado!");
     }
 
     //LISTAR EVENTOS NA HOMEPAGE
@@ -317,7 +328,7 @@ public class EventosService implements EventosInterface {
     public List<EventosResponse> listarEventosInscritos(String iduser) {
         List<EventosResponse> eventosResponses = new ArrayList<>();
         for (Eventos eventos : this.repository.findAll()) {
-            if(eventos.getIntegrantes()!=null) {
+            if (eventos.getIntegrantes() != null) {
                 for (Membro integrante : eventos.getIntegrantes()) {
                     if (integrante.getId().equals(iduser)) {
                         eventosResponses.add(new EventosResponse().toEventosResponse(eventos));
@@ -352,7 +363,7 @@ public class EventosService implements EventosInterface {
 
         Optional<LocalEvento> optional = localEventoRepository.findById(localEventoRequest.getId());
         if (optional.isEmpty()) {
-            return null;
+            throw new EventoNotFoundException("Evento não encontrado! Impossível de atualizá-lo");
         }
 
         EventosResponse eventoOld = this.listarEventoById(id);
@@ -382,13 +393,10 @@ public class EventosService implements EventosInterface {
     public void deleteEventoById(String id) {
 
         if (listarEventoById(id) != null) {
-
             this.repository.deleteById(id);
             log.info("EVENTO DELETADO!");
-
         } else {
-            log.warn("EVENTO NÃO ENCONTRADO, ENTÃO NAO FOI REMOVIDO!");
-
+            throw new EventoNotFoundException("Evento não econtrado");
         }
     }
 
@@ -430,7 +438,8 @@ public class EventosService implements EventosInterface {
             return true;
         }
 
-        return false;
+        throw new EventoNotFoundException("Evento não encontrado.");
+
     }
 
     //Lista eventos por ordem alfabética

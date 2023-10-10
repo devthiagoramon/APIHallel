@@ -306,13 +306,14 @@ public class AssociadoService implements AssociadoInterface {
     }
 
     @Override
-    public Boolean criarAssociado(VirarAssociadoRequest virarAssociadoRequest) {
+    public Boolean criarAssociado(VirarAssociadoRequest virarAssociadoRequest) throws AssociadoNotFoundException {
         PagamentoAssociadoRequest pagamentoAssociadoRequest = new PagamentoAssociadoRequest();
 
         Optional<Membro> optionalMembro = membroRepository.findById(virarAssociadoRequest.getIdMembro());
-
+        boolean retorno = true;
         if (optionalMembro.isEmpty()) {
-            return false;
+            retorno = false;
+            throw new AssociadoNotFoundException("Membro não encontrado");
         }
 
         Membro membro = optionalMembro.get();
@@ -389,7 +390,7 @@ public class AssociadoService implements AssociadoInterface {
 
         Associado associadoSalvoBD = this.associadoRepository.insert(associadoNovo);
 
-        return true;
+        return retorno;
     }
 
     @Override

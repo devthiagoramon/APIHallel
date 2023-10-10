@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service.eventos;
 
+import br.api.hallel.moduloAPI.exceptions.events.EventoNotFoundException;
 import br.api.hallel.moduloAPI.model.EventoArquivado;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
@@ -39,7 +40,13 @@ public class EventoArquivadoService implements EventoArquivadoInterface {
     //Retira o evento do arquivado, e deixa ele de volta pra Tabela de 'Eventos'
     @Override
     public void retirarEventoArquivado(String idEventoArquivado) {
-        EventoArquivado eventoArquivado = this.repository.findById(idEventoArquivado).get() != null ? this.repository.findById(idEventoArquivado).get() : null;
+        EventoArquivado eventoArquivado = this.repository.findById(idEventoArquivado).isPresent() ?
+                this.repository.findById(idEventoArquivado).get() : null;
+
+        if (eventoArquivado == null){
+            throw new EventoNotFoundException("Evento não encontrado. Não foi possível desarquivar!");
+        }
+
         log.info("Evento " + eventoArquivado.getTitulo() + " desarquivado");
         eventosService.createEvento(eventoArquivado.desarquivarEvento());
         this.repository.deleteById(idEventoArquivado);
@@ -54,6 +61,6 @@ public class EventoArquivadoService implements EventoArquivadoInterface {
     //Listar todos os eventos arquivados
     @Override
     public List<EventoArquivado> listarEventosArquivados() {
-        return this.repository.findAll();
+        return !this.repository.findAll().isEmpty() ? this.repository.findAll(): null;
     }
 }

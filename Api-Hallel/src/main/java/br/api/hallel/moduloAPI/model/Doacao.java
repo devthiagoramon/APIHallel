@@ -20,7 +20,7 @@ public class Doacao {
     private String descricao;
     private TipoDoacao tipo;
     private String dataDoacao;
-    private double valorDoacao;
+    private Double valorDoacao;
     private Double totalDoacao;
 
 }

@@ -16,7 +16,6 @@ public class DoacaoObjeto {
     private String imagem;
     private Integer quantidade;
     private boolean isRecebido;
-
     private String dataRecebida;
 
     public DoacaoObjeto(String emailDoador, String descricao, String dataDoacao, String imagem, Integer quantidade, boolean isRecebido) {
