@@ -1,8 +1,8 @@
 package br.api.hallel.moduloAPI.exceptions.handler;
 
 import br.api.hallel.moduloAPI.exceptions.ApiError;
-import br.api.hallel.moduloAPI.exceptions.events.EventoIllegalArumentException;
-import br.api.hallel.moduloAPI.exceptions.events.EventoNotFoundException;
+import br.api.hallel.moduloAPI.exceptions.eventos.EventoIllegalArumentException;
+import br.api.hallel.moduloAPI.exceptions.eventos.EventoNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

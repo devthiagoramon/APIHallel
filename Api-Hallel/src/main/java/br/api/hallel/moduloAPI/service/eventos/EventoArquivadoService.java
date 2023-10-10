@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.service.eventos;
 
-import br.api.hallel.moduloAPI.exceptions.events.EventoNotFoundException;
+import br.api.hallel.moduloAPI.exceptions.eventos.EventoNotFoundException;
 import br.api.hallel.moduloAPI.model.EventoArquivado;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;

@@ -76,7 +76,7 @@ public class AdmEventosController {
 
         }
         return new ResponseEntity<>(new ApiError(400, "Nenhum evento arquivo para listar", new Date()),
-                HttpStatus.BAD_REQUEST);
+                HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/asc")
@@ -86,7 +86,7 @@ public class AdmEventosController {
 
         }
         return new ResponseEntity<>(new ApiError(400, "Nenhum evento para listar", new Date()),
-                HttpStatus.BAD_REQUEST);
+                HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/addDestaque/{id}")
@@ -105,7 +105,8 @@ public class AdmEventosController {
         if (!eventosVisualizacaoResponses.isEmpty()) {
             return ResponseEntity.status(200).body(eventosVisualizacaoResponses);
         }
-        return new ResponseEntity<>(new ApiError(400, "Nenhum evento em destaque", new Date()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ApiError(400, "Nenhum evento em destaque", new Date()),
+                HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}/get/participantes")
@@ -140,7 +141,7 @@ public class AdmEventosController {
         if (!despesas.isEmpty()) {
             return ResponseEntity.status(200).body(despesas);
         }
-        return new ResponseEntity<>(new ApiError(400,"Nenhuma despesa cadastrada",new Date()),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ApiError(400,"Nenhuma despesa cadastrada",new Date()),HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/confirmar/{idPagamento}/entrada/{idEvento}")

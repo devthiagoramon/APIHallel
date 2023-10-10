@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.service.eventos;
 
-import br.api.hallel.moduloAPI.exceptions.events.EventoIllegalArumentException;
-import br.api.hallel.moduloAPI.exceptions.events.EventoNotFoundException;
+import br.api.hallel.moduloAPI.exceptions.eventos.EventoIllegalArumentException;
+import br.api.hallel.moduloAPI.exceptions.eventos.EventoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.model.EntradasFinanceiro;
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;

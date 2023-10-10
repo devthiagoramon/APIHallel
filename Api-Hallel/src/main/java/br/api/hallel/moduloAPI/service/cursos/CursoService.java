@@ -1,6 +1,7 @@
 package br.api.hallel.moduloAPI.service.cursos;
 
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
+import br.api.hallel.moduloAPI.exceptions.cursos.CursoNotFoundException;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.AddCursoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.AssociadoReq;
@@ -43,18 +44,18 @@ public class CursoService implements CursoInterface {
 
     @Override
     public List<Curso> listAllCursos() {
-        return this.cursoRepository.findAll();
+        return this.cursoRepository.findAll().isEmpty() ?
+                this.cursoRepository.findAll() : null;
     }
 
     @Override
     public Curso listCursoById(String id) {
         return this.cursoRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Curso com id " + id + " não existe!"));
+                new CursoNotFoundException("Curso com id " + id + " não existe!"));
     }
 
     @Override
     public Curso updateCurso(String id, Curso cursoOld) {
-
         Curso cursoNew = cursoOld;
         cursoNew.setId(id);
         return this.cursoRepository.save(cursoNew);
@@ -69,10 +70,9 @@ public class CursoService implements CursoInterface {
         if (associado.getCursosInscritos() != null) {
 
             for (Curso cursosInscritos : associado.getCursosInscritos()) {
-                System.out.println("opa mermao");
                 ifExists = true;
+                break;
             }
-
 
             if (ifExists) {
                 log.warn("Curso já inscrito!");
@@ -95,9 +95,8 @@ public class CursoService implements CursoInterface {
 
         if (optional.isPresent()) {
             this.cursoRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Curso não criado!");
         }
+        throw new CursoNotFoundException("Curso de id(" + id + ") não encontrado!");
 
     }
 
@@ -108,19 +107,21 @@ public class CursoService implements CursoInterface {
         List<Curso> todosCursos = listAllCursos();
         List<CursosAssociadoRes> cursosDoUser = new ArrayList<>();
 
-        todosCursos.forEach(curso -> {
-            if (curso.getParticipantes() != null) {
-                curso.getParticipantes().forEach(participante -> {
-                    if (participante.getId().equals(idUsuario)) {
-                        CursosAssociadoRes cursosProv = new CursosAssociadoRes(
-                                curso.getId(),
-                                curso.getNome(),
-                                curso.getImage());
-                        cursosDoUser.add(cursosProv);
-                    }
-                });
-            }
-        });
+        if (todosCursos != null) {
+            todosCursos.forEach(curso -> {
+                if (curso.getParticipantes() != null) {
+                    curso.getParticipantes().forEach(participante -> {
+                        if (participante.getId().equals(idUsuario)) {
+                            CursosAssociadoRes cursosProv = new CursosAssociadoRes(
+                                    curso.getId(),
+                                    curso.getNome(),
+                                    curso.getImage());
+                            cursosDoUser.add(cursosProv);
+                        }
+                    });
+                }
+            });
+        }
 
         return cursosDoUser;
     }
@@ -130,7 +131,7 @@ public class CursoService implements CursoInterface {
     @Override
     public void addAssociadoCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException {
 
-        var curso = this.cursoRepository.findById(idCurso).get();
+        Curso curso = listCursoById(idCurso);
         boolean isExists = false;
 
         Associado associado = this.associadoService.listAssociadoById(idAssociado);
