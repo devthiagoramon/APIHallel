@@ -63,4 +63,5 @@ public interface EventosInterface {
     StatusEntradaEvento verificarSituacaoMembroEmEvento(String idEvento, String emailMembro);
 
     List<EventosResponse> listarEventosInscritos(String iduser);
+
 }

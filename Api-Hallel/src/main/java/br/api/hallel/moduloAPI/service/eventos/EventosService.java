@@ -100,7 +100,7 @@ public class EventosService implements EventosInterface {
     @Override
     public EventosResponse listarEventoById(String id) {
         EventosResponse response = new EventosResponse();
-        Optional<Eventos> optional = this.repository.findById(String.valueOf(id));
+        Optional<Eventos> optional = this.repository.findById(id);
 
         if (optional.isPresent()) {
             Eventos eventos = optional.get();

@@ -1,6 +1,7 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.PagamentoEntradaEvento;
+import br.api.hallel.moduloAPI.model.ContribuicaoEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.LocalEvento;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class EventosRequest {
     private List<String> palestrantes;
     private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
     private Boolean destaque;
-
+    private List<ContribuicaoEvento> contribuicaoEventosList;
 
     public Eventos toCreateRequest(LocalEvento localEventoAtualizado){
         return getEventos(localEventoAtualizado);
@@ -46,6 +47,7 @@ public class EventosRequest {
         request.setPalestrantes(eventos.getPalestrantes());
         request.setPagamentoEntradaEventoList(eventos.getPagamentoEntradaEventoList());
         request.setDestaque(eventos.getDestaque());
+        request.setContribuicaoEventosList(eventos.getContribuicaoEventoList());
         return request;
     }
     @NotNull

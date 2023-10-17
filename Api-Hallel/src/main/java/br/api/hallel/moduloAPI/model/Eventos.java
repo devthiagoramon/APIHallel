@@ -37,7 +37,7 @@ public class Eventos {
     private List<DespesaEvento> despesas;
     private List<String> palestrantes;
     private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
-
+    private List<ContribuicaoEvento> contribuicaoEventoList;
     public Eventos(String descricao, String titulo, Date date, LocalEvento localEvento, String horario, String imagem, List<String> palestrantes) {
         this.descricao = descricao;
         this.titulo = titulo;
