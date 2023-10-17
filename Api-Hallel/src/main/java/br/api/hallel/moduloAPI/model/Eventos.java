@@ -48,6 +48,29 @@ public class Eventos {
         this.palestrantes = palestrantes;
     }
 
+    public Eventos(
+                   String descricao,
+                   String titulo,
+                   Date date,
+                   LocalEvento localEvento,
+                   String horario,
+                   String imagem,
+                   Boolean destaque,
+                   List<String> palestrantes,
+                   List<PagamentoEntradaEvento> pagamentoEntradaEventoList,
+                   List<ContribuicaoEvento> contribuicaoEventoList) {
+        this.descricao = descricao;
+        this.titulo = titulo;
+        this.date = date;
+        this.localEvento = localEvento;
+        this.horario = horario;
+        this.imagem = imagem;
+        this.destaque = destaque;
+        this.palestrantes = palestrantes;
+        this.pagamentoEntradaEventoList = pagamentoEntradaEventoList;
+        this.contribuicaoEventoList = contribuicaoEventoList;
+    }
+
     public Eventos(List<Associado> membroParticipando,
                    String descricao,
                    Long quantidadeMembros,

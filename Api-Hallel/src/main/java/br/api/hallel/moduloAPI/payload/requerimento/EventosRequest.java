@@ -95,4 +95,17 @@ public class EventosRequest {
         evento.setDestaque(getDestaque());
         return evento;
     }
+
+    public Eventos toEvento() {
+        return new Eventos(this.getDescricao(),
+                this.getTitulo(),
+                this.getDate(),
+                this.getLocalEvento(),
+                this.getHorario(),
+                this.getImagem(),
+                this.getDestaque(),
+                this.getPalestrantes(),
+                this.getPagamentoEntradaEventoList(),
+                this.getContribuicaoEventosList());
+    }
 }

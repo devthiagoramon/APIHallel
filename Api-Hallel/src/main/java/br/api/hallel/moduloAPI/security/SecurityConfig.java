@@ -41,7 +41,8 @@ public class SecurityConfig {
             "/api/doacao/**",
             "/api/home/eventos/semDestaque",
             "/api/home/eventos/participarEvento",
-            "/api/home/eventos/listar"
+            "/api/home/eventos/listar",
+            "/api/eventos/{idEvento}/contribuir"
     };
 
     private String endpointsPermitidasAdm[] =

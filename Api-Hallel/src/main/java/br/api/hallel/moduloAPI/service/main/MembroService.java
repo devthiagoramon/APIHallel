@@ -1,13 +1,15 @@
 package br.api.hallel.moduloAPI.service.main;
 
 import br.api.hallel.moduloAPI.model.ContribuicaoEvento;
+import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
+import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
 import br.api.hallel.moduloAPI.repository.ContribuicaoEventoRepository;
+import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
 import br.api.hallel.moduloAPI.service.interfaces.MembroInterface;
@@ -21,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +33,9 @@ public class MembroService implements MembroInterface {
 
     @Autowired
     private MembroRepository repository;
-    private EventosService eventosService;
+    @Autowired
+    private EventosRepository eventosRepository;
+    @Autowired
     private ContribuicaoEventoRepository contRepository;
     //Método para criptografar senha
     public BCryptPasswordEncoder passwordEncoder() {
@@ -175,20 +180,21 @@ public class MembroService implements MembroInterface {
     }
 
     @Override
-    public Boolean enviarContribuicaoEvento(String idEvento, ContribuicaoEventoReq contEventoReq) {
-        EventosResponse response = this.eventosService.listarEventoById(idEvento);
-        EventosRequest eventoRequest = new EventosRequest().toEventoRequest(response.toEvento());
+    public Boolean enviarContribuicaoEvento(String idEvento, ContribuicaoEventoRequest contEventoReq) {
+        Eventos eventos = this.eventosRepository.findById(idEvento).get();
 
-        if (eventoRequest.getContribuicaoEventosList() == null){
+        if (eventos.getContribuicaoEventoList() == null){
             List<ContribuicaoEvento> list = new ArrayList<>();
             list.add(contEventoReq.toContribuicaoEvento());
-            eventoRequest.setContribuicaoEventosList(list);
+            eventos.setContribuicaoEventoList(list);
 
         }else {
-            eventoRequest.getContribuicaoEventosList().add(contEventoReq.toContribuicaoEvento());
+            eventos.getContribuicaoEventoList().add(contEventoReq.toContribuicaoEvento());
         }
 
-        this.eventosService.updateEventoById(idEvento,eventoRequest);
+        contEventoReq.setDate(new Date());
+        contEventoReq.setEventos(new EventosRequest().toEventoRequest(eventos));
+        this.eventosRepository.save(eventos);
         this.contRepository.save(contEventoReq.toContribuicaoEvento());
 
         return true;

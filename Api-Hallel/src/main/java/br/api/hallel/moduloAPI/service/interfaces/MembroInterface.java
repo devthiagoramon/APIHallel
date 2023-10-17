@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
 import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
+import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
 
@@ -28,5 +28,5 @@ public interface MembroInterface {
 
     List<MembroResponse> listByPage(int pagina);
 
-    Boolean enviarContribuicaoEvento(String idEvento, ContribuicaoEventoReq contEventoReq);
+    Boolean enviarContribuicaoEvento(String idEvento, ContribuicaoEventoRequest contEventoReq);
 }

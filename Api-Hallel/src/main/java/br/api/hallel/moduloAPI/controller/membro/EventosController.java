@@ -1,9 +1,11 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.exceptions.ApiError;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.*;
@@ -68,7 +70,7 @@ public class EventosController {
     }
 
     @GetMapping("/eventosInscritos")
-    public ResponseEntity<List<EventosResponse>> listEventosInscritos(@RequestParam(value = "idUser") String iduser){
+    public ResponseEntity<List<EventosResponse>> listEventosInscritos(@RequestParam(value = "idUser") String iduser) {
         return ResponseEntity.ok(this.service.listarEventosInscritos(iduser));
     }
 
@@ -97,8 +99,8 @@ public class EventosController {
         return ResponseEntity.ok(this.service.verificarIsInscrito(idEvento, idUser));
     }
 
-    @GetMapping("/verificarSituaçãoEmEvento")
-    public ResponseEntity<StatusEntradaEvento> verificarSituacaoMembroEmEvento(@RequestParam(value = "idEvento") String idEvento, @RequestParam(value = "email") String emailMembro){
+    @GetMapping("/verificarSituacaooEmEvento")
+    public ResponseEntity<StatusEntradaEvento> verificarSituacaoMembroEmEvento(@RequestParam(value = "idEvento") String idEvento, @RequestParam(value = "email") String emailMembro) {
         return ResponseEntity.ok(this.service.verificarSituacaoMembroEmEvento(idEvento, emailMembro));
     }
 
@@ -120,4 +122,15 @@ public class EventosController {
 //
 //        return ResponseEntity.accepted().body(false);
 //    }
+
+
+    @PostMapping("/{idEvento}/contribuicao")
+    public ResponseEntity<?> enviarCont(@RequestBody ContribuicaoEventoRequest req,
+                                        @PathVariable(value = "idEvento") String idEvento) {
+        if (this.membroService.enviarContribuicaoEvento(idEvento, req)) {
+            return ResponseEntity.status(200).body(req);
+        }
+        return ResponseEntity.status(400).build();
+    }
+
 }
