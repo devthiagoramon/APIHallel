@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3f5f9317-e28e-4c02-9653-3c837c4f8fbe" name="Changes" comment="Fazendo automatização do arquivamento de eventos" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/miguel" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2S9htoK4vOfDaRQoAacRxXZqflm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;miguel&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/SpringEmail&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;4320ef9457d5975e5e53c3ce5d8a7cbf&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="br.api.hallel.moduloAPI.payload.requerimento" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\APIHallelTeste\Api-Hallel\src\main\java\br\api\hallel\moduloAPI\financeiroNovo\service" />
+      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel43\Api-Hallel\src\main\java\br\api\hallel\moduloAPI\financeiroNovo\payload" />
+      <recent name="C:\Users\migue\OneDrive\Documentos\HALLEL\API\Hallel43\Api-Hallel\src\main\java\br\api\hallel\moduloAPI\financeiroNovo" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="br.api.hallel.moduloAPI.payload.requerimento" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="br.api.hallel.moduloAPI.service" />
+      <recent name="br.api.hallel.moduloAPI.payload.resposta" />
+      <recent name="br.api.hallel.moduloAPI.service.interfaces" />
+      <recent name="br.api.hallel.moduloAPI.financeiroNovo.service" />
+      <recent name="br.api.hallel.moduloAPI.financeiroNovo.controller" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ApiHallelApplication">
+    <configuration name="ApiHallelApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.api.hallel.ApiHallelApplication" />
+      <module name="Api-Hallel" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.api.hallel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TesteData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Api-Hallel" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.api.hallel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.api.hallel" />
+      <option name="MAIN_CLASS_NAME" value="br.api.hallel.TesteData" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApiHallelApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Api-Hallel" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.api.hallel.ApiHallelApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ApiHallelApplication" />
+        <item itemvalue="JUnit.TesteData" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3f5f9317-e28e-4c02-9653-3c837c4f8fbe" name="Changes" comment="" />
+      <created>1688564920163</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1688564920163</updated>
+      <workItem from="1690915239183" duration="529000" />
+      <workItem from="1691013841084" duration="4708000" />
+      <workItem from="1691344312194" duration="2274000" />
+      <workItem from="1691361159043" duration="975000" />
+      <workItem from="1691617115808" duration="9493000" />
+      <workItem from="1692673294098" duration="24000" />
+      <workItem from="1692673331416" duration="6000" />
+      <workItem from="1692741560296" duration="167000" />
+      <workItem from="1692741740809" duration="2678000" />
+      <workItem from="1692751781648" duration="2714000" />
+      <workItem from="1692987345126" duration="5039000" />
+      <workItem from="1693228705885" duration="1252000" />
+      <workItem from="1693313761808" duration="604000" />
+      <workItem from="1693345088433" duration="3462000" />
+      <workItem from="1693358872780" duration="483000" />
+      <workItem from="1693421697978" duration="30000" />
+      <workItem from="1693421745669" duration="3366000" />
+      <workItem from="1693443280853" duration="7538000" />
+      <workItem from="1693513458235" duration="8243000" />
+      <workItem from="1693563036766" duration="56000" />
+      <workItem from="1693852397961" duration="3453000" />
+      <workItem from="1693908593760" duration="81000" />
+      <workItem from="1695155183376" duration="5096000" />
+      <workItem from="1696386005589" duration="4077000" />
+      <workItem from="1696895018409" duration="5903000" />
+      <workItem from="1696984572065" duration="1987000" />
+      <workItem from="1697037993875" duration="2665000" />
+      <workItem from="1697110319505" duration="4323000" />
+      <workItem from="1697201966939" duration="596000" />
+      <workItem from="1697673238520" duration="2951000" />
+      <workItem from="1697758700253" duration="3999000" />
+      <workItem from="1697846532383" duration="3064000" />
+      <workItem from="1697892042791" duration="623000" />
+      <workItem from="1698103148167" duration="370000" />
+      <workItem from="1698103545987" duration="190000" />
+      <workItem from="1698279415199" duration="231000" />
+    </task>
+    <task id="LOCAL-00001" summary="Commit Miguel - alimentos">
+      <created>1688576809654</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1688576809654</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Commit 01/08">
+      <option name="closed" value="true" />
+      <created>1690915754088</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1690915754088</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Organizando o Controller e as endpoints - 08/08">
+      <option name="closed" value="true" />
+      <created>1691530824957</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1691530824957</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Otimizando alguns imports, e adicionando Scheduled para automatizar emails e o pagamento do associado">
+      <option name="closed" value="true" />
+      <created>1692670351488</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1692670351488</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Organizando o Controller do Financeiro + adiconando Controller de Códigos">
+      <option name="closed" value="true" />
+      <created>1692742979891</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1692742979891</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Comentando os códigos - pt1">
+      <option name="closed" value="true" />
+      <created>1692990872200</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1692990872200</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Presenteando o pagamento para alguém">
+      <option name="closed" value="true" />
+      <created>1693348558203</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1693348558203</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Commit ajustando erro">
+      <option name="closed" value="true" />
+      <created>1693425323078</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1693425323078</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Terminando Detalhes finais do sorteio">
+      <option name="closed" value="true" />
+      <created>1693450733073</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1693450733073</updated>
+    </task>
+    <task id="LOCAL-00010" summary="realizando inscrição de eventos ( ainda dando erro )">
+      <option name="closed" value="true" />
+      <created>1693563078582</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1693563078582</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Inscrição de Evento funcionando">
+      <option name="closed" value="true" />
+      <created>1693908660461</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1693908660461</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Recusar e Aceitar Solicitação de pagamento">
+      <option name="closed" value="true" />
+      <created>1695158340961</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1695158340961</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fazendo automatização do arquivamento de eventos">
+      <option name="closed" value="true" />
+      <created>1695161679251</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1695161679251</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Commit Miguel - alimentos" />
+    <MESSAGE value="Commit 01/08" />
+    <MESSAGE value="Organizando o Controller e as endpoints - 08/08" />
+    <MESSAGE value="Otimizando alguns imports, e adicionando Scheduled para automatizar emails e o pagamento do associado" />
+    <MESSAGE value="Organizando o Controller do Financeiro + adiconando Controller de Códigos" />
+    <MESSAGE value="Comentando os códigos - pt1" />
+    <MESSAGE value="Presenteando o pagamento para alguém" />
+    <MESSAGE value="Commit ajustando erro" />
+    <MESSAGE value="Terminando Detalhes finais do sorteio" />
+    <MESSAGE value="realizando inscrição de eventos ( ainda dando erro )" />
+    <MESSAGE value="Inscrição de Evento funcionando" />
+    <MESSAGE value="Recusar e Aceitar Solicitação de pagamento" />
+    <MESSAGE value="Fazendo automatização do arquivamento de eventos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fazendo automatização do arquivamento de eventos" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Hallel49$ApiHallelApplication.ic" NAME="ApiHallelApplication Coverage Results" MODIFIED="1693347763629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>br.api.hallel.*</FILTER>
+    </SUITE>
+  </component>
+</project>
