@@ -4,6 +4,7 @@ import br.api.hallel.moduloAPI.exceptions.SolicitarCadastroException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Curso;
+import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.LoginRequerimento;
 import br.api.hallel.moduloAPI.payload.requerimento.SolicitarCadastroRequerimento;
@@ -107,13 +108,12 @@ public class MainController {
 
     @GetMapping("/home/eventos/listar")
     public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEvento(){
-        return ResponseEntity.ok(eventosService.listarAllEventos());
+        return ResponseEntity.status(200).body(this.eventosService.listarAllEventos());
     }
 
     @PostMapping("/home/eventos/participarEvento")
     public ResponseEntity<Boolean> participarEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest){
         return ResponseEntity.ok(this.eventosService.inscreverEvento(inscreverEventoRequest));
     }
-
 
 }

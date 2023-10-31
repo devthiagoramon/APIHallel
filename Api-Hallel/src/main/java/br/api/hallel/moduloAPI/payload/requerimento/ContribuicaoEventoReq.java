@@ -15,14 +15,14 @@ public class ContribuicaoEventoReq {
     private String emailPagador;
     private String tipoContribuicao;
     private Integer quantidade;
-    private Eventos eventos;
+    private EventosRequest eventos;
     public ContribuicaoEvento toContribuicaoEvento() {
         ContribuicaoEvento request = new ContribuicaoEvento();
         request.setNome(getNome());
         request.setEmailPagador(getEmailPagador());
         request.setTipoContribuicao(getTipoContribuicao());
         request.setQuantidade(getQuantidade());
-        request.setEventos(getEventos());
+        request.setEvento(getEventos());
         return request;
     }
 
