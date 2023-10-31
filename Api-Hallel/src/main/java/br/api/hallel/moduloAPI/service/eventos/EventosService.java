@@ -54,7 +54,7 @@ public class EventosService implements EventosInterface {
     @Override
     public Eventos createEvento(EventosRequest evento) {
 
-        if (evento.getTitulo() == null || evento.getTitulo().isEmpty()  ) {
+        if (evento.getTitulo() == null || evento.getTitulo().isEmpty()) {
             throw new EventoIllegalArumentException("Não foi possível criar o evento.");
         }
 
@@ -82,9 +82,9 @@ public class EventosService implements EventosInterface {
 
         List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
 
-        this.repository.findAll().forEach(eventos -> {
+        for (Eventos eventos : this.repository.findAll()) {
             listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
-        });
+        }
 
         log.info("Eventos listados!");
 
@@ -109,7 +109,7 @@ public class EventosService implements EventosInterface {
             return response.toEventosResponse(eventos);
         }
 
-        throw new EventoNotFoundException("Evento id ("+id+")não encontrado!");
+        throw new EventoNotFoundException("Evento id (" + id + ")não encontrado!");
     }
 
     //LISTAR EVENTOS NA HOMEPAGE

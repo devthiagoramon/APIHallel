@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.model;
 
+import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,5 @@ public class ContribuicaoEvento {
     private String emailPagador;
     private String tipoContribuicao;
     private Integer quantidade;
-    private Eventos eventos;
+    private EventosRequest evento;
 }
