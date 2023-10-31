@@ -23,6 +23,7 @@ public class MembroResponse {
     private Set<Role> roles;
     private String cpf;
     private Integer idade;
+    private String imagem;
 
     public MembroResponse(String id, String nome, String email, StatusMembro statusMembro, Set<Role> roles) {
         this.id = id;

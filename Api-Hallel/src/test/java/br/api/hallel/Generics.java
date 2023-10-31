@@ -1,6 +1,5 @@
 package br.api.hallel;
-
-import br.api.hallel.model.ReceitaFinanceira;
+import br.api.hallel.moduloAPI.model.ReceitaFinanceira;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

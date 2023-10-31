@@ -1,8 +1,5 @@
 package br.api.hallel;
 
-import br.api.hallel.model.ReceitaFinanceira;
-import br.api.hallel.repository.ReceitaFinanceiraRepository;
-import br.api.hallel.service.ReceitaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

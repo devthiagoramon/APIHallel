@@ -78,7 +78,9 @@ public class MainService implements MainInterface {
                 AssociadoResponse associadoResponse = new AssociadoResponse();
                 associadoResponse.setId(associado.getId());
                 associadoResponse.setRoles(associado.getRoles());
-
+                associadoResponse.setEmail(associado.getEmail());
+                associadoResponse.setNome(associado.getNome());
+                associadoResponse.setImagem(associado.getImage());
                 log.info(associado.getNome() + " logando");
                 return AuthenticationResponse.builder()
                         .token(jwtToken)
@@ -102,7 +104,7 @@ public class MainService implements MainInterface {
                 membroResponse.setNome(membro.getNome());
                 membroResponse.setEmail(membro.getEmail());
                 membroResponse.setRoles(membro.getRoles());
-
+                membroResponse.setImagem(membro.getImage());
                 if (membro.getNome() != null && membro.getEmail() != null
                         && membro.getSenha() != null) {
                     log.info(membro.getNome() + " logando");
@@ -271,10 +273,10 @@ public class MainService implements MainInterface {
         log.info(data2);
 
         if (data1.compareTo(data2) >= 0) {
-            log.info(data1+" é antes, ou igual a dataAtual: "+data2);
+            log.info(data1 + " é antes, ou igual a dataAtual: " + data2);
             return true;
         }
-        log.info(data1+" é depois da dataAtual: "+data2);
+        log.info(data1 + " é depois da dataAtual: " + data2);
 
         return false;
     }
