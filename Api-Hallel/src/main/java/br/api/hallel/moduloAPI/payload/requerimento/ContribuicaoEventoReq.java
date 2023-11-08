@@ -1,10 +1,11 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
 import br.api.hallel.moduloAPI.model.ContribuicaoEvento;
-import br.api.hallel.moduloAPI.model.Eventos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +17,8 @@ public class ContribuicaoEventoReq {
     private String tipoContribuicao;
     private Integer quantidade;
     private EventosRequest eventos;
+    private Date data;
+
     public ContribuicaoEvento toContribuicaoEvento() {
         ContribuicaoEvento request = new ContribuicaoEvento();
         request.setNome(getNome());
@@ -23,6 +26,7 @@ public class ContribuicaoEventoReq {
         request.setTipoContribuicao(getTipoContribuicao());
         request.setQuantidade(getQuantidade());
         request.setEvento(getEventos());
+        request.setData(getData());
         return request;
     }
 
