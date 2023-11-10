@@ -3,6 +3,7 @@ package br.api.hallel.moduloAPI.controller.membro;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.AtividadesCurso;
+import br.api.hallel.moduloAPI.model.Curso;
 import br.api.hallel.moduloAPI.model.ModulosCurso;
 import br.api.hallel.moduloAPI.service.cursos.CursoService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,12 +42,15 @@ public class CursoController {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
         String currentDate = dateFormat.format(new Date());
 
+
+        Associado associado=null;
+        Curso curso =null;
         String header = "Content-Disposition";
         String headerValue = "attachment; filename=pdf_" + currentDate + ".pdf";
         response.setHeader(header, headerValue);
 
         try {
-            this.service.generatePDF(response);
+            this.service.generatePDF(response,associado,curso);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

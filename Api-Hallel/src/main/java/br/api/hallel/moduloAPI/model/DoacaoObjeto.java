@@ -2,11 +2,13 @@ package br.api.hallel.moduloAPI.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 @Data
 @NoArgsConstructor
+@ToString
 public class DoacaoObjeto {
 
     private String id;

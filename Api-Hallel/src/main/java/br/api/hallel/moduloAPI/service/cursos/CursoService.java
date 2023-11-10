@@ -12,11 +12,15 @@ import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.CursoRepository;
 import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import br.api.hallel.moduloAPI.service.interfaces.CursoInterface;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.PdfContentByte;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,6 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 @Log4j2
@@ -220,9 +227,55 @@ public class CursoService implements CursoInterface {
 
     //Por enquanto, inutilizável
     @Override
-    public void generatePDF(HttpServletResponse response) throws IOException {
+    public void generatePDF(HttpServletResponse response, Associado associado, Curso curso) throws IOException {
 
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=certificado.pdf");
+        Document document = new Document();
+
+        try {
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("certificado.pdf"));
+            document.open();
+
+            // Adicione uma imagem ao PDF
+            Image imagem = Image.getInstance("F:\\Eclipse\\PDF\\lolo.jpg");
+            // Defina a largura máxima da imagem para evitar cortes
+            imagem.scaleToFit(400, 400); // Ajuste os valores conforme necessário
+
+            // Adicione o nome do usuário e o nome do curso como parágrafos
+            Paragraph paragraph = new Paragraph(associado.getNome());
+
+            // Posicione a imagem e o texto usando coordenadas absolutas
+            PdfContentByte canvas = writer.getDirectContent();
+            imagem.setAbsolutePosition(100, 500); // Ajuste as coordenadas conforme necessário
+
+            paragraph.setSpacingBefore(133); // Ajuste as coordenadas conforme necessário
+
+            paragraph.setIndentationLeft(220);
+
+
+            Paragraph paragraph2 = new Paragraph(curso.getNome());
+
+
+            paragraph2.setSpacingBefore(6); // Ajuste as coordenadas conforme necessário
+
+            paragraph2.setIndentationLeft(295);
+
+            // Adicione a imagem e o texto ao documento
+            document.add(imagem);
+            document.add(paragraph);
+            document.add(paragraph2);
+
+            System.out.println("deu certo");
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            document.close();
+        }
     }
+
+
+
 
     //Descrição de um curso
     @Override
