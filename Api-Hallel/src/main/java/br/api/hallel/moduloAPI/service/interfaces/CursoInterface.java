@@ -24,6 +24,10 @@ public interface CursoInterface {
     List<Associado> listUserContainsCurso(String id);
     List<AtividadesCurso> listAllAtividadesByCurso(String id);
     String desempenhoDoCurso(String idAssociado, String idCurso);
+
+    //Por enquanto, inutilizável
+    void generatePDF(HttpServletResponse response, Associado associado, Curso curso) throws IOException;
+
     DescricaoCursoRes descCursoById(String id);
 
     Associado concluirCurso(String idCurso, String idAssociado) throws AssociadoNotFoundException;
@@ -33,5 +37,5 @@ public interface CursoInterface {
     Associado concluirModuloCurso(ModulosCurso modulosCurso, String idAssociado) throws AssociadoNotFoundException;
     void removeAssociadoCurso(String idAssociado, String idCurso) throws AssociadoNotFoundException;
 
-    void generatePDF(HttpServletResponse response) throws IOException;
+
 }

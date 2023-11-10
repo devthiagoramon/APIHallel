@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="Projeto sem o Moodle">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/ApiHallelApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/ApiHallelApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/ContribuicaoEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/ContribuicaoEvento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/ContribuicaoEventoReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/ContribuicaoEventoReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/ContribuicaoEventoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/ContribuicaoEventoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/CursoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/CursoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Doacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Doacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoObjeto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoObjeto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/DoacaoObjetoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/DoacaoObjetoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/DoacaoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/DoacaoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/cursos/CursoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/cursos/CursoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/CursoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/CursoInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/EmailService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,13 +33,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2QZ7BJEdqYL8ZBK7XygoKhXicwv" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -49,12 +47,18 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "semMoodle",
-    "last_opened_file_path": "C:/Users/migue/OneDrive/Documentos/HALLEL/API/Hallel49",
+    "last_opened_file_path": "F:/APIHallel",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "spring.configuration.checksum": "4320ef9457d5975e5e53c3ce5d8a7cbf",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -99,6 +103,15 @@
       <option name="presentableId" value="Default" />
       <updated>1685549113018</updated>
       <workItem from="1698708818836" duration="6112000" />
+      <workItem from="1698787045227" duration="9660000" />
+      <workItem from="1698880820964" duration="2753000" />
+      <workItem from="1698942315994" duration="1576000" />
+      <workItem from="1699055995524" duration="2880000" />
+      <workItem from="1699325371703" duration="322000" />
+      <workItem from="1699400601751" duration="3942000" />
+      <workItem from="1699487259055" duration="1610000" />
+      <workItem from="1699571429846" duration="1261000" />
+      <workItem from="1699575892734" duration="918000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -114,8 +127,30 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Projeto sem o Moodle" />
     <option name="LAST_COMMIT_MESSAGE" value="Projeto sem o Moodle" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/cursos/CursoService.java</url>
+          <line>218</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
