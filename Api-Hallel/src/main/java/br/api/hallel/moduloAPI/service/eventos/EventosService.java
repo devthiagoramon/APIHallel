@@ -377,7 +377,7 @@ public class EventosService implements EventosInterface {
         eventoOld.setLocalEvento(optional.get());
         eventoOld.setDestaque(request.getDestaque());
 
-        if (request.getPalestrantes() != null || request.getPalestrantes().isEmpty()) {
+        if (request.getPalestrantes() != null) {
             eventoOld.setPalestrantes(request.getPalestrantes());
         }
 
@@ -465,8 +465,12 @@ public class EventosService implements EventosInterface {
         log.info("Listando participantes de um evento");
 
         if (eventosResponse.getIntegrantes() != null) {
+            log.info("Listando todos os integrantes");
+
             return eventosResponse.getIntegrantes();
         } else {
+            log.info("Nenhum participante para listar");
+
             return null;
         }
     }
