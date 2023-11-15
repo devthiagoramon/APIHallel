@@ -26,10 +26,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -607,6 +604,62 @@ public class EventosService implements EventosInterface {
         Eventos evento = listarEventoById(idEvento).toEvento();
         return evento.getDespesas();
     }
+
+
+
+
+    public List<ContribuicaoEvento> listarContribuicoesEvento(String idEvento) {
+        Optional<Eventos> optional = this.repository.findById(idEvento);
+
+        if (optional.isPresent()) {
+            Eventos evento = optional.get();
+            if (evento.getContribuicaoEventoList() != null) {
+                log.info("Listando contribuições do evento com id: " + idEvento);
+                return evento.getContribuicaoEventoList();
+            } else {
+                log.info("Nenhuma contribuição para listar no evento com id: " + idEvento);
+            }
+        } else {
+            log.warn("Evento com id: " + idEvento + " não encontrado. Não é possível listar as contribuições.");
+        }
+
+        return Collections.emptyList();
+    }
+
+
+    public List<EventosVisualizacaoResponse> listarEventosOrdemAlfabetica() {
+        List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
+
+        // Obtém os eventos em ordem alfabética
+        List<Eventos> eventosOrdenados = this.repository.findAllByOrderByTituloAsc();
+
+        for (Eventos eventos : eventosOrdenados) {
+            listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+        }
+
+        log.info("Eventos listados em ordem alfabética!");
+
+        return listaResponse;
+    }
+
+
+    public List<EventosVisualizacaoResponse> listarEventosPorData() {
+        List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
+
+        // Obtém os eventos ordenados por data
+        List<Eventos> eventosOrdenados = this.repository.findAllByOrderByDateAsc();
+
+        for (Eventos eventos : eventosOrdenados) {
+            listaResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+        }
+
+        log.info("Eventos listados por data!");
+
+        return listaResponse;
+    }
+
+
+
 
 
 }

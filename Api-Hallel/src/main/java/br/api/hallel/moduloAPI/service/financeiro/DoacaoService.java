@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -175,4 +176,42 @@ public class DoacaoService implements DoacaoInterface {
 
         return doacoesSemana;
     }
+
+
+
+    public Map<String, Object> relatorioMensal(String mes, String ano) {
+        Map<String, Object> relatorio = new HashMap<>();
+
+        List<Doacao> doacoesDinheiro = this.repository.findAll()
+                .stream()
+                .filter(doacao -> doacao.getDataDoacao().substring(3).equals(mes + "/" + ano))
+                .collect(Collectors.toList());
+
+        List<DoacoesDinheiroListaAdmResponse> relatorioDinheiro = new DoacoesDinheiroListaAdmResponse()
+                .toListDoacoesDinheiroListaAdm(doacoesDinheiro);
+
+        BigDecimal totalValorDinheiro = doacoesDinheiro.stream()
+                .map(doacao -> BigDecimal.valueOf(doacao.getValorDoacao())) // Convertendo Double para BigDecimal
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        relatorio.put("doacoesDinheiro", relatorioDinheiro);
+        relatorio.put("totalValorDinheiro", totalValorDinheiro);
+
+        List<DoacaoObjeto> doacoesObjeto = this.repositoryObjeto.findAll()
+                .stream()
+                .filter(doacaoObjeto -> doacaoObjeto.getDataDoaca"o().substring(3).equals(mes + "/" + ano))
+                .collect(Collectors.toList());
+
+        List<DoacoesObjetoListaAdmResponse> relatorioObjeto = new DoacoesObjetoListaAdmResponse()
+                .toDoacoesObjLista(doacoesObjeto);
+
+        int quantidadeTotalObjetos = doacoesObjeto.size();
+
+        relatorio.put("doacoesObjeto", relatorioObjeto);
+        relatorio.put("quantidadeTotalObjetos", quantidadeTotalObjetos);
+
+        return relatorio;
+    }
+
+
 }
