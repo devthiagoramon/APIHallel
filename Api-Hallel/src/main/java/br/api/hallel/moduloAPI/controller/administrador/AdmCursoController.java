@@ -69,7 +69,8 @@ public class AdmCursoController {
     }
 
     @GetMapping("/pdf")
-    public ResponseEntity<?> generatePDF(HttpServletResponse response) {
+    public ResponseEntity<?> generatePDF(HttpServletResponse response,Associado associado, Curso curso) {
+
         response.setContentType("application/pdf");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
         String currentDate = dateFormat.format(new Date());
@@ -79,7 +80,7 @@ public class AdmCursoController {
         response.setHeader(header, headerValue);
 
         try {
-            this.service.generatePDF(response);
+            this.service.generatePDF(response,associado,curso);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

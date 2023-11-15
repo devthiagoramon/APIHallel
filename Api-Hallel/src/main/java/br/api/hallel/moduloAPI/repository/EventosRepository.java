@@ -12,4 +12,7 @@ public interface EventosRepository extends MongoRepository<Eventos, String> {
     Optional<Eventos> findByTitulo(String titulo);
     List<Eventos> findAllByDestaqueEquals(Boolean isTrue);
     List<Eventos> findAllByOrderByTituloAsc();
+
+    List<Eventos> findAllByOrderByDateAsc();
+
 }
