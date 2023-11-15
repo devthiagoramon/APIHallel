@@ -182,7 +182,7 @@ public class DoacaoService implements DoacaoInterface {
     public Map<String, Object> relatorioMensal(String mes, String ano) {
         Map<String, Object> relatorio = new HashMap<>();
 
-        List<Doacao> doacoesDinheiro = this.repository.findAll()
+        List<Doacao> doacoesDinheiro = this.repository.findAll()add
                 .stream()
                 .filter(doacao -> doacao.getDataDoacao().substring(3).equals(mes + "/" + ano))
                 .collect(Collectors.toList());
@@ -199,7 +199,7 @@ public class DoacaoService implements DoacaoInterface {
 
         List<DoacaoObjeto> doacoesObjeto = this.repositoryObjeto.findAll()
                 .stream()
-                .filter(doacaoObjeto -> doacaoObjeto.getDataDoaca"o().substring(3).equals(mes + "/" + ano))
+                .filter(doacaoObjeto -> doacaoObjeto.getDataDoacao().substring(3).equals(mes + "/" + ano))
                 .collect(Collectors.toList());
 
         List<DoacoesObjetoListaAdmResponse> relatorioObjeto = new DoacoesObjetoListaAdmResponse()
