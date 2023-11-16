@@ -178,11 +178,10 @@ public class DoacaoService implements DoacaoInterface {
     }
 
 
-
     public Map<String, Object> relatorioMensal(String mes, String ano) {
         Map<String, Object> relatorio = new HashMap<>();
 
-        List<Doacao> doacoesDinheiro = this.repository.findAll()add
+        List<Doacao> doacoesDinheiro = this.repository.findAll()
                 .stream()
                 .filter(doacao -> doacao.getDataDoacao().substring(3).equals(mes + "/" + ano))
                 .collect(Collectors.toList());

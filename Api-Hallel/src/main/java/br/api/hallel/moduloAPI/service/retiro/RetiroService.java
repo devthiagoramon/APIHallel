@@ -1,11 +1,12 @@
 package br.api.hallel.moduloAPI.service.retiro;
-
 import br.api.hallel.moduloAPI.model.Alimentos;
+import br.api.hallel.moduloAPI.model.ContribuicaoEvento;
 import br.api.hallel.moduloAPI.model.Retiro;
 import br.api.hallel.moduloAPI.payload.requerimento.AlimentoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.RetiroRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AlimentoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.RetiroResponse;
+import br.api.hallel.moduloAPI.repository.ContribuicaoEventoRepository;
 import br.api.hallel.moduloAPI.repository.RetiroRepository;
 import br.api.hallel.moduloAPI.service.eventos.AlimentoService;
 import br.api.hallel.moduloAPI.service.interfaces.RetiroInterface;
@@ -22,8 +23,13 @@ public class RetiroService implements RetiroInterface {
 
     @Autowired
     private RetiroRepository repository;
+
     @Autowired
     private AlimentoService alimentoService;
+
+    @Autowired
+    private ContribuicaoEventoRepository contribuicaoEventoRepository;
+
 
     //Salva Retiro no Banco de Dados
     @Override
@@ -188,6 +194,67 @@ public class RetiroService implements RetiroInterface {
 
         return alimentoResponseList;
     }
+
+    @Override
+    public ContribuicaoEvento addContribuicaoRetiro(String idRetiro, ContribuicaoEvento contribuicaoEvento) {
+        RetiroResponse retiroResponse = this.listRetiroById(idRetiro);
+        RetiroRequest retiroRequest = retiroResponse.toRetiroRequest();
+        List<ContribuicaoEvento> contribuicoes = retiroRequest.getContribuicoes();
+
+        if (contribuicoes == null) {
+            contribuicoes = new ArrayList<>();
+        }
+
+        contribuicoes.add(contribuicaoEvento);
+        retiroRequest.setContribuicoes(contribuicoes);
+
+        this.updateRetiroById(retiroRequest, idRetiro);
+
+        return contribuicaoEvento;
+    }
+
+    // Remover contribuição do retiro
+    @Override
+    public void removeContribuicaoRetiro(String idRetiro, ContribuicaoEvento contribuicaoEvento) {
+        RetiroResponse retiroResponse = this.listRetiroById(idRetiro);
+        RetiroRequest retiroRequest = retiroResponse.toRetiroRequest();
+        List<ContribuicaoEvento> contribuicoes = retiroRequest.getContribuicoes();
+
+        if (contribuicoes != null) {
+            contribuicoes.remove(contribuicaoEvento);
+            retiroRequest.setContribuicoes(contribuicoes);
+            this.updateRetiroById(retiroRequest, idRetiro);
+        }
+    }
+
+    // Atualizar contribuição no retiro
+    @Override
+    public ContribuicaoEvento updateContribuicaoRetiro(String idRetiro, ContribuicaoEvento contribuicaoEvento) {
+        RetiroResponse retiroResponse = this.listRetiroById(idRetiro);
+        RetiroRequest retiroRequest = retiroResponse.toRetiroRequest();
+        List<ContribuicaoEvento> contribuicoes = retiroRequest.getContribuicoes();
+
+        if (contribuicoes != null) {
+            int index = contribuicoes.indexOf(contribuicaoEvento);
+
+            if (index != -1) {
+                contribuicoes.set(index, contribuicaoEvento);
+                retiroRequest.setContribuicoes(contribuicoes);
+                this.updateRetiroById(retiroRequest, idRetiro);
+                return contribuicaoEvento;
+            }
+        }
+
+        return null; // Contribuição não encontrada
+    }
+
+    // Listar todas as contribuições do retiro
+    @Override
+    public List<ContribuicaoEvento> listAllContribuicoesByRetiro(String idRetiro) {
+        RetiroResponse retiroResponse = this.listRetiroById(idRetiro);
+        return retiroResponse.getContribuicoes();
+    }
+
 
 
 }
