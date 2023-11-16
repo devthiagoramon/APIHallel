@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
+import br.api.hallel.moduloAPI.model.ContribuicaoEvento;
 import br.api.hallel.moduloAPI.model.Retiro;
 import br.api.hallel.moduloAPI.payload.requerimento.AlimentoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.RetiroRequest;
@@ -26,4 +27,14 @@ public interface RetiroInterface {
     AlimentoReq atualizarAlimentoRetiro(String idRetiro, AlimentoReq alimentoReq);
     List<AlimentoResponse> listAllAlimentosByRetiro(String idRetiro);
 
+    ContribuicaoEvento addContribuicaoRetiro(String idRetiro, ContribuicaoEvento contribuicaoEvento);
+
+    // Remover contribuição do retiro
+    void removeContribuicaoRetiro(String idRetiro, ContribuicaoEvento contribuicaoEvento);
+
+    // Atualizar contribuição no retiro
+    ContribuicaoEvento updateContribuicaoRetiro(String idRetiro, ContribuicaoEvento contribuicaoEvento);
+
+    // Listar todas as contribuições do retiro
+    List<ContribuicaoEvento> listAllContribuicoesByRetiro(String idRetiro);
 }

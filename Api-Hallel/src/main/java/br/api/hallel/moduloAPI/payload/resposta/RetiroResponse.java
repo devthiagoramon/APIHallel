@@ -1,9 +1,6 @@
 package br.api.hallel.moduloAPI.payload.resposta;
 
-import br.api.hallel.moduloAPI.model.Alimentos;
-import br.api.hallel.moduloAPI.model.LocalRetiro;
-import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.model.Retiro;
+import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.RetiroRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,17 +22,19 @@ public class RetiroResponse {
     private LocalRetiro localRetiro;
     private String dataRetiro;
     private String horaRetiro;
+    private List<ContribuicaoEvento> contribuicoes;
 
 
     public RetiroRequest toRetiroRequest(){
 
-        return new RetiroRequest(getNome(),getDescricao(),getParticipantes(),getMaxParticipantes(),getAlimentos(),getLocalRetiro(),getDataRetiro(),getHoraRetiro());
+        return new RetiroRequest(getNome(),getDescricao(),getParticipantes(),getMaxParticipantes(),getAlimentos(),getLocalRetiro(),getDataRetiro(),getHoraRetiro(),getContribuicoes());
     }
 
     public RetiroResponse toResponse(Retiro retiro) {
 
         return new RetiroResponse(retiro.getId(), retiro.getNome(), retiro.getDescricao(), retiro.getParticipantes(), retiro.getMaxParticipantes(),
-                retiro.getAlimentos(), retiro.getLocalRetiro(), retiro.getDataRetiro(), retiro. getHoraRetiro());
+                retiro.getAlimentos(), retiro.getLocalRetiro(), retiro.getDataRetiro(), retiro. getHoraRetiro(), contribuicoes);
     }
+
 
 }
