@@ -5,19 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class DoacaoObjetoReq {
 
     private String emailDoador;
-    private String descricao;
-    private String dataDoacao;
-
-    private String imagem;
+    private String nomeDoador;
+    private String tipoDoacao;
     private Integer quantidade;
 
     public DoacaoObjeto toDoacaoObjeto() {
-        return new DoacaoObjeto(getEmailDoador(), getDescricao(), getDataDoacao(), getImagem(), getQuantidade(), false);
+        Date dataDoacao = new Date();
+        return new DoacaoObjeto(getEmailDoador(),getNomeDoador(), getTipoDoacao(), dataDoacao, getQuantidade(), false);
     }
 }

@@ -90,8 +90,11 @@ public class DoacaoService implements DoacaoInterface {
     }
 
     @Override
-    public DoacaoObjeto doarObjeto(DoacaoObjetoReq doacaoObjeto) {
-        return this.repositoryObjeto.insert(doacaoObjeto.toDoacaoObjeto());
+    public boolean doarObjeto(List<DoacaoObjetoReq> doacaoObjeto) {
+        doacaoObjeto.forEach(item -> {
+            this.repositoryObjeto.insert(item.toDoacaoObjeto());
+        });
+        return true;
     }
 
     @Override
@@ -198,7 +201,10 @@ public class DoacaoService implements DoacaoInterface {
 
         List<DoacaoObjeto> doacoesObjeto = this.repositoryObjeto.findAll()
                 .stream()
-                .filter(doacaoObjeto -> doacaoObjeto.getDataDoacao().substring(3).equals(mes + "/" + ano))
+                .filter(doacaoObjeto -> {
+                    String dataString = formatter.format(doacaoObjeto.getDataDoacao());
+                    return dataString.substring(3).equals(mes + "/" + ano);
+                })
                 .collect(Collectors.toList());
 
         List<DoacoesObjetoListaAdmResponse> relatorioObjeto = new DoacoesObjetoListaAdmResponse()

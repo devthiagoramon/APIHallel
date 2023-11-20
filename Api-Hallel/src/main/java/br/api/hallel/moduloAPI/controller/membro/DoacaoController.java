@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/api/doacao")
 @RestController
 @CrossOrigin("*")
@@ -25,7 +27,7 @@ public class DoacaoController {
     }
 
     @PostMapping("/doarObjeto")
-    private DoacaoObjeto doarObjeto(@RequestBody DoacaoObjetoReq doacaoObjetoReq) {
+    private boolean doarObjeto(@RequestBody List<DoacaoObjetoReq> doacaoObjetoReq) {
         return this.service.doarObjeto(doacaoObjetoReq);
     }
 

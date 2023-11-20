@@ -167,7 +167,7 @@ public class EmailService implements EmailInterface {
         // Verifique as doações de objetos
         if (!doacoesObjetos.isEmpty()) {
             doacoesObjetos.sort(Comparator.comparing(DoacaoObjeto::getDataDoacao).reversed());
-            LocalDate dataDaUltimaDoacaoObjeto = LocalDate.parse(doacoesObjetos.get(0).getDataDoacao(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate dataDaUltimaDoacaoObjeto = LocalDate.parse((CharSequence) doacoesObjetos.get(0).getDataDoacao(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             long diferencaDiasObjeto = ChronoUnit.DAYS.between(dataDaUltimaDoacaoObjeto, dataAtual);
 
             if (diferencaDiasObjeto <= 30) {

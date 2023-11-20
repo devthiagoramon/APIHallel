@@ -208,7 +208,7 @@ public class MainService implements MainInterface {
         membro.setEmail(solicitarCadastroRequerimento.getEmail());
         membro.setSenha(encoder.encode(solicitarCadastroRequerimento.getSenha()));
         membro.setRoles(roles);
-        membro.setStatusMembro(StatusMembro.PENDENTE);
+        membro.setStatusMembro(StatusMembro.ATIVO);
 
         //SALVA NO BD E GERA O TOKEN PARA O USUARIO
         if (membro.getEmail() != null &&

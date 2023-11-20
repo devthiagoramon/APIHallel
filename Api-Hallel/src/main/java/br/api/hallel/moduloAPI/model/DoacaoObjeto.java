@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Document
 @Data
 @NoArgsConstructor
@@ -13,18 +15,18 @@ public class DoacaoObjeto {
 
     private String id;
     private String emailDoador;
-    private String descricao;
-    private String dataDoacao;
-    private String imagem;
+    private Date dataDoacao;
+    private String nomeDoador;
+    private String tipoDoacao;
     private Integer quantidade;
     private boolean isRecebido;
     private String dataRecebida;
 
-    public DoacaoObjeto(String emailDoador, String descricao, String dataDoacao, String imagem, Integer quantidade, boolean isRecebido) {
+    public DoacaoObjeto(String emailDoador, String nomeDoador, String tipoDoacao, Date dataDoacao, Integer quantidade, boolean isRecebido) {
         this.emailDoador = emailDoador;
-        this.descricao = descricao;
+        this.nomeDoador = nomeDoador;
         this.dataDoacao = dataDoacao;
-        this.imagem = imagem;
+        this.tipoDoacao = tipoDoacao;
         this.quantidade = quantidade;
         this.isRecebido = isRecebido;
     }

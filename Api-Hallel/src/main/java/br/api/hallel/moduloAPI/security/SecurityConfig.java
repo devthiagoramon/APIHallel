@@ -32,7 +32,7 @@ public class SecurityConfig {
 
     private String endpointsPermitidosAll[] = {"/api/login",
             "/api/home/isTokenExpired",
-            "/api/solicitarCadastro",
+            "/api/cadastrar",
             "/api/administrador/create",
             "/api/listarCurso",
             "/api/descCurso/{id}",
