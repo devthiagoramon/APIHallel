@@ -17,7 +17,7 @@ public interface DoacaoInterface {
 
     List<DoacoesObjetoListaAdmResponse> listAllDoacoesObjeto();
 
-    DoacaoObjeto doarObjeto(DoacaoObjetoReq doacaoObjeto);
+    boolean doarObjeto(List<DoacaoObjetoReq> doacaoObjeto);
 
     DoacaoObjeto objetoRecebido(String id);
 

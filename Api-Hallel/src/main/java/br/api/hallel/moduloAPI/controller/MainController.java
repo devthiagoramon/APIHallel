@@ -51,7 +51,7 @@ public class MainController {
 
     }
 
-    @PostMapping("/solicitarCadastro")
+    @PostMapping("/cadastrar")
     public ResponseEntity<AuthenticationResponse> solicitarCadastro(@Valid @RequestBody SolicitarCadastroRequerimento solicitarCadastroRequerimento){
 
         try {

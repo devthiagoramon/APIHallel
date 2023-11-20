@@ -14,8 +14,8 @@ import java.util.List;
 public class DoacoesObjetoListaAdmResponse {
 
     private String id;
-    private String descricao;
-    private String imagem;
+    private String nomeDoador;
+    private String tipoDoacao;
     private boolean isRecebido;
     private Integer quantidade;
 
@@ -30,7 +30,7 @@ public class DoacoesObjetoListaAdmResponse {
     }
 
     private DoacoesObjetoListaAdmResponse toDoacaoObjetoLista(DoacaoObjeto doacaoObjeto) {
-        return new DoacoesObjetoListaAdmResponse(doacaoObjeto.getId(),doacaoObjeto.getDescricao(), doacaoObjeto.getImagem(), doacaoObjeto.isRecebido(), doacaoObjeto.getQuantidade());
+        return new DoacoesObjetoListaAdmResponse(doacaoObjeto.getId(),doacaoObjeto.getNomeDoador(), doacaoObjeto.getTipoDoacao(), doacaoObjeto.isRecebido(), doacaoObjeto.getQuantidade());
     }
 
 }
