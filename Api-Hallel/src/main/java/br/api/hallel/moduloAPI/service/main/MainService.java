@@ -117,27 +117,6 @@ public class MainService implements MainInterface {
                 }
             }
         }
-
-        //VERIFICA SE É UM ADM
-        if (administradorRepository.findByEmail(loginRequerimento.getEmail()).isPresent()) {
-            //SE EXISTE, ELE FAZ LOGIN COMO MEMBRO
-            var administrador = administradorRepository.findByEmail(loginRequerimento.getEmail()).get();
-            System.out.println("Adm");
-            var jwtToken = jwtService.generateToken(administrador);
-            AdministradorResponse administradorResponse = new AdministradorResponse();
-            administradorResponse.setEmail(administrador.getEmail());
-            administradorResponse.setNome(administrador.getNome());
-            administradorResponse.setRoles(administrador.getRoles());
-
-            if (administrador.getNome() != null && administrador.getEmail() != null) {
-                return AuthenticationResponse.builder()
-                        .token(jwtToken)
-                        .objeto(administradorResponse)
-                        .build();
-            } else {
-                throw new SolicitarLoginException("Por favor, informe as credenciais corretamente! ");
-            }
-        }
         return null;
     }
 
