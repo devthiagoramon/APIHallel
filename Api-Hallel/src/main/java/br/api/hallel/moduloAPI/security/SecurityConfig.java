@@ -33,6 +33,7 @@ public class SecurityConfig {
     private String endpointsPermitidosAll[] = {"/api/login",
             "/api/home/isTokenExpired",
             "/api/cadastrar",
+            "/api/administrador/login",
             "/api/administrador/create",
             "/api/listarCurso",
             "/api/descCurso/{id}",
@@ -63,10 +64,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(endpointsPermitidasAdm).hasRole("ADMIN")
+                .requestMatchers(endpointsPermitidosAll).permitAll()
                 .requestMatchers(endpointsMembros).hasRole("USER")
                 .requestMatchers(endpointsAssociado).hasRole("ASSOCIADO")
-                .requestMatchers(endpointsPermitidosAll).permitAll()
+                .requestMatchers(endpointsPermitidasAdm).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login(Customizer.withDefaults())

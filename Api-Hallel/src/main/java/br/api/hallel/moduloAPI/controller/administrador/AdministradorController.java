@@ -2,7 +2,10 @@ package br.api.hallel.moduloAPI.controller.administrador;
 
 import br.api.hallel.moduloAPI.model.Administrador;
 import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.payload.requerimento.AdministradorLoginRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
+import br.api.hallel.moduloAPI.payload.resposta.AuthenticationResponse;
+import br.api.hallel.moduloAPI.payload.resposta.LoginAdmResponse;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.service.main.AdministradorService;
 import br.api.hallel.moduloAPI.service.main.MembroService;
@@ -40,6 +43,12 @@ public class AdministradorController {
         return this.service.findAdministrador(id);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> loginAdministrador(@RequestBody AdministradorLoginRequest admRequest) {
+        return ResponseEntity.ok().body(this.service.logarAdministrador(admRequest));
+    }
+
+
     @PostMapping("/{id}/update")
     public String alterarAdministrador(@PathVariable(value = "id") String id, @RequestBody Administrador administradorNovo) {
         return this.service.alterarAdministrador(id, administradorNovo);
@@ -59,7 +68,6 @@ public class AdministradorController {
     public ResponseEntity<Membro> listMembroId(@PathVariable String id) {
         return ResponseEntity.status(201).body(membroService.listMembroId(id));
     }
-
 
 
 }

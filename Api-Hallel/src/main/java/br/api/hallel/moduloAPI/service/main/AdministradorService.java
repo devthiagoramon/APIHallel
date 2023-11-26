@@ -1,13 +1,19 @@
 package br.api.hallel.moduloAPI.service.main;
 
+import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
 import br.api.hallel.moduloAPI.model.Administrador;
 import br.api.hallel.moduloAPI.model.ERole;
 import br.api.hallel.moduloAPI.model.Role;
 import br.api.hallel.moduloAPI.model.StatusMembro;
+import br.api.hallel.moduloAPI.payload.requerimento.AdministradorLoginRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
+import br.api.hallel.moduloAPI.payload.resposta.AdministradorResponse;
+import br.api.hallel.moduloAPI.payload.resposta.AuthenticationResponse;
+import br.api.hallel.moduloAPI.payload.resposta.LoginAdmResponse;
 import br.api.hallel.moduloAPI.payload.resposta.MessageResposta;
 import br.api.hallel.moduloAPI.repository.AdministradorRepository;
 import br.api.hallel.moduloAPI.repository.RoleRepository;
+import br.api.hallel.moduloAPI.security.services.JwtService;
 import br.api.hallel.moduloAPI.service.interfaces.AdministradorInterface;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +39,8 @@ public class AdministradorService implements AdministradorInterface {
 
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private JwtService jwtService;
 
 
     //Método para adicionar/inserir um administrador no banco de dados
@@ -190,4 +198,25 @@ public class AdministradorService implements AdministradorInterface {
     }
 
 
+    public AuthenticationResponse logarAdministrador(AdministradorLoginRequest admRequest) {
+
+            //SE EXISTE, ELE FAZ LOGIN COMO MEMBRO
+            var administrador = repository.findByEmail(admRequest.getEmail()).get();
+            System.out.println("Adm");
+            var jwtToken = jwtService.generateToken(administrador);
+            AdministradorResponse administradorResponse = new AdministradorResponse();
+            administradorResponse.setEmail(administrador.getEmail());
+            administradorResponse.setNome(administrador.getNome());
+            administradorResponse.setRoles(administrador.getRoles());
+
+            if (administrador.getNome() != null && administrador.getEmail() != null) {
+                return AuthenticationResponse.builder()
+                        .token(jwtToken)
+                        .objeto(administradorResponse)
+                        .build();
+            } else {
+                throw new SolicitarLoginException("Por favor, informe as credenciais corretamente! ");
+            }
+
+    }
 }
