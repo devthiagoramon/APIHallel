@@ -56,6 +56,7 @@ public class EventosController {
 
     @GetMapping("/delete/{id}")
     public ResponseEntity<?> deleteEventoById(@PathVariable String id) {
+
         this.service.deleteEventoById(id);
         return ResponseEntity.status(204).build();
     }
@@ -71,7 +72,8 @@ public class EventosController {
 
     @GetMapping("/eventosInscritos")
     public ResponseEntity<List<EventosResponse>> listEventosInscritos(@RequestParam(value = "idUser") String iduser) {
-        return ResponseEntity.ok(this.service.listarEventosInscritos(iduser));
+        return ResponseEntity.ok(this.service.listarEventosInscritos(iduser)   );
+
     }
 
     @GetMapping("/verificarUsuario/{idUser}")
@@ -97,6 +99,7 @@ public class EventosController {
     public ResponseEntity<Boolean> verificarIsInscrito(@RequestParam(value = "idEvento") String idEvento,
                                                        @RequestParam(value = "idUser") String idUser) {
         return ResponseEntity.ok(this.service.verificarIsInscrito(idEvento, idUser));
+
     }
 
     @GetMapping("/verificarSituacaoEmEvento")

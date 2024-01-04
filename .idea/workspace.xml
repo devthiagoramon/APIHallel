@@ -4,18 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="Projeto sem o Moodle">
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="adição do crud de contribuições no retiro">
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/Ministerios/MinisteriosService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/RetiroRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/RetiroRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/RetiroResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/RetiroResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/DoacaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/DoacaoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/RetiroInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/RetiroInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/retiro/RetiroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/retiro/RetiroService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -111,7 +115,21 @@
       <workItem from="1699999529665" duration="4006000" />
       <workItem from="1700010416071" duration="631000" />
       <workItem from="1700093631010" duration="863000" />
-      <workItem from="1700174088299" duration="3546000" />
+      <workItem from="1700174088299" duration="4351000" />
+      <workItem from="1700609941288" duration="1420000" />
+      <workItem from="1701198644259" duration="7000" />
+      <workItem from="1703364265050" duration="79000" />
+      <workItem from="1703813792800" duration="2397000" />
+      <workItem from="1703854398030" duration="2537000" />
+      <workItem from="1704122326815" duration="630000" />
+      <workItem from="1704133181139" duration="493000" />
+      <workItem from="1704149618914" duration="598000" />
+      <workItem from="1704206346733" duration="3155000" />
+      <workItem from="1704213667005" duration="3398000" />
+      <workItem from="1704310750869" duration="1217000" />
+      <workItem from="1704329437273" duration="1263000" />
+      <workItem from="1704393996856" duration="1627000" />
+      <workItem from="1704403810474" duration="1203000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -121,7 +139,23 @@
       <option name="project" value="LOCAL" />
       <updated>1698709652148</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="adição do crud de contribuições no retiro">
+      <option name="closed" value="true" />
+      <created>1700178916885</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1700178916885</updated>
+    </task>
+    <task id="LOCAL-00003" summary="adição do crud de contribuições no retiro">
+      <option name="closed" value="true" />
+      <created>1700178938607</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1700178938607</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,7 +174,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Projeto sem o Moodle" />
-    <option name="LAST_COMMIT_MESSAGE" value="Projeto sem o Moodle" />
+    <MESSAGE value="adição do crud de contribuições no retiro" />
+    <option name="LAST_COMMIT_MESSAGE" value="adição do crud de contribuições no retiro" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -149,6 +184,15 @@
           <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/cursos/CursoService.java</url>
           <line>218</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java</url>
+          <line>340</line>
+          <properties class="br.api.hallel.moduloAPI.service.eventos.EventosService" method="listarEventosByTitulo">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
