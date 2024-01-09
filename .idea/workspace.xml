@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="adição do crud de contribuições no retiro">
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/Ministerios/MinisteriosService.java" afterDir="false" />
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="adição de algumas funcionalidades de eventos">
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoObjetosEventos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/DoacaoObjetosEventosReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoObjetosEventosResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/DoacaoObjetosEventosRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/DoacaoObjetosEventosService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/DoacaoObjetosEventosInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/ApiHallelApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/ApiHallelApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +23,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -129,7 +136,13 @@
       <workItem from="1704310750869" duration="1217000" />
       <workItem from="1704329437273" duration="1263000" />
       <workItem from="1704393996856" duration="1627000" />
-      <workItem from="1704403810474" duration="1203000" />
+      <workItem from="1704403810474" duration="1530000" />
+      <workItem from="1704405359833" duration="600000" />
+      <workItem from="1704493009818" duration="2664000" />
+      <workItem from="1704674657396" duration="3457000" />
+      <workItem from="1704743448592" duration="445000" />
+      <workItem from="1704752415089" duration="1360000" />
+      <workItem from="1704814519008" duration="10473000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -155,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700178938607</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="adição de algumas funcionalidades de eventos">
+      <option name="closed" value="true" />
+      <created>1704405274806</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1704405274806</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,7 +196,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Projeto sem o Moodle" />
     <MESSAGE value="adição do crud de contribuições no retiro" />
-    <option name="LAST_COMMIT_MESSAGE" value="adição do crud de contribuições no retiro" />
+    <MESSAGE value="adição de algumas funcionalidades de eventos" />
+    <option name="LAST_COMMIT_MESSAGE" value="adição de algumas funcionalidades de eventos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -194,6 +216,10 @@
           </properties>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.StackOverflowError" package="java.lang" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

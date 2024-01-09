@@ -107,11 +107,10 @@ public class EventosController {
         return ResponseEntity.ok(this.service.verificarSituacaoMembroEmEvento(idEvento, emailMembro));
     }
 
-
-//    @PostMapping("/participarEvento")
-//    public ResponseEntity<Boolean> participarEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest){
-//        return ResponseEntity.ok(this.service.inscreverEvento(inscreverEventoRequest));
-//    }
+    @PostMapping("/participarEvento")
+    public ResponseEntity<Boolean> participarEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest){
+       return ResponseEntity.ok(this.service.inscreverEvento(inscreverEventoRequest));
+    }
 //    @PostMapping("/verificarEmail/{email}/{idEvento}")
 //    public ResponseEntity<Boolean> verificarEmailMembro(@PathVariable(value = "email") String email,
 //                                                        @PathVariable(value = "idEvento") String idEvento) {
