@@ -107,6 +107,8 @@ public class EventosController {
         return ResponseEntity.ok(this.service.verificarSituacaoMembroEmEvento(idEvento, emailMembro));
     }
 
+
+    //teste
     @PostMapping("/participarEvento")
     public ResponseEntity<Boolean> participarEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest){
        return ResponseEntity.ok(this.service.inscreverEvento(inscreverEventoRequest));
@@ -122,8 +124,7 @@ public class EventosController {
 //            return ResponseEntity.accepted().body(true);
 //        }
 //
-//        return ResponseEntity.accepted().body(false);
-//    }
+//        return ResponseEntity.accepted().body(false); }
 
     @PostMapping("/{id}/contribuir")
     public ResponseEntity<Boolean> contribuirEvento(@PathVariable(value = "id") String idEvento
