@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="adição de algumas funcionalidades de eventos">
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoObjetosEventos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/DoacaoObjetosEventosReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoObjetosEventosResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/repository/DoacaoObjetosEventosRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/DoacaoObjetosEventosService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/DoacaoObjetosEventosInterface.java" afterDir="false" />
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="metodo de participar de evento">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/ApiHallelApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/ApiHallelApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +29,20 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Lorenzo3450&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="321ce53c-01b6-4333-b04f-6326761ad1df" />
+        <option name="url" value="https://github.com/devthiagoramon/APIHallel.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -142,7 +150,8 @@
       <workItem from="1704674657396" duration="3457000" />
       <workItem from="1704743448592" duration="445000" />
       <workItem from="1704752415089" duration="1360000" />
-      <workItem from="1704814519008" duration="10473000" />
+      <workItem from="1704814519008" duration="11313000" />
+      <workItem from="1704917404904" duration="4262000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -176,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704405274806</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Adição das classes model,interface,repository,requerimento,Response e service da doação de objetos pra eventos">
+      <option name="closed" value="true" />
+      <created>1704831048309</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1704831048309</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,7 +214,9 @@
     <MESSAGE value="Projeto sem o Moodle" />
     <MESSAGE value="adição do crud de contribuições no retiro" />
     <MESSAGE value="adição de algumas funcionalidades de eventos" />
-    <option name="LAST_COMMIT_MESSAGE" value="adição de algumas funcionalidades de eventos" />
+    <MESSAGE value="Adição das classes model,interface,repository,requerimento,Response e service da doação de objetos pra eventos" />
+    <MESSAGE value="metodo de participar de evento" />
+    <option name="LAST_COMMIT_MESSAGE" value="metodo de participar de evento" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

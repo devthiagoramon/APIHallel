@@ -439,6 +439,47 @@ public class EventosService implements EventosInterface {
 
     }
 
+    //criado pelo Lorenzo pra teste
+    public Boolean inscreverEvento2(InscreverEventoRequest inscreverEventoRequest) {
+        Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
+        Eventos evento = null;
+        if (eventosOptional.isPresent()) {
+
+            evento = eventosOptional.get();
+            Membro membroNovo = null;
+            // Parte evento
+
+            if (evento.getIntegrantes() == null) {
+                List<Membro> membros = new ArrayList<>();
+                evento.setIntegrantes(membros);
+            }
+
+            if (inscreverEventoRequest.isAssociado()) {
+                Optional<Associado> optional = this.associadoRepository
+                        .findById(inscreverEventoRequest.getId());
+                Associado associado = optional.orElse(null);
+                membroNovo = associado;
+                evento.getIntegrantes().add(associado);
+            } else if (inscreverEventoRequest.isMembro()) {
+                membroNovo = this.membroService.listMembroId(inscreverEventoRequest.getId());
+                evento.getIntegrantes().add(membroNovo);
+            } else {
+                membroNovo = inscreverEventoRequest.toMembroEvento();
+                evento.getIntegrantes().add(membroNovo);
+            }
+
+            // Parte financeiro
+            PagamentoEntradaEventoReq pagamentoEntradaEventoReq = new
+                    PagamentoEntradaEventoReq().toPagamentoEntradaEventoReq(inscreverEventoRequest);
+            this.solicitarPagamentoEntrada(pagamentoEntradaEventoReq, membroNovo, evento);
+            return true;
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado.");
+
+    }
+
+
     //Lista eventos por ordem alfabética
     @Override
     public List<EventosVisualizacaoResponse> listEventoOrdemAlfabetica() {
