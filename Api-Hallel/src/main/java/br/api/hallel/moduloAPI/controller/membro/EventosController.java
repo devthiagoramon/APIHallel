@@ -77,7 +77,7 @@ public class EventosController {
     }
 
     @GetMapping("/verificarUsuario/{idUser}")
-    public ResponseEntity<EventoUsuarioVerifyResponse> verificarIdMembro(@PathVariable(value = "idUser") String id) throws AssociadoNotFoundException {
+    public ResponseEntity<EventoUsuarioVerifyResponse> verificarIdMembro(@PathVariable(value = "idUser") String id)  {
 
         Associado associadoDb = associadoService.listAssociadoById(id);
         Membro membroDb = this.membroService.listMembroId(id);
