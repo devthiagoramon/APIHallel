@@ -81,7 +81,7 @@ public class AssociadoService implements AssociadoInterface {
 
     //LISTA TODOS OS ASSOCIADOS
     @Override
-    public Associado listAssociadoById(String id) throws AssociadoNotFoundException {
+    public Associado listAssociadoById(String id)  {
 
         log.info("ASSOCIADO LISTADO!");
 
@@ -89,8 +89,8 @@ public class AssociadoService implements AssociadoInterface {
             return this.associadoRepository.findById(id).get();
 
         } else {
-            throw new AssociadoNotFoundException("Associado não encontrado");
-
+//            throw new AssociadoNotFoundException("Associado não encontrado");
+            return null;
         }
 
 
@@ -109,7 +109,7 @@ public class AssociadoService implements AssociadoInterface {
             this.associadoRepository.delete(associado);
         }
 
-        throw new AssociadoNotFoundException("Não foi possível remover o Associado Id("+id+")");
+        throw new AssociadoNotFoundException("Não foi possível remover o Associado Id(" + id + ")");
 
     }
 
@@ -128,7 +128,7 @@ public class AssociadoService implements AssociadoInterface {
 
             return this.associadoRepository.save(associado);
         }
-        throw new AssociadoNotFoundException("Não foi possível remover o Associado Id("+id+")");
+        throw new AssociadoNotFoundException("Não foi possível remover o Associado Id(" + id + ")");
 
     }
 

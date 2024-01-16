@@ -295,9 +295,11 @@ public class EventosService implements EventosInterface {
         boolean isInscrito = false;
         if (optional.isPresent()) {
             Eventos evento = optional.get();
-            for (Membro integrante : evento.getIntegrantes()) {
-                if (integrante.getId().equals(idUser)) {
-                    isInscrito = true;
+            if (evento.getIntegrantes() != null) {
+                for (Membro integrante : evento.getIntegrantes()) {
+                    if (integrante.getId().equals(idUser)) {
+                        isInscrito = true;
+                    }
                 }
             }
         }
@@ -670,8 +672,6 @@ public class EventosService implements EventosInterface {
     }
 
 
-
-
     public List<ContribuicaoEvento> listarContribuicoesEvento(String idEvento) {
         Optional<Eventos> optional = this.repository.findById(idEvento);
 
@@ -721,9 +721,6 @@ public class EventosService implements EventosInterface {
 
         return listaResponse;
     }
-
-
-
 
 
 }
