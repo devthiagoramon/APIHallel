@@ -23,6 +23,11 @@ import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepo
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -42,7 +47,8 @@ public class SecurityConfig {
             "/api/doacao/**",
             "/api/home/eventos/semDestaque",
             "/api/home/eventos/participarEvento",
-            "/api/home/eventos/listar"
+            "/api/home/eventos/listar",
+            "/api/home/eventos/seVoluntariar"
     };
 
     private String endpointsPermitidasAdm[] =
@@ -62,7 +68,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http.addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
+                .cors().and().csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(endpointsPermitidosAll).permitAll()
                 .requestMatchers(endpointsMembros).hasRole("USER")
@@ -86,6 +93,19 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+
 
     private LogoutSuccessHandler oidcLogoutSuccessHandler() {
         OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =

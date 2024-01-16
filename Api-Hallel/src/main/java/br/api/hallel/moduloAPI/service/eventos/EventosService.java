@@ -9,10 +9,7 @@ import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEv
 import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoEntradaEventoRepository;
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
 import br.api.hallel.moduloAPI.model.*;
-import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.LocalEventoLocalizacaoRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.*;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
@@ -478,6 +475,32 @@ public class EventosService implements EventosInterface {
         throw new EventoNotFoundException("Evento não encontrado.");
 
     }
+
+    public Boolean InscreverVoluntarioEmEvento(SeVoluntariarEventoReq seVoluntarirar) {
+        Optional<Eventos> eventosOptional = this.repository.findById(seVoluntarirar.getIdEvento());
+        Eventos evento = null;
+        if (eventosOptional.isPresent()) {
+
+            evento = eventosOptional.get();
+            VoluntarioEvento VoluntarioNovo = null;
+
+                VoluntarioNovo = seVoluntarirar.toVoluntarioEvento();
+                evento.getVoluntarios().add(VoluntarioNovo);
+
+
+
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado.");
+
+    }
+
+  //  public Boolean seVoluntariarEmEvento(){
+
+
+
+   // }
+
 
 
     //Lista eventos por ordem alfabética

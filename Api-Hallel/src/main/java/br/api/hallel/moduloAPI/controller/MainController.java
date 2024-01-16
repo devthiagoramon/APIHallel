@@ -4,10 +4,7 @@ import br.api.hallel.moduloAPI.exceptions.SolicitarCadastroException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Curso;
-import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
-import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.LoginRequerimento;
-import br.api.hallel.moduloAPI.payload.requerimento.SolicitarCadastroRequerimento;
+import br.api.hallel.moduloAPI.payload.requerimento.*;
 import br.api.hallel.moduloAPI.payload.resposta.AuthenticationResponse;
 import br.api.hallel.moduloAPI.payload.resposta.DescricaoCursoRes;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
@@ -114,6 +111,11 @@ public class MainController {
     @PostMapping("/home/eventos/participarEvento")
     public ResponseEntity<Boolean> participarEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest){
         return ResponseEntity.ok(this.eventosService.inscreverEvento(inscreverEventoRequest));
+    }
+
+    @PostMapping("home/eventos/seVoluntariar")
+    public ResponseEntity<Boolean> SeVoluntariar(@RequestBody SeVoluntariarEventoReq seVoluntariarEventoRequest){
+        return ResponseEntity.ok(this.eventosService.InscreverVoluntarioEmEvento(seVoluntariarEventoRequest));
     }
 
 }

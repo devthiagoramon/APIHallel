@@ -38,6 +38,8 @@ public class Eventos {
     private List<String> palestrantes;
     private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
     private List<ContribuicaoEvento> contribuicaoEventoList;
+   private List<VoluntarioEvento> voluntarios;
+
     public Eventos(String descricao, String titulo, Date date, LocalEvento localEvento, String horario, String imagem, List<String> palestrantes) {
         this.descricao = descricao;
         this.titulo = titulo;
@@ -62,7 +64,8 @@ public class Eventos {
                    String imagem,
                    Long participantesEspeciais,
                    boolean destaque,
-                   List<String> palestrantes
+                   List<String> palestrantes,
+                   List<VoluntarioEvento> voluntarios
                    ) {
 
         this.associadosParticipando = associadosParticipando;
@@ -80,7 +83,37 @@ public class Eventos {
         this.participantesEspeciais = participantesEspeciais;
         this.destaque = destaque;
         this.palestrantes = palestrantes;
+        //this.voluntarios = voluntarios;
     }
 
 
+    public Eventos(String id, List<Associado> associadoParticipando, String descricao, Long quantidadeMembros, Long maxMembros,
+                   String titulo, List<Membro> integrantes, MembroMarketing membroMarketing, Administrador administrador,
+                   Date date, LocalEvento localEvento, String horario, String imagem, Long participantesEspeciais, Boolean destaque,
+                   List<DespesaEvento> despesas, List<String> palestrantes, List<PagamentoEntradaEvento> pagamentoEntradaEventos,
+                   List<ContribuicaoEvento> contribuicaoEventosList) {
+        this.id = id;
+        this.associadosParticipando = associadosParticipando;
+        this.descricao = descricao;
+        this.quantidadeMembros = quantidadeMembros;
+        this.maxMembros = maxMembros;
+        this.titulo = titulo;
+        this.integrantes = integrantes;
+        this.membroMarketing = membroMarketing;
+        this.administrador = administrador;
+        this.date = date;
+        this.localEvento = localEvento;
+        this.horario = horario;
+        this.imagem = imagem;
+        this.participantesEspeciais = participantesEspeciais;
+        this.destaque = destaque;
+        this.despesas = despesas;
+        this.palestrantes = palestrantes;
+        this.pagamentoEntradaEventoList = pagamentoEntradaEventoList;
+        this.contribuicaoEventoList = contribuicaoEventoList;
+        this.voluntarios = voluntarios;
+
+
+
+    }
 }

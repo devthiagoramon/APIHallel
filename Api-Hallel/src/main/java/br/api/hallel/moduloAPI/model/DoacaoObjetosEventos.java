@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 public class DoacaoObjetosEventos {
 
-    @Id
+
     private String id;
     private String nomeDoObjeto;
     private Integer quantidade;
