@@ -1,6 +1,5 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
-import br.api.hallel.moduloAPI.exceptions.ApiError;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.model.Associado;
@@ -8,6 +7,7 @@ import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
+import br.api.hallel.moduloAPI.payload.requerimento.SeVoluntariarEventoReq;
 import br.api.hallel.moduloAPI.payload.resposta.*;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
 import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
@@ -113,6 +113,13 @@ public class EventosController {
     public ResponseEntity<Boolean> participarEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest){
        return ResponseEntity.ok(this.service.inscreverEvento(inscreverEventoRequest));
     }
+
+    @PostMapping("/seVoluntariar")
+    public ResponseEntity<Boolean> SeVoluntariar(@RequestBody SeVoluntariarEventoReq seVoluntariarEventoRequest){
+        log.info(seVoluntariarEventoRequest.toString());
+        return ResponseEntity.ok(this.service.InscreverVoluntarioEmEvento(seVoluntariarEventoRequest));
+    }
+
 //    @PostMapping("/verificarEmail/{email}/{idEvento}")
 //    public ResponseEntity<Boolean> verificarEmailMembro(@PathVariable(value = "email") String email,
 //                                                        @PathVariable(value = "idEvento") String idEvento) {
