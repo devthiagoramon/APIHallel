@@ -1,12 +1,15 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
+import br.api.hallel.moduloAPI.payload.requerimento.CustomDateDeserializer;
 import br.api.hallel.moduloAPI.model.VoluntarioEvento;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Date;
+
 
 @Data
 @NoArgsConstructor
@@ -17,11 +20,13 @@ public class SeVoluntariarEventoReq {
     private String nome;
     private String email;
     private String Sexo;
+
+    @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date dataNascimento;
+
     private String idEvento;
 
-
-    public SeVoluntariarEventoReq toSeVoluntariarEventoRequest( VoluntarioEvento voluntarioEvento){
+    public SeVoluntariarEventoReq toSeVoluntariarEventoRequest(VoluntarioEvento voluntarioEvento) {
         SeVoluntariarEventoReq request = new SeVoluntariarEventoReq();
         request.setNome(getNome());
         request.setIdEvento(getIdEvento());
@@ -29,21 +34,14 @@ public class SeVoluntariarEventoReq {
         request.setSexo(getSexo());
         request.setDataNascimento(getDataNascimento());
         return request;
-
     }
 
-
-    public VoluntarioEvento toVoluntarioEvento(){
+    public VoluntarioEvento toVoluntarioEvento() {
         VoluntarioEvento voluntario = new VoluntarioEvento();
         voluntario.setNome(this.getNome());
         voluntario.setEmail(this.getEmail());
         voluntario.setSexo(this.getSexo());
         voluntario.setDataNascimento(this.getDataNascimento());
         return voluntario;
-
     }
-
-
-
-
 }

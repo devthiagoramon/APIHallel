@@ -478,30 +478,29 @@ public class EventosService implements EventosInterface {
 
     }
 
-    public Boolean InscreverVoluntarioEmEvento(SeVoluntariarEventoReq seVoluntarirar) {
-        Optional<Eventos> eventosOptional = this.repository.findById(seVoluntarirar.getIdEvento());
-        Eventos evento = null;
+
+    public Boolean InscreverVoluntarioEmEvento(SeVoluntariarEventoReq seVoluntariar) {
+        Optional<Eventos> eventosOptional = this.repository.findById(seVoluntariar.getIdEvento());
+
         if (eventosOptional.isPresent()) {
+            Eventos evento = eventosOptional.get();
+            VoluntarioEvento voluntarioNovo = seVoluntariar.toVoluntarioEvento();
 
-            evento = eventosOptional.get();
-            VoluntarioEvento VoluntarioNovo = null;
+            if (evento.getVoluntarios() == null) {
+                evento.setVoluntarios(new ArrayList<>());
+            }
 
-                VoluntarioNovo = seVoluntarirar.toVoluntarioEvento();
-                evento.getVoluntarios().add(VoluntarioNovo);
+            evento.getVoluntarios().add(voluntarioNovo);
+            this.repository.save(evento); // Salvar as alterações no evento de volta ao repositório
 
-
-
+            return true; // Indica que a inscrição foi bem-sucedida
         }
 
         throw new EventoNotFoundException("Evento não encontrado.");
-
     }
 
-  //  public Boolean seVoluntariarEmEvento(){
 
 
-
-   // }
 
 
 
