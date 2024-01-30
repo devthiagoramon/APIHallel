@@ -10,7 +10,7 @@ public interface VoluntarioEventonterface {
 
     VoluntarioEvento createVoluntario(SeVoluntariarEventoReq seVoluntariarEventoReq);
 
-    List<SeVoluntariarEventoResponse> listAllVoluntarios();
+    List<SeVoluntariarEventoResponse> listAllVoluntarios(String idEevnto);
 
     List<SeVoluntariarEventoResponse> listVoluntariosById(String Id);
 

@@ -10,6 +10,7 @@ import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.SeVoluntariarEventoReq;
 import br.api.hallel.moduloAPI.payload.resposta.*;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
+import br.api.hallel.moduloAPI.service.eventos.VoluntarioService;
 import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import br.api.hallel.moduloAPI.service.main.MembroService;
 import lombok.extern.log4j.Log4j2;
@@ -32,6 +33,8 @@ public class EventosController {
     private MembroService membroService;
     @Autowired
     private AssociadoService associadoService;
+    @Autowired
+    private VoluntarioService voluntarioService;
 
     @GetMapping("")
     public ResponseEntity<List<EventosVisualizacaoResponse>> listAllEventos() {
@@ -119,6 +122,12 @@ public class EventosController {
         log.info(seVoluntariarEventoRequest.toString());
         return ResponseEntity.ok(this.service.InscreverVoluntarioEmEvento(seVoluntariarEventoRequest));
     }
+
+    @GetMapping("/{id}/listVoluntarios")
+    public ResponseEntity<List<SeVoluntariarEventoResponse>> listAllVoluntarios(@PathVariable(value = "id") String idEvento){
+        return ResponseEntity.ok().body(voluntarioService.listAllVoluntarios(idEvento));
+    }
+
 
 //    @PostMapping("/verificarEmail/{email}/{idEvento}")
 //    public ResponseEntity<Boolean> verificarEmailMembro(@PathVariable(value = "email") String email,

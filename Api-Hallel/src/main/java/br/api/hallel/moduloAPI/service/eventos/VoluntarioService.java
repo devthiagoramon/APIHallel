@@ -1,16 +1,22 @@
 package br.api.hallel.moduloAPI.service.eventos;
 
+import br.api.hallel.moduloAPI.exceptions.eventos.EventoNotFoundException;
+import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.VoluntarioEvento;
 import br.api.hallel.moduloAPI.payload.requerimento.SeVoluntariarEventoReq;
 import br.api.hallel.moduloAPI.payload.resposta.SeVoluntariarEventoResponse;
+import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.repository.VoluntarioRepository;
 import br.api.hallel.moduloAPI.service.interfaces.VoluntarioEventonterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -19,18 +25,27 @@ public class VoluntarioService implements VoluntarioEventonterface {
     @Autowired
     private VoluntarioRepository repository;
 
+    @Autowired
+    private EventosRepository eventorepository;
+
+
+
     @Override
     public VoluntarioEvento createVoluntario(SeVoluntariarEventoReq req) {
         return this.repository.insert(req.toVoluntarioEvento());
     }
 
     @Override
-    public List<SeVoluntariarEventoResponse> listAllVoluntarios() {
-        List<SeVoluntariarEventoResponse> responseList = new ArrayList<>();
-        this.repository.findAll().forEach(voluntario -> {
-            responseList.add(new SeVoluntariarEventoResponse().toResponse(voluntario));
-        });
-        return responseList;
+    public List<SeVoluntariarEventoResponse> listAllVoluntarios(String idEvento) {
+        Optional<Eventos> eventoOptional = eventorepository.findById(idEvento);
+        if (eventoOptional.isPresent()) {
+            Eventos evento = eventoOptional.get();
+            List<SeVoluntariarEventoResponse> voluntarios = evento.getVoluntarios().stream()
+                    .map(voluntario -> new SeVoluntariarEventoResponse().toResponse(voluntario))
+                    .collect(Collectors.toList());
+            return voluntarios;
+        }
+        throw new EventoNotFoundException("Evento não encontrado.");
     }
 
     @Override
