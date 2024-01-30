@@ -493,7 +493,7 @@ public class EventosService implements EventosInterface {
             evento.getVoluntarios().add(voluntarioNovo);
             this.repository.save(evento); // Salvar as alterações no evento de volta ao repositório
 
-            return true; // Indica que a inscrição foi bem-sucedida
+            return true;
         }
 
         throw new EventoNotFoundException("Evento não encontrado.");

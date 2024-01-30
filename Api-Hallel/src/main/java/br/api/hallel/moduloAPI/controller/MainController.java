@@ -8,9 +8,11 @@ import br.api.hallel.moduloAPI.payload.requerimento.*;
 import br.api.hallel.moduloAPI.payload.resposta.AuthenticationResponse;
 import br.api.hallel.moduloAPI.payload.resposta.DescricaoCursoRes;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
+import br.api.hallel.moduloAPI.payload.resposta.SeVoluntariarEventoResponse;
 import br.api.hallel.moduloAPI.security.services.JwtService;
 import br.api.hallel.moduloAPI.service.cursos.CursoService;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
+import br.api.hallel.moduloAPI.service.eventos.VoluntarioService;
 import br.api.hallel.moduloAPI.service.main.MainService;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -35,6 +37,8 @@ public class MainController {
     private CursoService cursoService;
     @Autowired
     private EventosService eventosService;
+    @Autowired
+    private VoluntarioService voluntarioService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> logar(@Valid @RequestBody LoginRequerimento loginRequerimento) {
@@ -116,6 +120,11 @@ public class MainController {
     @PostMapping("home/eventos/seVoluntariar")
     public ResponseEntity<Boolean> SeVoluntariar(@RequestBody SeVoluntariarEventoReq seVoluntariarEventoRequest){
         return ResponseEntity.ok(this.eventosService.InscreverVoluntarioEmEvento(seVoluntariarEventoRequest));
+    }
+
+    @GetMapping("home/{id}/listVoluntarios")
+    public ResponseEntity<List<SeVoluntariarEventoResponse>> listAllVoluntarios(@PathVariable(value = "id") String idEvento){
+        return ResponseEntity.ok().body(voluntarioService.listAllVoluntarios(idEvento));
     }
 
 }

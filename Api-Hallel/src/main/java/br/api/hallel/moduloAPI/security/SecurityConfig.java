@@ -48,7 +48,8 @@ public class SecurityConfig {
             "/api/home/eventos/semDestaque",
             "/api/home/eventos/participarEvento",
             "/api/home/eventos/listar",
-            "/api/home/eventos/seVoluntariar"
+            "/api/home/eventos/seVoluntariar",
+            "/api/home/{id}/listVoluntarios"
     };
 
     private String endpointsPermitidasAdm[] =
