@@ -46,6 +46,7 @@ public class SecurityConfig {
             "/api/eventos",
             "/api/doacao/**",
             "/api/home/eventos/semDestaque",
+            "/api/home/eventos/destacados",
             "/api/home/eventos/participarEvento",
             "/api/home/eventos/listar",
             "/api/home/eventos/seVoluntariar",

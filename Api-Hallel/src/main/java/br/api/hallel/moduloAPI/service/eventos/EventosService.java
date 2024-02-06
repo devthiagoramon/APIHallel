@@ -177,46 +177,7 @@ public class EventosService implements EventosInterface {
 //    }
 
     //Solicitar a entrada do evento (precisa pagar a entrada)
-    @Override
-    public Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request, Membro membro, Eventos eventos) {
 
-        if (eventos.getPagamentoEntradaEventoList() == null) {
-            List<PagamentoEntradaEvento> list = new ArrayList<>();
-            list.add(request.toPagamentoEntradaEvento());
-            eventos.setPagamentoEntradaEventoList(list);
-
-        } else {
-            eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
-        }
-
-        if (eventos.getIntegrantes() == null) {
-            List<Membro> listMembros = new ArrayList<>();
-            listMembros.add(membro);
-            eventos.setIntegrantes(listMembros);
-
-        } else {
-            eventos.getIntegrantes().add(membro);
-        }
-
-        if (membro.getEventosParticipando() == null) {
-            List<Eventos> eventosList = new ArrayList<>();
-            eventosList.add(eventos);
-            membro.setEventosParticipando(eventosList);
-        } else {
-            membro.getEventosParticipando().add(eventos);
-        }
-
-        if (request.getCartaoCredito() != null) {
-            request.setStatus(StatusEntradaEvento.CONFIRMADO);
-        }
-        System.out.println("Cheguei aqui: 210");
-
-        this.repository.save(eventos);
-        this.membroService.updateMembro(membro.getId(), membro);
-        this.pagamentoEntradaService.cadastrar(request);
-
-        return true;
-    }
 
     //Administrador aceita o pagamento realizado pelo membro que deseja participar do evento
     @Override
@@ -400,6 +361,7 @@ public class EventosService implements EventosInterface {
     //ADICIONA UM MEMBRO AO EVENTO
     @Override
     public Boolean inscreverEvento(InscreverEventoRequest inscreverEventoRequest) {
+        System.out.println("teste lolo");
         Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
         Eventos evento = null;
         if (eventosOptional.isPresent()) {
@@ -426,56 +388,74 @@ public class EventosService implements EventosInterface {
                 membroNovo = inscreverEventoRequest.toMembroEvento();
                 evento.getIntegrantes().add(membroNovo);
             }
-
+            System.out.println("teste lolo 2");
             // Parte financeiro
             PagamentoEntradaEventoReq pagamentoEntradaEventoReq = new
                     PagamentoEntradaEventoReq().toPagamentoEntradaEventoReq(inscreverEventoRequest);
+            System.out.println("teste lolo 3");
             this.solicitarPagamentoEntrada(pagamentoEntradaEventoReq, membroNovo, evento);
+            System.out.println("teste lolo 4");
             return true;
+
         }
 
         throw new EventoNotFoundException("Evento não encontrado.");
 
     }
 
-    //criado pelo Lorenzo pra teste
-    public Boolean inscreverEvento2(InscreverEventoRequest inscreverEventoRequest) {
-        Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
-        Eventos evento = null;
-        if (eventosOptional.isPresent()) {
+    @Override
+    public Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request, Membro membro, Eventos eventos) {
+        adicionarPagamentoEntradaEvento(request, eventos);
+        adicionarMembro(eventos, membro);
+        adicionarEventoParticipando(membro, eventos);
+        atualizarStatusEntradaEvento(request);
+        salvarEventos(eventos);
+        atualizarMembro(membro);
+        cadastrarPagamentoEntrada(request);
+        return true;
+    }
 
-            evento = eventosOptional.get();
-            Membro membroNovo = null;
-            // Parte evento
-
-            if (evento.getIntegrantes() == null) {
-                List<Membro> membros = new ArrayList<>();
-                evento.setIntegrantes(membros);
-            }
-
-            if (inscreverEventoRequest.isAssociado()) {
-                Optional<Associado> optional = this.associadoRepository
-                        .findById(inscreverEventoRequest.getId());
-                Associado associado = optional.orElse(null);
-                membroNovo = associado;
-                evento.getIntegrantes().add(associado);
-            } else if (inscreverEventoRequest.isMembro()) {
-                membroNovo = this.membroService.listMembroId(inscreverEventoRequest.getId());
-                evento.getIntegrantes().add(membroNovo);
-            } else {
-                membroNovo = inscreverEventoRequest.toMembroEvento();
-                evento.getIntegrantes().add(membroNovo);
-            }
-
-            // Parte financeiro
-            PagamentoEntradaEventoReq pagamentoEntradaEventoReq = new
-                    PagamentoEntradaEventoReq().toPagamentoEntradaEventoReq(inscreverEventoRequest);
-            this.solicitarPagamentoEntrada(pagamentoEntradaEventoReq, membroNovo, evento);
-            return true;
+    private void adicionarPagamentoEntradaEvento(PagamentoEntradaEventoReq request, Eventos eventos) {
+        if (eventos.getPagamentoEntradaEventoList() == null) {
+            eventos.setPagamentoEntradaEventoList(new ArrayList<>());
         }
+        eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
+    }
 
-        throw new EventoNotFoundException("Evento não encontrado.");
+    private void adicionarMembro(Eventos eventos, Membro membro) {
+        if (eventos.getIntegrantes() == null) {
+            eventos.setIntegrantes(new ArrayList<>());
+        }
+        eventos.getIntegrantes().add(membro);
+    }
 
+    private void adicionarEventoParticipando(Membro membro, Eventos eventos) {
+        if (membro.getEventosParticipando() == null) {
+            membro.setEventosParticipando(new ArrayList<>());
+        }
+        membro.getEventosParticipando().add(eventos);
+    }
+
+    private void atualizarStatusEntradaEvento(PagamentoEntradaEventoReq request) {
+        if (request.getCartaoCredito() != null) {
+            request.setStatus(StatusEntradaEvento.CONFIRMADO);
+        }
+        System.out.println("status lolo");
+    }
+
+    private void salvarEventos(Eventos eventos) {
+
+        repository.save(eventos);
+        System.out.println("save eventos lolo");
+
+    }
+
+    private void atualizarMembro(Membro membro) {
+        membroService.updateMembro(membro.getId(), membro);
+    }
+
+    private void cadastrarPagamentoEntrada(PagamentoEntradaEventoReq request) {
+        pagamentoEntradaService.cadastrar(request);
     }
 
 
