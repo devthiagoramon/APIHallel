@@ -361,46 +361,43 @@ public class EventosService implements EventosInterface {
     //ADICIONA UM MEMBRO AO EVENTO
     @Override
     public Boolean inscreverEvento(InscreverEventoRequest inscreverEventoRequest) {
-        System.out.println("teste lolo");
         Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
-        Eventos evento = null;
+
         if (eventosOptional.isPresent()) {
+            Eventos evento = eventosOptional.get();
 
-            evento = eventosOptional.get();
+            // Adicionar o membro ao evento apenas uma vez
             Membro membroNovo = null;
-            // Parte evento
-
-            if (evento.getIntegrantes() == null) {
-                List<Membro> membros = new ArrayList<>();
-                evento.setIntegrantes(membros);
-            }
-
             if (inscreverEventoRequest.isAssociado()) {
-                Optional<Associado> optional = this.associadoRepository
-                        .findById(inscreverEventoRequest.getId());
+                Optional<Associado> optional = this.associadoRepository.findById(inscreverEventoRequest.getId());
                 Associado associado = optional.orElse(null);
                 membroNovo = associado;
-                evento.getIntegrantes().add(associado);
             } else if (inscreverEventoRequest.isMembro()) {
                 membroNovo = this.membroService.listMembroId(inscreverEventoRequest.getId());
-                evento.getIntegrantes().add(membroNovo);
             } else {
                 membroNovo = inscreverEventoRequest.toMembroEvento();
-                evento.getIntegrantes().add(membroNovo);
             }
-            System.out.println("teste lolo 2");
-            // Parte financeiro
-            PagamentoEntradaEventoReq pagamentoEntradaEventoReq = new
-                    PagamentoEntradaEventoReq().toPagamentoEntradaEventoReq(inscreverEventoRequest);
-            System.out.println("teste lolo 3");
-            this.solicitarPagamentoEntrada(pagamentoEntradaEventoReq, membroNovo, evento);
-            System.out.println("teste lolo 4");
-            return true;
 
+            if (evento.getIntegrantes() == null) {
+                evento.setIntegrantes(new ArrayList<>());
+            }
+
+            // Verificar se o membro já está na lista de integrantes do evento
+            if (!evento.getIntegrantes().contains(membroNovo)) {
+                evento.getIntegrantes().add(membroNovo);
+
+                // Solicitar pagamento de entrada apenas se o membro não estiver participando do evento
+                PagamentoEntradaEventoReq pagamentoEntradaEventoReq = new PagamentoEntradaEventoReq().toPagamentoEntradaEventoReq(inscreverEventoRequest);
+                this.solicitarPagamentoEntrada(pagamentoEntradaEventoReq, membroNovo, evento);
+
+                return true;
+            }
+
+            // Membro já está participando do evento, não é necessário adicionar novamente
+            return false;
         }
 
         throw new EventoNotFoundException("Evento não encontrado.");
-
     }
 
     @Override
@@ -409,6 +406,7 @@ public class EventosService implements EventosInterface {
         adicionarMembro(eventos, membro);
         adicionarEventoParticipando(membro, eventos);
         atualizarStatusEntradaEvento(request);
+        System.out.println("funcionooooooou!");
         salvarEventos(eventos);
         atualizarMembro(membro);
         cadastrarPagamentoEntrada(request);
@@ -433,20 +431,20 @@ public class EventosService implements EventosInterface {
         if (membro.getEventosParticipando() == null) {
             membro.setEventosParticipando(new ArrayList<>());
         }
-        membro.getEventosParticipando().add(eventos);
+        membro.getEventosParticipando().add(eventos.getId());
     }
 
     private void atualizarStatusEntradaEvento(PagamentoEntradaEventoReq request) {
         if (request.getCartaoCredito() != null) {
             request.setStatus(StatusEntradaEvento.CONFIRMADO);
         }
-        System.out.println("status lolo");
+
     }
 
     private void salvarEventos(Eventos eventos) {
 
         repository.save(eventos);
-        System.out.println("save eventos lolo");
+
 
     }
 
