@@ -29,7 +29,7 @@ public class Membro extends Usuario implements UserDetails {
     private String funcao;
     private Boolean doador;
     private Integer quantidadeDoacoes;
-    private List<Eventos> eventosParticipando;
+    private List<String> eventosParticipando;
     private CartaoCredito cartaoMembro;
     private Map<String, Object> atributtes;
 
