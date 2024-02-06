@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="metodo de participar de evento">
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="adição da rota de listagem de voluntarios do eventos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/security/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/VoluntarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/VoluntarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/VoluntarioEventonterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/VoluntarioEventonterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +167,15 @@
       <workItem from="1705876399532" duration="1313000" />
       <workItem from="1706281306991" duration="587000" />
       <workItem from="1706564977365" duration="5109000" />
+      <workItem from="1706578043036" duration="150000" />
+      <workItem from="1706634129615" duration="1202000" />
+      <workItem from="1706704056440" duration="984000" />
+      <workItem from="1706833125540" duration="4056000" />
+      <workItem from="1706876426742" duration="850000" />
+      <workItem from="1706885119895" duration="3408000" />
+      <workItem from="1706999289355" duration="1112000" />
+      <workItem from="1707062499290" duration="4182000" />
+      <workItem from="1707251637602" duration="3105000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -212,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704831048309</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="adição da rota de listagem de voluntarios do eventos">
+      <option name="closed" value="true" />
+      <created>1706578181270</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706578181270</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +248,8 @@
     <MESSAGE value="adição de algumas funcionalidades de eventos" />
     <MESSAGE value="Adição das classes model,interface,repository,requerimento,Response e service da doação de objetos pra eventos" />
     <MESSAGE value="metodo de participar de evento" />
-    <option name="LAST_COMMIT_MESSAGE" value="metodo de participar de evento" />
+    <MESSAGE value="adição da rota de listagem de voluntarios do eventos" />
+    <option name="LAST_COMMIT_MESSAGE" value="adição da rota de listagem de voluntarios do eventos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -247,8 +261,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java</url>
-          <line>339</line>
-          <properties class="br.api.hallel.moduloAPI.service.eventos.EventosService">
+          <line>300</line>
+          <properties class="br.api.hallel.moduloAPI.service.eventos.EventosService" method="verificarIsInscrito">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
