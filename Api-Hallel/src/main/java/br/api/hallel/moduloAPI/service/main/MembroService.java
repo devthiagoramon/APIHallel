@@ -177,7 +177,7 @@ public class MembroService implements MembroInterface {
         return responseList;
     }
 
-    @Override
+  /*  @Override
     public Boolean enviarContribuicaoEvento(String idEvento, ContribuicaoEventoReq contEventoReq) {
         Eventos eventos = this.eventosRepository.findById(idEvento).get();
 
@@ -197,5 +197,5 @@ public class MembroService implements MembroInterface {
         return true;
     }
 
-
+*/
 }

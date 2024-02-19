@@ -2,6 +2,7 @@ package br.api.hallel.moduloAPI.service.main;
 
 import br.api.hallel.moduloAPI.exceptions.SolicitarCadastroException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
+import br.api.hallel.moduloAPI.exceptions.handler.EmailJaCadastradoException;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.LoginRequerimento;
 import br.api.hallel.moduloAPI.payload.requerimento.LoginRequerimentoGoogle;
@@ -189,6 +190,11 @@ public class MainService implements MainInterface {
         membro.setRoles(roles);
         membro.setStatusMembro(StatusMembro.ATIVO);
 
+        // Verifica se o email já está cadastrado
+        if (membroRepository.findByEmail(solicitarCadastroRequerimento.getEmail()).isPresent()) {
+            throw new EmailJaCadastradoException("Este email já está cadastrado.");
+        }
+
         //SALVA NO BD E GERA O TOKEN PARA O USUARIO
         if (membro.getEmail() != null &&
                 membro.getNome() != null &&
@@ -199,7 +205,7 @@ public class MainService implements MainInterface {
                     .token(jwtToken)
                     .build();
         } else {
-            throw new SolicitarCadastroException("Por favor, preenchar os campos corretamente.");
+            throw new SolicitarCadastroException("Por favor, preencha os campos corretamente.");
         }
     }
 

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Document
 @Data
 @NoArgsConstructor
@@ -16,10 +18,18 @@ public class DoacaoObjetosEventos {
     private String id;
     private String nomeDoObjeto;
     private Integer quantidade;
-    private Membro membroDoador;
+    private String emailDoador;
+    private boolean isRecebido;
+    private String dataRecebida;
+    private Date dataDoacao;
 
-    public DoacaoObjetosEventos(String nomeDoObjeto,Integer quantidade) {
+    public DoacaoObjetosEventos(String nomeDoObjeto,Integer quantidade,String emailDoador,
+                                String dataRecebida,Date dataDoacao,boolean isRecebido) {
         this.nomeDoObjeto = nomeDoObjeto;
         this.quantidade = quantidade;
+        this.emailDoador = emailDoador;
+        this.dataRecebida = dataRecebida;
+        this.dataDoacao = dataDoacao;
+        this.isRecebido = isRecebido;
     }
 }

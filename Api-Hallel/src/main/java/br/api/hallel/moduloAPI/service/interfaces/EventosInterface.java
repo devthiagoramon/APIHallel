@@ -2,9 +2,7 @@ package br.api.hallel.moduloAPI.service.interfaces;
 
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.financeiroNovo.payload.request.PagamentoEntradaEventoReq;
-import br.api.hallel.moduloAPI.model.DespesaEvento;
-import br.api.hallel.moduloAPI.model.Eventos;
-import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
@@ -63,5 +61,7 @@ public interface EventosInterface {
     StatusEntradaEvento verificarSituacaoMembroEmEvento(String idEvento, String emailMembro);
 
     List<EventosResponse> listarEventosInscritos(String iduser);
+
+
 
 }

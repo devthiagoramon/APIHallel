@@ -10,8 +10,7 @@ import br.api.hallel.moduloAPI.financeiroNovo.repository.PagamentoEntradaEventoR
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.*;
-import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
-import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
+import br.api.hallel.moduloAPI.payload.resposta.*;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.repository.LocalEventoRepository;
@@ -296,6 +295,7 @@ public class EventosService implements EventosInterface {
         return eventosResponses;
     }
 
+
     //LISTA O EVENTO PELO SEU NOME
     @Override
     public EventosResponse listarEventosByTitulo(String nome) {
@@ -477,6 +477,73 @@ public class EventosService implements EventosInterface {
         throw new EventoNotFoundException("Evento não encontrado.");
     }
 
+    public Boolean FazerDoacaoObjeto(DoacaoObjetosEventosReq doacao,String idEvento){
+        Optional<Eventos> eventosOptional = this.repository.findById(idEvento);
+
+        if(eventosOptional.isPresent()){
+            Eventos evento = eventosOptional.get();
+            DoacaoObjetosEventos doacaoNova = doacao.toDoacaoObjetosEventos();
+
+            if(evento.getDoacaoObjetosEventos() == null){
+                evento.setDoacaoObjetosEventos(new ArrayList<>());
+            }
+
+            evento.getDoacaoObjetosEventos().add(doacaoNova);
+            this.repository.save(evento);
+
+            return true;
+
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado.");
+    }
+
+    public Boolean FazerDoacaoDinheiro (DoacaoDinheiroEventoReq doacaoDinheiroEventoReq , String idEevento) {
+        Optional<Eventos> eventosOptional = this.repository.findById(idEevento);
+
+        if (eventosOptional.isPresent()) {
+            Eventos evento = eventosOptional.get();
+            DoacaoDinheiroEvento doacaoNova = doacaoDinheiroEventoReq.toDoacaoDinheiroEvento();
+
+            if (evento.getDoacaoDinheiroEvento() == null) {
+                evento.setDoacaoDinheiroEvento(new ArrayList<>());
+            }
+
+            evento.getDoacaoDinheiroEvento().add(doacaoNova);
+            this.repository.save(evento);
+
+            return true;
+        }
+        throw new EventoNotFoundException("Evento não encontrado.");
+    }
+
+
+
+    public List<DoacaoDinheiroEventoResponse> listAllDoacoesDinheiro(String idEvento) {
+        Optional<Eventos> eventoOptional = repository.findById(idEvento);
+        if (eventoOptional.isPresent()) {
+            Eventos evento = eventoOptional.get();
+            List<DoacaoDinheiroEventoResponse> doacoesDinheiro = evento.getDoacaoDinheiroEvento().stream()
+                    .map(doacao -> new DoacaoDinheiroEventoResponse().toResponse(doacao))
+                    .collect(Collectors.toList());
+            return doacoesDinheiro;
+        }
+        throw new EventoNotFoundException("Evento não encontrado.");
+    }
+
+
+    public List<DoacaoObjetosEventosResponse> listAllDoacoesObjetos(String idEvento) {
+        Optional<Eventos> eventoOptional = repository.findById(idEvento);
+        if (eventoOptional.isPresent()) {
+            Eventos evento = eventoOptional.get();
+            List<DoacaoObjetosEventosResponse> doacoesObjetos = evento.getDoacaoObjetosEventos().stream()
+                    .map(doacao -> new DoacaoObjetosEventosResponse().toResponse(doacao))
+                    .collect(Collectors.toList());
+            return doacoesObjetos;
+        }
+        throw new EventoNotFoundException("Evento não encontrado.");
+    }
+
 
 
 
@@ -649,7 +716,7 @@ public class EventosService implements EventosInterface {
     }
 
 
-    public List<ContribuicaoEvento> listarContribuicoesEvento(String idEvento) {
+    /*public List<ContribuicaoEvento> listarContribuicoesEvento(String idEvento) {
         Optional<Eventos> optional = this.repository.findById(idEvento);
 
         if (optional.isPresent()) {
@@ -666,7 +733,7 @@ public class EventosService implements EventosInterface {
 
         return Collections.emptyList();
     }
-
+*/
 
     public List<EventosVisualizacaoResponse> listarEventosOrdemAlfabetica() {
         List<EventosVisualizacaoResponse> listaResponse = new ArrayList<>();
@@ -697,6 +764,28 @@ public class EventosService implements EventosInterface {
         log.info("Eventos listados por data!");
 
         return listaResponse;
+    }
+
+
+
+    public EventoDoacoesResponse obterDetalhesDoacoes(String idEvento) {
+        Optional<Eventos> eventosOptional = repository.findById(idEvento);
+
+        if (eventosOptional.isPresent()) {
+            Eventos evento = eventosOptional.get();
+
+            // Criar o objeto de resposta
+            EventoDoacoesResponse response = new EventoDoacoesResponse();
+            response.setIdEvento(evento.getId());
+            response.setNomeEvento(evento.getTitulo());
+            response.setDataEvento(evento.getDate());
+            response.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
+            response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
+
+            return response;
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado com o ID: " + idEvento);
     }
 
 
