@@ -47,7 +47,7 @@ public class EventosRequest {
         request.setPalestrantes(eventos.getPalestrantes());
         request.setPagamentoEntradaEventoList(eventos.getPagamentoEntradaEventoList());
         request.setDestaque(eventos.getDestaque());
-        request.setContribuicaoEventosList(eventos.getContribuicaoEventoList());
+
         return request;
     }
     @NotNull

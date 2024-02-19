@@ -28,5 +28,5 @@ public interface MembroInterface {
 
     List<MembroResponse> listByPage(int pagina);
 
-    Boolean enviarContribuicaoEvento(String idEvento, ContribuicaoEventoReq contEventoReq);
+
 }

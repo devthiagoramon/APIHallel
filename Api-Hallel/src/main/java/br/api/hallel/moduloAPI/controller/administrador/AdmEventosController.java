@@ -6,6 +6,7 @@ import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.payload.resposta.EventoDoacoesResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
 import br.api.hallel.moduloAPI.service.eventos.EventoArquivadoService;
@@ -165,4 +166,10 @@ public class AdmEventosController {
 
         return ResponseEntity.badRequest().build();
     }
+
+    @GetMapping("/{id}/ListDetalhesDoacaoEvento")
+    public ResponseEntity<EventoDoacoesResponse> ListDetalhesDoacaoEvento(@PathVariable(value = "id") String idEvento){
+        return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoes(idEvento));
+    }
+
 }

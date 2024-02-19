@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +17,9 @@ public class DoacaoObjetosEventosReq {
 
     private String nomeDoObjeto;
     private Integer quantidade;
-//    private Membro membroDoador;
+    private String emailDoador;
+
+
 
 
    public DoacaoObjetosEventosReq ToDoacaoObjetosEventosReq (DoacaoObjetosEventos doacaoObjetosEventos){
@@ -27,8 +31,8 @@ public class DoacaoObjetosEventosReq {
    }
 
    public DoacaoObjetosEventos toDoacaoObjetosEventos(){
-
-       return new DoacaoObjetosEventos(getNomeDoObjeto(),getQuantidade());
+        Date data = new Date();
+       return new DoacaoObjetosEventos(getNomeDoObjeto(),getQuantidade(),getEmailDoador(),null,data,false);
 
    }
 

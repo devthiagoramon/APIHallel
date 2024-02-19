@@ -4,10 +4,7 @@ import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.financeiroNovo.model.StatusEntradaEvento;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
-import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.InscreverEventoRequest;
-import br.api.hallel.moduloAPI.payload.requerimento.SeVoluntariarEventoReq;
+import br.api.hallel.moduloAPI.payload.requerimento.*;
 import br.api.hallel.moduloAPI.payload.resposta.*;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
 import br.api.hallel.moduloAPI.service.eventos.VoluntarioService;
@@ -119,7 +116,7 @@ public class EventosController {
 
     @PostMapping("/seVoluntariar")
     public ResponseEntity<Boolean> SeVoluntariar(@RequestBody SeVoluntariarEventoReq seVoluntariarEventoRequest){
-        log.info(seVoluntariarEventoRequest.toString());
+
         return ResponseEntity.ok(this.service.InscreverVoluntarioEmEvento(seVoluntariarEventoRequest));
     }
 
@@ -127,6 +124,31 @@ public class EventosController {
     public ResponseEntity<List<SeVoluntariarEventoResponse>> listAllVoluntarios(@PathVariable(value = "id") String idEvento){
         return ResponseEntity.ok().body(voluntarioService.listAllVoluntarios(idEvento));
     }
+
+    @PostMapping("/{id}/DoacaoObjeto")
+    public ResponseEntity<Boolean> FazerDoacaoObjeto(@PathVariable(value = "id") String idEvento, @RequestBody DoacaoObjetosEventosReq doacaoObjetosEventosReq){
+        System.out.println("doacao objeto");
+        return ResponseEntity.ok(this.service.FazerDoacaoObjeto(doacaoObjetosEventosReq,idEvento));
+    }
+
+    @PostMapping("/{id}/DoacaoDinheiro")
+    public ResponseEntity<Boolean> FazerDoacaoDinheiro(@PathVariable(value = "id") String idEvento,
+                                                       @RequestBody DoacaoDinheiroEventoReq doacaoDinheiroEventoReq){
+        System.out.println("Doacao dinheiro");
+        return ResponseEntity.ok(this.service.FazerDoacaoDinheiro(doacaoDinheiroEventoReq,idEvento));
+
+    }
+
+    @GetMapping("/{id}/ListDoacaoDinheiro")
+    public ResponseEntity<List<DoacaoDinheiroEventoResponse>> ListDoacoesDinheiro(@PathVariable(value="id") String idEvento){
+        return ResponseEntity.ok().body(this.service.listAllDoacoesDinheiro(idEvento));
+    }
+
+    @GetMapping("/{id}/ListDoacaoObjetos")
+    public ResponseEntity<List<DoacaoObjetosEventosResponse>> ListDoacaoObjetos(@PathVariable(value="id") String idEvento){
+        return ResponseEntity.ok().body(this.service.listAllDoacoesObjetos(idEvento));
+    }
+
 
 
 //    @PostMapping("/verificarEmail/{email}/{idEvento}")
@@ -142,10 +164,10 @@ public class EventosController {
 //
 //        return ResponseEntity.accepted().body(false); }
 
-    @PostMapping("/{id}/contribuir")
+  /*  @PostMapping("/{id}/contribuir")
     public ResponseEntity<Boolean> contribuirEvento(@PathVariable(value = "id") String idEvento
             , @RequestBody ContribuicaoEventoReq req) {
         return ResponseEntity.status(200).body(this.membroService.enviarContribuicaoEvento(idEvento,req));
-    }
+    }*/
 
 }
