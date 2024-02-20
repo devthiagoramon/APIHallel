@@ -782,10 +782,45 @@ public class EventosService implements EventosInterface {
             response.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
             response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
 
+
+            if(evento.getDoacaoObjetosEventos()!=null && evento.getDoacaoDinheiroEvento() != null) {
+                int totalObjetos = evento.getDoacaoObjetosEventos().size();
+                int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
+                response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
+            }else  response.setTotalDeDoacoes(0);
+
             return response;
         }
 
         throw new EventoNotFoundException("Evento não encontrado com o ID: " + idEvento);
+    }
+
+    public List<EventoDoacoesResponse> obterDetalhesDoacoesEventos() {
+        List<Eventos> eventosList = repository.findAll();
+        List<EventoDoacoesResponse> listaResponse = new ArrayList<>();
+        for(Eventos evento : eventosList) {
+
+
+            // Criar o objeto de resposta
+            EventoDoacoesResponse response = new EventoDoacoesResponse();
+            response.setIdEvento(evento.getId());
+            response.setNomeEvento(evento.getTitulo());
+            response.setDataEvento(evento.getDate());
+            response.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
+            response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
+
+
+            if(evento.getDoacaoObjetosEventos()!=null && evento.getDoacaoDinheiroEvento() != null) {
+                int totalObjetos = evento.getDoacaoObjetosEventos().size();
+                int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
+                response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
+            }else  response.setTotalDeDoacoes(0);
+
+            listaResponse.add(response);
+
+        }
+        return listaResponse;
+
     }
 
 

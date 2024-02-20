@@ -172,4 +172,9 @@ public class AdmEventosController {
         return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoes(idEvento));
     }
 
+    @GetMapping("/listDetalhesDoacaoTodosEevntos")
+    public  ResponseEntity<List<EventoDoacoesResponse>> ListDetalhesDoacaoTodosEventos(){
+        return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoesEventos());
+    }
+
 }

@@ -14,4 +14,6 @@ public class EventoDoacoesResponse {
     private Date dataEvento;
     private List<DoacaoObjetosEventos> doacoesObjetos;
     private List<DoacaoDinheiroEvento> doacoesDinheiro;
+    private Integer totalDeDoacoes;
+
 }
