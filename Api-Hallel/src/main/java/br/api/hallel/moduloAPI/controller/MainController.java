@@ -119,6 +119,7 @@ public class MainController {
 
     @PostMapping("home/eventos/seVoluntariar")
     public ResponseEntity<Boolean> SeVoluntariar(@RequestBody SeVoluntariarEventoReq seVoluntariarEventoRequest){
+        System.out.println(seVoluntariarEventoRequest.toString());
         return ResponseEntity.ok(this.eventosService.InscreverVoluntarioEmEvento(seVoluntariarEventoRequest));
     }
 
