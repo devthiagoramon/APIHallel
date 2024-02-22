@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="adição dos metodos de doar pra eventos, metodos de listar as doações e adição do metodo de listagem dos detalhes da doção de eveto.">
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="adição listagem dos detalhes da doção de todos evetos.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EventoDoacoesResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EventoDoacoesResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -182,7 +181,9 @@
       <workItem from="1707424766154" duration="10466000" />
       <workItem from="1707512373388" duration="4554000" />
       <workItem from="1708029238760" duration="5283000" />
-      <workItem from="1708372485520" duration="8642000" />
+      <workItem from="1708372485520" duration="8706000" />
+      <workItem from="1708475668605" duration="1226000" />
+      <workItem from="1708546831309" duration="6794000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -256,7 +257,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708385082164</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="adição listagem dos detalhes da doção de todos evetos.">
+      <option name="closed" value="true" />
+      <created>1708389582598</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1708389582598</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,7 +292,8 @@
     <MESSAGE value="arrumei a rota dos destacados" />
     <MESSAGE value="arrumei a inscrição do menbro em um evento" />
     <MESSAGE value="adição dos metodos de doar pra eventos, metodos de listar as doações e adição do metodo de listagem dos detalhes da doção de eveto." />
-    <option name="LAST_COMMIT_MESSAGE" value="adição dos metodos de doar pra eventos, metodos de listar as doações e adição do metodo de listagem dos detalhes da doção de eveto." />
+    <MESSAGE value="adição listagem dos detalhes da doção de todos evetos." />
+    <option name="LAST_COMMIT_MESSAGE" value="adição listagem dos detalhes da doção de todos evetos." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

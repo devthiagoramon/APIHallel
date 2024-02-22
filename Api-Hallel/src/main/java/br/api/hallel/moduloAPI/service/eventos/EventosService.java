@@ -783,7 +783,7 @@ public class EventosService implements EventosInterface {
             response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
 
 
-            if(evento.getDoacaoObjetosEventos()!=null && evento.getDoacaoDinheiroEvento() != null) {
+            if(evento.getDoacaoObjetosEventos()!=null || evento.getDoacaoDinheiroEvento() != null) {
                 int totalObjetos = evento.getDoacaoObjetosEventos().size();
                 int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
                 response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
@@ -810,7 +810,7 @@ public class EventosService implements EventosInterface {
             response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
 
 
-            if(evento.getDoacaoObjetosEventos()!=null && evento.getDoacaoDinheiroEvento() != null) {
+            if(evento.getDoacaoObjetosEventos()!=null || evento.getDoacaoDinheiroEvento() != null) {
                 int totalObjetos = evento.getDoacaoObjetosEventos().size();
                 int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
                 response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
