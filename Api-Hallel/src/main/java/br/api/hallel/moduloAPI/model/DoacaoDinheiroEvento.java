@@ -20,18 +20,20 @@ public class DoacaoDinheiroEvento {
     private String formaDePagamento;
     private String dataRecebida;
     private boolean isRecebido;
+    private String nomeDoador;
 
 
 
 
     public DoacaoDinheiroEvento(Double valorDoado,String emailDoador,Date dataDoacao,String formaDePagamento,
-                                String dataRecebida,boolean isRecebido) {
+                                String dataRecebida,boolean isRecebido, String nomeDoador) {
         this.valorDoado = valorDoado;
         this.emailDoador = emailDoador;
         this.dataDoacao = dataDoacao;
         this.formaDePagamento = formaDePagamento;
         this.dataRecebida = dataRecebida;
         this.isRecebido = isRecebido;
+        this.nomeDoador = nomeDoador;
 
 
     }

@@ -361,6 +361,8 @@ public class EventosService implements EventosInterface {
     //ADICIONA UM MEMBRO AO EVENTO
     @Override
     public Boolean inscreverEvento(InscreverEventoRequest inscreverEventoRequest) {
+        Date date = new Date();
+        inscreverEventoRequest.setDataInscricao(date);
         Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
 
         if (eventosOptional.isPresent()) {
@@ -808,6 +810,7 @@ public class EventosService implements EventosInterface {
             response.setDataEvento(evento.getDate());
             response.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
             response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
+
 
 
             if(evento.getDoacaoObjetosEventos()!=null || evento.getDoacaoDinheiroEvento() != null) {

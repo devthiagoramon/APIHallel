@@ -101,6 +101,7 @@ public class AdmEntradasFinanceiro {
             @RequestParam(value = "mes") String mes,
             @RequestParam(value = "ano") String ano,
             @RequestParam(value = "page") int pagina){
+        System.out.println(mes+ano+pagina);
         return ResponseEntity.ok().body(this.entradaService.listEntradasByMesAndAno(pagina, mes, ano));
 
     }

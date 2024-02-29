@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +24,7 @@ public class InscreverEventoRequest {
     private CartaoCredito cartaoCredito;
     private boolean membro;
     private boolean associado;
+    private Date dataInscricao;
 
     public InscreverEventoRequest toInscreverEventoRequest(){
         InscreverEventoRequest request = new InscreverEventoRequest();
