@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +31,7 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
     private Integer idade;
     private String cpf;
     private CartaoCredito cartaoCredito;
+    private Date dataPagamento;
 
     public PagamentoEntradaEvento toPagamentoEntradaEvento() {
         PagamentoEntradaEvento pagamento = new PagamentoEntradaEvento();
@@ -43,6 +46,7 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         pagamento.setNome(getNome());
         pagamento.setCpf(getCpf());
         pagamento.setIdade(getIdade());
+        pagamento.setDate(getDataPagamento());
         return pagamento;
     }
 
@@ -54,6 +58,7 @@ public class PagamentoEntradaEventoReq extends EntradasFinanceiro {
         req.setIdade(inscreverEventoRequest.getIdade());
         req.setCpf(inscreverEventoRequest.getCpf());
         req.setCartaoCredito(inscreverEventoRequest.getCartaoCredito());
+        req.setDataPagamento(inscreverEventoRequest.getDataInscricao());
         return req;
     }
 

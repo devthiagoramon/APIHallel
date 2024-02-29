@@ -22,14 +22,16 @@ public class DoacaoObjetosEventos {
     private boolean isRecebido;
     private String dataRecebida;
     private Date dataDoacao;
+    private String nomeDoador;
 
     public DoacaoObjetosEventos(String nomeDoObjeto,Integer quantidade,String emailDoador,
-                                String dataRecebida,Date dataDoacao,boolean isRecebido) {
+                                String dataRecebida,Date dataDoacao,boolean isRecebido,String nomeDoador) {
         this.nomeDoObjeto = nomeDoObjeto;
         this.quantidade = quantidade;
         this.emailDoador = emailDoador;
         this.dataRecebida = dataRecebida;
         this.dataDoacao = dataDoacao;
         this.isRecebido = isRecebido;
+        this.nomeDoador = nomeDoador;
     }
 }

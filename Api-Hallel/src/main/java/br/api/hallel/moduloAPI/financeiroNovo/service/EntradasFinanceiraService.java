@@ -214,19 +214,24 @@ public class EntradasFinanceiraService implements MetodosCRUDFinanceiro<Entradas
         int tamanhoPagina = 15;
 
         for (EntradasFinanceiro entradasFinanceiro : this.entradasFinanceiroRepository.findAll()) {
+
             if (sdf.format(entradasFinanceiro.getDate()).substring(3).equals(mes + "/" + ano)) {
+
                 numTotalEntradas++;
             }
         }
 
         for (PagamentosAssociado pagamentosAssociado : this.pagamentoAssociadoRepository.findAll()) {
+
             if (sdf.format(pagamentosAssociado.getDate()).substring(3).equals(mes + "/" + ano)) {
+
                 numTotalPagamentos++;
             }
         }
 
         for (Doacoes doacoes : this.doacoesRepository.findAll()) {
             if (sdf.format(doacoes.getDate()).substring(3).equals(mes + "/" + ano)) {
+
                 numTotalDoacoes++;
             }
         }

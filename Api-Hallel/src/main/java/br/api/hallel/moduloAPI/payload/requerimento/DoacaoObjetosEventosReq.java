@@ -18,6 +18,7 @@ public class DoacaoObjetosEventosReq {
     private String nomeDoObjeto;
     private Integer quantidade;
     private String emailDoador;
+    private String nomeDoador;
 
 
 
@@ -32,7 +33,7 @@ public class DoacaoObjetosEventosReq {
 
    public DoacaoObjetosEventos toDoacaoObjetosEventos(){
         Date data = new Date();
-       return new DoacaoObjetosEventos(getNomeDoObjeto(),getQuantidade(),getEmailDoador(),null,data,false);
+       return new DoacaoObjetosEventos(getNomeDoObjeto(),getQuantidade(),getEmailDoador(),null,data,false,getNomeDoador());
 
    }
 

@@ -15,13 +15,14 @@ public class DoacaoDinheiroEventoReq {
     private String emailDoador;
     private Double valorDoado;
     private String formaDePagamento;
+    private String nomeDoador;
 
 
 
 
     public DoacaoDinheiroEvento toDoacaoDinheiroEvento(){
         Date data = new Date();
-        return new DoacaoDinheiroEvento(getValorDoado(),getEmailDoador(),data,getFormaDePagamento(),null,false);
+        return new DoacaoDinheiroEvento(getValorDoado(),getEmailDoador(),data,getFormaDePagamento(),null,false,getNomeDoador());
 
     }
 

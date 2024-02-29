@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Document
 @Data
 @AllArgsConstructor
@@ -29,5 +31,6 @@ public class PagamentoEntradaEvento extends EntradasFinanceiro {
     private Integer idade;
     private String cpf;
     private CartaoCredito cartaoCredito;
+    private Date data;
 
 }
