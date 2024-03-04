@@ -850,6 +850,7 @@ public class EventosService implements EventosInterface {
 
     }
 
+
     public List<EventoDoacoesResponse> obterDetalhesDoacoesDinheiroEventos(){
 
         List<Eventos> listaEventos = repository.findAll();
