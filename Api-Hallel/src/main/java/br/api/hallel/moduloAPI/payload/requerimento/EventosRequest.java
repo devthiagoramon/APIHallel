@@ -26,6 +26,9 @@ public class EventosRequest {
     private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
     private Boolean destaque;
     private List<ContribuicaoEvento> contribuicaoEventosList;
+    private Double valorDoEvento;
+    private Double ValorDescontoMembro;
+    private Double ValorDescontoAssociado;
 
     public Eventos toCreateRequest(LocalEvento localEventoAtualizado){
         return getEventos(localEventoAtualizado);
@@ -72,6 +75,7 @@ public class EventosRequest {
         evento.setDate(getDate());
         evento.setLocalEvento(localEventoAtualizado);
         evento.setDestaque(getDestaque());
+        evento.setValorDoEvento(getValorDoEvento());
         return evento;
     }
 
