@@ -826,5 +826,52 @@ public class EventosService implements EventosInterface {
 
     }
 
+    public List<EventoDoacoesResponse> ObterDetalhesDoacoesObejtosEventos(){
+        List<Eventos> eventosList = repository.findAll();
+        List<EventoDoacoesResponse> listaResponse = new ArrayList<>();
+        for(Eventos evento: eventosList){
+            EventoDoacoesResponse doacoesResponse = new EventoDoacoesResponse();
+            doacoesResponse.setIdEvento(evento.getId());
+            doacoesResponse.setDataEvento(evento.getDate());
+            doacoesResponse.setNomeEvento(evento.getTitulo());
+            doacoesResponse.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
+
+
+            if(evento.getDoacaoObjetosEventos() != null){
+               doacoesResponse.setTotalDeDoacoes( evento.getDoacaoObjetosEventos().size());
+            }else doacoesResponse.setTotalDeDoacoes(0);
+
+            listaResponse.add(doacoesResponse);
+
+        }
+
+        return listaResponse;
+
+
+    }
+
+    public List<EventoDoacoesResponse> obterDetalhesDoacoesDinheiroEventos(){
+
+        List<Eventos> listaEventos = repository.findAll();
+        List<EventoDoacoesResponse> listResponse = new ArrayList<>();
+         for (Eventos evento : listaEventos){
+             EventoDoacoesResponse doacoesResponse = new EventoDoacoesResponse();
+             doacoesResponse.setIdEvento(evento.getId());
+             doacoesResponse.setDataEvento(evento.getDate());
+             doacoesResponse.setNomeEvento(evento.getTitulo());
+             doacoesResponse.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
+
+                if(evento.getDoacaoDinheiroEvento() != null ){
+                    doacoesResponse.setTotalDeDoacoes(evento.getDoacaoDinheiroEvento().size());
+                }
+
+                    listResponse.add(doacoesResponse);
+
+         }
+        return listResponse;
+    }
+
+
+
 
 }

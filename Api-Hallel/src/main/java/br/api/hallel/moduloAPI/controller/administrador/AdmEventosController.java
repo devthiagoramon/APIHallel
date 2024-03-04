@@ -172,9 +172,19 @@ public class AdmEventosController {
         return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoes(idEvento));
     }
 
-    @GetMapping("/listDetalhesDoacaoTodosEevntos")
+    @GetMapping("/listDetalhesDoacaoTodosEventos")
     public  ResponseEntity<List<EventoDoacoesResponse>> ListDetalhesDoacaoTodosEventos(){
         return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoesEventos());
+    }
+
+    @GetMapping("/ListDetalhesDoacoesObjetosTodosEventos")
+    public ResponseEntity<List<EventoDoacoesResponse>> ListDetalhesDoacoesObjetosTodosEventos(){
+        return ResponseEntity.ok().body(this.eventosService.ObterDetalhesDoacoesObejtosEventos());
+    }
+
+    @GetMapping("/ListDetalhesDoacoesDinheiroTodosEventos")
+    public ResponseEntity<List<EventoDoacoesResponse>> ListDetalhesDoacoesDinheiroEventos(){
+        return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoesDinheiroEventos());
     }
 
 }

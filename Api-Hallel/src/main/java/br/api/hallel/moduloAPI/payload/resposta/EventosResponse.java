@@ -37,7 +37,9 @@ public class EventosResponse {
     private List<PagamentoEntradaEvento> pagamentoEntradaEventos;
     private List<DoacaoDinheiroEvento> doacaoDinheiroEventos;
     private List<DoacaoObjetosEventos> doacaoObjetosEventos;
-
+    private Double valorDoEvento;
+    private Double ValorDescontoMembro;
+    private Double ValorDescontoAssociado;
 
     public EventosResponse toEventosResponse(Eventos eventos) {
 
@@ -61,6 +63,7 @@ public class EventosResponse {
         response.setDestaque(eventos.getDestaque());
         response.setDespesas(eventos.getDespesas());
         response.setPalestrantes(eventos.getPalestrantes());
+        response.setValorDoEvento(eventos.getValorDoEvento());
         return response;
     }
 
@@ -82,7 +85,8 @@ public class EventosResponse {
                 getDestaque(),
                 getDespesas(),
                 getPalestrantes(),
-                getPagamentoEntradaEventos()
+                getPagamentoEntradaEventos(),
+                getValorDoEvento()
                 );
     }
 }
