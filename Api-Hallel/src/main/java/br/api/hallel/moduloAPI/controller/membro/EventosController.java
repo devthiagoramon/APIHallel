@@ -139,11 +139,14 @@ public class EventosController {
 
     }
 
+    //listagem das doacoes em dinheiro de todos os eventos
     @GetMapping("/{id}/ListDoacaoDinheiro")
     public ResponseEntity<List<DoacaoDinheiroEventoResponse>> ListDoacoesDinheiro(@PathVariable(value="id") String idEvento){
         return ResponseEntity.ok().body(this.service.listAllDoacoesDinheiro(idEvento));
     }
 
+
+    //listagem das doacoes de objetos de todos os eventos
     @GetMapping("/{id}/ListDoacaoObjetos")
     public ResponseEntity<List<DoacaoObjetosEventosResponse>> ListDoacaoObjetos(@PathVariable(value="id") String idEvento){
         return ResponseEntity.ok().body(this.service.listAllDoacoesObjetos(idEvento));
