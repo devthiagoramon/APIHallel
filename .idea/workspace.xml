@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos" />
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -194,6 +198,8 @@
       <workItem from="1709467102908" duration="41000" />
       <workItem from="1709510046430" duration="402000" />
       <workItem from="1709514843415" duration="2012000" />
+      <workItem from="1709516922938" duration="103000" />
+      <workItem from="1709683542732" duration="2125000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -299,7 +305,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709516816783</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos">
+      <option name="closed" value="true" />
+      <created>1709517005749</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1709517005749</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,7 +343,8 @@
     <MESSAGE value="adição listagem dos detalhes da doção de todos evetos." />
     <MESSAGE value="resolução de alguns bugs" />
     <MESSAGE value="refatoração no cadastro de membro em eventos para resolver bug do financeiro" />
-    <option name="LAST_COMMIT_MESSAGE" value="refatoração no cadastro de membro em eventos para resolver bug do financeiro" />
+    <MESSAGE value="criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos" />
+    <option name="LAST_COMMIT_MESSAGE" value="criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

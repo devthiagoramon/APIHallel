@@ -167,7 +167,7 @@ public class AdmEventosController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/{id}/ListDetalhesDoacaoEvento")
+    @GetMapping("/ListDetalhesDoacaoEvento/{id}")
     public ResponseEntity<EventoDoacoesResponse> ListDetalhesDoacaoEvento(@PathVariable(value = "id") String idEvento){
         return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoes(idEvento));
     }
@@ -185,6 +185,16 @@ public class AdmEventosController {
     @GetMapping("/ListDetalhesDoacoesDinheiroTodosEventos")
     public ResponseEntity<List<EventoDoacoesResponse>> ListDetalhesDoacoesDinheiroEventos(){
         return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoesDinheiroEventos());
+    }
+
+    @PostMapping("/AdicionarDescontoParaMembro/{id}")
+    public ResponseEntity<Boolean> AdicionaDescontoMembro(@PathVariable(value="id")String idEvento,Double valorDesconto){
+        return ResponseEntity.ok().body(eventosService.adicionarDescontoParaMembro(idEvento,valorDesconto));
+    }
+
+    @PostMapping("/AdicionarDescontoAssociado/{id}")
+    public ResponseEntity<Boolean> AdicionaDescontoAssociado(@PathVariable(value = "id") String idEvento, Double valorDesconto){
+        return  ResponseEntity.ok().body(eventosService.adicionarDescontoParaAssociado(idEvento,valorDesconto));
     }
 
 }

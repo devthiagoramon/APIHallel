@@ -872,7 +872,31 @@ public class EventosService implements EventosInterface {
         return listResponse;
     }
 
+    public Boolean adicionarDescontoParaMembro(String id,Double valorDesconto){
+        Optional<Eventos> eventoOptinal = repository.findById(id);
 
+        if(eventoOptinal.isPresent()){
+            Eventos evento = eventoOptinal.get();
+            evento.setValorDescontoMembro(valorDesconto);
+            return true;
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado com o ID: " + id);
+
+    }
+
+    public Boolean adicionarDescontoParaAssociado(String id,Double valorDesconto){
+        Optional<Eventos> eventoOptinal = repository.findById(id);
+
+        if(eventoOptinal.isPresent()){
+            Eventos evento = eventoOptinal.get();
+            evento.setValorDescontoAssociado(valorDesconto);
+            return true;
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado com o ID: " + id);
+
+    }
 
 
 }
