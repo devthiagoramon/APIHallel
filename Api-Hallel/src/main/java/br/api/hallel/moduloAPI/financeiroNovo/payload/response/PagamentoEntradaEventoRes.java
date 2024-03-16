@@ -44,7 +44,7 @@ public class PagamentoEntradaEventoRes extends EntradaFinanceiroResponse {
         request.setMetodoPagamento(pagamentoResponse.getMetodoPagamento());
         request.setEmail(pagamentoResponse.getEmailMembroPagador());
         request.setIdEvento(pagamentoResponse.getIdEventos());
-        request.setStatus(pagamentoResponse.getStatus());
+
 
         return request;
     }

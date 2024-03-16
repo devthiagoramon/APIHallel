@@ -152,6 +152,13 @@ public class EventosController {
         return ResponseEntity.ok().body(this.service.listAllDoacoesObjetos(idEvento));
     }
 
+    @GetMapping("/{id}/ListValorEvento")
+    public ResponseEntity<ValorEventoResponse> ListValorEvento(@PathVariable(value="id") String idEvento,String idMembro){
+        return ResponseEntity.ok().body(this.service.InformacoesValorEvento(idEvento,idMembro));
+    }
+
+
+
 
 
 //    @PostMapping("/verificarEmail/{email}/{idEvento}")

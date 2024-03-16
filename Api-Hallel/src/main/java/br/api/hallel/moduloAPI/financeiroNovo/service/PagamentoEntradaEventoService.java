@@ -30,6 +30,7 @@ public class PagamentoEntradaEventoService implements
         PagamentoEntradaEvento pagamentoEntradaEvento =
                 this.pagamentoEntradaEventoRepository.insert(request.toPagamentoEntradaEvento());
         log.info("Pagamento de um evento(id: " + pagamentoEntradaEvento.getId() + ") salvo no sistema");
+
         this.repository.save(pagamentoEntradaEvento);
         return pagamentoEntradaEvento;
     }
@@ -44,7 +45,6 @@ public class PagamentoEntradaEventoService implements
             pagamentoEntradaEventoOld.setCodigo(request.getCodigo());
             pagamentoEntradaEventoOld.setDate(request.getDate());
             pagamentoEntradaEventoOld.setValor(request.getValor());
-            pagamentoEntradaEventoOld.setStatusEntrada(request.getStatus());
             pagamentoEntradaEventoOld.setMetodoPagamento(request.getMetodoPagamento());
             this.pagamentoEntradaEventoRepository.save(pagamentoEntradaEventoOld);
 

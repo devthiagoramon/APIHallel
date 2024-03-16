@@ -14,6 +14,7 @@ import br.api.hallel.moduloAPI.payload.resposta.*;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.repository.LocalEventoRepository;
+import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventosInterface;
 import br.api.hallel.moduloAPI.service.main.MembroService;
 import lombok.extern.log4j.Log4j2;
@@ -35,6 +36,8 @@ public class EventosService implements EventosInterface {
     private PagamentoEntradaEventoRepository pagamentoEntradaEventoRepository;
     @Autowired
     private MembroService membroService;
+    @Autowired
+    private MembroRepository membroRepository;
 
     @Autowired
     private AssociadoRepository associadoRepository;
@@ -201,7 +204,7 @@ public class EventosService implements EventosInterface {
             entradaNew.setCodigo(pagamentoEntrada.getCodigo());
 
             if (entradaOld.equals(entradaNew)) {
-                pagamento.setStatusEntrada(StatusEntradaEvento.CONFIRMADO);
+
                 int index = eventos.getPagamentoEntradaEventoList().indexOf(entradaOld);
                 eventos.getPagamentoEntradaEventoList().set(index, new PagamentoEntradaEventoReq().toPag(pagamentoEntrada));
 
@@ -236,7 +239,7 @@ public class EventosService implements EventosInterface {
             entradaNew.setCodigo(pagamentoEntrada.getCodigo());
 
             if (entradaOld.equals(entradaNew)) {
-                pagamento.setStatusEntrada(StatusEntradaEvento.RECUSADO);
+
                 int index = eventos.getPagamentoEntradaEventoList().indexOf(entradaOld);
                 eventos.getPagamentoEntradaEventoList().set(index, new PagamentoEntradaEventoReq().toPag(pagamentoEntrada));
 
@@ -274,7 +277,7 @@ public class EventosService implements EventosInterface {
         if (optional.isPresent()) {
             PagamentoEntradaEvento pagamentoEntradaEvento = optional.get();
             if (pagamentoEntradaEvento.getEmailMembroPagador().equals(emailMembro)) {
-                statusEntradaEvento = pagamentoEntradaEvento.getStatusEntrada();
+
             }
         }
         return statusEntradaEvento;
@@ -388,7 +391,11 @@ public class EventosService implements EventosInterface {
             if (!evento.getIntegrantes().contains(membroNovo)) {
                 evento.getIntegrantes().add(membroNovo);
 
+
+                ValorEventoResponse response = this.InformacoesValorEvento(evento.getId(),membroNovo.getId());
                 // Solicitar pagamento de entrada apenas se o membro não estiver participando do evento
+                inscreverEventoRequest.setValorPago(response.getValorEventoComDesconto());
+
                 PagamentoEntradaEventoReq pagamentoEntradaEventoReq = new PagamentoEntradaEventoReq().toPagamentoEntradaEventoReq(inscreverEventoRequest);
                 this.solicitarPagamentoEntrada(pagamentoEntradaEventoReq, membroNovo, evento);
 
@@ -407,7 +414,6 @@ public class EventosService implements EventosInterface {
         adicionarPagamentoEntradaEvento(request, eventos);
         adicionarMembro(eventos, membro);
         adicionarEventoParticipando(membro, eventos);
-        atualizarStatusEntradaEvento(request);
         System.out.println("funcionooooooou!");
         salvarEventos(eventos);
         atualizarMembro(membro);
@@ -420,6 +426,7 @@ public class EventosService implements EventosInterface {
             eventos.setPagamentoEntradaEventoList(new ArrayList<>());
         }
         eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
+
     }
 
     private void adicionarMembro(Eventos eventos, Membro membro) {
@@ -436,12 +443,7 @@ public class EventosService implements EventosInterface {
         membro.getEventosParticipando().add(eventos.getId());
     }
 
-    private void atualizarStatusEntradaEvento(PagamentoEntradaEventoReq request) {
-        if (request.getCartaoCredito() != null) {
-            request.setStatus(StatusEntradaEvento.CONFIRMADO);
-        }
 
-    }
 
     private void salvarEventos(Eventos eventos) {
 
@@ -455,6 +457,7 @@ public class EventosService implements EventosInterface {
     }
 
     private void cadastrarPagamentoEntrada(PagamentoEntradaEventoReq request) {
+
         pagamentoEntradaService.cadastrar(request);
     }
 
@@ -875,9 +878,13 @@ public class EventosService implements EventosInterface {
     public Boolean adicionarDescontoParaMembro(String id,Double valorDesconto){
         Optional<Eventos> eventoOptinal = repository.findById(id);
 
+        System.out.println(valorDesconto);
+
         if(eventoOptinal.isPresent()){
             Eventos evento = eventoOptinal.get();
             evento.setValorDescontoMembro(valorDesconto);
+            this.repository.save(evento);
+            System.out.println(evento.getValorDescontoMembro());
             return true;
         }
 
@@ -888,15 +895,67 @@ public class EventosService implements EventosInterface {
     public Boolean adicionarDescontoParaAssociado(String id,Double valorDesconto){
         Optional<Eventos> eventoOptinal = repository.findById(id);
 
+        System.out.println(valorDesconto);
+
         if(eventoOptinal.isPresent()){
             Eventos evento = eventoOptinal.get();
             evento.setValorDescontoAssociado(valorDesconto);
+            this.repository.save(evento);
             return true;
         }
 
         throw new EventoNotFoundException("Evento não encontrado com o ID: " + id);
 
     }
+
+    public ValorEventoResponse InformacoesValorEvento(String idEvento,String idMembro){
+        ValorEventoResponse response = new ValorEventoResponse();
+        Optional<Eventos> optinalEvento = repository.findById(idEvento);
+
+        Optional<Membro> optinalMembro = membroRepository.findById(idMembro);
+        Optional<Associado> optinalAssociado = associadoRepository.findById(idMembro);
+
+        if(optinalEvento.isPresent()){
+            Eventos evento = optinalEvento.get();
+            response.setValorEvento(evento.getValorDoEvento());
+
+            if(optinalMembro.isPresent()){
+                response.setValorDesconto(evento.getValorDescontoMembro());
+                response.setTipoDesconto("desconto de Membro");
+            }
+
+            if(optinalAssociado.isPresent()){
+                response.setValorDesconto(evento.getValorDescontoAssociado());
+                response.setTipoDesconto("desconto de Associado");
+            }
+
+            response.setValorEventoComDesconto(response.getValorEvento()- response.getValorDesconto());
+
+            return response;
+
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado com o ID: " + idEvento);
+    }
+
+    public Boolean AlterarValorEvento(String idEvento,Double valorEvento){
+
+        Optional<Eventos> eventosOptional = repository.findById(idEvento);
+        if(eventosOptional.isPresent()){
+            Eventos evento = eventosOptional.get();
+
+            evento.setValorDoEvento(valorEvento);
+
+            repository.save(evento);
+            return true;
+
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado com o ID: " + idEvento);
+
+    }
+
+
 
 
 }
