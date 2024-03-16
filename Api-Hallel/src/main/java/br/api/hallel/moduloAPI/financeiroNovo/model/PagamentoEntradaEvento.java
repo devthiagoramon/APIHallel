@@ -3,6 +3,7 @@ package br.api.hallel.moduloAPI.financeiroNovo.model;
 import br.api.hallel.moduloAPI.model.CartaoCredito;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 @Document
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class PagamentoEntradaEvento extends EntradasFinanceiro {
 
@@ -20,11 +22,8 @@ public class PagamentoEntradaEvento extends EntradasFinanceiro {
     * Andamento = pagamento em andamento.
      */
 
-    public PagamentoEntradaEvento(){
-        setStatusEntrada(StatusEntradaEvento.ANDAMENTO);
-    }
 
-    private StatusEntradaEvento statusEntrada;
+    private Double valorPago;
     private String idEventos;
     private String emailMembroPagador;
     private String nome;

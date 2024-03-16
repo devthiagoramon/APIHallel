@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos">
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="criação das rotas de adição de desconto em evento para membro e para associado">
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/ValorEventoResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/model/PagamentoEntradaEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/model/PagamentoEntradaEvento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/payload/request/PagamentoEntradaEventoReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/payload/request/PagamentoEntradaEventoReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/payload/response/PagamentoEntradaEventoRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/payload/response/PagamentoEntradaEventoRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/service/PagamentoEntradaEventoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/service/PagamentoEntradaEventoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/InscreverEventoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/InscreverEventoRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -199,7 +206,14 @@
       <workItem from="1709510046430" duration="402000" />
       <workItem from="1709514843415" duration="2012000" />
       <workItem from="1709516922938" duration="103000" />
-      <workItem from="1709683542732" duration="2125000" />
+      <workItem from="1709683542732" duration="3605000" />
+      <workItem from="1709843969332" duration="3203000" />
+      <workItem from="1709941731524" duration="2270000" />
+      <workItem from="1710097186543" duration="311000" />
+      <workItem from="1710119603500" duration="136000" />
+      <workItem from="1710197620788" duration="6492000" />
+      <workItem from="1710366557542" duration="4191000" />
+      <workItem from="1710547127687" duration="2127000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -313,7 +327,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709517005749</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="criação das rotas de adição de desconto em evento para membro e para associado">
+      <option name="closed" value="true" />
+      <created>1709686036056</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1709686036056</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,7 +366,8 @@
     <MESSAGE value="resolução de alguns bugs" />
     <MESSAGE value="refatoração no cadastro de membro em eventos para resolver bug do financeiro" />
     <MESSAGE value="criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos" />
-    <option name="LAST_COMMIT_MESSAGE" value="criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos" />
+    <MESSAGE value="criação das rotas de adição de desconto em evento para membro e para associado" />
+    <option name="LAST_COMMIT_MESSAGE" value="criação das rotas de adição de desconto em evento para membro e para associado" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -361,7 +384,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java</url>
-          <line>300</line>
+          <line>303</line>
           <properties class="br.api.hallel.moduloAPI.service.eventos.EventosService" method="listarEventosByTitulo">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

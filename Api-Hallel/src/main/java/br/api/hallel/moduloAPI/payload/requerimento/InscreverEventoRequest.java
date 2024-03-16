@@ -25,6 +25,7 @@ public class InscreverEventoRequest {
     private boolean membro;
     private boolean associado;
     private Date dataInscricao;
+    private Double ValorPago;
 
     public InscreverEventoRequest toInscreverEventoRequest(){
         InscreverEventoRequest request = new InscreverEventoRequest();

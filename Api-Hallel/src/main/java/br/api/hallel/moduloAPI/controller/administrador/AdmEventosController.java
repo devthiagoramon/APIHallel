@@ -189,12 +189,18 @@ public class AdmEventosController {
 
     @PostMapping("/AdicionarDescontoParaMembro/{id}")
     public ResponseEntity<Boolean> AdicionaDescontoMembro(@PathVariable(value="id")String idEvento,Double valorDesconto){
+        System.out.println(valorDesconto+idEvento);
         return ResponseEntity.ok().body(eventosService.adicionarDescontoParaMembro(idEvento,valorDesconto));
     }
 
     @PostMapping("/AdicionarDescontoAssociado/{id}")
     public ResponseEntity<Boolean> AdicionaDescontoAssociado(@PathVariable(value = "id") String idEvento, Double valorDesconto){
         return  ResponseEntity.ok().body(eventosService.adicionarDescontoParaAssociado(idEvento,valorDesconto));
+    }
+
+    @PostMapping("/AlterarValorEvento/{id}")
+    public ResponseEntity<Boolean> AlteraValorEvento(@PathVariable(value="id") String idEvento,Double valorEvento){
+        return ResponseEntity.ok().body(eventosService.AlterarValorEvento(idEvento,valorEvento));
     }
 
 }
