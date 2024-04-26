@@ -43,7 +43,11 @@ public class MainController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> logar(@Valid @RequestBody LoginRequerimento loginRequerimento) {
 
+
+
         try {
+
+
             return ResponseEntity.ok().body(this.mainService.logar(loginRequerimento));
         } catch (SolicitarLoginException e) {
             System.out.println(e.getMessage());
@@ -114,6 +118,10 @@ public class MainController {
 
     @PostMapping("/home/eventos/participarEvento")
     public ResponseEntity<Boolean> participarEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest){
+
+        System.out.println(inscreverEventoRequest.toString());
+        System.out.println("inscrito !");
+
         return ResponseEntity.ok(this.eventosService.inscreverEvento(inscreverEventoRequest));
     }
 

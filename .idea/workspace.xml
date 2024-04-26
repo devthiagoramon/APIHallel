@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="criação das rotas de adição de desconto em evento para membro e para associado">
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/ValorEventoResponse.java" afterDir="false" />
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="refatoração valor evento">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/model/PagamentoEntradaEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/model/PagamentoEntradaEvento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/payload/request/PagamentoEntradaEventoReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/payload/request/PagamentoEntradaEventoReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/payload/response/PagamentoEntradaEventoRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/payload/response/PagamentoEntradaEventoRes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/service/PagamentoEntradaEventoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/financeiroNovo/service/PagamentoEntradaEventoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/InscreverEventoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/InscreverEventoRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MainService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +207,40 @@
       <workItem from="1710119603500" duration="136000" />
       <workItem from="1710197620788" duration="6492000" />
       <workItem from="1710366557542" duration="4191000" />
-      <workItem from="1710547127687" duration="2127000" />
+      <workItem from="1710547127687" duration="2208000" />
+      <workItem from="1710723126895" duration="1544000" />
+      <workItem from="1710731457524" duration="3000" />
+      <workItem from="1710791324012" duration="1925000" />
+      <workItem from="1711588704063" duration="6065000" />
+      <workItem from="1711629581441" duration="5606000" />
+      <workItem from="1712006831230" duration="2007000" />
+      <workItem from="1712077195674" duration="1983000" />
+      <workItem from="1712184389740" duration="1317000" />
+      <workItem from="1712272556345" duration="572000" />
+      <workItem from="1712278741225" duration="928000" />
+      <workItem from="1712354577335" duration="2402000" />
+      <workItem from="1712881883129" duration="3595000" />
+      <workItem from="1712927437378" duration="3557000" />
+      <workItem from="1712970197834" duration="1996000" />
+      <workItem from="1713144348376" duration="1183000" />
+      <workItem from="1713186522712" duration="3293000" />
+      <workItem from="1713222856340" duration="2161000" />
+      <workItem from="1713272285335" duration="3367000" />
+      <workItem from="1713313702397" duration="3372000" />
+      <workItem from="1713318930598" duration="504000" />
+      <workItem from="1713319538076" duration="744000" />
+      <workItem from="1713356234877" duration="2899000" />
+      <workItem from="1713443760562" duration="2734000" />
+      <workItem from="1713476973485" duration="1815000" />
+      <workItem from="1713530552717" duration="1878000" />
+      <workItem from="1713790709050" duration="4844000" />
+      <workItem from="1713875777121" duration="4002000" />
+      <workItem from="1713912733025" duration="2233000" />
+      <workItem from="1713968349986" duration="6743000" />
+      <workItem from="1714059504575" duration="6159000" />
+      <workItem from="1714083973755" duration="1283000" />
+      <workItem from="1714089028459" duration="1150000" />
+      <workItem from="1714133877808" duration="1191000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -335,7 +362,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709686036056</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="refatoração da inscrição do evento">
+      <option name="closed" value="true" />
+      <created>1710549891518</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1710549891518</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,7 +402,9 @@
     <MESSAGE value="refatoração no cadastro de membro em eventos para resolver bug do financeiro" />
     <MESSAGE value="criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos" />
     <MESSAGE value="criação das rotas de adição de desconto em evento para membro e para associado" />
-    <option name="LAST_COMMIT_MESSAGE" value="criação das rotas de adição de desconto em evento para membro e para associado" />
+    <MESSAGE value="refatoração da inscrição do evento" />
+    <MESSAGE value="refatoração valor evento" />
+    <option name="LAST_COMMIT_MESSAGE" value="refatoração valor evento" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -381,6 +418,11 @@
           <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java</url>
           <line>120</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EventosVisualizacaoResponse.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java</url>

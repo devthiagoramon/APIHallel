@@ -912,19 +912,28 @@ public class EventosService implements EventosInterface {
         ValorEventoResponse response = new ValorEventoResponse();
         Optional<Eventos> optinalEvento = repository.findById(idEvento);
 
-        Optional<Membro> optinalMembro = membroRepository.findById(idMembro);
-        Optional<Associado> optinalAssociado = associadoRepository.findById(idMembro);
+        response.setValorDesconto(0.0);
+
+        Optional<Membro> optinalMembro = null;
+        Optional<Associado> optinalAssociado = null;
+
+        if(idMembro!=null) {
+            optinalMembro = membroRepository.findById(idMembro);
+
+            optinalAssociado = associadoRepository.findById(idMembro);
+
+        }
 
         if(optinalEvento.isPresent()){
             Eventos evento = optinalEvento.get();
             response.setValorEvento(evento.getValorDoEvento());
 
-            if(optinalMembro.isPresent()){
+            if(optinalMembro != null){
                 response.setValorDesconto(evento.getValorDescontoMembro());
                 response.setTipoDesconto("desconto de Membro");
             }
 
-            if(optinalAssociado.isPresent()){
+            if(optinalAssociado != null){
                 response.setValorDesconto(evento.getValorDescontoAssociado());
                 response.setTipoDesconto("desconto de Associado");
             }
