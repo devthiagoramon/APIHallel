@@ -114,11 +114,7 @@ public class EventosController {
        return ResponseEntity.ok(this.service.inscreverEvento(inscreverEventoRequest));
     }
 
-    @PostMapping("/seVoluntariar")
-    public ResponseEntity<Boolean> SeVoluntariar(@RequestBody SeVoluntariarEventoReq seVoluntariarEventoRequest){
 
-        return ResponseEntity.ok(this.service.InscreverVoluntarioEmEvento(seVoluntariarEventoRequest));
-    }
 
     @GetMapping("/{id}/listVoluntarios")
     public ResponseEntity<List<SeVoluntariarEventoResponse>> listAllVoluntarios(@PathVariable(value = "id") String idEvento){

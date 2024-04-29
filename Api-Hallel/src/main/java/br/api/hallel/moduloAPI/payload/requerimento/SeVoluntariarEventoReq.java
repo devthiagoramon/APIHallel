@@ -20,6 +20,9 @@ public class SeVoluntariarEventoReq {
     private String nome;
     private String email;
     private String Sexo;
+    private String numeroDeTelefone;
+    private String cpf;
+    private String preferencia;
 
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date dataNascimento;
@@ -33,6 +36,10 @@ public class SeVoluntariarEventoReq {
         request.setEmail(getEmail());
         request.setSexo(getSexo());
         request.setDataNascimento(getDataNascimento());
+        request.setCpf(getCpf());
+        request.setNumeroDeTelefone(getNumeroDeTelefone());
+        request.setPreferencia(getPreferencia());
+
         return request;
     }
 
@@ -42,6 +49,9 @@ public class SeVoluntariarEventoReq {
         voluntario.setEmail(this.getEmail());
         voluntario.setSexo(this.getSexo());
         voluntario.setDataNascimento(this.getDataNascimento());
+        voluntario.setNumeroDeTelefone(this.getNumeroDeTelefone());
+        voluntario.setCpf(this.getCpf());
+        voluntario.setPreferencia(this.getPreferencia());
         return voluntario;
     }
 }

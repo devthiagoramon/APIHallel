@@ -18,12 +18,20 @@ public class VoluntarioEvento {
     private String email;
     private String Sexo;
     private Date dataNascimento;
+    private String numeroDeTelefone;
+    private String cpf;
+    private String preferencia;
 
-    public VoluntarioEvento(String nome, String email, String sexo, Date dataNascimento) {
+
+    public VoluntarioEvento(String nome, String email, String sexo, Date dataNascimento, String numeroDeTelefone,
+                            String cpf, String preferencia) {
 
         this.nome = nome;
         this.email = email;
         Sexo = sexo;
         this.dataNascimento = dataNascimento;
+        this.numeroDeTelefone = numeroDeTelefone;
+        this.cpf = cpf;
+        this.preferencia = preferencia;
     }
 }

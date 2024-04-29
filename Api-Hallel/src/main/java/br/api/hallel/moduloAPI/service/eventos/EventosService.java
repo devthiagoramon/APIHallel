@@ -473,6 +473,8 @@ public class EventosService implements EventosInterface {
                 evento.setVoluntarios(new ArrayList<>());
             }
 
+
+            System.out.println("voluntario :"+voluntarioNovo.toString());
             evento.getVoluntarios().add(voluntarioNovo);
             this.repository.save(evento); // Salvar as alterações no evento de volta ao repositório
 

@@ -32,6 +32,7 @@ public class VoluntarioService implements VoluntarioEventonterface {
 
     @Override
     public VoluntarioEvento createVoluntario(SeVoluntariarEventoReq req) {
+        System.out.println("voluntario criado : "+req.toString());
         return this.repository.insert(req.toVoluntarioEvento());
     }
 
