@@ -966,6 +966,27 @@ public class EventosService implements EventosInterface {
 
     }
 
+    public ValoresEventoResponse informacoesValoresEvento(String idEvento){
+        ValoresEventoResponse response = new ValoresEventoResponse();
+
+
+        Optional<Eventos> optinalEvento = repository.findById(idEvento);
+
+        if(optinalEvento.isPresent()) {
+
+            Eventos eventos = optinalEvento.get();
+
+            response.setValorEvento(eventos.getValorDoEvento());
+            response.setValorDescontoMembro(eventos.getValorDescontoMembro());
+            response.setValorDescontoAssociado(eventos.getValorDescontoAssociado());
+
+            return response;
+
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado com o ID: " + idEvento);
+    }
+
 
 
 

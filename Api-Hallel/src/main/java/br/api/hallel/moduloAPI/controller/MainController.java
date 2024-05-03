@@ -5,10 +5,7 @@ import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Curso;
 import br.api.hallel.moduloAPI.payload.requerimento.*;
-import br.api.hallel.moduloAPI.payload.resposta.AuthenticationResponse;
-import br.api.hallel.moduloAPI.payload.resposta.DescricaoCursoRes;
-import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
-import br.api.hallel.moduloAPI.payload.resposta.SeVoluntariarEventoResponse;
+import br.api.hallel.moduloAPI.payload.resposta.*;
 import br.api.hallel.moduloAPI.security.services.JwtService;
 import br.api.hallel.moduloAPI.service.cursos.CursoService;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
@@ -116,6 +113,9 @@ public class MainController {
         return ResponseEntity.status(200).body(this.eventosService.listarAllEventos());
     }
 
+
+
+
     @PostMapping("/home/eventos/participarEvento")
     public ResponseEntity<Boolean> participarEvento(@RequestBody InscreverEventoRequest inscreverEventoRequest){
 
@@ -135,5 +135,13 @@ public class MainController {
     public ResponseEntity<List<SeVoluntariarEventoResponse>> listAllVoluntarios(@PathVariable(value = "id") String idEvento){
         return ResponseEntity.ok().body(voluntarioService.listAllVoluntarios(idEvento));
     }
+
+    @GetMapping("home/{id}/listValoresEvento")
+    public ResponseEntity<ValoresEventoResponse> listInformacoesDosValoresDoEvento(@PathVariable(value = "id") String idEvento){
+        System.out.println("oiiiii");
+        return ResponseEntity.ok().body(eventosService.informacoesValoresEvento(idEvento));
+    }
+
+
 
 }
