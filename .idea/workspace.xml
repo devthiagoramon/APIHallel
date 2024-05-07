@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="refatoração em eventos e em se voluntariar">
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/ValoresEventoResponse.java" afterDir="false" />
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="refatoração na rota de informações de perfil">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/PerfilResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/PerfilResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +248,13 @@
       <workItem from="1714570064822" duration="5786000" />
       <workItem from="1714591144259" duration="4298000" />
       <workItem from="1714688701670" duration="2204000" />
-      <workItem from="1714739676923" duration="2050000" />
+      <workItem from="1714739676923" duration="5755000" />
+      <workItem from="1714828857871" duration="598000" />
+      <workItem from="1715002665504" duration="2155000" />
+      <workItem from="1715010344906" duration="1170000" />
+      <workItem from="1715035829669" duration="1190000" />
+      <workItem from="1715094254626" duration="1128000" />
+      <workItem from="1715117994462" duration="200000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -396,7 +400,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714403533415</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="criação da rota de detalhes de valores do evento">
+      <option name="closed" value="true" />
+      <created>1714745662603</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1714745662603</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,7 +443,9 @@
     <MESSAGE value="refatoração da inscrição do evento" />
     <MESSAGE value="refatoração valor evento" />
     <MESSAGE value="refatoração em eventos e em se voluntariar" />
-    <option name="LAST_COMMIT_MESSAGE" value="refatoração em eventos e em se voluntariar" />
+    <MESSAGE value="criação da rota de detalhes de valores do evento" />
+    <MESSAGE value="refatoração na rota de informações de perfil" />
+    <option name="LAST_COMMIT_MESSAGE" value="refatoração na rota de informações de perfil" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

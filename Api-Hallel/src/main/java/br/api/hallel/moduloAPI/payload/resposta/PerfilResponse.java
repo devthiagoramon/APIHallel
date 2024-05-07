@@ -17,4 +17,6 @@ public class PerfilResponse {
     private String email;
     private StatusMembro status;
     private Integer idade;
+    private String image;
+
 }
