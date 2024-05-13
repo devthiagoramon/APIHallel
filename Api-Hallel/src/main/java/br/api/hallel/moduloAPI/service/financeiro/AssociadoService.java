@@ -167,6 +167,20 @@ public class AssociadoService implements AssociadoInterface {
     }
 
     @Override
+    public String IdAssociadofindByEmail(String email) {
+
+        Optional<Associado> optional = associadoRepository.findByEmail(email);
+
+        if (optional.isPresent()) {
+            return optional.get().getId();
+        }
+
+        return "";
+    }
+
+
+
+    @Override
     public List<Associado> listAssociadosByPago() {
 
         return this.associadoRepository.findByIsAssociadoEquals(AssociadoStatus.PAGO).isEmpty() ?

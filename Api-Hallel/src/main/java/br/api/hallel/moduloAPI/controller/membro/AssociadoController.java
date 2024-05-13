@@ -17,7 +17,7 @@ import java.util.List;
 
 @Data
 @RestController
-@RequestMapping("/api/associados")
+@RequestMapping("/api/associado")
 @CrossOrigin("*")
 @Log4j2
 public class AssociadoController {
@@ -61,6 +61,8 @@ public class AssociadoController {
             (@PathVariable String idAssociado,
              @RequestParam(value = "mes") String mes,
              @RequestParam(value = "ano") String ano){
+        System.out.println("oiiii");
+
         return ResponseEntity.status(200).body(this.service.listarPagamentoPerfilByMesAno(idAssociado, mes, ano));
     }
 

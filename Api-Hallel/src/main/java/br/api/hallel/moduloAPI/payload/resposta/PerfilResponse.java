@@ -18,5 +18,7 @@ public class PerfilResponse {
     private StatusMembro status;
     private Integer idade;
     private String image;
+    private String cpf;
+    private String Telefone;
 
 }

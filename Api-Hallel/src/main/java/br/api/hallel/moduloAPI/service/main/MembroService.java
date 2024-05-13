@@ -161,6 +161,8 @@ public class MembroService implements MembroInterface {
             perfil.setIdade(optional.get().getIdade());
             perfil.setDataAniversario(optional.get().getDataNascimento());
             perfil.setImage(optional.get().getImage());
+            perfil.setCpf(optional.get().getCpf());
+            perfil.setTelefone(optional.get().getTelefone());
             return perfil;
         }
         throw new IllegalAccessException("Usuario não encontrado para carregar o perfil");

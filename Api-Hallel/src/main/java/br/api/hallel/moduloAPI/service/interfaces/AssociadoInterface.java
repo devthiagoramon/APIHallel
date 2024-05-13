@@ -29,6 +29,10 @@ public interface AssociadoInterface {
     AssociadoPagamentosRes getAssociadoPagamentoById(String id) throws AssociadoNotFoundException;
 
     Associado findByEmail(String email);
+
+
+    String IdAssociadofindByEmail(String email);
+
     List<Associado> listAssociadosByPago();
     List<Associado> listAssociadosByPendente();
     List<Associado> listAssociadosByNaoPago();

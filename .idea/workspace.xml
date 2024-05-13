@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="refatoração na rota de informações de perfil">
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="criação de novas rotas para associados">
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/BuscarIdAssociadoReq.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/AssociadoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/AssociadoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/PerfilResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/PerfilResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/AssociadoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/AssociadoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/AssociadoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/interfaces/AssociadoInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -254,7 +259,15 @@
       <workItem from="1715010344906" duration="1170000" />
       <workItem from="1715035829669" duration="1190000" />
       <workItem from="1715094254626" duration="1128000" />
-      <workItem from="1715117994462" duration="200000" />
+      <workItem from="1715117994462" duration="3327000" />
+      <workItem from="1715213935939" duration="1043000" />
+      <workItem from="1715258343517" duration="6089000" />
+      <workItem from="1715291498579" duration="6454000" />
+      <workItem from="1715339119609" duration="2307000" />
+      <workItem from="1715383823146" duration="927000" />
+      <workItem from="1715428469804" duration="1199000" />
+      <workItem from="1715606648701" duration="893000" />
+      <workItem from="1715609347366" duration="595000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -408,7 +421,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714745662603</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="refatoração na rota de informações de perfil">
+      <option name="closed" value="true" />
+      <created>1715118488273</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1715118488273</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,7 +466,8 @@
     <MESSAGE value="refatoração em eventos e em se voluntariar" />
     <MESSAGE value="criação da rota de detalhes de valores do evento" />
     <MESSAGE value="refatoração na rota de informações de perfil" />
-    <option name="LAST_COMMIT_MESSAGE" value="refatoração na rota de informações de perfil" />
+    <MESSAGE value="criação de novas rotas para associados" />
+    <option name="LAST_COMMIT_MESSAGE" value="criação de novas rotas para associados" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
