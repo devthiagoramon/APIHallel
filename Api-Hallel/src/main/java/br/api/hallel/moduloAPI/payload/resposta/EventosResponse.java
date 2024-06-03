@@ -24,6 +24,8 @@ public class EventosResponse {
     private List<Membro> integrantes;
     private MembroMarketing membroMarketing;
     private Administrador administrador;
+
+
     private Date date;
     private LocalEvento localEvento;
     private String horario;

@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -37,8 +39,13 @@ public class AdmEventosController {
     @PostMapping("/create")
     public ResponseEntity<?> createEventos(@RequestBody EventosRequest request) {
 
+
+
         request.setDate(new Date());
         log.info("Create eventos acessado infos:\n{\n titulo:" + request.getTitulo());
+
+        log.info(request.toString());
+
 
         return ResponseEntity.status(200).body(eventosService.createEvento(request));
     }
@@ -46,8 +53,34 @@ public class AdmEventosController {
     @PostMapping("/{id}/edit")
     public EventosResponse updateEventos(@PathVariable(value = "id") String id,
                                          @RequestBody EventosRequest request) {
+
+        System.out.println(request.toString());
         return this.eventosService.updateEventoById(id, request);
     }
+
+
+    @PostMapping("/{id}/{data}/edit")
+    public EventosResponse updateEventosMobile(@PathVariable(value = "id") String id,@PathVariable(value = "data") String data,
+                                         @RequestBody EventosRequest request) throws ParseException {
+
+        data = data.replace("-", "/");
+
+        SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy"); // Formato da string recebida
+
+
+
+
+
+        Date data2 = sdfInput.parse(data);
+
+
+        request.setDate(data2);
+
+        System.out.println(request.toString());
+        return this.eventosService.updateEventoById(id, request);
+    }
+
+
 
     @PostMapping("/{id}/delete")
     public void deleteEvento(@PathVariable(value = "id") String id) {
