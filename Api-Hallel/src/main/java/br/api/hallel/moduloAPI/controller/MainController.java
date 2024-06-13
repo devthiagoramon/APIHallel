@@ -125,22 +125,50 @@ public class MainController {
         return ResponseEntity.ok(this.eventosService.inscreverEvento(inscreverEventoRequest));
     }
 
-    @PostMapping("home/eventos/seVoluntariar")
+    @PostMapping("/home/eventos/seVoluntariar")
     public ResponseEntity<Boolean> SeVoluntariar(@RequestBody SeVoluntariarEventoReq seVoluntariarEventoRequest){
         System.out.println(seVoluntariarEventoRequest.toString());
         return ResponseEntity.ok(this.eventosService.InscreverVoluntarioEmEvento(seVoluntariarEventoRequest));
     }
 
-    @GetMapping("home/{id}/listVoluntarios")
+    @GetMapping("/home/{id}/listVoluntarios")
     public ResponseEntity<List<SeVoluntariarEventoResponse>> listAllVoluntarios(@PathVariable(value = "id") String idEvento){
         return ResponseEntity.ok().body(voluntarioService.listAllVoluntarios(idEvento));
     }
 
-    @GetMapping("home/{id}/listValoresEvento")
+    @GetMapping("/home/{id}/listValoresEvento")
     public ResponseEntity<ValoresEventoResponse> listInformacoesDosValoresDoEvento(@PathVariable(value = "id") String idEvento){
         System.out.println("oiiiii");
         return ResponseEntity.ok().body(eventosService.informacoesValoresEvento(idEvento));
     }
+
+    @PostMapping("/home/{id}/DoacaoDinheiro")
+    public ResponseEntity<Boolean> FazerDoacaoDinheiro(@PathVariable(value = "id") String idEvento,
+                                                       @RequestBody DoacaoDinheiroEventoReq doacaoDinheiroEventoReq){
+        System.out.println("Doacao dinheiro");
+        return ResponseEntity.ok(this.eventosService.FazerDoacaoDinheiro(doacaoDinheiroEventoReq,idEvento));
+
+    }
+
+    //listagem das doacoes em dinheiro de todos os eventos
+    @GetMapping("/home/{id}/ListDoacaoDinheiro")
+    public ResponseEntity<List<DoacaoDinheiroEventoResponse>> ListDoacoesDinheiro(@PathVariable(value="id") String idEvento){
+        return ResponseEntity.ok().body(this.eventosService.listAllDoacoesDinheiro(idEvento));
+    }
+
+
+    @PostMapping("/home/{id}/DoacaoObjeto")
+    public ResponseEntity<Boolean> FazerDoacaoObjeto(@PathVariable(value = "id") String idEvento, @RequestBody DoacaoObjetosEventosReq doacaoObjetosEventosReq){
+        System.out.println("doacao objeto");
+        return ResponseEntity.ok(this.eventosService.FazerDoacaoObjeto(doacaoObjetosEventosReq,idEvento));
+    }
+
+    @GetMapping("/home/{id}/ListDoacaoObjetos")
+    public ResponseEntity<List<DoacaoObjetosEventosResponse>> ListDoacaoObjetos(@PathVariable(value="id") String idEvento){
+        return ResponseEntity.ok().body(this.eventosService.listAllDoacoesObjetos(idEvento));
+    }
+
+
 
 
 

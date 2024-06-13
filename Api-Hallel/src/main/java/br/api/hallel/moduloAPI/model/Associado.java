@@ -19,8 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class
-Associado extends Membro {
+public class Associado extends Membro {
 
     private Eventos eventoParticipando;
     private AssociadoStatus isAssociado;

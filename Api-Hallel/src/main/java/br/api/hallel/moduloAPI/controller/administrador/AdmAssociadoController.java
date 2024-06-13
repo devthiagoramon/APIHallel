@@ -31,6 +31,9 @@ public class AdmAssociadoController {
     //LISTAR TODOS OS ASSOCIADOS
     @GetMapping("/listAll")
     public ResponseEntity<?> listAllAssociados() {
+
+        System.out.println("oi");
+
         if (this.service.listAllAssociado() != null) {
             return ResponseEntity.accepted().body(this.service.listAllAssociado());
 

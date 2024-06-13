@@ -46,7 +46,7 @@ public class AssociadoService implements AssociadoInterface {
 
     @Override
     public List<Associado> listAllAssociado() {
-        return this.associadoRepository.findAll().isEmpty() ? this.associadoRepository.findAll() : null;
+        return this.associadoRepository.findAll().isEmpty() ? null : this.associadoRepository.findAll();
     }
 
     @Override

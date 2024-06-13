@@ -21,12 +21,16 @@ public class DoacaoDinheiroEvento {
     private String dataRecebida;
     private boolean isRecebido;
     private String nomeDoador;
+    private Boolean Mensalmente;
+    private Boolean Anualmente;
+    private String dia;
 
 
 
 
     public DoacaoDinheiroEvento(Double valorDoado,String emailDoador,Date dataDoacao,String formaDePagamento,
-                                String dataRecebida,boolean isRecebido, String nomeDoador) {
+                                String dataRecebida,boolean isRecebido, String nomeDoador, Boolean Mensalmente,
+                                Boolean Anualmente, String dia) {
         this.valorDoado = valorDoado;
         this.emailDoador = emailDoador;
         this.dataDoacao = dataDoacao;
@@ -34,6 +38,9 @@ public class DoacaoDinheiroEvento {
         this.dataRecebida = dataRecebida;
         this.isRecebido = isRecebido;
         this.nomeDoador = nomeDoador;
+        this.Mensalmente = Mensalmente;
+        this.Anualmente = Anualmente;
+        this.dia = dia;
 
 
     }

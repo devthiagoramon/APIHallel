@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="criação de nova rota de editar eventos para o mobile">
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="Refatoracao em doacao de eventos">
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/scripts/eventos/DoacaoEventoRecorrente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EventosResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EventosResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmAssociadoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmAssociadoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Associado.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Associado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoDinheiroEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoDinheiroEvento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/DoacaoDinheiroEventoReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/DoacaoDinheiroEventoReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/AssociadoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/financeiro/AssociadoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,7 +297,18 @@
       <workItem from="1716934242092" duration="961000" />
       <workItem from="1716989691607" duration="5346000" />
       <workItem from="1717020198225" duration="4954000" />
-      <workItem from="1717422272048" duration="593000" />
+      <workItem from="1717422272048" duration="3789000" />
+      <workItem from="1717430958609" duration="1559000" />
+      <workItem from="1717509621361" duration="4138000" />
+      <workItem from="1717551506806" duration="254000" />
+      <workItem from="1717605756385" duration="7123000" />
+      <workItem from="1717681867052" duration="2626000" />
+      <workItem from="1717756473439" duration="1465000" />
+      <workItem from="1717763545034" duration="3460000" />
+      <workItem from="1718020251338" duration="10302000" />
+      <workItem from="1718113076916" duration="3797000" />
+      <workItem from="1718198210280" duration="910000" />
+      <workItem from="1718282908346" duration="894000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -460,7 +478,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715610300185</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="criação de nova rota de editar eventos para o mobile">
+      <option name="closed" value="true" />
+      <created>1717424447455</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1717424447455</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,7 +525,8 @@
     <MESSAGE value="refatoração na rota de informações de perfil" />
     <MESSAGE value="criação de novas rotas para associados" />
     <MESSAGE value="criação de nova rota de editar eventos para o mobile" />
-    <option name="LAST_COMMIT_MESSAGE" value="criação de nova rota de editar eventos para o mobile" />
+    <MESSAGE value="Refatoracao em doacao de eventos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refatoracao em doacao de eventos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

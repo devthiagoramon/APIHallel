@@ -51,7 +51,11 @@ public class SecurityConfig {
             "/api/home/eventos/listar",
             "/api/home/eventos/seVoluntariar",
             "/api/home/{id}/listVoluntarios",
-            "/api/home/{id}/listValoresEvento"
+            "/api/home/{id}/listValoresEvento",
+            "/api//home/{id}/DoacaoDinheiro",
+            "/api//home/{id}/DoacaoObjeto"
+
+
     };
 
     private String endpointsPermitidasAdm[] =
@@ -59,7 +63,10 @@ public class SecurityConfig {
                     "/api/administrador/associados/**", "/api/administrador/doacoes/**",
                     "/api/administrador/eventos/**", "/api/administrador/loja/produtos/**",
                     "/api/administrador/retiros/**", "/api/administrador/sorteios/**", "/api/administrador/locais/**",
-                    "/api/administrador/financeiro/**"};
+                    "/api/administrador/financeiro/**",
+                    "/api/cursos/**", "/api/associados/**", "/api/sorteios/**",
+                    "/api/membros/**", "/api/eventos/**", "/api/cursos/**"
+            };
     private String endpointsMembros[] = {"/api/membros/**", "/api/eventos/**", "/api/cursos/**"};
     private String endpointsAssociado[] = {"/api/cursos/**", "/api/associados/**", "/api/sorteios/**"};
 

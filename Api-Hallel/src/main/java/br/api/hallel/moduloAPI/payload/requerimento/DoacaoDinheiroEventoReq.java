@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @Data
@@ -16,15 +17,20 @@ public class DoacaoDinheiroEventoReq {
     private Double valorDoado;
     private String formaDePagamento;
     private String nomeDoador;
+    private Boolean Mensalmente;
+    private Boolean Anualmente;
+    private String dia;
 
 
 
 
     public DoacaoDinheiroEvento toDoacaoDinheiroEvento(){
         Date data = new Date();
-        return new DoacaoDinheiroEvento(getValorDoado(),getEmailDoador(),data,getFormaDePagamento(),null,false,getNomeDoador());
+        return new DoacaoDinheiroEvento(getValorDoado(),getEmailDoador(),data,getFormaDePagamento(),null,false,getNomeDoador(),getMensalmente(),getAnualmente(),getDia());
 
     }
+
+
 
 
 }
