@@ -169,7 +169,11 @@ public class MainController {
     }
 
 
-
+    @PostMapping("/home/{id}/DoacoesObjetos")
+    public ResponseEntity<Boolean> FazerDoacoesObjetos(@PathVariable(value = "id") String idEvento, @RequestBody List<DoacaoObjetosEventosReq> doacaoObjetosEventosReq){
+        System.out.println("doacao objeto");
+        return ResponseEntity.ok(this.eventosService.FazerDoacoesObjetos(doacaoObjetosEventosReq,idEvento));
+    }
 
 
 }

@@ -505,6 +505,32 @@ public class EventosService implements EventosInterface {
         throw new EventoNotFoundException("Evento não encontrado.");
     }
 
+
+    public Boolean FazerDoacoesObjetos(List<DoacaoObjetosEventosReq> doacoes, String idEvento) {
+        Optional<Eventos> eventosOptional = this.repository.findById(idEvento);
+
+        if (eventosOptional.isPresent()) {
+            Eventos evento = eventosOptional.get();
+
+            if (evento.getDoacaoObjetosEventos() == null) {
+                evento.setDoacaoObjetosEventos(new ArrayList<>());
+            }
+
+            for (DoacaoObjetosEventosReq doacao : doacoes) {
+                DoacaoObjetosEventos doacaoNova = doacao.toDoacaoObjetosEventos();
+                evento.getDoacaoObjetosEventos().add(doacaoNova);
+            }
+
+            this.repository.save(evento);
+
+            return true;
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado.");
+    }
+
+
+
     public Boolean FazerDoacaoDinheiro (DoacaoDinheiroEventoReq doacaoDinheiroEventoReq , String idEevento) {
         Optional<Eventos> eventosOptional = this.repository.findById(idEevento);
 

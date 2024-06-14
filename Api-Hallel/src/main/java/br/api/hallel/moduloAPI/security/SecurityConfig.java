@@ -53,7 +53,8 @@ public class SecurityConfig {
             "/api/home/{id}/listVoluntarios",
             "/api/home/{id}/listValoresEvento",
             "/api//home/{id}/DoacaoDinheiro",
-            "/api//home/{id}/DoacaoObjeto"
+            "/api//home/{id}/DoacaoObjeto",
+            "/api//home/{id}/DoacoesObjetos"
 
 
     };
