@@ -52,9 +52,11 @@ public class SecurityConfig {
             "/api/home/eventos/seVoluntariar",
             "/api/home/{id}/listVoluntarios",
             "/api/home/{id}/listValoresEvento",
-            "/api//home/{id}/DoacaoDinheiro",
-            "/api//home/{id}/DoacaoObjeto",
-            "/api//home/{id}/DoacoesObjetos"
+            "/api/home/{id}/DoacaoDinheiro",
+            "/api/home/{id}/DoacaoObjeto",
+            "/api/home/{id}/DoacoesObjetos",
+            "/api/home/{id}/{data}/DoacaoDinheiroMobile",
+            "/api/home/eventos/{data}/participarEventoMobile"
 
 
     };

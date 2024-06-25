@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -125,6 +128,36 @@ public class MainController {
         return ResponseEntity.ok(this.eventosService.inscreverEvento(inscreverEventoRequest));
     }
 
+    @PostMapping("/home/eventos/{data}/participarEventoMobile")
+    public ResponseEntity<Boolean> participarEventoMobile(@PathVariable(value = "data") String data,
+                                                          @RequestBody InscreverEventoRequest inscreverEventoRequest) throws ParseException {
+
+
+
+        data = data.replace("-", "/");
+
+        SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy"); // Formato da string recebida
+
+
+
+
+
+        Date data2 = sdfInput.parse(data);
+
+        inscreverEventoRequest.getCartaoCredito().setDataValidadeCartao(data2);
+
+
+
+
+
+        System.out.println(inscreverEventoRequest.toString());
+        System.out.println("inscrito !");
+
+        return ResponseEntity.ok(this.eventosService.inscreverEvento(inscreverEventoRequest));
+    }
+
+
+
     @PostMapping("/home/eventos/seVoluntariar")
     public ResponseEntity<Boolean> SeVoluntariar(@RequestBody SeVoluntariarEventoReq seVoluntariarEventoRequest){
         System.out.println(seVoluntariarEventoRequest.toString());
@@ -142,6 +175,30 @@ public class MainController {
         return ResponseEntity.ok().body(eventosService.informacoesValoresEvento(idEvento));
     }
 
+    @PostMapping("/home/{id}/{data}/DoacaoDinheiroMobile")
+    public ResponseEntity<Boolean> FazerDoacaoDinheiroMobile(@PathVariable(value = "id") String idEvento,@PathVariable(value = "data") String data,
+                                                       @RequestBody DoacaoDinheiroEventoReq doacaoDinheiroEventoReq) throws ParseException {
+
+        System.out.println("Doacao dinheiro");
+
+        data = data.replace("-", "/");
+
+        SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy"); // Formato da string recebida
+
+
+
+
+
+        Date data2 = sdfInput.parse(data);
+
+        doacaoDinheiroEventoReq.getCartaoCredito().setDataValidadeCartao(data2);
+
+
+        System.out.println("Doacao dinheiro");
+        return ResponseEntity.ok(this.eventosService.FazerDoacaoDinheiro(doacaoDinheiroEventoReq,idEvento));
+
+    }
+
     @PostMapping("/home/{id}/DoacaoDinheiro")
     public ResponseEntity<Boolean> FazerDoacaoDinheiro(@PathVariable(value = "id") String idEvento,
                                                        @RequestBody DoacaoDinheiroEventoReq doacaoDinheiroEventoReq){
@@ -149,6 +206,7 @@ public class MainController {
         return ResponseEntity.ok(this.eventosService.FazerDoacaoDinheiro(doacaoDinheiroEventoReq,idEvento));
 
     }
+
 
     //listagem das doacoes em dinheiro de todos os eventos
     @GetMapping("/home/{id}/ListDoacaoDinheiro")

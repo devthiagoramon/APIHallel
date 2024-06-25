@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
+import br.api.hallel.moduloAPI.model.CartaoCredito;
 import br.api.hallel.moduloAPI.model.DoacaoDinheiroEvento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,8 @@ public class DoacaoDinheiroEventoReq {
     private Boolean Mensalmente;
     private Boolean Anualmente;
     private String dia;
+    private CartaoCredito cartaoCredito;
+
 
 
 
