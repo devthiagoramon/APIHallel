@@ -13,6 +13,8 @@ public interface QuizInterface {
     Boolean EditPontuacao(String id, int pontuacao); // Corrigido para aceitar parâmetros id e pontuacao
     Quiz EditQuiz(Quiz quiz); // Corrigido para aceitar um parâmetro quiz
 
+    Quiz GenerateQuizAi(String tema);
+
 
 
 

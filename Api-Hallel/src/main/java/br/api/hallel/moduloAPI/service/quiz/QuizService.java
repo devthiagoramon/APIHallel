@@ -3,6 +3,7 @@ package br.api.hallel.moduloAPI.service.quiz;
 import br.api.hallel.moduloAPI.model.Quiz;
 import br.api.hallel.moduloAPI.repository.QuizRepository;
 import br.api.hallel.moduloAPI.service.interfaces.QuizInterface;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,14 @@ public class QuizService implements QuizInterface {
 
     @Autowired
     private QuizRepository repository;
+
+
+    private final OpenAiChatModel chatModel;
+
+    @Autowired
+    public QuizService(OpenAiChatModel chatModel) {
+        this.chatModel = chatModel;
+    }
 
     @Override
     public List<Quiz> ListAllQuizes() {
@@ -66,4 +75,86 @@ public class QuizService implements QuizInterface {
         }
         return null;
     }
+
+    @Override
+    public Quiz GenerateQuizAi(String tema) {
+/*
+        if(tema.equals("") && tema == null){
+
+            tema = "preciso que você crie um quiz biblico e me retorne na forma de Json para criar um objeto aqui está um exemplo de JSON : \"{\n" +
+                    "  \"perguntasList\": [\n" +
+                    "    {\n" +
+                    "      \"pergunta\": \"Qual é a capital da França?\",\n" +
+                    "      \"alternativas\": {\n" +
+                    "        \"alternativaCorreta\": \"Paris\",\n" +
+                    "        \"alternativasErradas\": [\n" +
+                    "          \"Londres\",\n" +
+                    "          \"Berlim\",\n" +
+                    "          \"Roma\"\n" +
+                    "        ]\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"pergunta\": \"Qual é a maior montanha do mundo?\",\n" +
+                    "      \"alternativas\": {\n" +
+                    "        \"alternativaCorreta\": \"Monte Everest\",\n" +
+                    "        \"alternativasErradas\": [\n" +
+                    "          \"K2\",\n" +
+                    "          \"Kangchenjunga\",\n" +
+                    "          \"Lhotse\"\n" +
+                    "        ]\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}\" me dê um quiz biblico\n" +
+                    "\n";
+
+
+        }else {
+
+            tema = "preciso que você crie um quiz biblico sobre :"+tema+" , e me retorne na forma de Json para criar um objeto aqui está um exemplo de JSON : \"{\n" +
+                    "  \"perguntasList\": [\n" +
+                    "    {\n" +
+                    "      \"pergunta\": \"Qual é a capital da França?\",\n" +
+                    "      \"alternativas\": {\n" +
+                    "        \"alternativaCorreta\": \"Paris\",\n" +
+                    "        \"alternativasErradas\": [\n" +
+                    "          \"Londres\",\n" +
+                    "          \"Berlim\",\n" +
+                    "          \"Roma\"\n" +
+                    "        ]\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"pergunta\": \"Qual é a maior montanha do mundo?\",\n" +
+                    "      \"alternativas\": {\n" +
+                    "        \"alternativaCorreta\": \"Monte Everest\",\n" +
+                    "        \"alternativasErradas\": [\n" +
+                    "          \"K2\",\n" +
+                    "          \"Kangchenjunga\",\n" +
+                    "          \"Lhotse\"\n" +
+                    "        ]\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}\" me dê um quiz biblico ";
+
+        }
+
+
+*/
+
+        tema = "oi";
+
+        System.out.println(tema);
+
+
+        String Quiz = chatModel.call(tema);
+
+        System.out.println(tema);
+
+        return null;
+    }
+
+
 }

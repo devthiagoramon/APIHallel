@@ -4,6 +4,7 @@ import br.api.hallel.moduloAPI.exceptions.SolicitarCadastroException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Curso;
+import br.api.hallel.moduloAPI.model.Quiz;
 import br.api.hallel.moduloAPI.payload.requerimento.*;
 import br.api.hallel.moduloAPI.payload.resposta.*;
 import br.api.hallel.moduloAPI.security.services.JwtService;
@@ -11,6 +12,7 @@ import br.api.hallel.moduloAPI.service.cursos.CursoService;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
 import br.api.hallel.moduloAPI.service.eventos.VoluntarioService;
 import br.api.hallel.moduloAPI.service.main.MainService;
+import br.api.hallel.moduloAPI.service.quiz.QuizService;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class MainController {
     private EventosService eventosService;
     @Autowired
     private VoluntarioService voluntarioService;
+
+    @Autowired
+    private QuizService quizService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> logar(@Valid @RequestBody LoginRequerimento loginRequerimento) {
@@ -232,6 +237,12 @@ public class MainController {
         System.out.println("doacao objeto");
         return ResponseEntity.ok(this.eventosService.FazerDoacoesObjetos(doacaoObjetosEventosReq,idEvento));
     }
+
+    @GetMapping("/home/list/today")
+    public List<Quiz> listQuizesDoDia() {
+        return quizService.ListQuizesDoDia();
+    }
+
 
 
 }

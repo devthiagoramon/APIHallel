@@ -56,7 +56,8 @@ public class SecurityConfig {
             "/api/home/{id}/DoacaoObjeto",
             "/api/home/{id}/DoacoesObjetos",
             "/api/home/{id}/{data}/DoacaoDinheiroMobile",
-            "/api/home/eventos/{data}/participarEventoMobile"
+            "/api/home/eventos/{data}/participarEventoMobile",
+            "/api/home/list/today"
 
 
     };
@@ -66,7 +67,7 @@ public class SecurityConfig {
                     "/api/administrador/associados/**", "/api/administrador/doacoes/**",
                     "/api/administrador/eventos/**", "/api/administrador/loja/produtos/**",
                     "/api/administrador/retiros/**", "/api/administrador/sorteios/**", "/api/administrador/locais/**",
-                    "/api/administrador/financeiro/**",
+                    "/api/administrador/financeiro/**","/api/administrador/Quiz/**",
                     "/api/cursos/**", "/api/associados/**", "/api/sorteios/**",
                     "/api/membros/**", "/api/eventos/**", "/api/cursos/**"
             };
