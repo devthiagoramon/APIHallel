@@ -50,6 +50,33 @@ public class AdmEventosController {
         return ResponseEntity.status(200).body(eventosService.createEvento(request));
     }
 
+    @PostMapping("{data}/create")
+    public ResponseEntity<?> createEventosMobile(@PathVariable(value = "data") String data,
+                                               @RequestBody EventosRequest request) throws ParseException {
+
+        data = data.replace("-", "/");
+
+        SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy"); // Formato da string recebida
+
+
+
+
+
+        Date data2 = sdfInput.parse(data);
+
+
+        request.setDate(data2);
+
+        log.info("Create eventos acessado infos:\n{\n titulo:" + request.getTitulo());
+
+        log.info(request.toString());
+
+
+        return ResponseEntity.status(200).body(eventosService.createEvento(request));
+
+    }
+
+
     @PostMapping("/{id}/edit")
     public EventosResponse updateEventos(@PathVariable(value = "id") String id,
                                          @RequestBody EventosRequest request) {
@@ -82,8 +109,11 @@ public class AdmEventosController {
 
 
 
-    @PostMapping("/{id}/delete")
+    @GetMapping("/{id}/delete")
     public void deleteEvento(@PathVariable(value = "id") String id) {
+
+
+        System.out.println("evento deletado");
         this.eventosService.deleteEventoById(id);
     }
 
@@ -100,11 +130,15 @@ public class AdmEventosController {
 
     @GetMapping("/{idEvento}/desarquivar")
     public void desarquivarEvento(@PathVariable(value = "idEvento") String idEvento) {
+        System.out.println("evento desarquivados");
+
         this.eventoArquivadoService.retirarEventoArquivado(idEvento);
     }
 
     @GetMapping("/arquivados")
     public ResponseEntity<?> eventosArquivados() {
+        System.out.println("eventos arquivados");
+
         if (this.eventoArquivadoService.listarEventosArquivados() != null) {
             return ResponseEntity.ok().body(this.eventoArquivadoService.listarEventosArquivados());
 
