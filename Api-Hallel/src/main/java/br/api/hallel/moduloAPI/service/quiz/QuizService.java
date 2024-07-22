@@ -3,7 +3,6 @@ package br.api.hallel.moduloAPI.service.quiz;
 import br.api.hallel.moduloAPI.model.Quiz;
 import br.api.hallel.moduloAPI.repository.QuizRepository;
 import br.api.hallel.moduloAPI.service.interfaces.QuizInterface;
-import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +17,14 @@ public class QuizService implements QuizInterface {
     private QuizRepository repository;
 
 
-    private final OpenAiChatModel chatModel;
+  //  private final OpenAiChatModel chatModel;
 
+    /*
     @Autowired
     public QuizService(OpenAiChatModel chatModel) {
         this.chatModel = chatModel;
     }
-
+*/
     @Override
     public List<Quiz> ListAllQuizes() {
         return repository.findAll();
@@ -78,7 +78,7 @@ public class QuizService implements QuizInterface {
 
     @Override
     public Quiz GenerateQuizAi(String tema) {
-/*
+
         if(tema.equals("") && tema == null){
 
             tema = "preciso que você crie um quiz biblico e me retorne na forma de Json para criar um objeto aqui está um exemplo de JSON : \"{\n" +
@@ -142,14 +142,14 @@ public class QuizService implements QuizInterface {
         }
 
 
-*/
+
 
         tema = "oi";
 
         System.out.println(tema);
 
 
-        String Quiz = chatModel.call(tema);
+       // String Quiz = chatModel.call(tema);
 
         System.out.println(tema);
 
