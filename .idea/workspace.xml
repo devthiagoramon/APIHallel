@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="Alteracoes nas rotas de listagem de Doacoes para eventos" />
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="Alteracoes nas rotas de listagem de Doacoes para eventos">
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -338,7 +340,7 @@
       <workItem from="1721166642576" duration="1472000" />
       <workItem from="1721249814555" duration="5615000" />
       <workItem from="1721345560872" duration="2162000" />
-      <workItem from="1721678164325" duration="1341000" />
+      <workItem from="1721678164325" duration="1611000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
