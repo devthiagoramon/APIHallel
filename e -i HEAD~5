@@ -1,0 +1,133 @@
+[33m9f7acfa[m[33m ([m[1;36mHEAD -> [m[1;32msemMoodle[m[33m)[m linhas apagadas
+[33m63fc75c[m chave comentada
+[33mced14eb[m teste sem a chave
+[33m32c05af[m testando commit pelo git bash
+[33m3ea72ab[m Alteracoes nas rotas de listagem de Doacoes para eventos
+[33m8a9c113[m nova rota de criar evento para o mobile
+[33m753fb1d[m rotas do quiz criadas
+[33m40640e8[m[33m ([m[1;31morigin/semMoodle[m[33m)[m novas rotas mobiles criadas e começando a desenvolver a logica de quizes
+[33m5fd634f[m nova rota de doacoes de objetos
+[33m349ac78[m Refatoracao em doacao de eventos
+[33m6a6511a[m criação de nova rota de editar eventos para o mobile
+[33ma49c3dd[m criação de novas rotas para associados
+[33m52f54e4[m refatoração na rota de informações de perfil
+[33ma8eefc7[m criação da rota de detalhes de valores do evento
+[33m26e79bf[m refatoração em eventos e em se voluntariar
+[33mf145dab[m refatoração valor evento
+[33m140cb39[m refatoração da inscrição do evento
+[33m44a1a91[m criação das rotas de adição de desconto em evento para membro e para associado
+[33m0b06cc0[m criação das rotas de detalhes de doacoes de dinheiro e objetos de eventos
+[33m4dfe1d2[m refatoração no cadastro de membro em eventos para resolver bug do financeiro
+[33m12571c5[m refatoração no cadastro de membro em eventos para resolver bug do financeiro
+[33mcdaf43c[m resolução de alguns bugs
+[33mf772a0e[m adição listagem dos detalhes da doção de todos evetos.
+[33m982477f[m adição dos metodos de doar pra eventos, metodos de listar as doações e adição do metodo de listagem dos detalhes da doção de eveto.
+[33md8fd012[m arrumei a inscrição do menbro em um evento
+[33m2228ca6[m arrumei a rota dos destacados
+[33m950fbfa[m adição da rota de listagem de voluntarios do eventos
+[33maa76a34[m correção na rota de se voluntariar
+[33mc208d52[m Merge branch 'semMoodle' of https://github.com/devthiagoramon/APIHallel into semMoodle
+[33m3d8bad5[m remoção do cors
+[33m11d72c1[m Ajuste das requisição de verificar usuário e participar de um evento
+[33me244993[m metodos para participar de evento
+[33m05f869f[m Adição das classes model,interface,repository,requerimento,Response e service da doação de objetos pra eventos
+[33md7327c7[m adição de algumas funcionalidades de eventos
+[33mc2576e9[m Login de administrador
+[33md1c564f[m Alterações cadastro e doações de objeto
+[33m160bbcb[m adição do crud de contribuições no retiro
+[33m583986c[m adição do crud de contribuições no retiro
+[33mfd60a1e[m alteração no metodo de relatorio mensal
+[33m31cfae7[m conserto do metodo de gerar pdf e adição de um metodo de relatorio de doações
+[33mcf068da[m Merge branch 'semMoodle' of https://github.com/devthiagoramon/APIHallel into semMoodle
+[33mcb06bb5[m complementação do metodo de gerar PDF de certificado de curso
+[33m09dd343[m Commit extra (08/11)
+[33mb62b0cd[m Alterações na main, MembroResponse e AssociadoResponse
+[33maa0cdc4[m Commit extra
+[33m42be994[m Projeto sem o Moodle
+[33m5bee6f3[m Adicionandos mais alguns filtros produtos
+[33ma8153f9[m Filtragem de produtos por preços crescentes e decrescente
+[33m7e47096[m Método de sorteio modificado
+[33mdd3d42a[m Controller de Sorteio
+[33m0b6635e[m CRUD básico de produtos
+[33m1a6ed54[m Filtros e modificação no sorteio
+[33mde6ea5b[m Ajustes na API 29/05/2023
+[33md6c6552[m Fazendo filtros (pt1)
+[33m8c414d0[m Ajuste listagem associado
+[33m5b5f5c8[m Ajustes Associados
+[33m92a8a42[m Ajustes Spring security, configurado associado, e ajustes em algumas classes
+[33m4df5542[m Commit na URL de remover Participante
+[33mef45db0[m Ajustes na matrícula de Cursos - remover associados de um curso
+[33mccec545[m Commit Miguel - 22/05
+[33m53c8c92[m Commit 22/05/2023 RAmon
+[33mdf58abb[m Alteração login, agora retornando o id e também o perfil agora precisando do id do usuário
+[33m8d0d312[m alteração atualização de curso e descrição de curso e ajuste erro de atualização de Curso
+[33m803cc12[m Descrição curso req criado e nova url /descCurso/{id}
+[33m94e7f11[m Ajuste nas URL no CursoController
+[33mf088241[m Testes relacionados ao curso (favorite, desempenho[...])
+[33mdf0dbcb[m Teste de adicionar atividade a um curso
+[33m275ae8c[m Correção erro edição de curso
+[33m099e41e[m Ajuste pequeno de um erro
+[33m227489c[m Desempenho de usuário de um Curso - conclusão de curso e atividades
+[33m44202b6[m Alterações na listagem de tabelas, agora podendo listar por dia e semana
+[33m1c48421[m Merge remote-tracking branch 'origin/miguel' into miguel
+[33m95d119f[m Alterações na listagem de tabelas, agora podendo listar por dia e semana
+[33m8e2a1bc[m Alguns ajustes referentes ao curso e adicionando atividades de Curso.
+[33m25acaa7[m Commit listando Integrantes de um Curso
+[33m694899b[m Listar por dia e semana doações dinheiro
+[33mf93a069[m Correção minima no CursoService
+[33mc626f12[m fazendo com que o associado se inscreva no curso desejado
+[33m27f149c[m Merge remote-tracking branch 'origin/miguel' into miguel
+[33mbdfe995[m fazendo com que o associado se inscreva no curso desejado
+[33mb0780cb[m Alteração no model de VideosModulo
+[33m0debd69[m Merge remote-tracking branch 'origin/miguel' into miguel
+[33mb59a624[m Alteração API 24/04
+[33m94af222[m Adicionando mensagens de email para aniversariantes do dia
+[33m08bf6cc[m Adicionando as recompensas e Email (incompleto)
+[33m4a76acd[m Pegar todos os cursos de um associado
+[33maff8a2b[m Edição de modulo de um curso
+[33me1a6370[m Criação de modulo de um curso
+[33m193614f[m Ajuste no update de curso
+[33m568a5d8[m Ajuste cadastro de curso
+[33m6f593ae[m Merge remote-tracking branch 'origin/miguel' into miguel
+[33m22922a8[m Ajuste verificação de token
+[33m20f55c5[m Merge remote-tracking branch 'origin/miguel' into miguel
+[33m05c0518[m alterando o security de Cursos
+[33mc218b2c[m Listar doação objeto por id
+[33m1a3345a[m CRUD de Cursos
+[33m66ff8d1[m Ajuste listagem de associados
+[33m4316c70[m ajuste receita semanal
+[33m5cc6ed8[m Receita semanal e diaria
+[33m5bc2ab3[m Doações por objeto completo
+[33m765d38c[m Ultimas receitas funcionalidade
+[33m7432530[m Listagem de doações por parte do ADM, correção
+[33m67916a9[m Ajuste pre reuniao, pagamento associado
+[33me13a757[m Listando pagamentos dos associados
+[33mc4f6158[m Listando Doações
+[33m95837e6[m Commit da parte Financeira e do Try catch
+[33m3eea36e[m Gasto e Receita mensal / lucro Mensal
+[33m858fcdd[m Comentando código e Loggers
+[33m887982a[m Correção erro financeiro e saldo da comunidade
+[33m0781fb8[m Classes para formulário de despesas e receitas
+[33m091f432[m Somando Lucro e despesas das coisas necessárias (ainda devendo o DATE)
+[33md78962d[m  Lucro e despesa
+[33m25d502b[m Criando listas de doacoes e eventos
+[33m65ce280[m Doador e saldo total
+[33m62de1d6[m Adicionando Lucro e Gasto mensal em Comunidade e novas configurações com MembroGoogle
+[33m0d414bc[m Merge remote-tracking branch 'origin/miguel' into miguel
+[33m80d365b[m Teste e atualização de erro na Doação
+[33ma293312[m  Logica de Funcionamento entre Associado e Transacao concluída
+[33m59fb73b[m Teste Google
+[33mc55d4af[m Ajustando lógica de pagamento
+[33mcadd573[m Criando e configurando as classes de Transacao e Associado
+[33m0a31227[m Parte de doação e requisição via http para que possa ser doado
+[33md76d9fe[m Merge remote-tracking branch 'origin/miguel' into miguel
+[33m35319ea[m Ingresso de um membro a um evento
+[33m72fcbb6[m Fazendo Classes Google e Login somente com Google
+[33mc387dcd[m A funcionalidade de visualizar o perfil do usuario
+[33m75e2d4e[m Ajustando Login e Cadastro usando Oauth2(Google)
+[33mea709f7[m Login com google, alteração do securityConfig e response de login
+[33m7cc1488[m Commit reunião 20/01/2023
+[33mbb524ca[m Ajustando Classe Security
+[33m697bf90[m Adicionando imagem aos eventos
+[33mfda0367[m  Login com o google.
+[33mcbf24f1[m Login com o g
