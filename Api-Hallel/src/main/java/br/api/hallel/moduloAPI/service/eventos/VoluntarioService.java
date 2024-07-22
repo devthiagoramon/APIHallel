@@ -41,13 +41,18 @@ public class VoluntarioService implements VoluntarioEventonterface {
         Optional<Eventos> eventoOptional = eventorepository.findById(idEvento);
         if (eventoOptional.isPresent()) {
             Eventos evento = eventoOptional.get();
-            List<SeVoluntariarEventoResponse> voluntarios = evento.getVoluntarios().stream()
+            List<VoluntarioEvento> voluntariosList = evento.getVoluntarios();
+            if (voluntariosList == null) {
+                voluntariosList = new ArrayList<>();
+            }
+            List<SeVoluntariarEventoResponse> voluntarios = voluntariosList.stream()
                     .map(voluntario -> new SeVoluntariarEventoResponse().toResponse(voluntario))
                     .collect(Collectors.toList());
             return voluntarios;
         }
         throw new EventoNotFoundException("Evento não encontrado.");
     }
+
 
     @Override
     public List<SeVoluntariarEventoResponse> listVoluntariosById(String id) {

@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="nova rota de criar evento para o mobile">
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="Alteracoes nas rotas de listagem de Doacoes para eventos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/LocaisEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/LocaisEventosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoDinheiroEventoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoDinheiroEventoResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoObjetosEventosResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoObjetosEventosResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/VoluntarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/VoluntarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -326,7 +333,22 @@
       <workItem from="1719581912777" duration="5340000" />
       <workItem from="1719841179632" duration="2400000" />
       <workItem from="1719876185699" duration="4239000" />
-      <workItem from="1720036325644" duration="5832000" />
+      <workItem from="1720036325644" duration="6016000" />
+      <workItem from="1720126249371" duration="3388000" />
+      <workItem from="1720213488144" duration="1842000" />
+      <workItem from="1720303419306" duration="2176000" />
+      <workItem from="1720316452758" duration="1617000" />
+      <workItem from="1720438933345" duration="2406000" />
+      <workItem from="1720451640265" duration="3095000" />
+      <workItem from="1720475209673" duration="6000" />
+      <workItem from="1720567355025" duration="2932000" />
+      <workItem from="1720649924347" duration="2617000" />
+      <workItem from="1720736349159" duration="1742000" />
+      <workItem from="1721073315584" duration="1579000" />
+      <workItem from="1721166642576" duration="1472000" />
+      <workItem from="1721249814555" duration="5615000" />
+      <workItem from="1721345560872" duration="2162000" />
+      <workItem from="1721678164325" duration="1010000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -536,7 +558,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719844311397</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="nova rota de criar evento para o mobile">
+      <option name="closed" value="true" />
+      <created>1720054339807</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1720054339807</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -554,7 +584,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adição do crud de contribuições no retiro" />
     <MESSAGE value="adição de algumas funcionalidades de eventos" />
     <MESSAGE value="Adição das classes model,interface,repository,requerimento,Response e service da doação de objetos pra eventos" />
     <MESSAGE value="metodo de participar de evento" />
@@ -579,7 +608,8 @@
     <MESSAGE value="novas rotas mobiles criadas e começando a desenvolver a logica de quizes" />
     <MESSAGE value="rotas do quiz criadas" />
     <MESSAGE value="nova rota de criar evento para o mobile" />
-    <option name="LAST_COMMIT_MESSAGE" value="nova rota de criar evento para o mobile" />
+    <MESSAGE value="Alteracoes nas rotas de listagem de Doacoes para eventos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Alteracoes nas rotas de listagem de Doacoes para eventos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

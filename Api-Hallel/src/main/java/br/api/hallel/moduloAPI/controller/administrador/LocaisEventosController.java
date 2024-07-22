@@ -41,6 +41,7 @@ public class LocaisEventosController {
 
     @PutMapping("/{id}/edit")
     public ResponseEntity<LocalEvento> editLocalEvento(@PathVariable String id, @RequestBody LocalEventoReq localEventoReq) {
+        System.out.println("edit local");
         return ResponseEntity.status(201).body(this.service.editarLocalEvento(id, localEventoReq));
     }
 

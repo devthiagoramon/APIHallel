@@ -6,11 +6,10 @@ import br.api.hallel.moduloAPI.model.DespesaEvento;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
-import br.api.hallel.moduloAPI.payload.resposta.EventoDoacoesResponse;
-import br.api.hallel.moduloAPI.payload.resposta.EventosResponse;
-import br.api.hallel.moduloAPI.payload.resposta.EventosVisualizacaoResponse;
+import br.api.hallel.moduloAPI.payload.resposta.*;
 import br.api.hallel.moduloAPI.service.eventos.EventoArquivadoService;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
+import br.api.hallel.moduloAPI.service.eventos.VoluntarioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +33,9 @@ public class AdmEventosController {
     private EventoArquivadoService eventoArquivadoService;
     @Autowired
     private PagamentoEntradaEventoService pagamentoEntradaService;
+
+    @Autowired
+    private VoluntarioService voluntarioService;
 
 
     @PostMapping("/create")
@@ -254,6 +256,18 @@ public class AdmEventosController {
         return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoesDinheiroEventos());
     }
 
+    @GetMapping("/{id}/ListDoacaoDinheiro")
+    public ResponseEntity<List<DoacaoDinheiroEventoResponse>> ListDoacoesDinheiro(@PathVariable(value="id") String idEvento){
+        return ResponseEntity.ok().body(this.eventosService.listAllDoacoesDinheiro(idEvento));
+    }
+
+
+    @GetMapping("/{id}/ListDoacaoObjetos")
+    public ResponseEntity<List<DoacaoObjetosEventosResponse>> ListDoacaoObjetos(@PathVariable(value="id") String idEvento){
+        return ResponseEntity.ok().body(this.eventosService.listAllDoacoesObjetos(idEvento));
+    }
+
+
     @PostMapping("/AdicionarDescontoParaMembro/{id}")
     public ResponseEntity<Boolean> AdicionaDescontoMembro(@PathVariable(value="id")String idEvento,Double valorDesconto){
         System.out.println(valorDesconto+idEvento);
@@ -269,5 +283,11 @@ public class AdmEventosController {
     public ResponseEntity<Boolean> AlteraValorEvento(@PathVariable(value="id") String idEvento,Double valorEvento){
         return ResponseEntity.ok().body(eventosService.AlterarValorEvento(idEvento,valorEvento));
     }
+
+    @GetMapping("{id}/listVoluntarios")
+    public ResponseEntity<List<SeVoluntariarEventoResponse>> listAllVoluntarios(@PathVariable(value = "id") String idEvento){
+        return ResponseEntity.ok().body(voluntarioService.listAllVoluntarios(idEvento));
+    }
+
 
 }

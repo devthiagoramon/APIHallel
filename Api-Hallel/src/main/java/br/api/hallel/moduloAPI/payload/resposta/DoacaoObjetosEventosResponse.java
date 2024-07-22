@@ -14,10 +14,11 @@ public class DoacaoObjetosEventosResponse {
     private String id;
     private String nomeDoObjeto;
     private Integer quantidade;
+    private String nomeDoador;
 
     public DoacaoObjetosEventosResponse toResponse (DoacaoObjetosEventos doacaoObjetosEventos){
         return new DoacaoObjetosEventosResponse(doacaoObjetosEventos.getId(),doacaoObjetosEventos.getNomeDoObjeto(),
-                doacaoObjetosEventos.getQuantidade());
+                doacaoObjetosEventos.getQuantidade(),doacaoObjetosEventos.getNomeDoador());
 
     }
 
