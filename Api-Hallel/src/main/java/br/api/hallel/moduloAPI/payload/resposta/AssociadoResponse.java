@@ -19,7 +19,6 @@ public class AssociadoResponse {
     private String email;
     private List<Recompensa> recompensas;
     private Set<Role> roles;
-    private String cpf;
     private Integer idade;
     private String imagem;
 

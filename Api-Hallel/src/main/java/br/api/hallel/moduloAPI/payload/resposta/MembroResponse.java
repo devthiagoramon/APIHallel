@@ -21,7 +21,6 @@ public class MembroResponse {
     private String email;
     private StatusMembro statusMembro;
     private Set<Role> roles;
-    private String cpf;
     private Integer idade;
     private String imagem;
 

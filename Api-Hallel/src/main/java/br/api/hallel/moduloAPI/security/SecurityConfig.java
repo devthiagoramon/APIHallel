@@ -1,10 +1,17 @@
 package br.api.hallel.moduloAPI.security;
 
+import br.api.hallel.moduloAPI.security.config.CustomCSRFRepository;
+import br.api.hallel.moduloAPI.security.exception.CustomAccessDeniedHandler;
 import br.api.hallel.moduloAPI.security.jwt.AuthEntryPointJwt;
 import br.api.hallel.moduloAPI.security.jwt.JwtTokenFilter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -21,18 +28,23 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 import org.springframework.security.oauth2.client.web.AuthenticatedPrincipalOAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.io.IOException;
 
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
+@Log4j2
 public class SecurityConfig {
 
     private String endpointsPermitidosAll[] = {"/api/login",
@@ -69,7 +81,7 @@ public class SecurityConfig {
                     "/api/administrador/associados/**", "/api/administrador/doacoes/**",
                     "/api/administrador/eventos/**", "/api/administrador/loja/produtos/**",
                     "/api/administrador/retiros/**", "/api/administrador/sorteios/**", "/api/administrador/locais/**",
-                    "/api/administrador/financeiro/**","/api/administrador/Quiz/**",
+                    "/api/administrador/financeiro/**", "/api/administrador/Quiz/**",
                     "/api/cursos/**", "/api/associados/**", "/api/sorteios/**",
                     "/api/membros/**", "/api/eventos/**", "/api/cursos/**"
             };
@@ -84,28 +96,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
-                .cors().and().csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers(endpointsPermitidosAll).permitAll()
-                .requestMatchers(endpointsMembros).hasRole("USER")
-                .requestMatchers(endpointsAssociado).hasRole("ASSOCIADO")
-                .requestMatchers(endpointsPermitidasAdm).hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .oauth2Login(Customizer.withDefaults())
-                .logout()
-                .logoutUrl("/api/google/logout")
-                .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessHandler(this.oidcLogoutSuccessHandler())
-                .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+
+        http
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/login","/api/cadastro")
+                        .csrfTokenRepository(new CustomCSRFRepository()))
+                .authorizeHttpRequests((authorize) -> {
+                    authorize
+                            .requestMatchers(endpointsPermitidosAll).permitAll()
+                            .requestMatchers(endpointsMembros).hasRole("USER")
+                            .requestMatchers(endpointsAssociado).hasRole("ASSOCIADO")
+                            .requestMatchers(endpointsPermitidasAdm).hasRole("ADMIN");
+                })
+                .exceptionHandling(configurer -> configurer
+                        .accessDeniedHandler(accessDeniedHandler()))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -120,6 +127,10 @@ public class SecurityConfig {
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
+    }
+
+    private AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 
 

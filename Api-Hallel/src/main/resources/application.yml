@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: "hallel-api"
+  mail:
+    host: "smtp.gmail.com"
+    port: 587
+    username: ""
+    password: ""
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  data:
+    mongodb:
+      uri: mongodb+srv://miguel-arcanjo:huLb6nxMTRXPbrQk@hallel-bancodedados.xi3oayc.mongodb.net/?retryWrites=true&w=majority
+      database: hallel

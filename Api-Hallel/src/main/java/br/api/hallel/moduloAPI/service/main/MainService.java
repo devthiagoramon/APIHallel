@@ -76,8 +76,6 @@ public class MainService implements MainInterface {
 
 
         if (associadoService.findByEmail(loginRequerimento.getEmail()) != null) {
-
-
             Associado associado = associadoService.findByEmail(loginRequerimento.getEmail());
             if (associado.getMensalidadePaga()) {
                 var jwtToken = jwtService.generateToken(associado);
