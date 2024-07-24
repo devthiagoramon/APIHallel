@@ -2,13 +2,13 @@ package br.api.hallel.moduloAPI.service.main;
 
 import br.api.hallel.moduloAPI.exceptions.SolicitarCadastroException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
+import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.exceptions.handler.EmailJaCadastradoException;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.requerimento.LoginRequerimento;
 import br.api.hallel.moduloAPI.payload.requerimento.LoginRequerimentoGoogle;
 import br.api.hallel.moduloAPI.payload.requerimento.SolicitarCadastroGoogle;
 import br.api.hallel.moduloAPI.payload.requerimento.SolicitarCadastroRequerimento;
-import br.api.hallel.moduloAPI.payload.resposta.AdministradorResponse;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.AuthenticationResponse;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
@@ -64,21 +64,32 @@ public class MainService implements MainInterface {
         ELE PODE LOGAR COMO MEMBRO OU COMO ADMISTRADOR
     * */
 
-    @Override
-    public AuthenticationResponse logar(@Valid LoginRequerimento loginRequerimento) {
+    public void atualizarTokenMembro(Membro membro, String token){
+        membro.setToken(token);
+        membroRepository.save(membro);
+    }
 
+
+    @Override
+    public AuthenticationResponse logar(
+            @Valid LoginRequerimento loginRequerimento) throws
+            AssociadoNotFoundException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequerimento.getEmail(), loginRequerimento.getSenha()
+                        loginRequerimento.getEmail(),
+                        loginRequerimento.getSenha()
                 )
-        );
+                                          );
 
-
-
-        if (associadoService.findByEmail(loginRequerimento.getEmail()) != null) {
-            Associado associado = associadoService.findByEmail(loginRequerimento.getEmail());
+        if (associadoService.findByEmail(
+                loginRequerimento.getEmail()) != null) {
+            Associado associado = associadoService.findByEmail(
+                    loginRequerimento.getEmail());
             if (associado.getMensalidadePaga()) {
                 var jwtToken = jwtService.generateToken(associado);
+
+                associadoService.atualizarTokenAssociado(associado.id, jwtToken);
+
                 AssociadoResponse associadoResponse = new AssociadoResponse();
                 associadoResponse.setId(associado.getId());
                 associadoResponse.setRoles(associado.getRoles());
@@ -87,22 +98,25 @@ public class MainService implements MainInterface {
                 associadoResponse.setImagem(associado.getImage());
                 log.info(associado.getNome() + " logando");
                 return AuthenticationResponse.builder()
-                        .token(jwtToken)
-                        .objeto(associadoResponse)
-                        .build();
+                                             .token(jwtToken)
+                                             .objeto(associadoResponse)
+                                             .build();
             }
         }
 
-        if (membroRepository.findByEmail(loginRequerimento.getEmail()).isPresent()) {
+        if (membroRepository.findByEmail(
+                loginRequerimento.getEmail()).isPresent()) {
 
             //VERIFICAÇÃO PARA VER SE EXISTE UM MEMBRO COM ESSE EMAIL
 
-            var membro = membroRepository.findByEmail(loginRequerimento.getEmail()).get();
+            var membro = membroRepository.findByEmail(
+                    loginRequerimento.getEmail()).get();
 
             if (membro.getStatusMembro().equals(StatusMembro.ATIVO)) {
 
                 //SE EXISTE, O MEMBRO VEM COMO ATIVO, POIS ESTÁ ACESSANDO AO SITE
                 var jwtToken = jwtService.generateToken(membro);
+                atualizarTokenMembro(membro, jwtToken);
                 MembroResponse membroResponse = new MembroResponse();
                 membroResponse.setId(membro.getId());
                 membroResponse.setNome(membro.getNome());
@@ -113,60 +127,70 @@ public class MainService implements MainInterface {
                         && membro.getSenha() != null) {
                     log.info(membro.getNome() + " logando");
                     return AuthenticationResponse.builder()
-                            .token(jwtToken)
-                            .objeto(membroResponse)
-                            .build();
+                                                 .token(jwtToken)
+                                                 .objeto(membroResponse)
+                                                 .build();
                 } else {
-                    throw new SolicitarLoginException("Por favor, informe as credenciais os campos corretamente!");
+                    throw new SolicitarLoginException(
+                            "Por favor, informe as credenciais os campos corretamente!");
                 }
             }
         }
-        return null;
+        throw new SolicitarLoginException(
+                "Usuário não encontrado, tente novamente!");
     }
+
 
     /*MÉTODO PARA REALIZAR O LOGIN COM GOOGLE (OAUTH2)
         (MESMA COISA DO MÉTODO ANTERIOR)
      */
     @Override
-    public AuthenticationResponse logarGoogle(@Valid LoginRequerimentoGoogle loginRequerimentoGoogle) {
+    public AuthenticationResponse logarGoogle(
+            @Valid LoginRequerimentoGoogle loginRequerimentoGoogle) {
         System.out.println("COMEÇO");
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequerimentoGoogle.getEmail(), loginRequerimentoGoogle.getNome()
+                        loginRequerimentoGoogle.getEmail(),
+                        loginRequerimentoGoogle.getNome()
                 )
 
-        );
+                                          );
 
         System.out.println("ANTES FAZENDO O IF ELSE ");
 
-        if (googleRepository.findByEmail(loginRequerimentoGoogle.getEmail()).isPresent()) {
+        if (googleRepository.findByEmail(
+                loginRequerimentoGoogle.getEmail()).isPresent()) {
 
             System.out.println("FAZENDO O IF ELSE ");
 
-            var membroGoogle = googleRepository.findByEmail(loginRequerimentoGoogle.getEmail()).get();
+            var membroGoogle = googleRepository.findByEmail(
+                    loginRequerimentoGoogle.getEmail()).get();
             System.out.println("Membro Google");
 
-            if (membroGoogle.getStatusMembro().equals(StatusMembro.ATIVO)) {
+            if (membroGoogle.getStatusMembro().equals(
+                    StatusMembro.ATIVO)) {
                 var jwtToken = jwtService.generateToken(membroGoogle);
 
                 System.out.println("CERTO");
 
                 return AuthenticationResponse.builder()
-                        .token(jwtToken)
-                        .objeto(membroGoogle)
-                        .build();
+                                             .token(jwtToken)
+                                             .objeto(membroGoogle)
+                                             .build();
             }
         }
 
-        if (administradorRepository.findByEmail(loginRequerimentoGoogle.getEmail()).isPresent()) {
-            var administrador = administradorRepository.findByEmail(loginRequerimentoGoogle.getEmail()).get();
+        if (administradorRepository.findByEmail(
+                loginRequerimentoGoogle.getEmail()).isPresent()) {
+            var administrador = administradorRepository.findByEmail(
+                    loginRequerimentoGoogle.getEmail()).get();
             System.out.println("Adm Google");
             var jwtToken = jwtService.generateToken(administrador);
             return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .objeto(administrador)
-                    .build();
+                                         .token(jwtToken)
+                                         .objeto(administrador)
+                                         .build();
         }
 
         System.out.println("FUCK RETORNOU NULL");
@@ -179,37 +203,46 @@ public class MainService implements MainInterface {
         (O ADMIN DEVE ACEITAR O CADASTRO DO MEMBRO)
      */
     @Override
-    public AuthenticationResponse solicitarCadastro(SolicitarCadastroRequerimento solicitarCadastroRequerimento) {
+    public AuthenticationResponse solicitarCadastro
+    (SolicitarCadastroRequerimento solicitarCadastroRequerimento)
+            throws SolicitarCadastroException,
+            EmailJaCadastradoException {
         //ADICIONA A ROLE (FUNÇÃO) QUE O USUÁRIO É, NO CASO, DE MEMBRO.
-
         HashSet<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByName(ERole.ROLE_USER).isPresent() ?
-                roleRepository.findByName(ERole.ROLE_USER).get() : null);
+        roles.add(roleRepository.findByName(
+                ERole.ROLE_USER).isPresent() ?
+                roleRepository.findByName(
+                        ERole.ROLE_USER).get() : null);
 
         var membro = new Membro();
         membro.setNome(solicitarCadastroRequerimento.getNome());
         membro.setEmail(solicitarCadastroRequerimento.getEmail());
-        membro.setSenha(encoder.encode(solicitarCadastroRequerimento.getSenha()));
+        membro.setSenha(encoder.encode(
+                solicitarCadastroRequerimento.getSenha()));
         membro.setRoles(roles);
         membro.setStatusMembro(StatusMembro.ATIVO);
 
         // Verifica se o email já está cadastrado
-        if (membroRepository.findByEmail(solicitarCadastroRequerimento.getEmail()).isPresent()) {
-            throw new EmailJaCadastradoException("Este email já está cadastrado.");
+        if (membroRepository.findByEmail(
+                                    solicitarCadastroRequerimento.getEmail())
+                            .isPresent()) {
+            throw new EmailJaCadastradoException(
+                    "Este email já está cadastrado.");
         }
 
         //SALVA NO BD E GERA O TOKEN PARA O USUARIO
         if (membro.getEmail() != null &&
                 membro.getNome() != null &&
                 membro.getSenha() != null) {
-            System.out.println(membro.toString());
-            membroRepository.save(membro);
             var jwtToken = jwtService.generateToken(membro);
+            membro.setToken(jwtToken);
+            membroRepository.save(membro);
             return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .build();
+                                         .token(jwtToken)
+                                         .build();
         } else {
-            throw new SolicitarCadastroException("Por favor, preencha os campos corretamente.");
+            throw new SolicitarCadastroException(
+                    "Por favor, preencha os campos corretamente.");
         }
     }
 
@@ -220,16 +253,20 @@ public class MainService implements MainInterface {
       (MESMA LÓGICA DO MÉTODO ANTERIOR)
    */
     @Override
-    public AuthenticationResponse solicitarCadastroGoogle(SolicitarCadastroGoogle solicitarCadastroGoogle) {
+    public AuthenticationResponse solicitarCadastroGoogle(
+            SolicitarCadastroGoogle solicitarCadastroGoogle) {
 
         HashSet<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByName(ERole.ROLE_USER).isPresent() ?
-                roleRepository.findByName(ERole.ROLE_USER).get() : null);
+        roles.add(roleRepository.findByName(
+                ERole.ROLE_USER).isPresent() ?
+                roleRepository.findByName(
+                        ERole.ROLE_USER).get() : null);
         var membro = new MembroGoogle();
 
         membro.setNome(solicitarCadastroGoogle.getNome());
         membro.setEmail(solicitarCadastroGoogle.getEmail());
-        membro.setSenha(encoder.encode(solicitarCadastroGoogle.getSenha()));
+        membro.setSenha(
+                encoder.encode(solicitarCadastroGoogle.getSenha()));
         membro.setRoles(roles);
         membro.setStatusMembro(StatusMembro.PENDENTE);
 
@@ -241,10 +278,11 @@ public class MainService implements MainInterface {
 
             var jwtToken = jwtService.generateToken(membro);
             return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .build();
+                                         .token(jwtToken)
+                                         .build();
         } else {
-            throw new SolicitarCadastroException("Por favor, preenchar os campos corretamente.");
+            throw new SolicitarCadastroException(
+                    "Por favor, preenchar os campos corretamente.");
         }
 
 
@@ -255,14 +293,17 @@ public class MainService implements MainInterface {
     }
 
     public static Boolean comparateDatas(Date date1, Date date2) {
-        LocalDate data1 = date1.toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
-        LocalDate data2 = date2.toInstant().atZone(ZoneId.of("America/Puerto_Rico")).toLocalDate();
+        LocalDate data1 = date1.toInstant().atZone(
+                ZoneId.of("America/Puerto_Rico")).toLocalDate();
+        LocalDate data2 = date2.toInstant().atZone(
+                ZoneId.of("America/Puerto_Rico")).toLocalDate();
 
         log.info(data1);
         log.info(data2);
 
         if (data1.compareTo(data2) >= 0) {
-            log.info(data1 + " é antes, ou igual a dataAtual: " + data2);
+            log.info(
+                    data1 + " é antes, ou igual a dataAtual: " + data2);
             return true;
         }
         log.info(data1 + " é depois da dataAtual: " + data2);

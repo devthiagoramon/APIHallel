@@ -21,7 +21,7 @@ public class JwtService {
     Logger logger = LoggerFactory.getLogger(JwtService.class);
     private static String secretKey = "5266556A586E3272357538782F413F4428472B4B6250655368566B5970337336763979244226452948404D635166546A576E5A7134743777217A25432A462D4A";
 
-    private static Long expirationTime = 86400000L;
+    private static Long expirationTime = 2592000000L;
 
     private static String PREFIX = "Bearer ";
 

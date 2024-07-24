@@ -25,6 +25,8 @@ public interface MembroInterface {
     Membro findByEmail(String email);
 
     PerfilResponse visualizarPerfil(String id) throws IllegalAccessException;
+    PerfilResponse visualizarPerfilPeloToken(String token) throws
+            IllegalAccessException;
 
     List<MembroResponse> listByPage(int pagina);
 

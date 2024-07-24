@@ -34,6 +34,12 @@ public class MembroController {
         return ResponseEntity.status(200).body(perfil);
     }
 
+    @GetMapping("/perfil/{token}")
+    public ResponseEntity<PerfilResponse> visualizarPerfilPeloToken(@PathVariable String token) throws IllegalAccessException {
+        PerfilResponse perfil = this.service.visualizarPerfilPeloToken(token);
+        return ResponseEntity.status(200).body(perfil);
+    }
+
     @PostMapping("/virarAssociado")
     public ResponseEntity<Boolean> createAssociado(@RequestBody VirarAssociadoRequest virarAssociadoRequest) {
         Boolean booleanResposta = null;

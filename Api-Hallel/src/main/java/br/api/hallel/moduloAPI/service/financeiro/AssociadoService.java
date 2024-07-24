@@ -49,6 +49,7 @@ public class AssociadoService implements AssociadoInterface {
         return this.associadoRepository.findAll().isEmpty() ? null : this.associadoRepository.findAll();
     }
 
+
     @Override
     public List<AssociadoResponseList> listAllAssociadoByMesAno(String mes, String ano) {
         List<Associado> associadosDB = this.associadoRepository.findAll();
@@ -478,6 +479,29 @@ public class AssociadoService implements AssociadoInterface {
         }
         Associado associado = optional.get();
         return associado.getCartaoCredito();
+    }
+
+    @Override
+    public String atualizarTokenAssociado(String idAssociado, String token) throws AssociadoNotFoundException {
+        Optional<Associado> optional = this.associadoRepository.findById(idAssociado);
+        if (optional.isEmpty()) {
+            throw new AssociadoNotFoundException("Associado não encontrado");
+        }
+        Associado associado = optional.get();
+        associado.setToken(token);
+        associadoRepository.save(associado);
+        return token;
+    }
+
+    @Override
+    public AssociadoPerfilResponse visualizarPerfilAssociadoPeloToken(
+            String token) throws AssociadoNotFoundException {
+        Optional<Associado> optional = associadoRepository.findByToken(token);
+        if (optional.isEmpty()) {
+            throw new AssociadoNotFoundException("Associado não encontrado");
+        }
+        Associado associado = optional.get();
+        return new AssociadoPerfilResponse().toAssociadoPerfilResponse(associado);
     }
 
     private Date getDataExpiroAssociacao(PagamentosAssociado pagamentosAssociado) {

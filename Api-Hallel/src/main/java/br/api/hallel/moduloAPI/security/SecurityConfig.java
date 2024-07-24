@@ -47,7 +47,13 @@ import java.io.IOException;
 @Log4j2
 public class SecurityConfig {
 
-    private String endpointsPermitidosAll[] = {"/api/login",
+    private String endpointsPermitidosAll[] = {
+            // Apagar até o proximo comentário
+            "/swagger-ui/**",
+            "/api-docs/**",
+            "/api-docs-ui",
+            //
+            "/api/login",
             "/api/home/isTokenExpired",
             "/api/cadastrar",
             "/api/administrador/login",
@@ -99,7 +105,15 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/login","/api/cadastro")
+                        .ignoringRequestMatchers(
+                                "/api/login",
+                                "/api/cadastro",
+                                "/api/home/isTokenExpired",
+                                // Apagar os proximos endpoints depois!
+                                "/api-docs/**",
+                                "/api-docs-ui",
+                                "/swagger-ui/**"
+                        )
                         .csrfTokenRepository(new CustomCSRFRepository()))
                 .authorizeHttpRequests((authorize) -> {
                     authorize

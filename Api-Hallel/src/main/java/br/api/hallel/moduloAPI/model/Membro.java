@@ -31,6 +31,7 @@ public class Membro extends Usuario implements UserDetails {
     private Integer quantidadeDoacoes;
     private List<String> eventosParticipando;
     private CartaoCredito cartaoMembro;
+    private String token;
     private Map<String, Object> atributtes;
 
     @DBRef

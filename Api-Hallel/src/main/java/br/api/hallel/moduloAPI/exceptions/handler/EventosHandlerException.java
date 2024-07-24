@@ -18,13 +18,13 @@ public class EventosHandlerException {
     public ResponseEntity<ApiError> handlerEventoNotFound(EventoNotFoundException ex) {
         ApiError error = new ApiError(404, ex.getMessage(), new Date());
 
-        return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = EventoIllegalArumentException.class)
     public ResponseEntity<ApiError> handlerEventoIllegalArgument(EventoIllegalArumentException ex) {
         ApiError error = new ApiError(404, ex.getMessage(), new Date());
 
-        return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }

@@ -16,3 +16,9 @@ spring:
     mongodb:
       uri: mongodb+srv://miguel-arcanjo:huLb6nxMTRXPbrQk@hallel-bancodedados.xi3oayc.mongodb.net/?retryWrites=true&w=majority
       database: hallel
+springdoc:
+  api-docs:
+    path: "/api-docs"
+  swagger-ui:
+    path: "/api-docs-ui"
+    operations-sorter: method

@@ -1,10 +1,6 @@
 package br.api.hallel.moduloAPI.service.main;
 
-import br.api.hallel.moduloAPI.model.ContribuicaoEvento;
-import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
-import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
-import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
 import br.api.hallel.moduloAPI.repository.ContribuicaoEventoRepository;
@@ -45,7 +41,8 @@ public class MembroService implements MembroInterface {
     @Override
     public Membro createMembro(Membro membro) {
         System.out.println("Criando membro");
-        String encoder = this.passwordEncoder().encode(membro.getSenha()); //CRIPTOGRAFA A SENHA
+        String encoder = this.passwordEncoder()
+                             .encode(membro.getSenha()); //CRIPTOGRAFA A SENHA
         membro.setSenha(encoder);
         return this.repository.insert(membro);
     }
@@ -74,7 +71,8 @@ public class MembroService implements MembroInterface {
     }
 
     @Override
-    public Membro updateMembro(String idMembro, Membro membroRequest) {
+    public Membro updateMembro(String idMembro,
+                               Membro membroRequest) {
         Membro membro = membroRequest;
         membro.setId(idMembro);
         log.info("Atualizando o membro Id(" + idMembro + ")");
@@ -95,7 +93,8 @@ public class MembroService implements MembroInterface {
             membro.setNome(membroModel.getNome());
             membro.setIdade(membroModel.getIdade());
             membro.setEmail(membroModel.getEmail());
-            String encoder = this.passwordEncoder().encode(membro.getSenha());
+            String encoder = this.passwordEncoder()
+                                 .encode(membro.getSenha());
             membro.setSenha(encoder);
             membro.setDataNascimento(membroModel.getDataNascimento());
 
@@ -142,30 +141,37 @@ public class MembroService implements MembroInterface {
 
     @Override
     public Membro findByEmail(String email) {
-        return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
+        return this.repository.findByEmail(email)
+                              .isPresent() ? this.repository.findByEmail(email)
+                                                            .get() : null;
     }
 
     //INFORMAÇÕES PARA PODER O USUÁRIO VISUALIZAR SEU PERFIL
     @Override
-    public PerfilResponse visualizarPerfil(String id) throws IllegalAccessException {
+    public PerfilResponse visualizarPerfil(String id) throws
+            IllegalAccessException {
 
         //FAZ A BUSCA DO MEMBRO PELO BD, UTILIZANDO SEU ID
         Optional<Membro> optional = this.repository.findById(id);
         if (optional.isPresent()) {
 
             //SE EXISTE, EXIBE AS INFORMAÇÕES DO PERFIL
-            PerfilResponse perfil = new PerfilResponse();
-            perfil.setNome(optional.get().getNome());
-            perfil.setEmail(optional.get().getEmail());
-            perfil.setStatus(optional.get().getStatusMembro());
-            perfil.setIdade(optional.get().getIdade());
-            perfil.setDataAniversario(optional.get().getDataNascimento());
-            perfil.setImage(optional.get().getImage());
-            perfil.setCpf(optional.get().getCpf());
-            perfil.setTelefone(optional.get().getTelefone());
-            return perfil;
+            Membro membro = optional.get();
+            return new PerfilResponse().toPerfilResponse(membro);
         }
         throw new IllegalAccessException("Usuario não encontrado para carregar o perfil");
+    }
+
+    @Override
+    public PerfilResponse visualizarPerfilPeloToken(
+            String token) throws
+            IllegalAccessException {
+        Optional<Membro> optional = this.repository.findByToken(token);
+        if (optional.isEmpty()) {
+            throw new IllegalAccessException("Usuário não encontrado");
+        }
+        Membro membro = optional.get();
+        return new PerfilResponse().toPerfilResponse(membro);
     }
 
     @Override

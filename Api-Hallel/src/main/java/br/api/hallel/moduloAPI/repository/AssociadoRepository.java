@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface AssociadoRepository extends MongoRepository<Associado,String> {
     Optional<Associado> findByEmail(String email);
     List<Associado> findByIsAssociadoEquals(Enum<AssociadoStatus> status);
+    Optional<Associado> findByToken(String token);
 }

@@ -47,4 +47,9 @@ public interface AssociadoInterface {
     AssociadoPerfilResponse visualizarPerfilAssociado(String idAssociado);
     PagamentoAssociadoPerfilResponse listarPagamentoPerfilByMesAno(String idAssociado, String mes, String ano);
     CartaoCredito cartaoAssociado(String idAssociado);
+    String atualizarTokenAssociado(String idAssociado, String token) throws AssociadoNotFoundException;
+
+
+    AssociadoPerfilResponse visualizarPerfilAssociadoPeloToken(
+            String token) throws AssociadoNotFoundException;
 }

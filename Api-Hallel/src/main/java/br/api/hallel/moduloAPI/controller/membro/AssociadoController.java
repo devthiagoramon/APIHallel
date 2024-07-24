@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.CartaoCredito;
 import br.api.hallel.moduloAPI.payload.requerimento.PagarAssociacaoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoPerfilResponse;
@@ -7,6 +8,7 @@ import br.api.hallel.moduloAPI.payload.resposta.CursosAssociadoRes;
 import br.api.hallel.moduloAPI.payload.resposta.PagamentoAssociadoPerfilResponse;
 import br.api.hallel.moduloAPI.service.cursos.CursoService;
 import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ public class AssociadoController {
         return ResponseEntity.status(201).body(this.cursoService.listCursoByAssociado(id));
     }
 
+
     @PostMapping("/pagarAssociacao")
     public ResponseEntity<Boolean> pagarAssociacao(@RequestBody PagarAssociacaoRequest pagarAssociacaoRequest) {
         if (this.service.pagarAssociacao(pagarAssociacaoRequest.pagarRequest())) {
@@ -54,6 +57,13 @@ public class AssociadoController {
     @GetMapping("/perfil/{idAssociado}")
     public ResponseEntity<AssociadoPerfilResponse> visualizarPerfilAssociado(@PathVariable String idAssociado){
         return ResponseEntity.status(200).body(this.service.visualizarPerfilAssociado(idAssociado));
+    }
+
+    @Operation(summary = "Retorna o perfil do associado a partir do token")
+    @GetMapping("/perfil/{token}")
+    public ResponseEntity<AssociadoPerfilResponse> visualizarPerfilAssociadoPeloToken(@PathVariable String token) throws
+            AssociadoNotFoundException {
+        return ResponseEntity.status(200).body(this.service.visualizarPerfilAssociadoPeloToken(token));
     }
 
     @GetMapping("/perfil/pagamento/{idAssociado}")

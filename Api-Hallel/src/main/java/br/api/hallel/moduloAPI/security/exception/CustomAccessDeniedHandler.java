@@ -13,9 +13,9 @@ import java.io.IOException;
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException, br.api.hallel.moduloAPI.security.exception.AccessDeniedException {
         log.debug(accessDeniedException.getMessage());
         response.sendError(403, "Can't access the app");
-
+        throw new br.api.hallel.moduloAPI.security.exception.AccessDeniedException("Can't access the app, pleasy verify your token");
     }
 }
