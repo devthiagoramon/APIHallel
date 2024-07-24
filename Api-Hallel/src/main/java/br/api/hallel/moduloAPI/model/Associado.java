@@ -35,7 +35,6 @@ public class Associado extends Membro {
     private ArrayList<ModulosCurso> modulosCursosCompletos;
     private Boolean mensalidadePaga;
     private List<Date> mesesPagos;
-    private String token;
 
     @DBRef
     private List<PagamentosAssociado> pagamentosAssociados;
