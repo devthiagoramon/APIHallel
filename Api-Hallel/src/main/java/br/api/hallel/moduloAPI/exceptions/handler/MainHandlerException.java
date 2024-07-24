@@ -38,8 +38,16 @@ public class MainHandlerException {
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<ApiError> handleSecurityException(EmailJaCadastradoException ex){
+    public ResponseEntity<ApiError> handleSecurityException(AccessDeniedException ex){
         ApiError error = new ApiError(HttpStatus.FORBIDDEN.value(), ex.getMessage(), new Date());
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(IllegalAccessException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<ApiError> handleIllegalAccessException(IllegalAccessException ex){
+        ApiError error = new ApiError(HttpStatus.FORBIDDEN.value(), ex.getMessage(), new Date());
+        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+    }
+    
 }

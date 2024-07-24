@@ -54,7 +54,7 @@ public class SecurityConfig {
             "/api-docs-ui",
             //
             "/api/login",
-            "/api/home/isTokenExpired",
+            "/api/home/isTokenValid",
             "/api/cadastrar",
             "/api/administrador/login",
             "/api/administrador/create",
@@ -108,7 +108,7 @@ public class SecurityConfig {
                         .ignoringRequestMatchers(
                                 "/api/login",
                                 "/api/cadastro",
-                                "/api/home/isTokenExpired",
+                                "/api/home/isTokenValid",
                                 // Apagar os proximos endpoints depois!
                                 "/api-docs/**",
                                 "/api-docs-ui",

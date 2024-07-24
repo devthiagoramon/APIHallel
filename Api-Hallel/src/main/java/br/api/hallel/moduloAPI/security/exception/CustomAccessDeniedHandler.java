@@ -8,14 +8,21 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
+import java.util.Date;
 
 @Log4j2
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException, br.api.hallel.moduloAPI.security.exception.AccessDeniedException {
-        log.debug(accessDeniedException.getMessage());
+    public void handle(HttpServletRequest request,
+                       HttpServletResponse response,
+                       AccessDeniedException accessDeniedException) throws
+            IOException, ServletException,
+            br.api.hallel.moduloAPI.security.exception.AccessDeniedException {
+        System.out.println(accessDeniedException.getMessage()
+                + " | TIME: " + new Date(request.getSession()
+                                                .getCreationTime())
+                + " | TOKEN: " + request.getHeader("Authorization"));
         response.sendError(403, "Can't access the app");
-        throw new br.api.hallel.moduloAPI.security.exception.AccessDeniedException("Can't access the app, pleasy verify your token");
     }
 }

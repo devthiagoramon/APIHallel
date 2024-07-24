@@ -88,7 +88,7 @@ public class MainService implements MainInterface {
             if (associado.getMensalidadePaga()) {
                 var jwtToken = jwtService.generateToken(associado);
 
-                associadoService.atualizarTokenAssociado(associado.id, jwtToken);
+                associadoService.atualizarTokenAssociado(associado.id, jwtToken.replace("Bearer ", ""));
 
                 AssociadoResponse associadoResponse = new AssociadoResponse();
                 associadoResponse.setId(associado.getId());
@@ -116,7 +116,7 @@ public class MainService implements MainInterface {
 
                 //SE EXISTE, O MEMBRO VEM COMO ATIVO, POIS ESTÁ ACESSANDO AO SITE
                 var jwtToken = jwtService.generateToken(membro);
-                atualizarTokenMembro(membro, jwtToken);
+                atualizarTokenMembro(membro, jwtToken.replace("Bearer ", ""));
                 MembroResponse membroResponse = new MembroResponse();
                 membroResponse.setId(membro.getId());
                 membroResponse.setNome(membro.getNome());

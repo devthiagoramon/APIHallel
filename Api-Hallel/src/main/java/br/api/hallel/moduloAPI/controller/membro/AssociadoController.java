@@ -60,7 +60,7 @@ public class AssociadoController {
     }
 
     @Operation(summary = "Retorna o perfil do associado a partir do token")
-    @GetMapping("/perfil/{token}")
+    @GetMapping("/perfil/token/{token}")
     public ResponseEntity<AssociadoPerfilResponse> visualizarPerfilAssociadoPeloToken(@PathVariable String token) throws
             AssociadoNotFoundException {
         return ResponseEntity.status(200).body(this.service.visualizarPerfilAssociadoPeloToken(token));
@@ -71,7 +71,6 @@ public class AssociadoController {
             (@PathVariable String idAssociado,
              @RequestParam(value = "mes") String mes,
              @RequestParam(value = "ano") String ano){
-        System.out.println("oiiii");
 
         return ResponseEntity.status(200).body(this.service.listarPagamentoPerfilByMesAno(idAssociado, mes, ano));
     }

@@ -85,12 +85,12 @@ public class MainController {
                                          implementation = ApiError.class))}
             )
     })
-    @GetMapping("/home/isTokenExpired")
+    @GetMapping("/home/isTokenValid")
     public ResponseEntity<Boolean> isTokenValid(
             @RequestParam(value = "token") String token) {
         token = token.replace("Bearer ", "");
         return ResponseEntity.ok()
-                             .body(jwtService.isTokenExpired(token));
+                             .body(!jwtService.isTokenExpired(token));
     }
 
     @GetMapping("/listarCurso")
