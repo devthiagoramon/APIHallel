@@ -17,37 +17,42 @@ public class MainHandlerException {
 
     @ExceptionHandler(SolicitarLoginException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ApiError> handleLoginException(SolicitarLoginException ex){
+    public ResponseEntity<ApiError> handleLoginException(
+            SolicitarLoginException ex) {
         ApiError error = new ApiError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), new Date());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(EmailJaCadastradoException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ApiError> handleEmailJaCadastradoException(EmailJaCadastradoException ex){
+    public ResponseEntity<ApiError> handleEmailJaCadastradoException(
+            EmailJaCadastradoException ex) {
         ApiError error = new ApiError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), new Date());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SolicitarCadastroException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ApiError> handleCadastroException(EmailJaCadastradoException ex){
+    public ResponseEntity<ApiError> handleCadastroException(
+            EmailJaCadastradoException ex) {
         ApiError error = new ApiError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), new Date());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<ApiError> handleSecurityException(AccessDeniedException ex){
+    public ResponseEntity<ApiError> handleSecurityException(
+            AccessDeniedException ex) {
         ApiError error = new ApiError(HttpStatus.FORBIDDEN.value(), ex.getMessage(), new Date());
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(IllegalAccessException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<ApiError> handleIllegalAccessException(IllegalAccessException ex){
-        ApiError error = new ApiError(HttpStatus.FORBIDDEN.value(), ex.getMessage(), new Date());
-        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ApiError> handleIllegalAccessException(
+            IllegalAccessException ex) {
+        ApiError error = new ApiError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), new Date());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
-    
+
 }

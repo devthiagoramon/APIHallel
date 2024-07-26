@@ -1,6 +1,7 @@
 package br.api.hallel.moduloAPI.service.main;
 
 import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.payload.requerimento.EditarPerfilMembroReq;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
 import br.api.hallel.moduloAPI.repository.ContribuicaoEventoRepository;
@@ -172,6 +173,29 @@ public class MembroService implements MembroInterface {
         }
         Membro membro = optional.get();
         return new PerfilResponse().toPerfilResponse(membro);
+    }
+
+    @Override
+    public PerfilResponse editarPerfilMembro(
+            EditarPerfilMembroReq dto) throws IllegalAccessException {
+        Optional<Membro> optionalMembro = this.repository.findById(dto.getId());
+
+        if (optionalMembro.isEmpty()) {
+            throw new IllegalAccessException("Usuário não encontrado");
+        }
+
+        Membro newMembro = dto.toMembro();
+        Membro oldMembro = optionalMembro.get();
+
+        oldMembro.setNome(newMembro.getNome());
+        oldMembro.setDataNascimento(newMembro.getDataNascimento());
+        oldMembro.setCpf(newMembro.getCpf());
+        oldMembro.setEmail(newMembro.getEmail());
+        oldMembro.setTelefone(newMembro.getTelefone());
+
+        this.repository.save(oldMembro);
+
+        return new PerfilResponse().toPerfilResponse(oldMembro);
     }
 
     @Override

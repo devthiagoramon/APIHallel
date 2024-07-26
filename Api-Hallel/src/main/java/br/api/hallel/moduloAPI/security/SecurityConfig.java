@@ -106,7 +106,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(
-                                "/api/login",
+                                "/api/**",
                                 "/api/cadastro",
                                 "/api/home/isTokenValid",
                                 // Apagar os proximos endpoints depois!

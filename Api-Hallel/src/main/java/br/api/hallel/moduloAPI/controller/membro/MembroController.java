@@ -3,6 +3,7 @@ package br.api.hallel.moduloAPI.controller.membro;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.payload.requerimento.BuscarIdAssociadoReq;
+import br.api.hallel.moduloAPI.payload.requerimento.EditarPerfilMembroReq;
 import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
@@ -19,7 +20,6 @@ import java.util.Map;
 @CrossOrigin("*")
 
 
-
 public class MembroController {
 
     @Autowired
@@ -29,19 +29,30 @@ public class MembroController {
     private AssociadoService associadoService;
 
     @GetMapping("/perfil/{id}")
-    public ResponseEntity<PerfilResponse> visualizarPerfil(@PathVariable String id) throws IllegalAccessException {
+    public ResponseEntity<PerfilResponse> visualizarPerfil(
+            @PathVariable String id) throws IllegalAccessException {
         PerfilResponse perfil = this.service.visualizarPerfil(id);
         return ResponseEntity.status(200).body(perfil);
     }
 
     @GetMapping("/perfil/token/{token}")
-    public ResponseEntity<PerfilResponse> visualizarPerfilPeloToken(@PathVariable String token) throws IllegalAccessException {
+    public ResponseEntity<PerfilResponse> visualizarPerfilPeloToken(
+            @PathVariable String token) throws
+            IllegalAccessException {
         PerfilResponse perfil = this.service.visualizarPerfilPeloToken(token);
         return ResponseEntity.status(200).body(perfil);
     }
 
+    @PatchMapping("/perfil")
+    public ResponseEntity<PerfilResponse> editarPerfilUsuario(@RequestBody
+                                                              EditarPerfilMembroReq dto) throws
+            IllegalAccessException {
+        return ResponseEntity.status(200).body(this.service.editarPerfilMembro(dto));
+    }
+
     @PostMapping("/virarAssociado")
-    public ResponseEntity<Boolean> createAssociado(@RequestBody VirarAssociadoRequest virarAssociadoRequest) {
+    public ResponseEntity<Boolean> createAssociado(@RequestBody
+                                                   VirarAssociadoRequest virarAssociadoRequest) {
         Boolean booleanResposta = null;
 
         try {
@@ -58,10 +69,12 @@ public class MembroController {
     }
 
     @PostMapping("/buscarAssociadoEmail")
-    public ResponseEntity<String> buscarAssociado(@RequestBody BuscarIdAssociadoReq buscarIdAssociadoReq) {
+    public ResponseEntity<String> buscarAssociado(
+            @RequestBody BuscarIdAssociadoReq buscarIdAssociadoReq) {
 
         System.out.println(buscarIdAssociadoReq.getEmail()); // Verifique se o email está sendo corretamente capturado
-        return ResponseEntity.ok().body(this.associadoService.IdAssociadofindByEmail(buscarIdAssociadoReq.getEmail()));
+        return ResponseEntity.ok()
+                             .body(this.associadoService.IdAssociadofindByEmail(buscarIdAssociadoReq.getEmail()));
     }
 
 }

@@ -29,6 +29,7 @@ public class PerfilResponse {
         response.setImage(membro.getImage());
         response.setIdade(membro.getIdade());
         response.setEmail(membro.getEmail());
+        response.setNome(membro.getNome());
         response.setCpf(membro.getCpf());
         response.setStatus(membro.getStatusMembro());
         response.setDataNascimento(membro.getDataNascimento());
