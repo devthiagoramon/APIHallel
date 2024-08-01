@@ -54,16 +54,8 @@ public class EventosService implements EventosInterface {
             throw new EventoIllegalArumentException("Não foi possível criar o evento.");
         }
 
-        LocalEventoLocalizacaoRequest localEventoRequest = evento.getLocalEventoRequest();
-
-        Optional<LocalEvento> optional = localEventoRepository.findById(localEventoRequest.getId());
-
-        if (optional.isEmpty()) {
-            return null;
-        }
-
         log.info("EVENT0 CRIADO!");
-        return this.repository.insert(evento.toCreateRequest(optional.get()));
+        return this.repository.insert(evento.toCreateRequest());
 
     }
 
@@ -319,12 +311,6 @@ public class EventosService implements EventosInterface {
     @Override
     public EventosResponse updateEventoById(String id, EventosRequest request) {
 
-        LocalEventoLocalizacaoRequest localEventoRequest = request.getLocalEventoRequest();
-
-        Optional<LocalEvento> optional = localEventoRepository.findById(localEventoRequest.getId());
-        if (optional.isEmpty()) {
-            throw new EventoNotFoundException("Evento não encontrado! Impossível de atualizá-lo");
-        }
 
         EventosResponse eventoOld = this.listarEventoById(id);
 
@@ -334,7 +320,7 @@ public class EventosService implements EventosInterface {
         eventoOld.setImagem(request.getImagem());
         eventoOld.setDate(request.getDate());
         eventoOld.setHorario(request.getHorario());
-        eventoOld.setLocalEvento(optional.get());
+        eventoOld.setLocalEvento(request.getLocalEvento());
         eventoOld.setDestaque(request.getDestaque());
 
         if (request.getPalestrantes() != null) {

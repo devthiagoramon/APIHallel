@@ -82,7 +82,7 @@ public class SecurityConfig {
 
     };
 
-    private String endpointsPermitidasAdm[] =
+    private final String[] endpointsPermitidasAdm =
             {"/api/administrador/**", "/api/administrador/cursos/**",
                     "/api/administrador/associados/**", "/api/administrador/doacoes/**",
                     "/api/administrador/eventos/**", "/api/administrador/loja/produtos/**",
@@ -91,8 +91,8 @@ public class SecurityConfig {
                     "/api/cursos/**", "/api/associados/**", "/api/sorteios/**",
                     "/api/membros/**", "/api/eventos/**", "/api/cursos/**"
             };
-    private String endpointsMembros[] = {"/api/membros/**", "/api/eventos/**", "/api/cursos/**"};
-    private String endpointsAssociado[] = {"/api/cursos/**", "/api/associados/**", "/api/sorteios/**"};
+    private final String[] endpointsMembros = {"/api/membros/**", "/api/eventos/**", "/api/cursos/**"};
+    private final String[] endpointsAssociado = {"/api/cursos/**", "/api/associados/**", "/api/sorteios/**"};
 
     private AuthEntryPointJwt unauthorizedHandler;
 
@@ -101,7 +101,8 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws
+            Exception {
 
         http
                 .csrf(csrf -> csrf
@@ -113,14 +114,18 @@ public class SecurityConfig {
                                 "/api-docs/**",
                                 "/api-docs-ui",
                                 "/swagger-ui/**"
-                        )
+                                                )
                         .csrfTokenRepository(new CustomCSRFRepository()))
                 .authorizeHttpRequests((authorize) -> {
                     authorize
-                            .requestMatchers(endpointsPermitidosAll).permitAll()
-                            .requestMatchers(endpointsMembros).hasRole("USER")
-                            .requestMatchers(endpointsAssociado).hasRole("ASSOCIADO")
-                            .requestMatchers(endpointsPermitidasAdm).hasRole("ADMIN");
+                            .requestMatchers(endpointsPermitidosAll)
+                            .permitAll()
+                            .requestMatchers(endpointsMembros)
+                            .hasRole("USER")
+                            .requestMatchers(endpointsAssociado)
+                            .hasRole("ASSOCIADO")
+                            .requestMatchers(endpointsPermitidasAdm)
+                            .hasRole("ADMIN");
                 })
                 .exceptionHandling(configurer -> configurer
                         .accessDeniedHandler(accessDeniedHandler()))
@@ -175,9 +180,9 @@ public class SecurityConfig {
 
     private ClientRegistration googleClientRegistration() {
         return CommonOAuth2Provider.GOOGLE.getBuilder("google")
-                .clientId("746574312478-goh6jej88b401ehnspb5hncphnmu46b5.apps.googleusercontent.com")
-                .clientSecret("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")
-                .build();
+                                          .clientId("746574312478-goh6jej88b401ehnspb5hncphnmu46b5.apps.googleusercontent.com")
+                                          .clientSecret("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")
+                                          .build();
     }
 
 

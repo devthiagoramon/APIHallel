@@ -189,6 +189,7 @@ public class MembroService implements MembroInterface {
 
         oldMembro.setNome(newMembro.getNome());
         oldMembro.setDataNascimento(newMembro.getDataNascimento());
+        oldMembro.setImage(newMembro.getImage());
         oldMembro.setCpf(newMembro.getCpf());
         oldMembro.setEmail(newMembro.getEmail());
         oldMembro.setTelefone(newMembro.getTelefone());

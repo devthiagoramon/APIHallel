@@ -40,15 +40,8 @@ public class AdmEventosController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createEventos(@RequestBody EventosRequest request) {
-
-
-
-        request.setDate(new Date());
         log.info("Create eventos acessado infos:\n{\n titulo:" + request.getTitulo());
-
         log.info(request.toString());
-
-
         return ResponseEntity.status(200).body(eventosService.createEvento(request));
     }
 
@@ -111,7 +104,7 @@ public class AdmEventosController {
 
 
 
-    @GetMapping("/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public void deleteEvento(@PathVariable(value = "id") String id) {
 
 

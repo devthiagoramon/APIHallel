@@ -9,7 +9,6 @@ import br.api.hallel.moduloAPI.payload.requerimento.AdministradorLoginRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
 import br.api.hallel.moduloAPI.payload.resposta.AdministradorResponse;
 import br.api.hallel.moduloAPI.payload.resposta.AuthenticationResponse;
-import br.api.hallel.moduloAPI.payload.resposta.LoginAdmResponse;
 import br.api.hallel.moduloAPI.payload.resposta.MessageResposta;
 import br.api.hallel.moduloAPI.repository.AdministradorRepository;
 import br.api.hallel.moduloAPI.repository.RoleRepository;
@@ -19,6 +18,8 @@ import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,17 +43,26 @@ public class AdministradorService implements AdministradorInterface {
     @Autowired
     private JwtService jwtService;
 
+    private final AuthenticationManager authenticationManager;
+
+    public AdministradorService(
+            AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
 
     //Método para adicionar/inserir um administrador no banco de dados
     @Override
-    public ResponseEntity<?> inserirAdministrador(@Valid CadAdministradorRequerimento administradorReq) {
+    public ResponseEntity<?> inserirAdministrador(
+            @Valid CadAdministradorRequerimento administradorReq) {
         /*
-        * existsBy: método criado na classe repository disponibilizado pelo Spring boot;
-        * Verifica se existe um administrador já existe com esse email;
+         * existsBy: método criado na classe repository disponibilizado pelo Spring boot;
+         * Verifica se existe um administrador já existe com esse email;
          */
-        if(repository.existsByEmail(administradorReq.getEmail())){
+        if (repository.existsByEmail(administradorReq.getEmail())) {
             log.error("EMAIL JÁ EXISTE!");
-            return ResponseEntity.badRequest().body(new MessageResposta("Error: email já existente"));
+            return ResponseEntity.badRequest()
+                                 .body(new MessageResposta("Error: email já existente"));
         }
 
         //Cria um novo administrador
@@ -67,26 +77,26 @@ public class AdministradorService implements AdministradorInterface {
         Set<String> strRoles = administradorReq.getRoles();
         Set<Role> roles = new HashSet<>();
 
-        if(strRoles==null){
+        if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-        }else{
+        } else {
             strRoles.forEach(role -> {
-                switch (role){
+                switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+                                                       .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
                         roles.add(adminRole);
                         break;
                     case "user":
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+                                                      .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
                         roles.add(userRole);
                         break;
                     case "associado":
                         Role associadoRole = roleRepository.findByName(ERole.ROLE_ASSOCIADO)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
+                                                           .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
                         roles.add(associadoRole);
                         break;
                 }
@@ -97,7 +107,8 @@ public class AdministradorService implements AdministradorInterface {
         repository.save(administrador);
         log.info("ADMIN SALVO!");
 
-        return ResponseEntity.ok().body(new MessageResposta("Administrador adicionado com sucesso!"));
+        return ResponseEntity.ok()
+                             .body(new MessageResposta("Administrador adicionado com sucesso!"));
     }
 
 
@@ -133,11 +144,14 @@ public class AdministradorService implements AdministradorInterface {
     public Administrador findAdministradorEmail(String email) {
         log.info("ADMIN ENCONTRADO!");
 
-        return this.repository.findByEmail(email).isPresent() ? this.repository.findByEmail(email).get() : null;
+        return this.repository.findByEmail(email)
+                              .isPresent() ? this.repository.findByEmail(email)
+                                                            .get() : null;
     }
 
     @Override
-    public Administrador acessarAdministrador(String email, String senhaAcesso) {
+    public Administrador acessarAdministrador(String email,
+                                              String senhaAcesso) {
 
         Optional<Administrador> optional = this.repository.findByEmail(email);
 
@@ -165,11 +179,12 @@ public class AdministradorService implements AdministradorInterface {
 
     //ALTERA INFORMAÇÕES DESSE ADMINISTRADOR
     @Override
-    public String alterarAdministrador(String id, Administrador administradorNovo) {
+    public String alterarAdministrador(String id,
+                                       Administrador administradorNovo) {
 
         Administrador administrador = findAdministrador(id);
 
-        Administrador administradorAlterado = alterarAtributos(administrador, administradorNovo);        
+        Administrador administradorAlterado = alterarAtributos(administrador, administradorNovo);
 
         this.repository.save(administradorAlterado);
 
@@ -179,14 +194,16 @@ public class AdministradorService implements AdministradorInterface {
     }
 
     //MÉTODO AUXILIAR PARA ALTERAR AS INFORMAÇÕES DO ADMINISTRADOR
-    private Administrador alterarAtributos(Administrador administrador, Administrador administradorNovo){
-        if(administradorNovo.getNome()==null){
+    private Administrador alterarAtributos(
+            Administrador administrador,
+            Administrador administradorNovo) {
+        if (administradorNovo.getNome() == null) {
             throw new IllegalArgumentException("Nome não preenchido");
         }
-        if(administradorNovo.getSenhaAcesso()==null){
+        if (administradorNovo.getSenhaAcesso() == null) {
             throw new IllegalArgumentException("Senha de acesso não preenchida");
         }
-        if(administradorNovo.getStatusMembro() != StatusMembro.ATIVO){
+        if (administradorNovo.getStatusMembro() != StatusMembro.ATIVO) {
             throw new IllegalArgumentException("Status invalido para um administrador, deve ser ativo");
         }
 
@@ -198,25 +215,40 @@ public class AdministradorService implements AdministradorInterface {
     }
 
 
-    public AuthenticationResponse logarAdministrador(AdministradorLoginRequest admRequest) {
+    public AuthenticationResponse logarAdministrador(
+            AdministradorLoginRequest admRequest) {
 
-            //SE EXISTE, ELE FAZ LOGIN COMO MEMBRO
-            var administrador = repository.findByEmail(admRequest.getEmail()).get();
-            System.out.println("Adm");
-            var jwtToken = jwtService.generateToken(administrador);
-            AdministradorResponse administradorResponse = new AdministradorResponse();
-            administradorResponse.setEmail(administrador.getEmail());
-            administradorResponse.setNome(administrador.getNome());
-            administradorResponse.setRoles(administrador.getRoles());
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        admRequest.getEmail(),
+                        admRequest.getSenha()
+                )
+                                          );
 
-            if (administrador.getNome() != null && administrador.getEmail() != null) {
-                return AuthenticationResponse.builder()
-                        .token(jwtToken)
-                        .objeto(administradorResponse)
-                        .build();
-            } else {
-                throw new SolicitarLoginException("Por favor, informe as credenciais corretamente! ");
-            }
+        //SE EXISTE, ELE FAZ LOGIN COMO MEMBRO
+        Optional<Administrador> optional = repository.findByEmail(admRequest.getEmail());
+
+        if (optional.isEmpty()) {
+            throw new SolicitarLoginException("Por favor, informe as credenciais corretamente! ");
+        }
+        Administrador administrador = optional.get();
+
+        System.out.println("Adm");
+        var jwtToken = jwtService.generateToken(administrador);
+
+        AdministradorResponse administradorResponse = new AdministradorResponse();
+        administradorResponse.setEmail(administrador.getEmail());
+        administradorResponse.setNome(administrador.getNome());
+        administradorResponse.setRoles(administrador.getRoles());
+
+        if (administrador.getNome() != null && administrador.getEmail() != null) {
+            return AuthenticationResponse.builder()
+                                         .token(jwtToken)
+                                         .objeto(administradorResponse)
+                                         .build();
+        } else {
+            throw new SolicitarLoginException("Por favor, informe as credenciais corretamente! ");
+        }
 
     }
 }

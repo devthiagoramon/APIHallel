@@ -31,6 +31,7 @@ public class Eventos {
     private LocalEvento localEvento;
     private String horario;
     private String imagem;
+    private String banner;
     private Long participantesEspeciais;
     private Boolean destaque;
 
