@@ -30,6 +30,7 @@ public class EventosResponse {
     private LocalEvento localEvento;
     private String horario;
     private String imagem;
+    private String banner;
     private Long participantesEspeciais;
     private Boolean destaque;
 
@@ -64,6 +65,7 @@ public class EventosResponse {
         response.setParticipantesEspeciais(eventos.getParticipantesEspeciais());
         response.setDestaque(eventos.getDestaque());
         response.setDespesas(eventos.getDespesas());
+        response.setBanner(eventos.getBanner());
         response.setPalestrantes(eventos.getPalestrantes());
         response.setValorDoEvento(eventos.getValorDoEvento());
         return response;
@@ -83,12 +85,13 @@ public class EventosResponse {
                 getLocalEvento(),
                 getHorario(),
                 getImagem(),
+                getBanner(),
                 getParticipantesEspeciais(),
                 getDestaque(),
                 getDespesas(),
                 getPalestrantes(),
                 getPagamentoEntradaEventos(),
                 getValorDoEvento()
-                );
+        );
     }
 }

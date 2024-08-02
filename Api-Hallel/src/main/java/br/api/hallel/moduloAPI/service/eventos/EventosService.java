@@ -50,7 +50,8 @@ public class EventosService implements EventosInterface {
     @Override
     public Eventos createEvento(EventosRequest evento) {
 
-        if (evento.getTitulo() == null || evento.getTitulo().isEmpty()) {
+        if (evento.getTitulo() == null || evento.getTitulo()
+                                                .isEmpty()) {
             throw new EventoIllegalArumentException("Não foi possível criar o evento.");
         }
 
@@ -80,7 +81,9 @@ public class EventosService implements EventosInterface {
     }
 
     public List<String> listAllEventosId() {
-        List<String> stringList = this.repository.findAll().stream().map(Eventos::getId).collect(Collectors.toList());
+        List<String> stringList = this.repository.findAll().stream()
+                                                 .map(Eventos::getId)
+                                                 .collect(Collectors.toList());
         return stringList;
     }
 
@@ -175,11 +178,15 @@ public class EventosService implements EventosInterface {
 
     //Administrador aceita o pagamento realizado pelo membro que deseja participar do evento
     @Override
-    public Boolean aceitarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento) {
-        PagamentoEntradaEvento pagamento = this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento).isPresent() ?
-                this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento).get() : null;
+    public Boolean aceitarSolicitacaoPagamento(
+            String idSolicitacaoPagamento, String idEvento) {
+        PagamentoEntradaEvento pagamento = this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento)
+                                                                                .isPresent() ?
+                this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento)
+                                                     .get() : null;
 
-        Eventos eventos = this.repository.findById(idEvento).isPresent() ?
+        Eventos eventos = this.repository.findById(idEvento)
+                                         .isPresent() ?
                 this.repository.findById(idEvento).get() : null;
 
         EntradasFinanceiro entradaOld = new EntradasFinanceiro();
@@ -197,8 +204,10 @@ public class EventosService implements EventosInterface {
 
             if (entradaOld.equals(entradaNew)) {
 
-                int index = eventos.getPagamentoEntradaEventoList().indexOf(entradaOld);
-                eventos.getPagamentoEntradaEventoList().set(index, new PagamentoEntradaEventoReq().toPag(pagamentoEntrada));
+                int index = eventos.getPagamentoEntradaEventoList()
+                                   .indexOf(entradaOld);
+                eventos.getPagamentoEntradaEventoList()
+                       .set(index, new PagamentoEntradaEventoReq().toPag(pagamentoEntrada));
 
                 break;
             }
@@ -210,11 +219,15 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public Boolean recusarSolicitacaoPagamento(String idSolicitacaoPagamento, String idEvento) {
-        PagamentoEntradaEvento pagamento = this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento).isPresent() ?
-                this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento).get() : null;
+    public Boolean recusarSolicitacaoPagamento(
+            String idSolicitacaoPagamento, String idEvento) {
+        PagamentoEntradaEvento pagamento = this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento)
+                                                                                .isPresent() ?
+                this.pagamentoEntradaEventoRepository.findById(idSolicitacaoPagamento)
+                                                     .get() : null;
 
-        Eventos eventos = this.repository.findById(idEvento).isPresent() ?
+        Eventos eventos = this.repository.findById(idEvento)
+                                         .isPresent() ?
                 this.repository.findById(idEvento).get() : null;
 
         EntradasFinanceiro entradaOld = new EntradasFinanceiro();
@@ -232,8 +245,10 @@ public class EventosService implements EventosInterface {
 
             if (entradaOld.equals(entradaNew)) {
 
-                int index = eventos.getPagamentoEntradaEventoList().indexOf(entradaOld);
-                eventos.getPagamentoEntradaEventoList().set(index, new PagamentoEntradaEventoReq().toPag(pagamentoEntrada));
+                int index = eventos.getPagamentoEntradaEventoList()
+                                   .indexOf(entradaOld);
+                eventos.getPagamentoEntradaEventoList()
+                       .set(index, new PagamentoEntradaEventoReq().toPag(pagamentoEntrada));
 
                 break;
             }
@@ -245,7 +260,8 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public Boolean verificarIsInscrito(String idEvento, String idUser) {
+    public Boolean verificarIsInscrito(String idEvento,
+                                       String idUser) {
         Optional<Eventos> optional = this.repository.findById(idEvento);
         boolean isInscrito = false;
         if (optional.isPresent()) {
@@ -262,13 +278,15 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public StatusEntradaEvento verificarSituacaoMembroEmEvento(String idEvento, String emailMembro) {
+    public StatusEntradaEvento verificarSituacaoMembroEmEvento(
+            String idEvento, String emailMembro) {
 
         Optional<PagamentoEntradaEvento> optional = pagamentoEntradaEventoRepository.findByIdEventos(idEvento);
         StatusEntradaEvento statusEntradaEvento = null;
         if (optional.isPresent()) {
             PagamentoEntradaEvento pagamentoEntradaEvento = optional.get();
-            if (pagamentoEntradaEvento.getEmailMembroPagador().equals(emailMembro)) {
+            if (pagamentoEntradaEvento.getEmailMembroPagador()
+                                      .equals(emailMembro)) {
 
             }
         }
@@ -276,7 +294,8 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public List<EventosResponse> listarEventosInscritos(String iduser) {
+    public List<EventosResponse> listarEventosInscritos(
+            String iduser) {
         List<EventosResponse> eventosResponses = new ArrayList<>();
         for (Eventos eventos : this.repository.findAll()) {
             if (eventos.getIntegrantes() != null) {
@@ -309,7 +328,8 @@ public class EventosService implements EventosInterface {
 
     //ATUALIZA AS INFORMAÇÕES DO EVENTO
     @Override
-    public EventosResponse updateEventoById(String id, EventosRequest request) {
+    public EventosResponse updateEventoById(String id,
+                                            EventosRequest request) {
 
 
         EventosResponse eventoOld = this.listarEventoById(id);
@@ -320,6 +340,7 @@ public class EventosService implements EventosInterface {
         eventoOld.setImagem(request.getImagem());
         eventoOld.setDate(request.getDate());
         eventoOld.setHorario(request.getHorario());
+        eventoOld.setBanner(request.getBanner());
         eventoOld.setLocalEvento(request.getLocalEvento());
         eventoOld.setDestaque(request.getDestaque());
 
@@ -349,7 +370,8 @@ public class EventosService implements EventosInterface {
 
     //ADICIONA UM MEMBRO AO EVENTO
     @Override
-    public Boolean inscreverEvento(InscreverEventoRequest inscreverEventoRequest) {
+    public Boolean inscreverEvento(
+            InscreverEventoRequest inscreverEventoRequest) {
         Date date = new Date();
         inscreverEventoRequest.setDataInscricao(date);
         Optional<Eventos> eventosOptional = this.repository.findById(inscreverEventoRequest.getIdEvento());
@@ -378,7 +400,7 @@ public class EventosService implements EventosInterface {
                 evento.getIntegrantes().add(membroNovo);
 
 
-                ValorEventoResponse response = this.InformacoesValorEvento(evento.getId(),membroNovo.getId());
+                ValorEventoResponse response = this.InformacoesValorEvento(evento.getId(), membroNovo.getId());
                 // Solicitar pagamento de entrada apenas se o membro não estiver participando do evento
                 inscreverEventoRequest.setValorPago(response.getValorEventoComDesconto());
 
@@ -396,7 +418,9 @@ public class EventosService implements EventosInterface {
     }
 
     @Override
-    public Boolean solicitarPagamentoEntrada(PagamentoEntradaEventoReq request, Membro membro, Eventos eventos) {
+    public Boolean solicitarPagamentoEntrada(
+            PagamentoEntradaEventoReq request, Membro membro,
+            Eventos eventos) {
         adicionarPagamentoEntradaEvento(request, eventos);
         adicionarMembro(eventos, membro);
         adicionarEventoParticipando(membro, eventos);
@@ -407,11 +431,13 @@ public class EventosService implements EventosInterface {
         return true;
     }
 
-    private void adicionarPagamentoEntradaEvento(PagamentoEntradaEventoReq request, Eventos eventos) {
+    private void adicionarPagamentoEntradaEvento(
+            PagamentoEntradaEventoReq request, Eventos eventos) {
         if (eventos.getPagamentoEntradaEventoList() == null) {
             eventos.setPagamentoEntradaEventoList(new ArrayList<>());
         }
-        eventos.getPagamentoEntradaEventoList().add(request.toPagamentoEntradaEvento());
+        eventos.getPagamentoEntradaEventoList()
+               .add(request.toPagamentoEntradaEvento());
 
     }
 
@@ -422,13 +448,13 @@ public class EventosService implements EventosInterface {
         eventos.getIntegrantes().add(membro);
     }
 
-    private void adicionarEventoParticipando(Membro membro, Eventos eventos) {
+    private void adicionarEventoParticipando(Membro membro,
+                                             Eventos eventos) {
         if (membro.getEventosParticipando() == null) {
             membro.setEventosParticipando(new ArrayList<>());
         }
         membro.getEventosParticipando().add(eventos.getId());
     }
-
 
 
     private void salvarEventos(Eventos eventos) {
@@ -442,13 +468,15 @@ public class EventosService implements EventosInterface {
         membroService.updateMembro(membro.getId(), membro);
     }
 
-    private void cadastrarPagamentoEntrada(PagamentoEntradaEventoReq request) {
+    private void cadastrarPagamentoEntrada(
+            PagamentoEntradaEventoReq request) {
 
         pagamentoEntradaService.cadastrar(request);
     }
 
 
-    public Boolean InscreverVoluntarioEmEvento(SeVoluntariarEventoReq seVoluntariar) {
+    public Boolean InscreverVoluntarioEmEvento(
+            SeVoluntariarEventoReq seVoluntariar) {
         Optional<Eventos> eventosOptional = this.repository.findById(seVoluntariar.getIdEvento());
 
         if (eventosOptional.isPresent()) {
@@ -460,7 +488,7 @@ public class EventosService implements EventosInterface {
             }
 
 
-            System.out.println("voluntario :"+voluntarioNovo.toString());
+            System.out.println("voluntario :" + voluntarioNovo.toString());
             evento.getVoluntarios().add(voluntarioNovo);
             this.repository.save(evento); // Salvar as alterações no evento de volta ao repositório
 
@@ -470,14 +498,15 @@ public class EventosService implements EventosInterface {
         throw new EventoNotFoundException("Evento não encontrado.");
     }
 
-    public Boolean FazerDoacaoObjeto(DoacaoObjetosEventosReq doacao,String idEvento){
+    public Boolean FazerDoacaoObjeto(DoacaoObjetosEventosReq doacao,
+                                     String idEvento) {
         Optional<Eventos> eventosOptional = this.repository.findById(idEvento);
 
-        if(eventosOptional.isPresent()){
+        if (eventosOptional.isPresent()) {
             Eventos evento = eventosOptional.get();
             DoacaoObjetosEventos doacaoNova = doacao.toDoacaoObjetosEventos();
 
-            if(evento.getDoacaoObjetosEventos() == null){
+            if (evento.getDoacaoObjetosEventos() == null) {
                 evento.setDoacaoObjetosEventos(new ArrayList<>());
             }
 
@@ -492,7 +521,8 @@ public class EventosService implements EventosInterface {
     }
 
 
-    public Boolean FazerDoacoesObjetos(List<DoacaoObjetosEventosReq> doacoes, String idEvento) {
+    public Boolean FazerDoacoesObjetos(
+            List<DoacaoObjetosEventosReq> doacoes, String idEvento) {
         Optional<Eventos> eventosOptional = this.repository.findById(idEvento);
 
         if (eventosOptional.isPresent()) {
@@ -516,8 +546,9 @@ public class EventosService implements EventosInterface {
     }
 
 
-
-    public Boolean FazerDoacaoDinheiro (DoacaoDinheiroEventoReq doacaoDinheiroEventoReq , String idEevento) {
+    public Boolean FazerDoacaoDinheiro(
+            DoacaoDinheiroEventoReq doacaoDinheiroEventoReq,
+            String idEevento) {
         Optional<Eventos> eventosOptional = this.repository.findById(idEevento);
 
         if (eventosOptional.isPresent()) {
@@ -537,35 +568,34 @@ public class EventosService implements EventosInterface {
     }
 
 
-
-    public List<DoacaoDinheiroEventoResponse> listAllDoacoesDinheiro(String idEvento) {
+    public List<DoacaoDinheiroEventoResponse> listAllDoacoesDinheiro(
+            String idEvento) {
         Optional<Eventos> eventoOptional = repository.findById(idEvento);
         if (eventoOptional.isPresent()) {
             Eventos evento = eventoOptional.get();
-            List<DoacaoDinheiroEventoResponse> doacoesDinheiro = evento.getDoacaoDinheiroEvento().stream()
-                    .map(doacao -> new DoacaoDinheiroEventoResponse().toResponse(doacao))
-                    .collect(Collectors.toList());
+            List<DoacaoDinheiroEventoResponse> doacoesDinheiro = evento.getDoacaoDinheiroEvento()
+                                                                       .stream()
+                                                                       .map(doacao -> new DoacaoDinheiroEventoResponse().toResponse(doacao))
+                                                                       .collect(Collectors.toList());
             return doacoesDinheiro;
         }
         throw new EventoNotFoundException("Evento não encontrado.");
     }
 
 
-    public List<DoacaoObjetosEventosResponse> listAllDoacoesObjetos(String idEvento) {
+    public List<DoacaoObjetosEventosResponse> listAllDoacoesObjetos(
+            String idEvento) {
         Optional<Eventos> eventoOptional = repository.findById(idEvento);
         if (eventoOptional.isPresent()) {
             Eventos evento = eventoOptional.get();
-            List<DoacaoObjetosEventosResponse> doacoesObjetos = evento.getDoacaoObjetosEventos().stream()
-                    .map(doacao -> new DoacaoObjetosEventosResponse().toResponse(doacao))
-                    .collect(Collectors.toList());
+            List<DoacaoObjetosEventosResponse> doacoesObjetos = evento.getDoacaoObjetosEventos()
+                                                                      .stream()
+                                                                      .map(doacao -> new DoacaoObjetosEventosResponse().toResponse(doacao))
+                                                                      .collect(Collectors.toList());
             return doacoesObjetos;
         }
         throw new EventoNotFoundException("Evento não encontrado.");
     }
-
-
-
-
 
 
     //Lista eventos por ordem alfabética
@@ -574,9 +604,10 @@ public class EventosService implements EventosInterface {
 
         List<EventosVisualizacaoResponse> listResponse = new ArrayList<>();
 
-        this.repository.findAllByOrderByTituloAsc().forEach(eventos -> {
-            listResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
-        });
+        this.repository.findAllByOrderByTituloAsc()
+                       .forEach(eventos -> {
+                           listResponse.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+                       });
 
         log.info("Listando eventos em ordem alfabetica");
         return listResponse;
@@ -603,10 +634,12 @@ public class EventosService implements EventosInterface {
 
     //Eventos em Destaque na HomePage
     @Override
-    public EventosVisualizacaoResponse addDestaqueToEvento(String idEvento) {
+    public EventosVisualizacaoResponse addDestaqueToEvento(
+            String idEvento) {
 
         if (!listarEventoById(idEvento).getDestaque()) {
-            Eventos request = this.repository.findById(idEvento).get();
+            Eventos request = this.repository.findById(idEvento)
+                                             .get();
             request.setId(idEvento);
             request.setDestaque(true);
 
@@ -623,10 +656,12 @@ public class EventosService implements EventosInterface {
 
     //Remover esse destaque da HomePage
     @Override
-    public EventosVisualizacaoResponse removeDestaqueToEvento(String idEvento) {
+    public EventosVisualizacaoResponse removeDestaqueToEvento(
+            String idEvento) {
 
         if (listarEventoById(idEvento).getDestaque()) {
-            Eventos request = this.repository.findById(idEvento).get();
+            Eventos request = this.repository.findById(idEvento)
+                                             .get();
             request.setId(idEvento);
             request.setDestaque(false);
 
@@ -647,9 +682,10 @@ public class EventosService implements EventosInterface {
 
         List<EventosVisualizacaoResponse> responseList = new ArrayList<>();
 
-        this.repository.findAllByDestaqueEquals(true).forEach(eventos -> {
-            responseList.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
-        });
+        this.repository.findAllByDestaqueEquals(true)
+                       .forEach(eventos -> {
+                           responseList.add(new EventosVisualizacaoResponse().toListEventosResponse(eventos));
+                       });
 
         log.info("Listando eventos em destaque");
 
@@ -658,7 +694,8 @@ public class EventosService implements EventosInterface {
 
     //Adicionar despesas de um evento
     @Override
-    public EventosResponse adicionarDespesaInEvento(String idEvento, DespesaEventoRequest despesaEvento) {
+    public EventosResponse adicionarDespesaInEvento(String idEvento,
+                                                    DespesaEventoRequest despesaEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();
         DespesaEvento despesaEventoObj = despesaEvento.toDespesaEvento();
         if (evento.getDespesas() == null) {
@@ -673,7 +710,9 @@ public class EventosService implements EventosInterface {
 
     //Editar a despesa desse evento
     @Override
-    public String editarDespesaInEvento(String idEvento, Integer idDespesaEvento, DespesaEventoRequest despesaEvento) {
+    public String editarDespesaInEvento(String idEvento,
+                                        Integer idDespesaEvento,
+                                        DespesaEventoRequest despesaEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();
         DespesaEvento despesaEventoObj = despesaEvento.toDespesaEvento();
 
@@ -684,11 +723,13 @@ public class EventosService implements EventosInterface {
 
         for (DespesaEvento despesaEventoInterator : evento.getDespesas()) {
             if (Objects.equals(idDespesaEvento, despesaEventoInterator.getId())) {
-                indexDespesa = evento.getDespesas().indexOf(despesaEventoInterator);
+                indexDespesa = evento.getDespesas()
+                                     .indexOf(despesaEventoInterator);
             }
         }
 
-        DespesaEvento despesaEventoObjOld = evento.getDespesas().get(indexDespesa);
+        DespesaEvento despesaEventoObjOld = evento.getDespesas()
+                                                  .get(indexDespesa);
 
         despesaEventoObjOld.setNome(despesaEventoObj.getNome());
         despesaEventoObjOld.setTipoDespesa(despesaEventoObj.getTipoDespesa());
@@ -707,14 +748,16 @@ public class EventosService implements EventosInterface {
 
     //Remover a despesa desse evento
     @Override
-    public void excluirDespesaInEvento(String idEvento, Integer idDespesaEvento) {
+    public void excluirDespesaInEvento(String idEvento,
+                                       Integer idDespesaEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();
 
         int indexDespesa = -1;
 
         for (DespesaEvento despesaEvento : evento.getDespesas()) {
             if (Objects.equals(idDespesaEvento, despesaEvento.getId())) {
-                indexDespesa = evento.getDespesas().indexOf(despesaEvento);
+                indexDespesa = evento.getDespesas()
+                                     .indexOf(despesaEvento);
             }
         }
 
@@ -729,7 +772,8 @@ public class EventosService implements EventosInterface {
 
     //Listar todas as despesas do evento
     @Override
-    public List<DespesaEvento> listarDespesasInEvento(String idEvento) {
+    public List<DespesaEvento> listarDespesasInEvento(
+            String idEvento) {
         Eventos evento = listarEventoById(idEvento).toEvento();
         return evento.getDespesas();
     }
@@ -786,8 +830,8 @@ public class EventosService implements EventosInterface {
     }
 
 
-
-    public EventoDoacoesResponse obterDetalhesDoacoes(String idEvento) {
+    public EventoDoacoesResponse obterDetalhesDoacoes(
+            String idEvento) {
         Optional<Eventos> eventosOptional = repository.findById(idEvento);
 
         if (eventosOptional.isPresent()) {
@@ -802,11 +846,13 @@ public class EventosService implements EventosInterface {
             response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
 
 
-            if(evento.getDoacaoObjetosEventos()!=null || evento.getDoacaoDinheiroEvento() != null) {
-                int totalObjetos = evento.getDoacaoObjetosEventos().size();
-                int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
+            if (evento.getDoacaoObjetosEventos() != null || evento.getDoacaoDinheiroEvento() != null) {
+                int totalObjetos = evento.getDoacaoObjetosEventos()
+                                         .size();
+                int totalDinheiro = evento.getDoacaoDinheiroEvento()
+                                          .size();
                 response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
-            }else  response.setTotalDeDoacoes(0);
+            } else response.setTotalDeDoacoes(0);
 
             return response;
         }
@@ -817,7 +863,7 @@ public class EventosService implements EventosInterface {
     public List<EventoDoacoesResponse> obterDetalhesDoacoesEventos() {
         List<Eventos> eventosList = repository.findAll();
         List<EventoDoacoesResponse> listaResponse = new ArrayList<>();
-        for(Eventos evento : eventosList) {
+        for (Eventos evento : eventosList) {
 
 
             // Criar o objeto de resposta
@@ -829,12 +875,13 @@ public class EventosService implements EventosInterface {
             response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
 
 
-
-            if(evento.getDoacaoObjetosEventos()!=null || evento.getDoacaoDinheiroEvento() != null) {
-                int totalObjetos = evento.getDoacaoObjetosEventos().size();
-                int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
+            if (evento.getDoacaoObjetosEventos() != null || evento.getDoacaoDinheiroEvento() != null) {
+                int totalObjetos = evento.getDoacaoObjetosEventos()
+                                         .size();
+                int totalDinheiro = evento.getDoacaoDinheiroEvento()
+                                          .size();
                 response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
-            }else  response.setTotalDeDoacoes(0);
+            } else response.setTotalDeDoacoes(0);
 
             listaResponse.add(response);
 
@@ -843,10 +890,10 @@ public class EventosService implements EventosInterface {
 
     }
 
-    public List<EventoDoacoesResponse> ObterDetalhesDoacoesObejtosEventos(){
+    public List<EventoDoacoesResponse> ObterDetalhesDoacoesObejtosEventos() {
         List<Eventos> eventosList = repository.findAll();
         List<EventoDoacoesResponse> listaResponse = new ArrayList<>();
-        for(Eventos evento: eventosList){
+        for (Eventos evento : eventosList) {
             EventoDoacoesResponse doacoesResponse = new EventoDoacoesResponse();
             doacoesResponse.setIdEvento(evento.getId());
             doacoesResponse.setDataEvento(evento.getDate());
@@ -854,9 +901,10 @@ public class EventosService implements EventosInterface {
             doacoesResponse.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
 
 
-            if(evento.getDoacaoObjetosEventos() != null){
-               doacoesResponse.setTotalDeDoacoes( evento.getDoacaoObjetosEventos().size());
-            }else doacoesResponse.setTotalDeDoacoes(0);
+            if (evento.getDoacaoObjetosEventos() != null) {
+                doacoesResponse.setTotalDeDoacoes(evento.getDoacaoObjetosEventos()
+                                                        .size());
+            } else doacoesResponse.setTotalDeDoacoes(0);
 
             listaResponse.add(doacoesResponse);
 
@@ -868,33 +916,35 @@ public class EventosService implements EventosInterface {
     }
 
 
-    public List<EventoDoacoesResponse> obterDetalhesDoacoesDinheiroEventos(){
+    public List<EventoDoacoesResponse> obterDetalhesDoacoesDinheiroEventos() {
 
         List<Eventos> listaEventos = repository.findAll();
         List<EventoDoacoesResponse> listResponse = new ArrayList<>();
-         for (Eventos evento : listaEventos){
-             EventoDoacoesResponse doacoesResponse = new EventoDoacoesResponse();
-             doacoesResponse.setIdEvento(evento.getId());
-             doacoesResponse.setDataEvento(evento.getDate());
-             doacoesResponse.setNomeEvento(evento.getTitulo());
-             doacoesResponse.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
+        for (Eventos evento : listaEventos) {
+            EventoDoacoesResponse doacoesResponse = new EventoDoacoesResponse();
+            doacoesResponse.setIdEvento(evento.getId());
+            doacoesResponse.setDataEvento(evento.getDate());
+            doacoesResponse.setNomeEvento(evento.getTitulo());
+            doacoesResponse.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
 
-                if(evento.getDoacaoDinheiroEvento() != null ){
-                    doacoesResponse.setTotalDeDoacoes(evento.getDoacaoDinheiroEvento().size());
-                }
+            if (evento.getDoacaoDinheiroEvento() != null) {
+                doacoesResponse.setTotalDeDoacoes(evento.getDoacaoDinheiroEvento()
+                                                        .size());
+            }
 
-                    listResponse.add(doacoesResponse);
+            listResponse.add(doacoesResponse);
 
-         }
+        }
         return listResponse;
     }
 
-    public Boolean adicionarDescontoParaMembro(String id,Double valorDesconto){
+    public Boolean adicionarDescontoParaMembro(String id,
+                                               Double valorDesconto) {
         Optional<Eventos> eventoOptinal = repository.findById(id);
 
         System.out.println(valorDesconto);
 
-        if(eventoOptinal.isPresent()){
+        if (eventoOptinal.isPresent()) {
             Eventos evento = eventoOptinal.get();
             evento.setValorDescontoMembro(valorDesconto);
             this.repository.save(evento);
@@ -906,12 +956,13 @@ public class EventosService implements EventosInterface {
 
     }
 
-    public Boolean adicionarDescontoParaAssociado(String id,Double valorDesconto){
+    public Boolean adicionarDescontoParaAssociado(String id,
+                                                  Double valorDesconto) {
         Optional<Eventos> eventoOptinal = repository.findById(id);
 
         System.out.println(valorDesconto);
 
-        if(eventoOptinal.isPresent()){
+        if (eventoOptinal.isPresent()) {
             Eventos evento = eventoOptinal.get();
             evento.setValorDescontoAssociado(valorDesconto);
             this.repository.save(evento);
@@ -922,7 +973,8 @@ public class EventosService implements EventosInterface {
 
     }
 
-    public ValorEventoResponse InformacoesValorEvento(String idEvento,String idMembro){
+    public ValorEventoResponse InformacoesValorEvento(String idEvento,
+                                                      String idMembro) {
         ValorEventoResponse response = new ValorEventoResponse();
         Optional<Eventos> optinalEvento = repository.findById(idEvento);
 
@@ -931,28 +983,28 @@ public class EventosService implements EventosInterface {
         Optional<Membro> optinalMembro = null;
         Optional<Associado> optinalAssociado = null;
 
-        if(idMembro!=null) {
+        if (idMembro != null) {
             optinalMembro = membroRepository.findById(idMembro);
 
             optinalAssociado = associadoRepository.findById(idMembro);
 
         }
 
-        if(optinalEvento.isPresent()){
+        if (optinalEvento.isPresent()) {
             Eventos evento = optinalEvento.get();
             response.setValorEvento(evento.getValorDoEvento());
 
-            if(optinalMembro != null){
+            if (optinalMembro != null) {
                 response.setValorDesconto(evento.getValorDescontoMembro());
                 response.setTipoDesconto("desconto de Membro");
             }
 
-            if(optinalAssociado != null){
+            if (optinalAssociado != null) {
                 response.setValorDesconto(evento.getValorDescontoAssociado());
                 response.setTipoDesconto("desconto de Associado");
             }
 
-            response.setValorEventoComDesconto(response.getValorEvento()- response.getValorDesconto());
+            response.setValorEventoComDesconto(response.getValorEvento() - response.getValorDesconto());
 
             return response;
 
@@ -961,10 +1013,11 @@ public class EventosService implements EventosInterface {
         throw new EventoNotFoundException("Evento não encontrado com o ID: " + idEvento);
     }
 
-    public Boolean AlterarValorEvento(String idEvento,Double valorEvento){
+    public Boolean AlterarValorEvento(String idEvento,
+                                      Double valorEvento) {
 
         Optional<Eventos> eventosOptional = repository.findById(idEvento);
-        if(eventosOptional.isPresent()){
+        if (eventosOptional.isPresent()) {
             Eventos evento = eventosOptional.get();
 
             evento.setValorDoEvento(valorEvento);
@@ -978,13 +1031,14 @@ public class EventosService implements EventosInterface {
 
     }
 
-    public ValoresEventoResponse informacoesValoresEvento(String idEvento){
+    public ValoresEventoResponse informacoesValoresEvento(
+            String idEvento) {
         ValoresEventoResponse response = new ValoresEventoResponse();
 
 
         Optional<Eventos> optinalEvento = repository.findById(idEvento);
 
-        if(optinalEvento.isPresent()) {
+        if (optinalEvento.isPresent()) {
 
             Eventos eventos = optinalEvento.get();
 
@@ -998,8 +1052,6 @@ public class EventosService implements EventosInterface {
 
         throw new EventoNotFoundException("Evento não encontrado com o ID: " + idEvento);
     }
-
-
 
 
 }

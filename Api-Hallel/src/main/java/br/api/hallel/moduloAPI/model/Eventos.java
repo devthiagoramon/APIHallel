@@ -38,14 +38,16 @@ public class Eventos {
     private List<DespesaEvento> despesas;
     private List<String> palestrantes;
     private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
-   private List<VoluntarioEvento> voluntarios;
-   private List<DoacaoObjetosEventos> doacaoObjetosEventos;
-   private List<DoacaoDinheiroEvento> doacaoDinheiroEvento;
-   private Double valorDoEvento;
-   private Double ValorDescontoMembro;
-   private Double ValorDescontoAssociado;
+    private List<VoluntarioEvento> voluntarios;
+    private List<DoacaoObjetosEventos> doacaoObjetosEventos;
+    private List<DoacaoDinheiroEvento> doacaoDinheiroEvento;
+    private Double valorDoEvento;
+    private Double ValorDescontoMembro;
+    private Double ValorDescontoAssociado;
 
-    public Eventos(String descricao, String titulo, Date date, LocalEvento localEvento, String horario, String imagem, List<String> palestrantes) {
+    public Eventos(String descricao, String titulo, Date date,
+                   LocalEvento localEvento, String horario,
+                   String imagem, List<String> palestrantes) {
         this.descricao = descricao;
         this.titulo = titulo;
         this.date = date;
@@ -68,6 +70,7 @@ public class Eventos {
                    LocalEvento localEvento,
                    String horario,
                    String imagem,
+
                    Long participantesEspeciais,
                    boolean destaque,
                    List<String> palestrantes,
@@ -75,7 +78,7 @@ public class Eventos {
                    List<DoacaoObjetosEventos> doacaoObjetosEventos,
                    List<DoacaoDinheiroEvento> doacaoDinheiroEvento,
                    Double valorDoEvento
-                   ) {
+                  ) {
 
         this.associadosParticipando = associadosParticipando;
         this.descricao = descricao;
@@ -99,11 +102,20 @@ public class Eventos {
     }
 
 
-    public Eventos(String id, List<Associado> associadoParticipando, String descricao, Long quantidadeMembros, Long maxMembros,
-                   String titulo, List<Membro> integrantes, MembroMarketing membroMarketing, Administrador administrador,
-                   Date date, LocalEvento localEvento, String horario, String imagem, Long participantesEspeciais, Boolean destaque,
-                   List<DespesaEvento> despesas, List<String> palestrantes, List<PagamentoEntradaEvento> pagamentoEntradaEventos,Double valorDoEvento
-                 ) {
+    public Eventos(String id, List<Associado> associadoParticipando,
+                   String descricao, Long quantidadeMembros,
+                   Long maxMembros,
+                   String titulo, List<Membro> integrantes,
+                   MembroMarketing membroMarketing,
+                   Administrador administrador,
+                   Date date, LocalEvento localEvento, String horario,
+                   String imagem, String banner,
+                   Long participantesEspeciais, Boolean destaque,
+                   List<DespesaEvento> despesas,
+                   List<String> palestrantes,
+                   List<PagamentoEntradaEvento> pagamentoEntradaEventos,
+                   Double valorDoEvento
+                  ) {
         this.id = id;
         this.associadosParticipando = associadosParticipando;
         this.descricao = descricao;
@@ -117,6 +129,7 @@ public class Eventos {
         this.localEvento = localEvento;
         this.horario = horario;
         this.imagem = imagem;
+        this.banner = banner;
         this.participantesEspeciais = participantesEspeciais;
         this.destaque = destaque;
         this.despesas = despesas;
@@ -124,7 +137,6 @@ public class Eventos {
         this.pagamentoEntradaEventoList = pagamentoEntradaEventoList;
         this.voluntarios = voluntarios;
         this.valorDoEvento = valorDoEvento;
-
 
 
     }

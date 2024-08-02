@@ -72,7 +72,7 @@ public class AdmEventosController {
     }
 
 
-    @PostMapping("/{id}/edit")
+    @PatchMapping("/{id}/edit")
     public EventosResponse updateEventos(@PathVariable(value = "id") String id,
                                          @RequestBody EventosRequest request) {
 
