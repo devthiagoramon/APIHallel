@@ -1,10 +1,5 @@
 package br.api.hallel.moduloAPI.service.eventos;
 
-import br.api.hallel.moduloAPI.model.DoacaoObjetosEventos;
-import br.api.hallel.moduloAPI.payload.requerimento.DoacaoObjetosEventosReq;
-import br.api.hallel.moduloAPI.payload.resposta.DoacaoObjetosEventosResponse;
-import br.api.hallel.moduloAPI.repository.DoacaoObjetosEventosRepository;
-import br.api.hallel.moduloAPI.service.interfaces.DoacaoObjetosEventosInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

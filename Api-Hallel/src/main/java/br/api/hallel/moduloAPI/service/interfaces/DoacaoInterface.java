@@ -1,28 +1,16 @@
 package br.api.hallel.moduloAPI.service.interfaces;
 
 import br.api.hallel.moduloAPI.model.Doacao;
-import br.api.hallel.moduloAPI.model.DoacaoObjeto;
-import br.api.hallel.moduloAPI.payload.requerimento.DoacaoObjetoReq;
-import br.api.hallel.moduloAPI.payload.requerimento.DoacaoReq;
-import br.api.hallel.moduloAPI.payload.resposta.DoacoesDinheiroListaAdmResponse;
-import br.api.hallel.moduloAPI.payload.resposta.DoacoesObjetoListaAdmResponse;
-
-import java.util.List;
+import br.api.hallel.moduloAPI.payload.requerimento.DoarMembroReq;
+import br.api.hallel.moduloAPI.payload.requerimento.DoarObjetoMembroReq;
+import br.api.hallel.moduloAPI.payload.requerimento.DoarObjetoReq;
+import br.api.hallel.moduloAPI.payload.requerimento.DoarReq;
 
 public interface DoacaoInterface {
+    public Doacao doar(DoarReq dto);
+    public Doacao doarObjeto(DoarObjetoReq dto);
 
-    Doacao doar(DoacaoReq doacaoReq);
-    List<DoacoesDinheiroListaAdmResponse> listAllDoacoes(String mes, String ano);
-    Doacao listDoacaoById(String id);
-
-    List<DoacoesObjetoListaAdmResponse> listAllDoacoesObjeto();
-
-    boolean doarObjeto(List<DoacaoObjetoReq> doacaoObjeto);
-
-    DoacaoObjeto objetoRecebido(String id);
-
-    DoacaoObjeto objetoNaoRecebido(String id);
-
-    DoacaoObjeto listDoacaoObjetoById(String id);
+    public Doacao doarMembro(DoarMembroReq dto);
+    public Doacao doarObjetoMembro(DoarObjetoMembroReq dto);
 
 }

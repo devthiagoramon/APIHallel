@@ -498,74 +498,12 @@ public class EventosService implements EventosInterface {
         throw new EventoNotFoundException("Evento não encontrado.");
     }
 
-    public Boolean FazerDoacaoObjeto(DoacaoObjetosEventosReq doacao,
-                                     String idEvento) {
-        Optional<Eventos> eventosOptional = this.repository.findById(idEvento);
-
-        if (eventosOptional.isPresent()) {
-            Eventos evento = eventosOptional.get();
-            DoacaoObjetosEventos doacaoNova = doacao.toDoacaoObjetosEventos();
-
-            if (evento.getDoacaoObjetosEventos() == null) {
-                evento.setDoacaoObjetosEventos(new ArrayList<>());
-            }
-
-            evento.getDoacaoObjetosEventos().add(doacaoNova);
-            this.repository.save(evento);
-
-            return true;
-
-        }
-
-        throw new EventoNotFoundException("Evento não encontrado.");
-    }
 
 
-    public Boolean FazerDoacoesObjetos(
-            List<DoacaoObjetosEventosReq> doacoes, String idEvento) {
-        Optional<Eventos> eventosOptional = this.repository.findById(idEvento);
-
-        if (eventosOptional.isPresent()) {
-            Eventos evento = eventosOptional.get();
-
-            if (evento.getDoacaoObjetosEventos() == null) {
-                evento.setDoacaoObjetosEventos(new ArrayList<>());
-            }
-
-            for (DoacaoObjetosEventosReq doacao : doacoes) {
-                DoacaoObjetosEventos doacaoNova = doacao.toDoacaoObjetosEventos();
-                evento.getDoacaoObjetosEventos().add(doacaoNova);
-            }
-
-            this.repository.save(evento);
-
-            return true;
-        }
-
-        throw new EventoNotFoundException("Evento não encontrado.");
-    }
 
 
-    public Boolean FazerDoacaoDinheiro(
-            DoacaoDinheiroEventoReq doacaoDinheiroEventoReq,
-            String idEevento) {
-        Optional<Eventos> eventosOptional = this.repository.findById(idEevento);
 
-        if (eventosOptional.isPresent()) {
-            Eventos evento = eventosOptional.get();
-            DoacaoDinheiroEvento doacaoNova = doacaoDinheiroEventoReq.toDoacaoDinheiroEvento();
 
-            if (evento.getDoacaoDinheiroEvento() == null) {
-                evento.setDoacaoDinheiroEvento(new ArrayList<>());
-            }
-
-            evento.getDoacaoDinheiroEvento().add(doacaoNova);
-            this.repository.save(evento);
-
-            return true;
-        }
-        throw new EventoNotFoundException("Evento não encontrado.");
-    }
 
 
     public List<DoacaoDinheiroEventoResponse> listAllDoacoesDinheiro(

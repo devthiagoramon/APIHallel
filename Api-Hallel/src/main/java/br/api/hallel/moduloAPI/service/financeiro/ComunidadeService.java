@@ -1,9 +1,7 @@
 package br.api.hallel.moduloAPI.service.financeiro;
 
 import br.api.hallel.moduloAPI.model.Comunidade;
-import br.api.hallel.moduloAPI.model.Doacao;
 import br.api.hallel.moduloAPI.repository.ComunidadeRepository;
-import br.api.hallel.moduloAPI.service.interfaces.ComunidadeInterface;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

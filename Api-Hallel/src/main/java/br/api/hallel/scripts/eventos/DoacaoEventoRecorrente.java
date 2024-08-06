@@ -1,6 +1,5 @@
 package br.api.hallel.scripts.eventos;
 
-import br.api.hallel.moduloAPI.model.DoacaoDinheiroEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
 import lombok.extern.java.Log;
