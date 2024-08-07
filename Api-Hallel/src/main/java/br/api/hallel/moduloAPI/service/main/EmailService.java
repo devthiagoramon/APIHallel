@@ -24,8 +24,6 @@ public class EmailService implements EmailInterface {
     private final JavaMailSender javaMailSender;
     @Autowired
     private AssociadoRepository associadoRepository;
-    private DoacaoRepository doacaoRepository;
-    private DoacaoObjetoRepository doacaoObjetoRepository;
 
     public EmailService(final JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;

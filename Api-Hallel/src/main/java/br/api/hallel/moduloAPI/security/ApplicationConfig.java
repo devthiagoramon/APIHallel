@@ -4,6 +4,10 @@ import br.api.hallel.moduloAPI.repository.AdministradorRepository;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.MembroGoogleRepository;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -39,14 +43,21 @@ public class ApplicationConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            if (associadoRepository.findByEmail(username).isPresent()) {
-                return associadoRepository.findByEmail(username).get();
-            } else if (membroRepository.findByEmail(username).isPresent()) {
+            if (associadoRepository.findByEmail(username)
+                                   .isPresent()) {
+                return associadoRepository.findByEmail(username)
+                                          .get();
+            } else if (membroRepository.findByEmail(username)
+                                       .isPresent()) {
                 return membroRepository.findByEmail(username).get();
-            } else if (administradorRepository.findByEmail(username).isPresent()) {
-                return administradorRepository.findByEmail(username).get();
-            } else if (this.googleRepository.findByEmail(username).isPresent()) {
-                return this.googleRepository.findByEmail(username).get();
+            } else if (administradorRepository.findByEmail(username)
+                                              .isPresent()) {
+                return administradorRepository.findByEmail(username)
+                                              .get();
+            } else if (this.googleRepository.findByEmail(username)
+                                            .isPresent()) {
+                return this.googleRepository.findByEmail(username)
+                                            .get();
             }
             throw new UsernameNotFoundException("Usuario não encontrado");
         };
@@ -61,7 +72,8 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
@@ -71,7 +83,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public JavaMailSender getJavaMailSender(){
+    public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
@@ -86,5 +98,31 @@ public class ApplicationConfig {
         props.put("mail.debug", "true");
 
         return mailSender;
+    }
+
+    @Bean
+    public OpenAPI api() {
+        return new OpenAPI()
+                .components(new Components()
+                                .addSecuritySchemes("USER", new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("Bearer")
+                                        .bearerFormat("JWT")
+                                        .in(SecurityScheme.In.HEADER)
+                                        .name("Authorization"))
+                                .addSecuritySchemes("ASSOCIADO", new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("Bearer")
+                                        .bearerFormat("JWT")
+                                        .in(SecurityScheme.In.HEADER)
+                                        .name("Authorization"))
+                                .addSecuritySchemes("ADM", new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("Bearer")
+                                        .bearerFormat("JWT")
+                                        .in(SecurityScheme.In.HEADER)
+                                        .name("Authorization"))
+                           )
+                .info(new Info().title("API HALLEL").version("0.1"));
     }
 }

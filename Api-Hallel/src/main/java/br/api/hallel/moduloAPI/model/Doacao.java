@@ -1,12 +1,14 @@
 package br.api.hallel.moduloAPI.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
 @Document(collection = "doacaoh")
+@ToString
 public class Doacao {
     @Id
     private String id;
@@ -207,4 +209,6 @@ public class Doacao {
     public void setIdRetiro(String idRetiro) {
         this.idRetiro = idRetiro;
     }
+
+
 }

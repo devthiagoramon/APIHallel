@@ -21,8 +21,6 @@ public class TransacaoService implements TransacaoInterface {
     private TransacaoRepository repository;
     @Autowired
     private AssociadoRepository associadoRepository;
-    @Autowired
-    private ComunidadeService comunidadeService;
 
     //SALVA A TRANSACAO NO BANCO DE DADOS
     @Override

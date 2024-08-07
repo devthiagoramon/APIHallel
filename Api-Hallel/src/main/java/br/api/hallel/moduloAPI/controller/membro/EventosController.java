@@ -121,33 +121,6 @@ public class EventosController {
         return ResponseEntity.ok().body(voluntarioService.listAllVoluntarios(idEvento));
     }
 
-    @PostMapping("/{id}/DoacaoObjeto")
-    public ResponseEntity<Boolean> FazerDoacaoObjeto(@PathVariable(value = "id") String idEvento, @RequestBody DoacaoObjetosEventosReq doacaoObjetosEventosReq){
-        System.out.println("doacao objeto");
-        return ResponseEntity.ok(this.service.FazerDoacaoObjeto(doacaoObjetosEventosReq,idEvento));
-    }
-
-    @PostMapping("/{id}/DoacaoDinheiro")
-    public ResponseEntity<Boolean> FazerDoacaoDinheiro(@PathVariable(value = "id") String idEvento,
-                                                       @RequestBody DoacaoDinheiroEventoReq doacaoDinheiroEventoReq){
-        System.out.println("Doacao dinheiro");
-        return ResponseEntity.ok(this.service.FazerDoacaoDinheiro(doacaoDinheiroEventoReq,idEvento));
-
-    }
-
-    //listagem das doacoes em dinheiro de todos os eventos
-    @GetMapping("/{id}/ListDoacaoDinheiro")
-    public ResponseEntity<List<DoacaoDinheiroEventoResponse>> ListDoacoesDinheiro(@PathVariable(value="id") String idEvento){
-        return ResponseEntity.ok().body(this.service.listAllDoacoesDinheiro(idEvento));
-    }
-
-
-    //listagem das doacoes de objetos de todos os eventos
-    @GetMapping("/{id}/ListDoacaoObjetos")
-    public ResponseEntity<List<DoacaoObjetosEventosResponse>> ListDoacaoObjetos(@PathVariable(value="id") String idEvento){
-        return ResponseEntity.ok().body(this.service.listAllDoacoesObjetos(idEvento));
-    }
-
     @GetMapping("/{id}/ListValorEvento")
     public ResponseEntity<ValorEventoResponse> ListValorEvento(@PathVariable(value="id") String idEvento,String idMembro){
         return ResponseEntity.ok().body(this.service.InformacoesValorEvento(idEvento,idMembro));

@@ -38,8 +38,6 @@ public class EventosResponse {
 
     private List<String> palestrantes;
     private List<PagamentoEntradaEvento> pagamentoEntradaEventos;
-    private List<DoacaoDinheiroEvento> doacaoDinheiroEventos;
-    private List<DoacaoObjetosEventos> doacaoObjetosEventos;
     private Double valorDoEvento;
     private Double ValorDescontoMembro;
     private Double ValorDescontoAssociado;

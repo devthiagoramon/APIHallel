@@ -39,8 +39,6 @@ public class Eventos {
     private List<String> palestrantes;
     private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
     private List<VoluntarioEvento> voluntarios;
-    private List<DoacaoObjetosEventos> doacaoObjetosEventos;
-    private List<DoacaoDinheiroEvento> doacaoDinheiroEvento;
     private Double valorDoEvento;
     private Double ValorDescontoMembro;
     private Double ValorDescontoAssociado;
@@ -75,8 +73,6 @@ public class Eventos {
                    boolean destaque,
                    List<String> palestrantes,
                    List<VoluntarioEvento> voluntarios,
-                   List<DoacaoObjetosEventos> doacaoObjetosEventos,
-                   List<DoacaoDinheiroEvento> doacaoDinheiroEvento,
                    Double valorDoEvento
                   ) {
 
@@ -96,8 +92,6 @@ public class Eventos {
         this.destaque = destaque;
         this.palestrantes = palestrantes;
         this.voluntarios = voluntarios;
-        this.doacaoObjetosEventos = doacaoObjetosEventos;
-        this.doacaoDinheiroEvento = doacaoDinheiroEvento;
         this.valorDoEvento = valorDoEvento;
     }
 

@@ -229,38 +229,6 @@ public class AdmEventosController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/ListDetalhesDoacaoEvento/{id}")
-    public ResponseEntity<EventoDoacoesResponse> ListDetalhesDoacaoEvento(@PathVariable(value = "id") String idEvento){
-        return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoes(idEvento));
-    }
-
-    @GetMapping("/listDetalhesDoacaoTodosEventos")
-    public  ResponseEntity<List<EventoDoacoesResponse>> ListDetalhesDoacaoTodosEventos(){
-        return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoesEventos());
-    }
-
-    @GetMapping("/ListDetalhesDoacoesObjetosTodosEventos")
-    public ResponseEntity<List<EventoDoacoesResponse>> ListDetalhesDoacoesObjetosTodosEventos(){
-        return ResponseEntity.ok().body(this.eventosService.ObterDetalhesDoacoesObejtosEventos());
-    }
-
-    @GetMapping("/ListDetalhesDoacoesDinheiroTodosEventos")
-    public ResponseEntity<List<EventoDoacoesResponse>> ListDetalhesDoacoesDinheiroEventos(){
-        return ResponseEntity.ok().body(this.eventosService.obterDetalhesDoacoesDinheiroEventos());
-    }
-
-    @GetMapping("/{id}/ListDoacaoDinheiro")
-    public ResponseEntity<List<DoacaoDinheiroEventoResponse>> ListDoacoesDinheiro(@PathVariable(value="id") String idEvento){
-        return ResponseEntity.ok().body(this.eventosService.listAllDoacoesDinheiro(idEvento));
-    }
-
-
-    @GetMapping("/{id}/ListDoacaoObjetos")
-    public ResponseEntity<List<DoacaoObjetosEventosResponse>> ListDoacaoObjetos(@PathVariable(value="id") String idEvento){
-        return ResponseEntity.ok().body(this.eventosService.listAllDoacoesObjetos(idEvento));
-    }
-
-
     @PostMapping("/AdicionarDescontoParaMembro/{id}")
     public ResponseEntity<Boolean> AdicionaDescontoMembro(@PathVariable(value="id")String idEvento,Double valorDesconto){
         System.out.println(valorDesconto+idEvento);
