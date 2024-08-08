@@ -34,9 +34,11 @@ public class MembroResponse {
 
     public MembroResponse toList(Membro membro) {
         MembroResponse response = new MembroResponse();
+        response.setId(membro.getId());
         response.setNome(membro.getNome());
         response.setEmail(membro.getEmail());
         response.setStatusMembro(membro.getStatusMembro());
+        response.setImagem(membro.getImage());
         return response;
     }
 

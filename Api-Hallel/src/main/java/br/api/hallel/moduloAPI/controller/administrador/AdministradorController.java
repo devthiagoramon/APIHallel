@@ -11,7 +11,9 @@ import br.api.hallel.moduloAPI.service.main.AdministradorService;
 import br.api.hallel.moduloAPI.service.main.MembroService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +31,8 @@ public class AdministradorController {
     private MembroService membroService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> inserirAdministrador(@Valid @RequestBody CadAdministradorRequerimento administradorReq) {
+    public ResponseEntity<?> inserirAdministrador(@Valid @RequestBody
+                                                  CadAdministradorRequerimento administradorReq) {
         return this.service.inserirAdministrador(administradorReq);
     }
 
@@ -39,18 +42,23 @@ public class AdministradorController {
     }
 
     @GetMapping("/{id}")
-    public Administrador listarAdministradorPorId(@PathVariable String id) {
+    public Administrador listarAdministradorPorId(
+            @PathVariable String id) {
         return this.service.findAdministrador(id);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> loginAdministrador(@RequestBody AdministradorLoginRequest admRequest) {
-        return ResponseEntity.ok().body(this.service.logarAdministrador(admRequest));
+    public ResponseEntity<AuthenticationResponse> loginAdministrador(
+            @RequestBody AdministradorLoginRequest admRequest) {
+        return ResponseEntity.ok()
+                             .body(this.service.logarAdministrador(admRequest));
     }
 
 
     @PostMapping("/{id}/update")
-    public String alterarAdministrador(@PathVariable(value = "id") String id, @RequestBody Administrador administradorNovo) {
+    public String alterarAdministrador(
+            @PathVariable(value = "id") String id,
+            @RequestBody Administrador administradorNovo) {
         return this.service.alterarAdministrador(id, administradorNovo);
     }
 
@@ -60,13 +68,18 @@ public class AdministradorController {
     }
 
     @GetMapping("/membros")
-    public ResponseEntity<List<MembroResponse>> listAllMembros() {
-        return ResponseEntity.status(200).body(membroService.listAllMembros());
+    public ResponseEntity<List<MembroResponse>> listAllMembros(
+            @ParameterObject
+            Pageable pageable) {
+        return ResponseEntity.status(200)
+                             .body(membroService.listAllMembros(pageable));
     }
 
     @GetMapping("/membros/{id}")
-    public ResponseEntity<Membro> listMembroId(@PathVariable String id) {
-        return ResponseEntity.status(201).body(membroService.listMembroId(id));
+    public ResponseEntity<Membro> listMembroId(
+            @PathVariable String id) {
+        return ResponseEntity.status(201)
+                             .body(membroService.listMembroId(id));
     }
 
 

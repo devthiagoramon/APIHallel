@@ -10,6 +10,7 @@ import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.service.interfaces.MembroInterface;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -48,11 +49,23 @@ public class MembroService implements MembroInterface {
         return this.repository.insert(membro);
     }
 
-    //Método para listar todos os membros
     @Override
     public List<MembroResponse> listAllMembros() {
         List<MembroResponse> responseList = new ArrayList<>();
-        for (Membro membros : this.repository.findAll(Sort.by(Direction.ASC, "status"))) {
+
+        for (Membro membros : this.repository.findAll()) {
+            responseList.add(new MembroResponse().toList(membros));
+        }
+
+        return responseList;
+    }
+
+    //Método para listar todos os membros
+    @Override
+    public List<MembroResponse> listAllMembros(Pageable pageable) {
+        List<MembroResponse> responseList = new ArrayList<>();
+
+        for (Membro membros : this.repository.findAll(pageable)) {
             responseList.add(new MembroResponse().toList(membros));
         }
 

@@ -5,6 +5,7 @@ import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.EditarPerfilMembroReq;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public interface MembroInterface {
     Membro createMembro(Membro membro);
 
     List<MembroResponse> listAllMembros();
+    List<MembroResponse> listAllMembros(Pageable pageable);
 
     Membro listMembroId(String id);
     Membro updateMembro(String idMembro,Membro membro);

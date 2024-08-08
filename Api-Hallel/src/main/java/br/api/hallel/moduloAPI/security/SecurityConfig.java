@@ -62,7 +62,6 @@ public class SecurityConfig {
             "/api/descCurso/{id}",
             "/api/matricularParticipante/{idAssociado}/{idCurso}",
             "/api/eventos",
-            "/api/doacao/**",
             "/api/home/eventos/semDestaque",
             "/api/home/eventos/destacados",
             "/api/home/eventos/participarEvento",
@@ -84,15 +83,26 @@ public class SecurityConfig {
 
     private final String[] endpointsPermitidasAdm =
             {"/api/administrador/**", "/api/administrador/cursos/**",
-                    "/api/administrador/associados/**", "/api/administrador/doacoes/**",
-                    "/api/administrador/eventos/**", "/api/administrador/loja/produtos/**",
-                    "/api/administrador/retiros/**", "/api/administrador/sorteios/**", "/api/administrador/locais/**",
-                    "/api/administrador/financeiro/**", "/api/administrador/Quiz/**",
-                    "/api/cursos/**", "/api/associados/**", "/api/sorteios/**",
-                    "/api/membros/**", "/api/eventos/**", "/api/cursos/**"
+             "/api/administrador/associados/**",
+             "/api/administrador/doacoes/**",
+             "/api/administrador/eventos/**",
+             "/api/administrador/loja/produtos/**",
+             "/api/administrador/retiros/**",
+             "/api/administrador/sorteios/**",
+             "/api/administrador/locais/**",
+             "/api/administrador/financeiro/**",
+             "/api/administrador/Quiz/**",
+             "/api/cursos/**", "/api/associados/**",
+             "/api/sorteios/**",
+             "/api/membros/**", "/api/eventos/**",
+             "/api/cursos/**, /api/doacao/criar"
             };
-    private final String[] endpointsMembros = {"/api/membros/**", "/api/eventos/**", "/api/cursos/**"};
-    private final String[] endpointsAssociado = {"/api/cursos/**", "/api/associados/**", "/api/sorteios/**"};
+    private final String[] endpointsMembros = {"/api/membros/**",
+                                               "/api/eventos/**",
+                                               "/api/cursos/**"};
+    private final String[] endpointsAssociado = {"/api/cursos/**",
+                                                 "/api/associados/**",
+                                                 "/api/sorteios/**"};
 
     private AuthEntryPointJwt unauthorizedHandler;
 
