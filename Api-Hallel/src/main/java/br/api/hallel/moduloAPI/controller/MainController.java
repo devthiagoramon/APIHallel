@@ -33,7 +33,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api")
+@RequestMapping("/api/public")
 @Log4j2
 public class MainController {
 
@@ -197,7 +197,6 @@ public class MainController {
     @GetMapping("/home/{id}/listValoresEvento")
     public ResponseEntity<ValoresEventoResponse> listInformacoesDosValoresDoEvento(
             @PathVariable(value = "id") String idEvento) {
-        System.out.println("oiiiii");
         return ResponseEntity.ok()
                              .body(eventosService.informacoesValoresEvento(idEvento));
     }

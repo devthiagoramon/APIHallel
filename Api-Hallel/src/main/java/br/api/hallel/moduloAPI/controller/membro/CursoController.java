@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cursos")
+@RequestMapping("/api/membros/cursos")
 @CrossOrigin(origins = "*")
 public class CursoController {
 

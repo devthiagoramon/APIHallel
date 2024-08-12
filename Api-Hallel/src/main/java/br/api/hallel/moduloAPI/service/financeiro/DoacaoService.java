@@ -163,7 +163,7 @@ public class DoacaoService implements DoacaoInterface {
 
     @Override
     public List<Doacao> listarDoacaoAnonima() {
-        return doacaoRepository.findByAnonimoIsTrue();
+        return doacaoRepository.findByIsAnonimoIsTrue();
     }
 
     @Override
@@ -178,7 +178,7 @@ public class DoacaoService implements DoacaoInterface {
 
     @Override
     public List<Doacao> listarDoacaoObjeto() {
-        return doacaoRepository.findByObjetoIsTrue();
+        return doacaoRepository.findByIsObjetoIsTrue();
     }
 
     @Override

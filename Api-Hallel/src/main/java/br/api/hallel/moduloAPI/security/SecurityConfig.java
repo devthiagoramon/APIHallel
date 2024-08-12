@@ -52,54 +52,15 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/api-docs/**",
             "/api-docs-ui",
-            //
-            "/api/login",
-            "/api/home/isTokenValid",
-            "/api/cadastrar",
             "/api/administrador/login",
-            "/api/administrador/create",
-            "/api/listarCurso",
-            "/api/descCurso/{id}",
-            "/api/matricularParticipante/{idAssociado}/{idCurso}",
-            "/api/eventos",
-            "/api/home/eventos/semDestaque",
-            "/api/home/eventos/destacados",
-            "/api/home/eventos/participarEvento",
-            "/api/home/eventos/listar",
-            "/api/home/eventos/seVoluntariar",
-            "/api/home/{id}/listVoluntarios",
-            "/api/home/{id}/listValoresEvento",
-            "/api/home/{id}/DoacaoDinheiro",
-            "/api/home/{id}/ListDoacaoDinheiro",
-            "/api/home/{id}/DoacaoObjeto",
-            "/api/home/{id}/ListDoacaoObjetos",
-            "/api/home/{id}/DoacoesObjetos",
-            "/api/home/{id}/{data}/DoacaoDinheiroMobile",
-            "/api/home/eventos/{data}/participarEventoMobile",
-            "/api/home/list/today"
-
-
-    };
+            //
+            "/api/public/**",
+            };
 
     private final String[] endpointsPermitidasAdm =
-            {"/api/administrador/**", "/api/administrador/cursos/**",
-             "/api/administrador/associados/**",
-             "/api/administrador/doacoes/**",
-             "/api/administrador/eventos/**",
-             "/api/administrador/loja/produtos/**",
-             "/api/administrador/retiros/**",
-             "/api/administrador/sorteios/**",
-             "/api/administrador/locais/**",
-             "/api/administrador/financeiro/**",
-             "/api/administrador/Quiz/**",
-             "/api/cursos/**", "/api/associados/**",
-             "/api/sorteios/**",
-             "/api/membros/**", "/api/eventos/**",
-             "/api/cursos/**, /api/doacao/criar"
-            };
+            {"/api/administrador/**"};
     private final String[] endpointsMembros = {"/api/membros/**",
-                                               "/api/eventos/**",
-                                               "/api/cursos/**"};
+                                               "/api/eventos/**"};
     private final String[] endpointsAssociado = {"/api/cursos/**",
                                                  "/api/associados/**",
                                                  "/api/sorteios/**"};
@@ -113,7 +74,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws
             Exception {
-
         http
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(

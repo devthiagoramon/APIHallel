@@ -18,8 +18,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api/membros")
 @CrossOrigin("*")
-
-
 public class MembroController {
 
     @Autowired

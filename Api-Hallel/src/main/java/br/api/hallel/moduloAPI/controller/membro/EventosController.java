@@ -126,10 +126,6 @@ public class EventosController {
         return ResponseEntity.ok().body(this.service.InformacoesValorEvento(idEvento,idMembro));
     }
 
-
-
-
-
 //    @PostMapping("/verificarEmail/{email}/{idEvento}")
 //    public ResponseEntity<Boolean> verificarEmailMembro(@PathVariable(value = "email") String email,
 //                                                        @PathVariable(value = "idEvento") String idEvento) {

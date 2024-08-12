@@ -22,7 +22,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         System.out.println(accessDeniedException.getMessage()
                 + " | TIME: " + new Date(request.getSession()
                                                 .getCreationTime())
-                + " | TOKEN: " + request.getHeader("Authorization"));
+                + " | TOKEN: " + request.getHeader("Authorization") +
+                " | URL: " + request.getRequestURL());
         response.sendError(403, "Can't access the app");
     }
 }

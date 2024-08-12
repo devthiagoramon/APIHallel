@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.controller.membro;
+package br.api.hallel.moduloAPI.controller.associado;
 
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.CartaoCredito;
