@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.Set;
 
 @Builder
@@ -24,6 +25,10 @@ public class MembroResponse {
     private String cpf;
     private Integer idade;
     private String imagem;
+    private String telefone;
+    private Date dataNascimento;
+
+
 
     public MembroResponse(String id, String nome, String email, StatusMembro statusMembro, Set<Role> roles) {
         this.id = id;
@@ -38,6 +43,10 @@ public class MembroResponse {
         response.setNome(membro.getNome());
         response.setEmail(membro.getEmail());
         response.setStatusMembro(membro.getStatusMembro());
+        response.setCpf(membro.getCpf());
+        response.setTelefone(membro.getTelefone());
+        response.setDataNascimento(membro.getDataNascimento());
+
         return response;
     }
 

@@ -15,6 +15,8 @@ import java.util.Date;
 public class DoacaoObjetosEventosReq {
 
 
+
+    private String id;
     private String nomeDoObjeto;
     private Integer quantidade;
     private String emailDoador;
@@ -27,6 +29,8 @@ public class DoacaoObjetosEventosReq {
        DoacaoObjetosEventosReq req = new DoacaoObjetosEventosReq();
        req.setNomeDoObjeto(doacaoObjetosEventos.getNomeDoObjeto());
        req.setQuantidade(doacaoObjetosEventos.getQuantidade());
+       req.setNomeDoObjeto(doacaoObjetosEventos.getNomeDoObjeto());
+       req.setEmailDoador(doacaoObjetosEventos.getEmailDoador());
 
        return req;
    }

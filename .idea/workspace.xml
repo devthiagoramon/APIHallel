@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="alterações para fazer o git voltar a funcionar">
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/AlteraRecebimentoRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/quiz/QuizService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/quiz/QuizService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoObjetosEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoObjetosEventos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/DoacaoObjetosEventosReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/DoacaoObjetosEventosReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoDinheiroEventoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoDinheiroEventoResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoObjetosEventosResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoObjetosEventosResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/MembroResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/MembroResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e -i HEAD~5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/et --hard 5fd634f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19340.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/replay_pid19340.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +73,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;semMoodle&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/demo&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/moving-blades&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -343,7 +354,28 @@
       <workItem from="1721166642576" duration="1472000" />
       <workItem from="1721249814555" duration="5615000" />
       <workItem from="1721345560872" duration="2162000" />
-      <workItem from="1721678164325" duration="5090000" />
+      <workItem from="1721678164325" duration="7037000" />
+      <workItem from="1721767270362" duration="5191000" />
+      <workItem from="1721849317817" duration="3583000" />
+      <workItem from="1721944075332" duration="2159000" />
+      <workItem from="1722028509024" duration="1835000" />
+      <workItem from="1722284832233" duration="1771000" />
+      <workItem from="1722371587869" duration="590000" />
+      <workItem from="1722380190763" duration="1079000" />
+      <workItem from="1722458011318" duration="5716000" />
+      <workItem from="1722553210887" duration="2522000" />
+      <workItem from="1722633176508" duration="7968000" />
+      <workItem from="1722894269841" duration="3447000" />
+      <workItem from="1722987761581" duration="894000" />
+      <workItem from="1723062495213" duration="1154000" />
+      <workItem from="1723066918693" duration="3171000" />
+      <workItem from="1723149730843" duration="1178000" />
+      <workItem from="1723245252850" duration="4808000" />
+      <workItem from="1723328672485" duration="4160000" />
+      <workItem from="1723414361768" duration="40000" />
+      <workItem from="1723497338395" duration="656000" />
+      <workItem from="1723584851229" duration="3828000" />
+      <workItem from="1723598579044" duration="612000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -569,7 +601,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721679504095</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="alterações para fazer o git voltar a funcionar">
+      <option name="closed" value="true" />
+      <created>1721684959976</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1721684959976</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -629,7 +669,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java</url>
-          <line>303</line>
+          <line>304</line>
           <properties class="br.api.hallel.moduloAPI.service.eventos.EventosService" method="listarEventosByTitulo">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -644,6 +684,12 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="6" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoObjetosEventos.java</url>
+          <line>18</line>
+          <properties field="id" class="br.api.hallel.moduloAPI.model.DoacaoObjetosEventos" />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

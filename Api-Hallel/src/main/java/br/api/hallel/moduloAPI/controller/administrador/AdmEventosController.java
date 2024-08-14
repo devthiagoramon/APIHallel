@@ -3,7 +3,9 @@ package br.api.hallel.moduloAPI.controller.administrador;
 import br.api.hallel.moduloAPI.exceptions.ApiError;
 import br.api.hallel.moduloAPI.financeiroNovo.service.PagamentoEntradaEventoService;
 import br.api.hallel.moduloAPI.model.DespesaEvento;
+import br.api.hallel.moduloAPI.model.DoacaoObjetosEventos;
 import br.api.hallel.moduloAPI.model.Membro;
+import br.api.hallel.moduloAPI.payload.requerimento.AlteraRecebimentoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.DespesaEventoRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.*;
@@ -275,18 +277,30 @@ public class AdmEventosController {
     }
 
     @PostMapping("/AdicionarDescontoAssociado/{id}")
-    public ResponseEntity<Boolean> AdicionaDescontoAssociado(@PathVariable(value = "id") String idEvento, Double valorDesconto){
+    public ResponseEntity<Boolean> AdicionaDescontoAssociado(@PathVariable(value = "id") String idEvento,@RequestBody Double valorDesconto){
         return  ResponseEntity.ok().body(eventosService.adicionarDescontoParaAssociado(idEvento,valorDesconto));
     }
 
     @PostMapping("/AlterarValorEvento/{id}")
-    public ResponseEntity<Boolean> AlteraValorEvento(@PathVariable(value="id") String idEvento,Double valorEvento){
+    public ResponseEntity<Boolean> AlteraValorEvento(@PathVariable(value="id") String idEvento,@RequestBody  Double valorEvento){
         return ResponseEntity.ok().body(eventosService.AlterarValorEvento(idEvento,valorEvento));
     }
 
     @GetMapping("{id}/listVoluntarios")
     public ResponseEntity<List<SeVoluntariarEventoResponse>> listAllVoluntarios(@PathVariable(value = "id") String idEvento){
         return ResponseEntity.ok().body(voluntarioService.listAllVoluntarios(idEvento));
+    }
+
+    @PostMapping("{id}/AlteraRecebimentoObjeto")
+    public ResponseEntity<Boolean> AlteraRecebimentoObjeto(@PathVariable(value = "id") String idEvento, @RequestBody AlteraRecebimentoRequest request) {
+        DoacaoObjetosEventos doacaoObjetosEventos = request.getDoacaoObjetosEventos();
+        Boolean isRecebido = request.getIsRecebido();
+
+        System.out.println(doacaoObjetosEventos.toString());
+
+        doacaoObjetosEventos.setIsRecebido(isRecebido);
+
+        return ResponseEntity.ok().body(eventosService.alterarRecebimentoDoacao(idEvento, doacaoObjetosEventos.getId(), doacaoObjetosEventos.getIsRecebido()));
     }
 
 

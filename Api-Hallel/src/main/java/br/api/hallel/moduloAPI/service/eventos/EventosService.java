@@ -18,6 +18,7 @@ import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventosInterface;
 import br.api.hallel.moduloAPI.service.main.MembroService;
 import lombok.extern.log4j.Log4j2;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -518,6 +519,7 @@ public class EventosService implements EventosInterface {
 
             for (DoacaoObjetosEventosReq doacao : doacoes) {
                 DoacaoObjetosEventos doacaoNova = doacao.toDoacaoObjetosEventos();
+                doacaoNova.setId(new ObjectId().toString());  // Gerar ID manualmente
                 evento.getDoacaoObjetosEventos().add(doacaoNova);
             }
 
@@ -528,8 +530,6 @@ public class EventosService implements EventosInterface {
 
         throw new EventoNotFoundException("Evento não encontrado.");
     }
-
-
 
     public Boolean FazerDoacaoDinheiro (DoacaoDinheiroEventoReq doacaoDinheiroEventoReq , String idEevento) {
         Optional<Eventos> eventosOptional = this.repository.findById(idEevento);
@@ -565,6 +565,8 @@ public class EventosService implements EventosInterface {
     }
 
 
+
+
     public List<DoacaoObjetosEventosResponse> listAllDoacoesObjetos(String idEvento) {
         Optional<Eventos> eventoOptional = repository.findById(idEvento);
         if (eventoOptional.isPresent()) {
@@ -578,8 +580,175 @@ public class EventosService implements EventosInterface {
     }
 
 
+    public Boolean alterarRecebimentoDoacao(String idEvento, String idDoacao, boolean novoStatus) {
+        Optional<Eventos> eventosOptional = repository.findById(idEvento);
+
+        if (eventosOptional.isPresent()) {
+            Eventos evento = eventosOptional.get();
+
+            if (evento.getDoacaoObjetosEventos() != null) {
+                for (DoacaoObjetosEventos doacao : evento.getDoacaoObjetosEventos()) {
+                    if (doacao.getId().equals(idDoacao)) {
+                        doacao.setIsRecebido(novoStatus);
+                        this.repository.save(evento);
+                        return true;
+                    }
+                }
+            }
+
+            throw new EventoNotFoundException("Doação com ID " + idDoacao + " não encontrada no evento com ID " + idEvento);
+        }
+
+        throw new EventoNotFoundException("Evento com ID " + idEvento + " não encontrado.");
+    }
 
 
+
+
+
+        public List<DoacaoDinheiroEventoResponse> ListDoacoesDinheiroUser(String email) {
+            List<Eventos> listaEventos = repository.findAll(); // Obtém todos os eventos
+            List<DoacaoDinheiroEventoResponse> doacoesUsuario = new ArrayList<>();
+
+            for (Eventos evento : listaEventos) {
+                if (evento.getDoacaoDinheiroEvento() != null) {
+                    List<DoacaoDinheiroEventoResponse> doacoesDinheiro = evento.getDoacaoDinheiroEvento().stream()
+                            .filter(doacao -> doacao.getEmailDoador().equals(email)) // Filtra as doações pelo email do usuário
+                            .map(doacao -> new DoacaoDinheiroEventoResponse().toResponse(doacao))
+                            .collect(Collectors.toList());
+
+                    doacoesUsuario.addAll(doacoesDinheiro); // Adiciona as doações filtradas à lista do usuário
+                }
+            }
+
+            return doacoesUsuario;
+        }
+
+
+        public List<DoacaoObjetosEventosResponse> ListDoacoesObjetoUser(String email){
+
+        List<Eventos> listarEventos = repository.findAll();
+        List<DoacaoObjetosEventosResponse> doacoesUsuario = new ArrayList<>();
+
+        for(Eventos evento : listarEventos){
+            if(evento.getDoacaoObjetosEventos() != null){
+                List<DoacaoObjetosEventosResponse> doacoesObjeto = evento.getDoacaoObjetosEventos().stream().
+                        filter(doacaoObjetosEventos -> doacaoObjetosEventos.getEmailDoador().equals(email))
+                        .map(doacaoObjetosEventos -> new DoacaoObjetosEventosResponse().toResponse(doacaoObjetosEventos))
+                        .collect(Collectors.toList());
+
+                doacoesUsuario.addAll(doacoesObjeto);
+            }
+        }
+
+        return  doacoesUsuario;
+
+        }
+
+
+
+
+    public EventoDoacoesResponse obterDetalhesDoacoes(String idEvento) {
+        Optional<Eventos> eventosOptional = repository.findById(idEvento);
+
+        if (eventosOptional.isPresent()) {
+            Eventos evento = eventosOptional.get();
+
+            // Criar o objeto de resposta
+            EventoDoacoesResponse response = new EventoDoacoesResponse();
+            response.setIdEvento(evento.getId());
+            response.setNomeEvento(evento.getTitulo());
+            response.setDataEvento(evento.getDate());
+            response.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
+            response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
+
+
+            if(evento.getDoacaoObjetosEventos()!=null || evento.getDoacaoDinheiroEvento() != null) {
+                int totalObjetos = evento.getDoacaoObjetosEventos().size();
+                int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
+                response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
+            }else  response.setTotalDeDoacoes(0);
+
+            return response;
+        }
+
+        throw new EventoNotFoundException("Evento não encontrado com o ID: " + idEvento);
+    }
+
+    public List<EventoDoacoesResponse> obterDetalhesDoacoesEventos() {
+        List<Eventos> eventosList = repository.findAll();
+        List<EventoDoacoesResponse> listaResponse = new ArrayList<>();
+        for(Eventos evento : eventosList) {
+
+
+            // Criar o objeto de resposta
+            EventoDoacoesResponse response = new EventoDoacoesResponse();
+            response.setIdEvento(evento.getId());
+            response.setNomeEvento(evento.getTitulo());
+            response.setDataEvento(evento.getDate());
+            response.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
+            response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
+
+
+
+            if(evento.getDoacaoObjetosEventos()!=null || evento.getDoacaoDinheiroEvento() != null) {
+                int totalObjetos = evento.getDoacaoObjetosEventos().size();
+                int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
+                response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
+            }else  response.setTotalDeDoacoes(0);
+
+            listaResponse.add(response);
+
+        }
+        return listaResponse;
+
+    }
+
+    public List<EventoDoacoesResponse> ObterDetalhesDoacoesObejtosEventos(){
+        List<Eventos> eventosList = repository.findAll();
+        List<EventoDoacoesResponse> listaResponse = new ArrayList<>();
+        for(Eventos evento: eventosList){
+            EventoDoacoesResponse doacoesResponse = new EventoDoacoesResponse();
+            doacoesResponse.setIdEvento(evento.getId());
+            doacoesResponse.setDataEvento(evento.getDate());
+            doacoesResponse.setNomeEvento(evento.getTitulo());
+            doacoesResponse.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
+
+
+            if(evento.getDoacaoObjetosEventos() != null){
+                doacoesResponse.setTotalDeDoacoes( evento.getDoacaoObjetosEventos().size());
+            }else doacoesResponse.setTotalDeDoacoes(0);
+
+            listaResponse.add(doacoesResponse);
+
+        }
+
+        return listaResponse;
+
+
+    }
+
+
+    public List<EventoDoacoesResponse> obterDetalhesDoacoesDinheiroEventos(){
+
+        List<Eventos> listaEventos = repository.findAll();
+        List<EventoDoacoesResponse> listResponse = new ArrayList<>();
+        for (Eventos evento : listaEventos){
+            EventoDoacoesResponse doacoesResponse = new EventoDoacoesResponse();
+            doacoesResponse.setIdEvento(evento.getId());
+            doacoesResponse.setDataEvento(evento.getDate());
+            doacoesResponse.setNomeEvento(evento.getTitulo());
+            doacoesResponse.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
+
+            if(evento.getDoacaoDinheiroEvento() != null ){
+                doacoesResponse.setTotalDeDoacoes(evento.getDoacaoDinheiroEvento().size());
+            }
+
+            listResponse.add(doacoesResponse);
+
+        }
+        return listResponse;
+    }
 
 
     //Lista eventos por ordem alfabética
@@ -800,108 +969,6 @@ public class EventosService implements EventosInterface {
     }
 
 
-
-    public EventoDoacoesResponse obterDetalhesDoacoes(String idEvento) {
-        Optional<Eventos> eventosOptional = repository.findById(idEvento);
-
-        if (eventosOptional.isPresent()) {
-            Eventos evento = eventosOptional.get();
-
-            // Criar o objeto de resposta
-            EventoDoacoesResponse response = new EventoDoacoesResponse();
-            response.setIdEvento(evento.getId());
-            response.setNomeEvento(evento.getTitulo());
-            response.setDataEvento(evento.getDate());
-            response.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
-            response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
-
-
-            if(evento.getDoacaoObjetosEventos()!=null || evento.getDoacaoDinheiroEvento() != null) {
-                int totalObjetos = evento.getDoacaoObjetosEventos().size();
-                int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
-                response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
-            }else  response.setTotalDeDoacoes(0);
-
-            return response;
-        }
-
-        throw new EventoNotFoundException("Evento não encontrado com o ID: " + idEvento);
-    }
-
-    public List<EventoDoacoesResponse> obterDetalhesDoacoesEventos() {
-        List<Eventos> eventosList = repository.findAll();
-        List<EventoDoacoesResponse> listaResponse = new ArrayList<>();
-        for(Eventos evento : eventosList) {
-
-
-            // Criar o objeto de resposta
-            EventoDoacoesResponse response = new EventoDoacoesResponse();
-            response.setIdEvento(evento.getId());
-            response.setNomeEvento(evento.getTitulo());
-            response.setDataEvento(evento.getDate());
-            response.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
-            response.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
-
-
-
-            if(evento.getDoacaoObjetosEventos()!=null || evento.getDoacaoDinheiroEvento() != null) {
-                int totalObjetos = evento.getDoacaoObjetosEventos().size();
-                int totalDinheiro = evento.getDoacaoDinheiroEvento().size();
-                response.setTotalDeDoacoes(totalObjetos + totalDinheiro);
-            }else  response.setTotalDeDoacoes(0);
-
-            listaResponse.add(response);
-
-        }
-        return listaResponse;
-
-    }
-
-    public List<EventoDoacoesResponse> ObterDetalhesDoacoesObejtosEventos(){
-        List<Eventos> eventosList = repository.findAll();
-        List<EventoDoacoesResponse> listaResponse = new ArrayList<>();
-        for(Eventos evento: eventosList){
-            EventoDoacoesResponse doacoesResponse = new EventoDoacoesResponse();
-            doacoesResponse.setIdEvento(evento.getId());
-            doacoesResponse.setDataEvento(evento.getDate());
-            doacoesResponse.setNomeEvento(evento.getTitulo());
-            doacoesResponse.setDoacoesObjetos(evento.getDoacaoObjetosEventos());
-
-
-            if(evento.getDoacaoObjetosEventos() != null){
-               doacoesResponse.setTotalDeDoacoes( evento.getDoacaoObjetosEventos().size());
-            }else doacoesResponse.setTotalDeDoacoes(0);
-
-            listaResponse.add(doacoesResponse);
-
-        }
-
-        return listaResponse;
-
-
-    }
-
-
-    public List<EventoDoacoesResponse> obterDetalhesDoacoesDinheiroEventos(){
-
-        List<Eventos> listaEventos = repository.findAll();
-        List<EventoDoacoesResponse> listResponse = new ArrayList<>();
-         for (Eventos evento : listaEventos){
-             EventoDoacoesResponse doacoesResponse = new EventoDoacoesResponse();
-             doacoesResponse.setIdEvento(evento.getId());
-             doacoesResponse.setDataEvento(evento.getDate());
-             doacoesResponse.setNomeEvento(evento.getTitulo());
-             doacoesResponse.setDoacoesDinheiro(evento.getDoacaoDinheiroEvento());
-
-                if(evento.getDoacaoDinheiroEvento() != null ){
-                    doacoesResponse.setTotalDeDoacoes(evento.getDoacaoDinheiroEvento().size());
-                }
-
-                    listResponse.add(doacoesResponse);
-
-         }
-        return listResponse;
-    }
 
     public Boolean adicionarDescontoParaMembro(String id,Double valorDesconto){
         Optional<Eventos> eventoOptinal = repository.findById(id);

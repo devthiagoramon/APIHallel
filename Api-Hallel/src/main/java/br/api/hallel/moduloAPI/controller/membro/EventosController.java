@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/eventos")
@@ -153,6 +154,23 @@ public class EventosController {
         return ResponseEntity.ok().body(this.service.InformacoesValorEvento(idEvento,idMembro));
     }
 
+
+
+
+    @PostMapping("/listDoacoesDinheiroUser")
+    public ResponseEntity<List<DoacaoDinheiroEventoResponse>> listDoacoesDinheiroUser(@RequestBody Map<String, String> payload){
+        String email = payload.get("email");
+        System.out.println("oi " + email);
+        return ResponseEntity.ok().body(this.service.ListDoacoesDinheiroUser(email));
+    }
+
+
+    @PostMapping("/listDoacoesObjetoUser")
+    public ResponseEntity<List<DoacaoObjetosEventosResponse>> listDoacoesObjetosUser(@RequestBody Map<String, String> payload){
+        String email = payload.get("email");
+        System.out.println("oi " + email);
+    return ResponseEntity.ok().body(this.service.ListDoacoesObjetoUser(email));
+}
 
 
 

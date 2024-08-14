@@ -15,11 +15,12 @@ import java.util.Date;
 public class DoacaoObjetosEventos {
 
 
+    @Id
     private String id;
     private String nomeDoObjeto;
     private Integer quantidade;
     private String emailDoador;
-    private boolean isRecebido;
+    private Boolean isRecebido;
     private String dataRecebida;
     private Date dataDoacao;
     private String nomeDoador;

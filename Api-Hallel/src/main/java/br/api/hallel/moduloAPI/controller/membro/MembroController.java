@@ -5,6 +5,7 @@ import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.payload.requerimento.BuscarIdAssociadoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponse;
+import br.api.hallel.moduloAPI.payload.resposta.DoacaoDinheiroEventoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
 import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import br.api.hallel.moduloAPI.service.main.MembroService;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -57,5 +59,7 @@ public class MembroController {
         System.out.println(buscarIdAssociadoReq.getEmail()); // Verifique se o email está sendo corretamente capturado
         return ResponseEntity.ok().body(this.associadoService.IdAssociadofindByEmail(buscarIdAssociadoReq.getEmail()));
     }
+
+
 
 }
