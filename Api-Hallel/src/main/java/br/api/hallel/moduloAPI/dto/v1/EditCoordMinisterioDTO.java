@@ -1,16 +1,15 @@
 package br.api.hallel.moduloAPI.dto.v1;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
-@ToString
-public class MinisterioResponse {
-    private String id;
-    private String nome;
+@Getter
+public class EditCoordMinisterioDTO {
     private String coordenadorId;
     private String viceCoordenadorId;
-
 }

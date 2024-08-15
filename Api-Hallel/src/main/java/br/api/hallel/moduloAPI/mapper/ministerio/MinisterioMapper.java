@@ -13,10 +13,14 @@ import java.util.List;
 public interface MinisterioMapper {
 
     MinisterioMapper INSTANCE = Mappers.getMapper(MinisterioMapper.class);
+    @Mapping(target = ".", source = ".")
     MinisterioDTO toDTO(Ministerio ministerio);
+    @Mapping(target = ".", source = ".")
     Ministerio toModel(MinisterioDTO ministerioDTO);
+    @Mapping(target = ".", source = ".")
     MinisterioResponse toResponse(Ministerio ministerio);
     @Mapping(target = "id",defaultValue = "", ignore = true)
     MinisterioResponse toResponse(MinisterioDTO ministerioDTO);
+    @Mapping(target = ".", source = ".")
     List<MinisterioResponse> toListResponse(List<Ministerio> ministerioList);
 }

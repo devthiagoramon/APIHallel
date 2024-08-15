@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service.ministerio;
 
+import br.api.hallel.moduloAPI.dto.v1.EditCoordMinisterioDTO;
 import br.api.hallel.moduloAPI.dto.v1.MinisterioDTO;
 import br.api.hallel.moduloAPI.dto.v1.MinisterioResponse;
 import br.api.hallel.moduloAPI.mapper.ministerio.MinisterioMapper;
@@ -88,6 +89,19 @@ public class MinisterioService implements MinisterioInterface {
             String idMinisterio) {
         log.info("Listing ministerio " + idMinisterio + "...");
         return MinisterioMapper.INSTANCE.toResponse(getMinisterioById(idMinisterio));
+    }
+
+    @Override
+    public MinisterioResponse alterarCoordenadoresInMinisterio(
+            String idMinisterio,
+            EditCoordMinisterioDTO editCoordMinisterioDTO) {
+        log.info("Changing coord and vice-coord in ministerio "+ idMinisterio+ "...");
+        Ministerio ministerio = getMinisterioById(idMinisterio);
+        ministerio.setCoordenadorId(editCoordMinisterioDTO.getCoordenadorId());
+        ministerio.setViceCoordenadorId(editCoordMinisterioDTO.getViceCoordenadorId());
+        Ministerio ministerioUpdated = this.ministerioRepository.save(ministerio);
+        log.info("Coord and vice-coord changed in ministerio "+ ministerioUpdated.getNome());
+        return MinisterioMapper.INSTANCE.toResponse(ministerioUpdated);
     }
 
 
