@@ -22,4 +22,6 @@ public interface MinisterioInterface {
 
     public MinisterioResponse alterarCoordenadoresInMinisterio(
             String idMinisterio, EditCoordMinisterioDTO editCoordMinisterioDTO);
+
+    public Boolean validateCoordenadorInMinisterio(String idMinisterio, String idUser);
 }

@@ -95,13 +95,23 @@ public class MinisterioService implements MinisterioInterface {
     public MinisterioResponse alterarCoordenadoresInMinisterio(
             String idMinisterio,
             EditCoordMinisterioDTO editCoordMinisterioDTO) {
-        log.info("Changing coord and vice-coord in ministerio "+ idMinisterio+ "...");
+        log.info("Changing coord and vice-coord in ministerio " + idMinisterio + "...");
         Ministerio ministerio = getMinisterioById(idMinisterio);
         ministerio.setCoordenadorId(editCoordMinisterioDTO.getCoordenadorId());
         ministerio.setViceCoordenadorId(editCoordMinisterioDTO.getViceCoordenadorId());
         Ministerio ministerioUpdated = this.ministerioRepository.save(ministerio);
-        log.info("Coord and vice-coord changed in ministerio "+ ministerioUpdated.getNome());
+        log.info("Coord and vice-coord changed in ministerio " + ministerioUpdated.getNome());
         return MinisterioMapper.INSTANCE.toResponse(ministerioUpdated);
+    }
+
+    @Override
+    public Boolean validateCoordenadorInMinisterio(
+            String idMinisterio, String idUser) {
+        log.info("Validating coordenator of ministerios " + idMinisterio + " user_id: " + idUser);
+        Ministerio ministerio = getMinisterioById(idMinisterio);
+        return ministerio.getCoordenadorId()
+                         .equals(idUser) || ministerio.getViceCoordenadorId()
+                                                      .equals(idUser);
     }
 
 
