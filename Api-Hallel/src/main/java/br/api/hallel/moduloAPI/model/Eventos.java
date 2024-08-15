@@ -34,7 +34,6 @@ public class Eventos {
     private String banner;
     private Long participantesEspeciais;
     private Boolean destaque;
-
     private List<DespesaEvento> despesas;
     private List<String> palestrantes;
     private List<PagamentoEntradaEvento> pagamentoEntradaEventoList;
@@ -53,7 +52,6 @@ public class Eventos {
         this.horario = horario;
         this.imagem = imagem;
         this.palestrantes = palestrantes;
-
     }
 
     public Eventos(List<Associado> membroParticipando,
