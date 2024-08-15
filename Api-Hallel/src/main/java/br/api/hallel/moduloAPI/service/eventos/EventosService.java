@@ -17,6 +17,7 @@ import br.api.hallel.moduloAPI.repository.LocalEventoRepository;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.service.interfaces.EventosInterface;
 import br.api.hallel.moduloAPI.service.main.MembroService;
+import br.api.hallel.moduloAPI.service.ministerio.MinisterioService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -45,6 +46,8 @@ public class EventosService implements EventosInterface {
     private LocalEventoRepository localEventoRepository;
     @Autowired
     private PagamentoEntradaEventoService pagamentoEntradaService;
+    @Autowired
+    private MinisterioService ministerioService;
 
     //CRIA EVENTOS
     @Override
@@ -54,9 +57,16 @@ public class EventosService implements EventosInterface {
                                                 .isEmpty()) {
             throw new EventoIllegalArumentException("Não foi possível criar o evento.");
         }
-
-        log.info("EVENT0 CRIADO!");
-        return this.repository.insert(evento.toCreateRequest());
+        log.info("Creating evento...");
+        Eventos eventos = this.repository.insert(evento.toCreateRequest());
+        if (eventos.getMinisteriosAssociados() != null && !eventos.getMinisteriosAssociados()
+                                                                  .isEmpty()) {
+            eventos.getMinisteriosAssociados()
+                   .forEach(ministerioId -> {
+                       ministerioService.createEscalaMinisterio(eventos, ministerioId);
+                   });
+        }
+        return eventos;
 
     }
 

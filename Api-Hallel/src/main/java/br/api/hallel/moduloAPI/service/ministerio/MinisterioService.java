@@ -1,9 +1,11 @@
 package br.api.hallel.moduloAPI.service.ministerio;
 
-import br.api.hallel.moduloAPI.dto.v1.EditCoordMinisterioDTO;
-import br.api.hallel.moduloAPI.dto.v1.MinisterioDTO;
-import br.api.hallel.moduloAPI.dto.v1.MinisterioResponse;
+import br.api.hallel.moduloAPI.dto.v1.*;
+import br.api.hallel.moduloAPI.mapper.ministerio.EscalaMinisterioMapper;
 import br.api.hallel.moduloAPI.mapper.ministerio.MinisterioMapper;
+import br.api.hallel.moduloAPI.model.EscalaMinisterio;
+import br.api.hallel.moduloAPI.model.Eventos;
+import br.api.hallel.moduloAPI.model.MembroMinisterio;
 import br.api.hallel.moduloAPI.model.Ministerio;
 import br.api.hallel.moduloAPI.repository.*;
 import lombok.extern.log4j.Log4j2;
@@ -85,6 +87,11 @@ public class MinisterioService implements MinisterioInterface {
     }
 
     @Override
+    public List<MinisterioWithCoordsResponse> listMinisteriosWithCoords() {
+        return this.ministerioRepository.findAllWithCoords().getMappedResults();
+    }
+
+    @Override
     public MinisterioResponse listMinisterioById(
             String idMinisterio) {
         log.info("Listing ministerio " + idMinisterio + "...");
@@ -112,6 +119,26 @@ public class MinisterioService implements MinisterioInterface {
         return ministerio.getCoordenadorId()
                          .equals(idUser) || ministerio.getViceCoordenadorId()
                                                       .equals(idUser);
+    }
+
+    @Override
+    public EscalaMinisterioResponse createEscalaMinisterio(
+            Eventos evento, String ministerioId) {
+        log.info("Creating escala for ministerio " + ministerioId + "...");
+        EscalaMinisterioDTO dto = new EscalaMinisterioDTO(ministerioId, evento.getId(), evento.getDate());
+        EscalaMinisterio escalaMinisterio = this.escalaMinisterioRepository.save(EscalaMinisterioMapper.INSTANCE.toModel(dto));
+        EscalaMinisterio escalaMinisterioWithConvites = getEscalaMinisterioWithConvitesMembro(escalaMinisterio);
+        EscalaMinisterio escalaMinisterioWithConvitesSaved = this.escalaMinisterioRepository.save(escalaMinisterioWithConvites);
+        log.info("Escala " + escalaMinisterio.getId() + " created for event " + evento.getTitulo() + " to ministerio " + ministerioId);
+        return EscalaMinisterioMapper.INSTANCE.toResponse(escalaMinisterioWithConvitesSaved);
+    }
+
+    private EscalaMinisterio getEscalaMinisterioWithConvitesMembro(EscalaMinisterio escalaMinisterio){
+        log.info("Getting escala ministerio with convites for all membros...");
+        List<MembroMinisterio> membroMinisterioList = membroMinisterioRepository.findByMinisterioId(escalaMinisterio.getMinisterioId());
+        List<String> idsMembrosFromMinisterio = membroMinisterioList.stream().map(item -> item.getId()).toList();
+        escalaMinisterio.setMembrosMinisterioConvidadosIds(idsMembrosFromMinisterio);
+        return escalaMinisterio;
     }
 
 

@@ -41,6 +41,7 @@ public class Eventos {
     private Double valorDoEvento;
     private Double ValorDescontoMembro;
     private Double ValorDescontoAssociado;
+    private List<String> ministeriosAssociados;
 
     public Eventos(String descricao, String titulo, Date date,
                    LocalEvento localEvento, String horario,

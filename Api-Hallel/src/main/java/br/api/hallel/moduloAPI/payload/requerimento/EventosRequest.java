@@ -31,6 +31,7 @@ public class EventosRequest {
     private String valorDoEvento;
     private Double ValorDescontoMembro;
     private Double ValorDescontoAssociado;
+    private List<String> ministeriosAssociados;
 
     public Eventos toCreateRequest() {
         return getEventos();
@@ -80,6 +81,7 @@ public class EventosRequest {
         evento.setDate(getDate());
         evento.setLocalEvento(getLocalEvento());
         evento.setDestaque(getDestaque());
+        evento.setMinisteriosAssociados(getMinisteriosAssociados());
 
         String valorFormatado = getValorDoEvento().replaceAll("[^\\d,]", "")
                                                   .replace(',', '.');
