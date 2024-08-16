@@ -2,6 +2,8 @@ package br.api.hallel.moduloAPI.service.ministerio;
 
 import br.api.hallel.moduloAPI.dto.v1.*;
 import br.api.hallel.moduloAPI.model.Eventos;
+import br.api.hallel.moduloAPI.model.MembroMinisterio;
+import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 
 import java.util.List;
 
@@ -24,6 +26,11 @@ public interface MinisterioInterface {
             String idMinisterio, EditCoordMinisterioDTO editCoordMinisterioDTO);
 
     public Boolean validateCoordenadorInMinisterio(String idMinisterio, String idUser);
+
+    public List<MembroResponse> listMembrosToAddIntoThisMinisterio(String idMinisterio);
+    public List<MembroMinisterioWithInfosResponse> listMembrosFromMinisterio(String idMinisterio);
+    public MembroMinisterio addMembroMinisterio(AddMembroMinisterioDTO addMembroMinisterioDTO);
+    public void removerMembroMinisterio(String idMembroMinisterio);
 
     public EscalaMinisterioResponse createEscalaMinisterio(
             Eventos evento, String ministerioId);

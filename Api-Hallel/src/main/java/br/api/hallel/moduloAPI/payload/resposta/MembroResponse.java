@@ -3,10 +3,7 @@ package br.api.hallel.moduloAPI.payload.resposta;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.model.Role;
 import br.api.hallel.moduloAPI.model.StatusMembro;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
@@ -14,6 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class MembroResponse {
 
     private String id;
