@@ -4,22 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="alterações para fazer o git voltar a funcionar">
-      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/AlteraRecebimentoRequest.java" afterDir="false" />
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="teste">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/EventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoObjetosEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/DoacaoObjetosEventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/DoacaoObjetosEventosReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/DoacaoObjetosEventosReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoDinheiroEventoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoDinheiroEventoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoObjetosEventosResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/DoacaoObjetosEventosResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/MembroResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/MembroResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e -i HEAD~5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/et --hard 5fd634f" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hs_err_pid19340.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/replay_pid19340.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -376,6 +362,9 @@
       <workItem from="1723497338395" duration="656000" />
       <workItem from="1723584851229" duration="3828000" />
       <workItem from="1723598579044" duration="612000" />
+      <workItem from="1723675852675" duration="2065000" />
+      <workItem from="1723758519453" duration="1426000" />
+      <workItem from="1723850168269" duration="624000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -609,7 +598,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721684959976</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="rotas de vizualiação de doações do usuario em eventos">
+      <option name="closed" value="true" />
+      <created>1723676156003</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1723676156003</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -627,8 +624,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adição das classes model,interface,repository,requerimento,Response e service da doação de objetos pra eventos" />
-    <MESSAGE value="metodo de participar de evento" />
     <MESSAGE value="adição da rota de listagem de voluntarios do eventos" />
     <MESSAGE value="arrumei a rota dos destacados" />
     <MESSAGE value="arrumei a inscrição do menbro em um evento" />
@@ -652,7 +647,9 @@
     <MESSAGE value="nova rota de criar evento para o mobile" />
     <MESSAGE value="Alteracoes nas rotas de listagem de Doacoes para eventos" />
     <MESSAGE value="alterações para fazer o git voltar a funcionar" />
-    <option name="LAST_COMMIT_MESSAGE" value="alterações para fazer o git voltar a funcionar" />
+    <MESSAGE value="rotas de vizualiação de doações do usuario em eventos" />
+    <MESSAGE value="teste" />
+    <option name="LAST_COMMIT_MESSAGE" value="teste" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
