@@ -2,16 +2,15 @@ package br.api.hallel.moduloAPI.service.ministerio;
 
 import br.api.hallel.moduloAPI.dto.v1.*;
 import br.api.hallel.moduloAPI.mapper.ministerio.EscalaMinisterioMapper;
+import br.api.hallel.moduloAPI.mapper.ministerio.FuncaoMinisterioMapper;
 import br.api.hallel.moduloAPI.mapper.ministerio.MembroMinisterioMapper;
 import br.api.hallel.moduloAPI.mapper.ministerio.MinisterioMapper;
-import br.api.hallel.moduloAPI.model.EscalaMinisterio;
-import br.api.hallel.moduloAPI.model.Eventos;
-import br.api.hallel.moduloAPI.model.MembroMinisterio;
-import br.api.hallel.moduloAPI.model.Ministerio;
+import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.repository.*;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -125,6 +124,56 @@ public class MinisterioService implements MinisterioInterface {
         return ministerio.getCoordenadorId()
                          .equals(idUser) || ministerio.getViceCoordenadorId()
                                                       .equals(idUser);
+    }
+
+    @Override
+    public FuncaoMinisterio createFuncaoMinisterio(
+            FuncaoMinisterioDTO funcaoMinisterioDTO) {
+        log.info("Creating função ministerio...");
+        FuncaoMinisterio funcaoMinisterio = FuncaoMinisterioMapper.INSTANCE.toModel(funcaoMinisterioDTO);
+        return this.funcaoMinisterioRepository.insert(funcaoMinisterio);
+    }
+
+    @Override
+    public List<FuncaoMinisterio> listFuncaoOfMinisterio(
+            String idMinisterio) {
+        log.info("Listing funções ministerio from ministerio " + idMinisterio + "...");
+        return this.funcaoMinisterioRepository.findAllByMinisterioId(idMinisterio);
+    }
+
+    @Override
+    public FuncaoMinisterio listFuncaoMinisterioById(
+            String idFuncaoMinisterio) {
+        log.info("Listing funcao ministerio by id " + idFuncaoMinisterio + "...");
+        Optional<FuncaoMinisterio> optional = this.funcaoMinisterioRepository.findById(idFuncaoMinisterio);
+        if (optional.isEmpty()) {
+            log.info("Error listing função ministerio: Can't find this id");
+            throw new RuntimeException("Can't find função ministerio by this id");
+        }
+        return optional.get();
+    }
+
+    @Override
+    public FuncaoMinisterio editFuncaoMinisterio(
+            String idFuncaoMinisterio,
+            FuncaoMinisterioDTO funcaoMinisterioDTO) {
+        FuncaoMinisterio funcaoMinisterio = listFuncaoMinisterioById(idFuncaoMinisterio);
+        log.info("Editing função ministerio " + funcaoMinisterio.getNome() + "...");
+        FuncaoMinisterio funcaoMinisterioNew = FuncaoMinisterioMapper.INSTANCE.toModel(funcaoMinisterioDTO);
+        funcaoMinisterio.setNome(funcaoMinisterioNew.getNome());
+        funcaoMinisterio.setCor(funcaoMinisterioNew.getCor());
+        funcaoMinisterio.setDescricao(funcaoMinisterioNew.getDescricao());
+        funcaoMinisterio.setIcone(funcaoMinisterioNew.getIcone());
+        log.info("Função ministerio " + funcaoMinisterio.getId() + " edited!");
+        return this.funcaoMinisterioRepository.save(funcaoMinisterio);
+    }
+
+    @Override
+    public void deleteFuncaoMinisterio(String idFuncaoMinisterio) {
+        log.info("Delete função ministerio " + idFuncaoMinisterio + "...");
+        FuncaoMinisterio funcaoMinisterio = listFuncaoMinisterioById(idFuncaoMinisterio);
+        this.funcaoMinisterioRepository.delete(funcaoMinisterio);
+        log.info("Função ministerio " + funcaoMinisterio.getNome() + " deleted!");
     }
 
     @Override
