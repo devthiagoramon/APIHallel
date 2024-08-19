@@ -73,6 +73,22 @@ interface MinisterioInterface {
     Boolean recusarParticipacaoEscala(
             NaoConfirmarEscalaDTO naoConfirmarEscalaDTO);
 
+    NaoConfirmadoEscalaMinisterio createNaoConfirmadoEscalaMinisterio(
+            NaoConfirmarEscalaDTO naoConfirmarEscalaDTO);
+
+    NaoConfirmadoEscalaMinisterio editNaoConfirmadoEscalaMinisterio(
+            String idNaoConfirmadoEscala,
+            NaoConfirmarEscalaDTO naoConfirmarEscalaDTO);
+
+    List<NaoConfirmadoEscalaMinisterio> listNaoConfirmadoEscalaMinisterioByIdMembroMinisterio(
+            String idMemmbroMinisterio);
+
+    NaoConfirmadoEscalaMinisterio listNaoConfirmadoEscalaMinisterioById(
+            String idNaoConfirmadoEscalaMinisterio);
+
+    void deleteNaoConfirmadoEscalaMinisterio(
+            String idNaoConfirmadoEscalaMinisterio);
+
     EscalaMinisterioResponse createEscalaMinisterio(
             Eventos evento, String ministerioId);
 

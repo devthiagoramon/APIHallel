@@ -322,13 +322,9 @@ public class MinisterioService implements MinisterioInterface {
             throw new RuntimeException("Member hasn't been invited!");
         }
 
-        log.info("Inserting NaoConfirmadoEscalaMinisterio into DB");
-        NaoConfirmadoEscalaMinisterio naoConfirmadoEscalaMinisterio = naoConfirmadoEscalaMinisterioRepository
-                .insert(NaoConfirmadoEscalaMinisterioMapper
-                        .INSTANCE
-                        .toModel(naoConfirmarEscalaDTO));
-        log.info("NaoConfirmadoEscalaMinisterio inserted with id " + naoConfirmadoEscalaMinisterio.getIdEscalaMinisterio());
 
+        NaoConfirmadoEscalaMinisterio naoConfirmadoEscalaMinisterio = createNaoConfirmadoEscalaMinisterio(naoConfirmarEscalaDTO);
+        log.info("NaoConfirmadoEscalaMinisterio inserted with id " + naoConfirmadoEscalaMinisterio.getIdEscalaMinisterio());
         if (escalaMinisterio.getMembrosMinisterioNaoConfirmadoIds() == null) {
             escalaMinisterio.setMembrosMinisterioNaoConfirmadoIds(new ArrayList<>());
         }
@@ -336,6 +332,52 @@ public class MinisterioService implements MinisterioInterface {
         escalaMinisterio.getMembrosMinisterioNaoConfirmadoIds()
                         .add(naoConfirmadoEscalaMinisterio.getIdMembroMinisterio());
         return true;
+    }
+
+    @Override
+    public NaoConfirmadoEscalaMinisterio createNaoConfirmadoEscalaMinisterio(
+            NaoConfirmarEscalaDTO naoConfirmarEscalaDTO) {
+        log.info("Creating nao confirmado escala... ");
+        return naoConfirmadoEscalaMinisterioRepository
+                .insert(NaoConfirmadoEscalaMinisterioMapper
+                        .INSTANCE
+                        .toModel(naoConfirmarEscalaDTO));
+    }
+
+    @Override
+    public NaoConfirmadoEscalaMinisterio editNaoConfirmadoEscalaMinisterio(
+            String idNaoConfirmadoEscala,
+            NaoConfirmarEscalaDTO naoConfirmarEscalaDTO) {
+        NaoConfirmadoEscalaMinisterio naoConfirmadoEscalaMinisterio =
+                listNaoConfirmadoEscalaMinisterioById(idNaoConfirmadoEscala);
+        NaoConfirmadoEscalaMinisterio naoConfirmadoEscalaMinisterioNew = NaoConfirmadoEscalaMinisterioMapper
+                .INSTANCE
+                .toModel(naoConfirmarEscalaDTO);
+        naoConfirmadoEscalaMinisterio.setMotivo(naoConfirmadoEscalaMinisterioNew.getMotivo());
+        return this.naoConfirmadoEscalaMinisterioRepository.save(naoConfirmadoEscalaMinisterio);
+    }
+
+    @Override
+    public List<NaoConfirmadoEscalaMinisterio> listNaoConfirmadoEscalaMinisterioByIdMembroMinisterio(
+            String idMemmbroMinisterio) {
+        return this.naoConfirmadoEscalaMinisterioRepository.findAllByIdMembroMinisterio(idMemmbroMinisterio);
+    }
+
+    @Override
+    public NaoConfirmadoEscalaMinisterio listNaoConfirmadoEscalaMinisterioById(
+            String idNaoConfirmadoEscalaMinisterio) {
+        log.info("Listing nao confirmado escala ministerio by id");
+        Optional<NaoConfirmadoEscalaMinisterio> optional = this.naoConfirmadoEscalaMinisterioRepository.findById(idNaoConfirmadoEscalaMinisterio);
+        if (optional.isEmpty()) {
+            throw new RuntimeException("Can't find nao confirmado escala ministerio by this id");
+        }
+        return optional.get();
+    }
+
+    @Override
+    public void deleteNaoConfirmadoEscalaMinisterio(
+            String idNaoConfirmadoEscalaMinisterio) {
+
     }
 
     private EscalaMinisterio getEscalaMinisterioById(
