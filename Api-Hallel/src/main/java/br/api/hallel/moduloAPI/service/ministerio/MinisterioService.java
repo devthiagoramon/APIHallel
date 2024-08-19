@@ -1,16 +1,12 @@
 package br.api.hallel.moduloAPI.service.ministerio;
 
 import br.api.hallel.moduloAPI.dto.v1.*;
-import br.api.hallel.moduloAPI.mapper.ministerio.EscalaMinisterioMapper;
-import br.api.hallel.moduloAPI.mapper.ministerio.FuncaoMinisterioMapper;
-import br.api.hallel.moduloAPI.mapper.ministerio.MembroMinisterioMapper;
-import br.api.hallel.moduloAPI.mapper.ministerio.MinisterioMapper;
+import br.api.hallel.moduloAPI.mapper.ministerio.*;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.repository.*;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -183,19 +179,25 @@ public class MinisterioService implements MinisterioInterface {
         log.info("Defining/Deleting functions of membro ministerio...");
         String idMembroMinisterio = defineFunctionsDTO.getIdMinisterioMembro();
         MembroMinisterio membroMinisterio = getMembroMinisterioById(idMembroMinisterio);
-        if (membroMinisterio.getFuncaoMinisterioIds() == null){
+        if (membroMinisterio.getFuncaoMinisterioIds() == null) {
             membroMinisterio.setFuncaoMinisterioIds(new ArrayList<>());
         }
-        defineFunctionsDTO.getIdsFuncaoMinisterioAdd().forEach(idAdds -> {
-            if (!membroMinisterio.getFuncaoMinisterioIds().contains(idAdds)){
-                membroMinisterio.getFuncaoMinisterioIds().add(idAdds);
-            }
-        });
-        defineFunctionsDTO.getIdsFuncaoMinisterioRemove().forEach(idRemove -> {
-            if (membroMinisterio.getFuncaoMinisterioIds().contains(idRemove)){
-                membroMinisterio.getFuncaoMinisterioIds().removeIf(item -> item.equals(idRemove));
-            }
-        });
+        defineFunctionsDTO.getIdsFuncaoMinisterioAdd()
+                          .forEach(idAdds -> {
+                              if (!membroMinisterio.getFuncaoMinisterioIds()
+                                                   .contains(idAdds)) {
+                                  membroMinisterio.getFuncaoMinisterioIds()
+                                                  .add(idAdds);
+                              }
+                          });
+        defineFunctionsDTO.getIdsFuncaoMinisterioRemove()
+                          .forEach(idRemove -> {
+                              if (membroMinisterio.getFuncaoMinisterioIds()
+                                                  .contains(idRemove)) {
+                                  membroMinisterio.getFuncaoMinisterioIds()
+                                                  .removeIf(item -> item.equals(idRemove));
+                              }
+                          });
         membroMinisterioRepository.save(membroMinisterio);
         return listMembroMinisterioById(membroMinisterio.getId());
     }
@@ -268,6 +270,84 @@ public class MinisterioService implements MinisterioInterface {
     }
 
     @Override
+    public StatusParticipacaoEscalaMinisterio getStatusParticipacaoEscala(
+            String idMembroMinisterio, String idEscalaMinisterio) {
+        log.info("Get status of membro " + idMembroMinisterio + " about the scale " + idEscalaMinisterio);
+        EscalaMinisterio escalaMinisterio = getEscalaMinisterioById(idEscalaMinisterio);
+        if (escalaMinisterio.getMembrosMinisterioConfimadoIds()
+                            .contains(idMembroMinisterio)) {
+            return StatusParticipacaoEscalaMinisterio.CONFIRMADO;
+        } else if (escalaMinisterio.getMembrosMinisterioConvidadosIds()
+                                   .contains(idMembroMinisterio)) {
+            return StatusParticipacaoEscalaMinisterio.CONVIDADO;
+        } else if (escalaMinisterio.getMembrosMinisterioNaoConfirmadoIds()
+                                   .contains(idMembroMinisterio)) {
+            return StatusParticipacaoEscalaMinisterio.RECUSADO;
+        }
+        throw new RuntimeException("Can't found this membro by id");
+    }
+
+    @Override
+    public Boolean confirmarParticipacaoEscala(
+            String idMembroMinisterio, String idEscalaMinisterio) {
+        log.info("Confirming participantion of membro " + idMembroMinisterio + " into " + idEscalaMinisterio);
+        EscalaMinisterio escalaMinisterio = getEscalaMinisterioById(idEscalaMinisterio);
+
+        if (escalaMinisterio.getMembrosMinisterioConvidadosIds()
+                            .contains(idMembroMinisterio)) {
+            escalaMinisterio.getMembrosMinisterioConvidadosIds()
+                            .removeIf(item -> item.equals(idMembroMinisterio));
+        } else {
+            throw new RuntimeException("Member hasn't been invited!");
+        }
+        if (escalaMinisterio.getMembrosMinisterioConfimadoIds() == null) {
+            escalaMinisterio.setMembrosMinisterioConfimadoIds(new ArrayList<>());
+        }
+        escalaMinisterio.getMembrosMinisterioConfimadoIds()
+                        .add(idMembroMinisterio);
+        return true;
+    }
+
+    @Override
+    public Boolean recusarParticipacaoEscala(
+            NaoConfirmarEscalaDTO naoConfirmarEscalaDTO) {
+        log.info("Recusing participantion of membro " + naoConfirmarEscalaDTO.getIdMembroMinisterio() + " into " + naoConfirmarEscalaDTO.getIdEscalaMinisterio());
+        EscalaMinisterio escalaMinisterio = getEscalaMinisterioById(naoConfirmarEscalaDTO.getIdEscalaMinisterio());
+
+        if (escalaMinisterio.getMembrosMinisterioConvidadosIds()
+                            .contains(naoConfirmarEscalaDTO.getIdMembroMinisterio())) {
+            escalaMinisterio.getMembrosMinisterioConvidadosIds()
+                            .removeIf(item -> item.equals(naoConfirmarEscalaDTO.getIdMembroMinisterio()));
+        } else {
+            throw new RuntimeException("Member hasn't been invited!");
+        }
+
+        log.info("Inserting NaoConfirmadoEscalaMinisterio into DB");
+        NaoConfirmadoEscalaMinisterio naoConfirmadoEscalaMinisterio = naoConfirmadoEscalaMinisterioRepository
+                .insert(NaoConfirmadoEscalaMinisterioMapper
+                        .INSTANCE
+                        .toModel(naoConfirmarEscalaDTO));
+        log.info("NaoConfirmadoEscalaMinisterio inserted with id " + naoConfirmadoEscalaMinisterio.getIdEscalaMinisterio());
+
+        if (escalaMinisterio.getMembrosMinisterioNaoConfirmadoIds() == null) {
+            escalaMinisterio.setMembrosMinisterioNaoConfirmadoIds(new ArrayList<>());
+        }
+
+        escalaMinisterio.getMembrosMinisterioNaoConfirmadoIds()
+                        .add(naoConfirmadoEscalaMinisterio.getIdMembroMinisterio());
+        return true;
+    }
+
+    private EscalaMinisterio getEscalaMinisterioById(
+            String idEscalaMinisterio) {
+        Optional<EscalaMinisterio> optional = escalaMinisterioRepository.findById(idEscalaMinisterio);
+        if (optional.isEmpty()) {
+            throw new RuntimeException("Can't get the ministerio by this id");
+        }
+        return optional.get();
+    }
+
+    @Override
     public EscalaMinisterioResponse createEscalaMinisterio(
             Eventos evento, String ministerioId) {
         log.info("Creating escala for ministerio " + ministerioId + "...");
@@ -277,6 +357,23 @@ public class MinisterioService implements MinisterioInterface {
         EscalaMinisterio escalaMinisterioWithConvitesSaved = this.escalaMinisterioRepository.save(escalaMinisterioWithConvites);
         log.info("Escala " + escalaMinisterio.getId() + " created for event " + evento.getTitulo() + " to ministerio " + ministerioId);
         return EscalaMinisterioMapper.INSTANCE.toResponse(escalaMinisterioWithConvitesSaved);
+    }
+
+    @Override
+    public List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterio() {
+        return null;
+    }
+
+    @Override
+    public List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDate(
+            String start, String end) {
+        return null;
+    }
+
+    @Override
+    public EscalaMinisterioResponseWithInfos listEscalaMinisterioByIdWithInfos(
+            String idEscalaMinisterio) {
+        return null;
     }
 
     private EscalaMinisterio getEscalaMinisterioWithConvitesMembro(

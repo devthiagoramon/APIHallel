@@ -4,6 +4,7 @@ import br.api.hallel.moduloAPI.dto.v1.*;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.FuncaoMinisterio;
 import br.api.hallel.moduloAPI.model.MembroMinisterio;
+import br.api.hallel.moduloAPI.model.NaoConfirmadoEscalaMinisterio;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 
 import java.util.List;
@@ -14,7 +15,7 @@ interface MinisterioInterface {
             MinisterioDTO ministerioDTO);
 
     MinisterioResponse editMinisterio(String idMinisterio,
-                                             MinisterioDTO ministerioDTO);
+                                      MinisterioDTO ministerioDTO);
 
     void deleteMinisterio(String idMinisterio);
 
@@ -54,18 +55,33 @@ interface MinisterioInterface {
 
     List<MembroMinisterioWithInfosResponse> listMembrosFromMinisterio(
             String idMinisterio);
-    MembroMinisterioWithInfosResponse listMembroMinisterioById(String idMembroMinisterio);
+
+    MembroMinisterioWithInfosResponse listMembroMinisterioById(
+            String idMembroMinisterio);
 
     MembroMinisterio addMembroMinisterio(
             AddMembroMinisterioDTO addMembroMinisterioDTO);
 
     void removerMembroMinisterio(String idMembroMinisterio);
 
+    StatusParticipacaoEscalaMinisterio getStatusParticipacaoEscala(
+            String idMembroMinisterio, String idEscalaMinisterio);
+
+    Boolean confirmarParticipacaoEscala(String idMembroMinisterio,
+                                        String idEscalaMinisterio);
+
+    Boolean recusarParticipacaoEscala(
+            NaoConfirmarEscalaDTO naoConfirmarEscalaDTO);
+
     EscalaMinisterioResponse createEscalaMinisterio(
             Eventos evento, String ministerioId);
 
     List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterio();
-    List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDate(String start, String end);
-    EscalaMinisterioResponseWithInfos listEscalaMinisterioByIdWithInfos(String idEscalaMinisterio);
+
+    List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDate(
+            String start, String end);
+
+    EscalaMinisterioResponseWithInfos listEscalaMinisterioByIdWithInfos(
+            String idEscalaMinisterio);
 
 }
