@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -177,6 +178,40 @@ public class MinisterioService implements MinisterioInterface {
     }
 
     @Override
+    public MembroMinisterioWithInfosResponse defineFunctionsToMembroMinisterio(
+            DefineFunctionsDTO defineFunctionsDTO) {
+        log.info("Defining/Deleting functions of membro ministerio...");
+        String idMembroMinisterio = defineFunctionsDTO.getIdMinisterioMembro();
+        MembroMinisterio membroMinisterio = getMembroMinisterioById(idMembroMinisterio);
+        if (membroMinisterio.getFuncaoMinisterioIds() == null){
+            membroMinisterio.setFuncaoMinisterioIds(new ArrayList<>());
+        }
+        defineFunctionsDTO.getIdsFuncaoMinisterioAdd().forEach(idAdds -> {
+            if (!membroMinisterio.getFuncaoMinisterioIds().contains(idAdds)){
+                membroMinisterio.getFuncaoMinisterioIds().add(idAdds);
+            }
+        });
+        defineFunctionsDTO.getIdsFuncaoMinisterioRemove().forEach(idRemove -> {
+            if (membroMinisterio.getFuncaoMinisterioIds().contains(idRemove)){
+                membroMinisterio.getFuncaoMinisterioIds().removeIf(item -> item.equals(idRemove));
+            }
+        });
+        membroMinisterioRepository.save(membroMinisterio);
+        return listMembroMinisterioById(membroMinisterio.getId());
+    }
+
+    @NotNull
+    private MembroMinisterio getMembroMinisterioById(
+            String idMembroMinisterio) {
+        Optional<MembroMinisterio> optional = membroMinisterioRepository.findById(idMembroMinisterio);
+
+        if (optional.isEmpty()) {
+            throw new RuntimeException("Can't find membroMinisterio by this id");
+        }
+        return optional.get();
+    }
+
+    @Override
     public List<MembroResponse> listMembrosToAddIntoThisMinisterio(
             String idMinisterio) {
         return membroRepository.findMembrosWithNoParticipationInThisMinisterio(idMinisterio);
@@ -186,6 +221,16 @@ public class MinisterioService implements MinisterioInterface {
     public List<MembroMinisterioWithInfosResponse> listMembrosFromMinisterio(
             String idMinisterio) {
         return membroMinisterioRepository.findWithInfosByMinisterioId(idMinisterio);
+    }
+
+    @Override
+    public MembroMinisterioWithInfosResponse listMembroMinisterioById(
+            String idMembroMinisterio) {
+        Optional<MembroMinisterioWithInfosResponse> membroMinisterioWithInfosResponse = membroMinisterioRepository.findWithInfosById(idMembroMinisterio);
+        if (membroMinisterioWithInfosResponse.isEmpty()) {
+            throw new RuntimeException("Can't find user ministerio by this id");
+        }
+        return membroMinisterioWithInfosResponse.get();
     }
 
     @Override

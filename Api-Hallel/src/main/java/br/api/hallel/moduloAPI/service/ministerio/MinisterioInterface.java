@@ -8,54 +8,64 @@ import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 
 import java.util.List;
 
-public interface MinisterioInterface {
+interface MinisterioInterface {
 
-    public MinisterioResponse createMinisterio(
+    MinisterioResponse createMinisterio(
             MinisterioDTO ministerioDTO);
 
-    public MinisterioResponse editMinisterio(String idMinisterio,
+    MinisterioResponse editMinisterio(String idMinisterio,
                                              MinisterioDTO ministerioDTO);
 
-    public void deleteMinisterio(String idMinisterio);
+    void deleteMinisterio(String idMinisterio);
 
-    public List<MinisterioResponse> listMinisterios();
+    List<MinisterioResponse> listMinisterios();
 
-    public List<MinisterioWithCoordsResponse> listMinisteriosWithCoords();
+    List<MinisterioWithCoordsResponse> listMinisteriosWithCoords();
 
-    public MinisterioResponse listMinisterioById(String idMinisterio);
+    MinisterioResponse listMinisterioById(String idMinisterio);
 
-    public MinisterioResponse alterarCoordenadoresInMinisterio(
+    MinisterioResponse alterarCoordenadoresInMinisterio(
             String idMinisterio,
             EditCoordMinisterioDTO editCoordMinisterioDTO);
 
-    public Boolean validateCoordenadorInMinisterio(
+    Boolean validateCoordenadorInMinisterio(
             String idMinisterio, String idUser);
 
-    public FuncaoMinisterio createFuncaoMinisterio(
+    FuncaoMinisterio createFuncaoMinisterio(
             FuncaoMinisterioDTO funcaoMinisterioDTO);
 
-    public List<FuncaoMinisterio> listFuncaoOfMinisterio(
+    List<FuncaoMinisterio> listFuncaoOfMinisterio(
             String idMinisterio);
 
-    public FuncaoMinisterio listFuncaoMinisterioById(
+    FuncaoMinisterio listFuncaoMinisterioById(
             String idFuncaoMinisterio);
 
-    public FuncaoMinisterio editFuncaoMinisterio(
+    FuncaoMinisterio editFuncaoMinisterio(
             String idFuncaoMinisterio,
             FuncaoMinisterioDTO funcaoMinisterioDTO);
-    public void deleteFuncaoMinisterio(String idFuncaoMinisterio);
 
-    public List<MembroResponse> listMembrosToAddIntoThisMinisterio(
+    void deleteFuncaoMinisterio(String idFuncaoMinisterio);
+
+    MembroMinisterioWithInfosResponse defineFunctionsToMembroMinisterio(
+            DefineFunctionsDTO defineFunctionsDTO);
+
+    List<MembroResponse> listMembrosToAddIntoThisMinisterio(
             String idMinisterio);
 
-    public List<MembroMinisterioWithInfosResponse> listMembrosFromMinisterio(
+    List<MembroMinisterioWithInfosResponse> listMembrosFromMinisterio(
             String idMinisterio);
+    MembroMinisterioWithInfosResponse listMembroMinisterioById(String idMembroMinisterio);
 
-    public MembroMinisterio addMembroMinisterio(
+    MembroMinisterio addMembroMinisterio(
             AddMembroMinisterioDTO addMembroMinisterioDTO);
 
-    public void removerMembroMinisterio(String idMembroMinisterio);
+    void removerMembroMinisterio(String idMembroMinisterio);
 
-    public EscalaMinisterioResponse createEscalaMinisterio(
+    EscalaMinisterioResponse createEscalaMinisterio(
             Eventos evento, String ministerioId);
+
+    List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterio();
+    List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDate(String start, String end);
+    EscalaMinisterioResponseWithInfos listEscalaMinisterioByIdWithInfos(String idEscalaMinisterio);
+
 }
