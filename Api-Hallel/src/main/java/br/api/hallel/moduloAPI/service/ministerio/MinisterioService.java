@@ -487,6 +487,7 @@ public class MinisterioService implements MinisterioInterface {
     }
 
     @Override
+
     public List<NaoConfirmadoEscalaMinisterioWithInfos> listMotivosAusenciaMembroEventoByIdEscalasMinisterio(
             String idEscala) {
         return this.naoConfirmadoEscalaMinisterioRepository.findAllWithEscalaId(idEscala);
@@ -501,11 +502,11 @@ public class MinisterioService implements MinisterioInterface {
         }
         EscalaMinisterio escalaMinisterio = optional.get();
 
+
         if (escalaMinisterio.getMembrosMinisterioNaoConfirmadoIds() != null) {
             escalaMinisterio.getMembrosMinisterioNaoConfirmadoIds()
                             .forEach(this::deleteNaoConfirmadoEscalaMinisterio);
         }
-
         escalaMinisterioRepository.delete(escalaMinisterio);
         log.info("Escala " + escalaMinisterio.getId() + " date " + escalaMinisterio.getDate() + " deleted");
     }

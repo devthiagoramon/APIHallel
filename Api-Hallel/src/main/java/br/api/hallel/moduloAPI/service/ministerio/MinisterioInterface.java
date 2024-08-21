@@ -108,8 +108,11 @@ interface MinisterioInterface {
     EscalaMinisterioResponseWithInfos listEscalaMinisterioByIdWithInfos(
             String idEscalaMinisterio);
 
+<<<<<<< HEAD
     List<NaoConfirmadoEscalaMinisterioWithInfos> listMotivosAusenciaMembroEventoByIdEscalasMinisterio(String idEscala);
 
+=======
+>>>>>>> b64444b07cc05242fed075b055bc5ce583e5fd24
     void deleteEscalasWithDeletingEvento(String idEvento);
 
 }

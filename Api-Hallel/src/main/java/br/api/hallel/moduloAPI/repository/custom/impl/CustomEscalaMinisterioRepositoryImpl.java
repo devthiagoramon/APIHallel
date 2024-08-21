@@ -117,8 +117,13 @@ public class CustomEscalaMinisterioRepositoryImpl implements CustomEscalaMiniste
                 unwindOperationMinisterio);
 
 
+<<<<<<< HEAD
         // Pega o primeiro elemento do arraylist
         return mongoTemplate.aggregate(aggregation, "escalaMinisterio", EscalaMinisterioResponseWithInfos.class)
                             .getMappedResults().get(0);
+=======
+        return mongoTemplate.aggregate(aggregation, "escalaMinisterio", EscalaMinisterioResponseWithInfos.class)
+                            .getMappedResults().get(1);
+>>>>>>> b64444b07cc05242fed075b055bc5ce583e5fd24
     }
 }
