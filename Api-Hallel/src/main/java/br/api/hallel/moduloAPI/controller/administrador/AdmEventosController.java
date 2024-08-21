@@ -271,7 +271,7 @@ public class AdmEventosController {
 
 
     @PostMapping("/AdicionarDescontoParaMembro/{id}")
-    public ResponseEntity<Boolean> AdicionaDescontoMembro(@PathVariable(value="id")String idEvento,Double valorDesconto){
+    public ResponseEntity<Boolean> AdicionaDescontoMembro(@PathVariable(value="id")String idEvento, @RequestBody Double valorDesconto){
         System.out.println(valorDesconto+idEvento);
         return ResponseEntity.ok().body(eventosService.adicionarDescontoParaMembro(idEvento,valorDesconto));
     }
