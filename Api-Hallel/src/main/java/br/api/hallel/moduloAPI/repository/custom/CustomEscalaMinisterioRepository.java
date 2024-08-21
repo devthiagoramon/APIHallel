@@ -14,4 +14,12 @@ public interface CustomEscalaMinisterioRepository {
 
     EscalaMinisterioResponseWithInfos findWithAllInfosById(
             String idEscalaMinisterio);
+
+    List<EscalaMinisterioWithEventoInfoResponse> findAllWithEventosInfosCanParticipateByMembroId(
+            String membroId, Date start, Date end);
+
+    List<EscalaMinisterioWithEventoInfoResponse> findAllWithEventosInfosConfirmedByMembroId(
+            String membroId,
+            Date start,
+            Date end);
 }

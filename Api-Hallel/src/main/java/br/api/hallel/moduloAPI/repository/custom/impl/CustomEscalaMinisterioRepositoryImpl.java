@@ -6,12 +6,12 @@ import br.api.hallel.moduloAPI.repository.custom.CustomEscalaMinisterioRepositor
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 
 import java.util.Date;
 import java.util.List;
 
-public class CustomEscalaMinisterioRepositoryImpl implements CustomEscalaMinisterioRepository {
+public class CustomEscalaMinisterioRepositoryImpl
+        implements CustomEscalaMinisterioRepository {
 
     private final MongoTemplate mongoTemplate;
 
@@ -117,13 +117,72 @@ public class CustomEscalaMinisterioRepositoryImpl implements CustomEscalaMiniste
                 unwindOperationMinisterio);
 
 
-<<<<<<< HEAD
         // Pega o primeiro elemento do arraylist
         return mongoTemplate.aggregate(aggregation, "escalaMinisterio", EscalaMinisterioResponseWithInfos.class)
                             .getMappedResults().get(0);
-=======
-        return mongoTemplate.aggregate(aggregation, "escalaMinisterio", EscalaMinisterioResponseWithInfos.class)
-                            .getMappedResults().get(1);
->>>>>>> b64444b07cc05242fed075b055bc5ce583e5fd24
+
+    }
+
+    @Override
+    public List<EscalaMinisterioWithEventoInfoResponse> findAllWithEventosInfosCanParticipateByMembroId(
+            String membroId, Date start, Date end) {
+
+        AddFieldsOperation addFieldsOperation = AddFieldsOperation.addField("eventoIdOID")
+                                                                  .withValue(ConvertOperators.ToObjectId.toObjectId("$eventoId"))
+                                                                  .build();
+
+        LookupOperation lookupEvento = LookupOperation.newLookup()
+                                                      .from("eventos")
+                                                      .localField("eventoIdOID")
+                                                      .foreignField("_id")
+                                                      .as("evento");
+
+        MatchOperation matchOperation = Aggregation.match(Criteria.where("$membrosMinisterioConvidadosIds")
+                                                                  .is(membroId));
+
+        MatchOperation matchDateOperation = Aggregation.match(Criteria.where("date")
+                                                                      .gte(start)
+                                                                      .lt(end));
+
+        UnwindOperation unwindOperation = UnwindOperation.newUnwind()
+                                                         .path("$evento")
+                                                         .noArrayIndex()
+                                                         .skipNullAndEmptyArrays();
+
+        Aggregation aggregation = Aggregation.newAggregation(addFieldsOperation, lookupEvento, matchOperation, matchDateOperation, unwindOperation);
+
+        return mongoTemplate.aggregate(aggregation, "escalaMinisterio", EscalaMinisterioWithEventoInfoResponse.class)
+                            .getMappedResults();
+    }
+
+    @Override
+    public List<EscalaMinisterioWithEventoInfoResponse> findAllWithEventosInfosConfirmedByMembroId(
+            String membroId, Date start, Date end) {
+        AddFieldsOperation addFieldsOperation = AddFieldsOperation.addField("eventoIdOID")
+                                                                  .withValue(ConvertOperators.ToObjectId.toObjectId("$eventoId"))
+                                                                  .build();
+
+        LookupOperation lookupEvento = LookupOperation.newLookup()
+                                                      .from("eventos")
+                                                      .localField("eventoIdOID")
+                                                      .foreignField("_id")
+                                                      .as("evento");
+
+        MatchOperation matchOperation = Aggregation.match(Criteria.where("membrosMinisterioConfimadoIds")
+                                                                  .is(membroId));
+
+        MatchOperation matchDateOperation = Aggregation.match(Criteria.where("date")
+                                                                      .gte(start)
+                                                                      .lt(end));
+
+        UnwindOperation unwindOperation = UnwindOperation.newUnwind()
+                                                         .path("$evento")
+                                                         .noArrayIndex()
+                                                         .skipNullAndEmptyArrays();
+
+        Aggregation aggregation = Aggregation.newAggregation(addFieldsOperation, lookupEvento, matchOperation, matchDateOperation, unwindOperation);
+
+        return mongoTemplate.aggregate(aggregation, "escalaMinisterio", EscalaMinisterioWithEventoInfoResponse.class)
+                            .getMappedResults();
     }
 }

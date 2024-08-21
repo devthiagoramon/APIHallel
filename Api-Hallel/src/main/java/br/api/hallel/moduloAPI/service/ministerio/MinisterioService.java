@@ -475,6 +475,18 @@ public class MinisterioService implements MinisterioInterface {
     }
 
     @Override
+    public List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioMembroIdCanParticipate(
+            String membroId, Date start, Date end) {
+        return this.escalaMinisterioRepository.findAllWithEventosInfosCanParticipateByMembroId(membroId, start, end);
+    }
+
+    @Override
+    public List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioConfirmedMembro(
+            String membroId, Date start, Date end) {
+        return this.escalaMinisterioRepository.findAllWithEventosInfosConfirmedByMembroId(membroId, start, end);
+    }
+
+    @Override
     public List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDate(
             Date start, Date end) {
         return this.escalaMinisterioRepository.findAllWithEventosInfosRangeDate(start, end);
