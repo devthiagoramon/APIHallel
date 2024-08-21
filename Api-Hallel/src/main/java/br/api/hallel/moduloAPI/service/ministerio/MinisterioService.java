@@ -24,6 +24,7 @@ public class MinisterioService implements MinisterioInterface {
     private final EscalaMinisterioRepository escalaMinisterioRepository;
     private final NaoConfirmadoEscalaMinisterioRepository naoConfirmadoEscalaMinisterioRepository;
     private final MembroRepository membroRepository;
+    private final EventosRepository eventosRepository;
 
     public MinisterioService(
             MinisterioRepository ministerioRepository,
@@ -31,13 +32,15 @@ public class MinisterioService implements MinisterioInterface {
             MembroMinisterioRepository membroMinisterioRepository,
             EscalaMinisterioRepository escalaMinisterioRepository,
             NaoConfirmadoEscalaMinisterioRepository naoConfirmadoEscalaMinisterioRepository,
-            MembroRepository membroRepository) {
+            MembroRepository membroRepository,
+            EventosRepository eventosRepository) {
         this.ministerioRepository = ministerioRepository;
         this.funcaoMinisterioRepository = funcaoMinisterioRepository;
         this.membroMinisterioRepository = membroMinisterioRepository;
         this.escalaMinisterioRepository = escalaMinisterioRepository;
         this.naoConfirmadoEscalaMinisterioRepository = naoConfirmadoEscalaMinisterioRepository;
         this.membroRepository = membroRepository;
+        this.eventosRepository = eventosRepository;
     }
 
     @NotNull
@@ -384,6 +387,12 @@ public class MinisterioService implements MinisterioInterface {
                 listNaoConfirmadoEscalaMinisterioById(idNaoConfirmadoEscalaMinisterio);
         this.naoConfirmadoEscalaMinisterioRepository.delete(naoConfirmadoEscalaMinisterio);
         log.info("Nao confirmado id " + naoConfirmadoEscalaMinisterio.getId() + " deleted");
+    }
+
+    @Override
+    public EventosShortResponse listEventosThatMinisterioIsIn(
+            String ministerioId) {
+        return this.eventosRepository.findAllByMinisteriosAssociadosContains(ministerioId);
     }
 
     private EscalaMinisterio getEscalaMinisterioById(

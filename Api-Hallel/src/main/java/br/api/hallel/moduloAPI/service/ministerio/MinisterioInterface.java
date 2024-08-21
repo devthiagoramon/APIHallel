@@ -87,6 +87,8 @@ interface MinisterioInterface {
     void deleteNaoConfirmadoEscalaMinisterio(
             String idNaoConfirmadoEscalaMinisterio);
 
+    EventosShortResponse listEventosThatMinisterioIsIn(String ministerioId);
+
     EscalaMinisterioResponse createEscalaMinisterio(
             Eventos evento, String ministerioId);
 
@@ -99,8 +101,11 @@ interface MinisterioInterface {
 
     List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterio();
 
-    List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioMembroIdCanParticipate(String membroId, Date start, Date end);
-    List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioConfirmedMembro(String membroId, Date start, Date end);
+    List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioMembroIdCanParticipate(
+            String membroId, Date start, Date end);
+
+    List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioConfirmedMembro(
+            String membroId, Date start, Date end);
 
     List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDate(
             Date start, Date end);
@@ -108,7 +113,8 @@ interface MinisterioInterface {
     EscalaMinisterioResponseWithInfos listEscalaMinisterioByIdWithInfos(
             String idEscalaMinisterio);
 
-    List<NaoConfirmadoEscalaMinisterioWithInfos> listMotivosAusenciaMembroEventoByIdEscalasMinisterio(String idEscala);
+    List<NaoConfirmadoEscalaMinisterioWithInfos> listMotivosAusenciaMembroEventoByIdEscalasMinisterio(
+            String idEscala);
 
     void deleteEscalasWithDeletingEvento(String idEvento);
 
