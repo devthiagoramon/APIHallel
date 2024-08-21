@@ -370,6 +370,7 @@ public class EventosService implements EventosInterface {
     public void deleteEventoById(String id) {
 
         if (listarEventoById(id) != null) {
+            this.ministerioService.deleteEscalasWithDeletingEvento(id);
             this.repository.deleteById(id);
             log.info("EVENTO DELETADO!");
         } else {

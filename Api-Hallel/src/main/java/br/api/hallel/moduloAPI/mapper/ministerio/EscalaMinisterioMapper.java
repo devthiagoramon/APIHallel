@@ -13,11 +13,17 @@ public interface EscalaMinisterioMapper {
     EscalaMinisterioMapper INSTANCE = Mappers.getMapper(EscalaMinisterioMapper.class);
 
     @Mapping(target = ".", source = ".")
-    public EscalaMinisterioResponse toResponse(EscalaMinisterio escalaMinisterio);
+    public EscalaMinisterioResponse toResponse(
+            EscalaMinisterio escalaMinisterio);
+
     @Mapping(target = ".", source = ".")
-    public EscalaMinisterioDTO toDto(EscalaMinisterio escalaMinisterio);
-    @Mapping(target = ".", source = ".")
-    public EscalaMinisterio toModel(EscalaMinisterioDTO escalaMinisterioDTO);
+    public EscalaMinisterioDTO toDto(
+            EscalaMinisterio escalaMinisterio);
+
+    @Mapping(target = "date", source = "date")
+    @Mapping(target = "ministerioId", source = "ministerioId")
+    @Mapping(target = "eventoId", source = "eventoId")
+    EscalaMinisterio toModel(EscalaMinisterioDTO escalaMinisterioDTO);
 
 
 }
