@@ -14,6 +14,8 @@ import java.util.List;
 public class CustomNaoConfirmadoEscalaMinisterioRepositoryImpl
         implements CustomNaoConfirmadoEscalaMinisterioRepository {
 
+
+    // Mongo template
     private final MongoTemplate mongoTemplate;
 
     public CustomNaoConfirmadoEscalaMinisterioRepositoryImpl(

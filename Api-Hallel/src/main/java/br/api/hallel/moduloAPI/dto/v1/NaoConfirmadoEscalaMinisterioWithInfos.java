@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+// DTO With membro info
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter

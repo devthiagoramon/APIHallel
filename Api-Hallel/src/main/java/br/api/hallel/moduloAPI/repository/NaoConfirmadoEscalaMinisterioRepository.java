@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
+
+// Repository to custom
 public interface NaoConfirmadoEscalaMinisterioRepository extends
         MongoRepository<NaoConfirmadoEscalaMinisterio, String>,
         CustomNaoConfirmadoEscalaMinisterioRepository {

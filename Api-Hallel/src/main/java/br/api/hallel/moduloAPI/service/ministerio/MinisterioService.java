@@ -487,7 +487,7 @@ public class MinisterioService implements MinisterioInterface {
     }
 
     @Override
-    public List<NaoConfirmadoEscalaMinisterioWithInfos> listMotivosAusenciaMembroEventoByIdEscala(
+    public List<NaoConfirmadoEscalaMinisterioWithInfos> listMotivosAusenciaMembroEventoByIdEscalasMinisterio(
             String idEscala) {
         return this.naoConfirmadoEscalaMinisterioRepository.findAllWithEscalaId(idEscala);
     }
