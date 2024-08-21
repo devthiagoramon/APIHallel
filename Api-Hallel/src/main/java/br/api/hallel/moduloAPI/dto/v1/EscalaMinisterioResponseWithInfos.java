@@ -1,6 +1,5 @@
 package br.api.hallel.moduloAPI.dto.v1;
 
-import br.api.hallel.moduloAPI.model.MembroMinisterio;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +16,10 @@ public class EscalaMinisterioResponseWithInfos {
 
     private String id;
     private MinisterioResponse ministerio;
-    private EventosShortResponse eventoId;
+    private EventosShortResponse evento;
     private Date date;
-    private List<MembroMinisterioWithUserInfosResponse> membrosMinisterioConvidados;
-    private List<MembroMinisterioWithUserInfosResponse> membrosMinisterioConfirmados;
-    private List<NaoConfirmadoEscalaMinisterioWithInfosResponse> membroMinisterioNaoConfirmados;
+    private List<String> membrosMinisterioConvidadosIds;
+    private List<String> membrosMinisterioConfimadoIds;
+    private List<String> membrosMinisterioNaoConfirmadoIds;
 
 }

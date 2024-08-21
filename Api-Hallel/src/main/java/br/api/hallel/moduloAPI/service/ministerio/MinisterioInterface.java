@@ -7,6 +7,7 @@ import br.api.hallel.moduloAPI.model.MembroMinisterio;
 import br.api.hallel.moduloAPI.model.NaoConfirmadoEscalaMinisterio;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 
+import java.util.Date;
 import java.util.List;
 
 interface MinisterioInterface {
@@ -92,12 +93,23 @@ interface MinisterioInterface {
     EscalaMinisterioResponse createEscalaMinisterio(
             Eventos evento, String ministerioId);
 
+    EscalaMinisterioResponse alterarEscalaConfirmandoMembroMinisterio(
+            String idEscala, List<String> idsMembrosMinisterio);
+
+    EscalaMinisterioResponse alterarEscalaNaoConfirmandoMembroMinisterio(
+            String idEscala,
+            List<NaoConfirmadoEscalaDTOAdm> naoConfirmadoEscalaDtoAdm);
+
     List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterio();
 
     List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDate(
-            String start, String end);
+            Date start, Date end);
 
     EscalaMinisterioResponseWithInfos listEscalaMinisterioByIdWithInfos(
             String idEscalaMinisterio);
+
+    List<NaoConfirmadoEscalaMinisterioWithInfos> listMotivosAusenciaMembroEventoByIdEscala(String idEscala);
+
+    void deleteEscalasWithDeletingEvento(String idEvento);
 
 }
