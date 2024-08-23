@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.service.ministerio;
 
-import br.api.hallel.moduloAPI.dto.v1.*;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.*;
 import br.api.hallel.moduloAPI.model.*;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 

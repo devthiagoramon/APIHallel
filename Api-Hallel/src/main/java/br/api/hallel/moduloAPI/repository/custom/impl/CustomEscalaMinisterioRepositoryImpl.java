@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.repository.custom.impl;
 
-import br.api.hallel.moduloAPI.dto.v1.EscalaMinisterioResponseWithInfos;
-import br.api.hallel.moduloAPI.dto.v1.EscalaMinisterioWithEventoInfoResponse;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.EscalaMinisterioResponseWithInfos;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.EscalaMinisterioWithEventoInfoResponse;
 import br.api.hallel.moduloAPI.repository.custom.CustomEscalaMinisterioRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;

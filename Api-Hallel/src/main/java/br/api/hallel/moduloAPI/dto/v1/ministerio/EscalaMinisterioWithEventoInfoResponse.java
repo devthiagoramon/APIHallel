@@ -1,6 +1,5 @@
-package br.api.hallel.moduloAPI.dto.v1;
+package br.api.hallel.moduloAPI.dto.v1.ministerio;
 
-import br.api.hallel.moduloAPI.model.Eventos;
 import lombok.*;
 
 import java.util.Date;

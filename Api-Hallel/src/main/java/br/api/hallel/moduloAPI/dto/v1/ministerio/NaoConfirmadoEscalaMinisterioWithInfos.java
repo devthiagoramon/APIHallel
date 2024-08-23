@@ -1,19 +1,20 @@
-package br.api.hallel.moduloAPI.dto.v1;
+package br.api.hallel.moduloAPI.dto.v1.ministerio;
 
-import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+// DTO With membro info
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
-public class MinisterioWithCoordsResponse {
+@Getter
+public class NaoConfirmadoEscalaMinisterioWithInfos {
     private String id;
-    private String nome;
-    private MembroResponse coordenador;
-    private MembroResponse viceCoordenador;
+    private MembroResponse membro;
+    private String idEscalaMinisterio;
+    private String motivo;
 }

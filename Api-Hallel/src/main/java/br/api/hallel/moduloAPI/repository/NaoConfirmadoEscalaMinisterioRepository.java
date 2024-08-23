@@ -1,6 +1,5 @@
 package br.api.hallel.moduloAPI.repository;
 
-import br.api.hallel.moduloAPI.dto.v1.NaoConfirmadoEscalaMinisterioWithInfos;
 import br.api.hallel.moduloAPI.model.NaoConfirmadoEscalaMinisterio;
 import br.api.hallel.moduloAPI.repository.custom.CustomNaoConfirmadoEscalaMinisterioRepository;
 import org.springframework.data.mongodb.repository.MongoRepository;

@@ -1,7 +1,6 @@
 package br.api.hallel.moduloAPI.service.ministerio;
 
-import br.api.hallel.moduloAPI.dto.v1.EscalaMinisterioWithEventoInfoResponse;
-import br.api.hallel.moduloAPI.model.EscalaMinisterio;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.EscalaMinisterioWithEventoInfoResponse;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.dto.v1;
+package br.api.hallel.moduloAPI.dto.v1.ministerio;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

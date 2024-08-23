@@ -1,13 +1,11 @@
 package br.api.hallel.ministerios.unittest;
 
-import br.api.hallel.moduloAPI.dto.v1.MinisterioDTO;
-import br.api.hallel.moduloAPI.dto.v1.MinisterioResponse;
-import br.api.hallel.moduloAPI.mapper.ministerio.MinisterioMapper;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioDTO;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioResponse;
 import br.api.hallel.moduloAPI.service.ministerio.MinisterioService;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.WithAssertions;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

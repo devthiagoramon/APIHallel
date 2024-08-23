@@ -1,7 +1,7 @@
 package br.api.hallel.moduloAPI.mapper.ministerio;
 
-import br.api.hallel.moduloAPI.dto.v1.MinisterioDTO;
-import br.api.hallel.moduloAPI.dto.v1.MinisterioResponse;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioDTO;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioResponse;
 import br.api.hallel.moduloAPI.model.Ministerio;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

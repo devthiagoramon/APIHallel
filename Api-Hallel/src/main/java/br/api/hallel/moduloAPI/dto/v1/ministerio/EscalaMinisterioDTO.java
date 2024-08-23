@@ -1,18 +1,18 @@
-package br.api.hallel.moduloAPI.dto.v1;
+package br.api.hallel.moduloAPI.dto.v1.ministerio;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class AddMembroMinisterioDTO {
-    private String membroId;
+public class EscalaMinisterioDTO {
     private String ministerioId;
-    private List<String> funcaoMinisterioIds;
+    private String eventoId;
+    private Date date;
 }

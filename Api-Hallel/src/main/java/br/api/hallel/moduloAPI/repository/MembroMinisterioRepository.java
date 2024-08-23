@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.repository;
 
-import br.api.hallel.moduloAPI.dto.v1.MembroMinisterioWithInfosResponse;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MembroMinisterioWithInfosResponse;
 import br.api.hallel.moduloAPI.model.MembroMinisterio;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;

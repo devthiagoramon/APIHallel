@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.repository;
 
-import br.api.hallel.moduloAPI.dto.v1.EventosShortResponse;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.EventosShortResponse;
 import br.api.hallel.moduloAPI.model.Eventos;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

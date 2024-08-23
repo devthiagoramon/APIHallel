@@ -1,4 +1,4 @@
-package br.api.hallel.moduloAPI.dto.v1;
+package br.api.hallel.moduloAPI.dto.v1.ministerio;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

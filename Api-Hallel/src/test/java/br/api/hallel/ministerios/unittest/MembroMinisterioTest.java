@@ -1,7 +1,7 @@
 package br.api.hallel.ministerios.unittest;
 
-import br.api.hallel.moduloAPI.dto.v1.AddMembroMinisterioDTO;
-import br.api.hallel.moduloAPI.dto.v1.MembroMinisterioWithInfosResponse;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.AddMembroMinisterioDTO;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MembroMinisterioWithInfosResponse;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
 import br.api.hallel.moduloAPI.service.ministerio.MinisterioService;

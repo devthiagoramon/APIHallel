@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.mapper.ministerio;
 
-import br.api.hallel.moduloAPI.dto.v1.NaoConfirmarEscalaDTO;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.NaoConfirmarEscalaDTO;
 import br.api.hallel.moduloAPI.model.NaoConfirmadoEscalaMinisterio;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

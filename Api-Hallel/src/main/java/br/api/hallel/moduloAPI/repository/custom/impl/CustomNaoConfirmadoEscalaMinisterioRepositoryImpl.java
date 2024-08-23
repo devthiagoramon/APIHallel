@@ -1,6 +1,6 @@
 package br.api.hallel.moduloAPI.repository.custom.impl;
 
-import br.api.hallel.moduloAPI.dto.v1.NaoConfirmadoEscalaMinisterioWithInfos;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.NaoConfirmadoEscalaMinisterioWithInfos;
 import br.api.hallel.moduloAPI.repository.custom.CustomNaoConfirmadoEscalaMinisterioRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.AddFieldsOperation;
