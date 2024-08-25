@@ -17,6 +17,13 @@ public class SolicitarCadastroRequerimento {
 
     private Set<String> roles;
 
+    public SolicitarCadastroRequerimento(String nome, String senha,
+                                         String email) {
+        this.nome = nome;
+        this.senha = senha;
+        this.email = email;
+    }
+
     public String getNome() {
         return nome;
     }

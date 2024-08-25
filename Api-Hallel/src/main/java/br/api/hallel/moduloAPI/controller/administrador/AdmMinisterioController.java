@@ -56,9 +56,10 @@ public class AdmMinisterioController {
 
     @DeleteMapping("/{idMinisterio}")
     @Operation(summary = "Deletar ministerio", tags = "Administrador")
-    public void deleteMinisterio(
+    public ResponseEntity<?> deleteMinisterio(
             @PathVariable("idMinisterio") String idMinisterio) {
         ministerioService.deleteMinisterio(idMinisterio);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{idMinisterio}/edit/coordenadores")

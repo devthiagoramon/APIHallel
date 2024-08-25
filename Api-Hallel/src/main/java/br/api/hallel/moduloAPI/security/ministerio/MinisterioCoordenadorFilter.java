@@ -8,10 +8,12 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 public class MinisterioCoordenadorFilter extends HttpFilter {
 
@@ -36,21 +38,15 @@ public class MinisterioCoordenadorFilter extends HttpFilter {
                             HttpServletResponse response,
                             FilterChain chain) throws IOException,
             ServletException {
-        String token = request.getHeader("coordenador-token");
+        if (request.getRequestURI()
+                   .contains("/api/membros/ministerio/coordenador")) {
+            String token = request.getHeader("coordenador-token");
 
-        if (token == null || !tokenCoordenadorMinisterio.validateToken(token)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token for a coordenador or isn't inserted");
-            return;
+            if (token == null || !tokenCoordenadorMinisterio.validateToken(token)) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token for a coordenador or isn't inserted");
+                return;
+            }
         }
-
-        String ministerioId = tokenCoordenadorMinisterio.getMinisterioFromToken(token);
-        String membroId = tokenCoordenadorMinisterio.getMembroFromToken(token);
-
-        if (!ministerioService.validateCoordenadorInMinisterio(ministerioId, membroId)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token for a coordenador");
-            return;
-        }
-
         chain.doFilter(request, response);
     }
 

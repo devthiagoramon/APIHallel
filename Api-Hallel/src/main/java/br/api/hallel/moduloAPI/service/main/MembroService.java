@@ -224,6 +224,15 @@ public class MembroService implements MembroInterface {
         return responseList;
     }
 
+    @Override
+    public MembroResponse listMembroByName(String name) {
+        var optional = this.repository.findByNome(name);
+        if (optional.isEmpty()){
+            return null;
+        }
+        return new MembroResponse().toResponse(optional.get());
+    }
+
   /*  @Override
     public Boolean enviarContribuicaoEvento(String idEvento, ContribuicaoEventoReq contEventoReq) {
         Eventos eventos = this.eventosRepository.findById(idEvento).get();

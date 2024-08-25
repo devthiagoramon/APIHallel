@@ -20,9 +20,7 @@ public interface EscalaMinisterioMapper {
     public EscalaMinisterioDTO toDto(
             EscalaMinisterio escalaMinisterio);
 
-    @Mapping(target = "date", source = "date")
-    @Mapping(target = "ministerioId", source = "ministerioId")
-    @Mapping(target = "eventoId", source = "eventoId")
+    @Mapping(target = ".", source = ".")
     EscalaMinisterio toModel(EscalaMinisterioDTO escalaMinisterioDTO);
 
 

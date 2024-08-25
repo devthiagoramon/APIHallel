@@ -56,26 +56,101 @@ public class MinisterioService implements MinisterioInterface {
 
     @Override
     public MinisterioResponse createMinisterio(
-            MinisterioDTO ministerioDTO) {
+            MinisterioDTO editCoordMinisterioDTO) {
         log.info("Creating ministerio...");
-        Ministerio ministerio = this.ministerioRepository.insert(MinisterioMapper.INSTANCE.toModel(ministerioDTO));
+        Ministerio ministerio = this.ministerioRepository.insert(MinisterioMapper.INSTANCE.toModel(editCoordMinisterioDTO));
+        if (editCoordMinisterioDTO.getCoordenadorId() != null) {
+            addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getCoordenadorId(), ministerio.getId(), null));
+        }
+        if (editCoordMinisterioDTO.getViceCoordenadorId() != null) {
+            addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getViceCoordenadorId(), ministerio.getId(), null));
+        }
         log.info("Ministerio id " + ministerio.getId() + " created!");
         return MinisterioMapper.INSTANCE.toResponse(ministerio);
     }
 
     @Override
     public MinisterioResponse editMinisterio(String idMinisterio,
-                                             MinisterioDTO ministerioDTO) {
+                                             MinisterioDTO editCoordMinisterioDTO) {
         log.info("Editing ministerio...");
         Ministerio ministerio = getMinisterioById(idMinisterio);
-        ministerio.setNome(ministerioDTO.getNome());
-        ministerio.setCoordenadorId(ministerioDTO.getCoordenadorId());
-        ministerio.setViceCoordenadorId(ministerioDTO.getViceCoordenadorId());
-        Ministerio ministerioUpdated = this.ministerioRepository.save(ministerio);
+        ministerio.setNome(editCoordMinisterioDTO.getNome());
+        Ministerio ministerioCoordsEdited = editCoordsMembroOfMembroMinisterio(ministerio, editCoordMinisterioDTO);
+
+        Ministerio ministerioUpdated = this.ministerioRepository.save(ministerioCoordsEdited);
         log.info("Ministerio id " + ministerio.getId() + " edited!");
         return MinisterioMapper.INSTANCE.toResponse(ministerioUpdated);
     }
 
+    private Ministerio editCoordsMembroOfMembroMinisterio(
+            Ministerio ministerio,
+            MinisterioDTO editCoordMinisterioDTO) {
+
+        // Verificação se o coordenador e vicecoordenador são membros ministerio, caso não forem adicionar eles no ministerio
+        Optional<MembroMinisterio> optionalCoord = membroMinisterioRepository.findByMembroId(ministerio.getCoordenadorId());
+        Optional<MembroMinisterio> optionalVice = membroMinisterioRepository.findByMembroId(ministerio.getViceCoordenadorId());
+
+        MembroMinisterio membroMinisterioCoord;
+        MembroMinisterio membroMinisterioVice;
+
+        membroMinisterioCoord = optionalCoord.orElseGet(() -> addMembroMinisterio(
+                new AddMembroMinisterioDTO(ministerio.getCoordenadorId(), ministerio.getId(), null)));
+        membroMinisterioVice = optionalVice.orElseGet(() -> addMembroMinisterio(
+                new AddMembroMinisterioDTO(ministerio.getViceCoordenadorId(), ministerio.getId(), null)));
+
+
+        // Se houve alteração de coordenador, alterar o id do ministerio e remover o antigo do ministerio
+        if (editCoordMinisterioDTO.getCoordenadorId() != null && !editCoordMinisterioDTO.getCoordenadorId()
+                                                                      .equals(ministerio.getCoordenadorId())) {
+            ministerio.setCoordenadorId(editCoordMinisterioDTO.getCoordenadorId());
+            removerMembroMinisterio(membroMinisterioCoord.getId());
+            addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getCoordenadorId(), ministerio.getId(), null));
+        }
+        // Se houve alteração de vice, alterar o id do ministerio e remover o antigo do ministerio
+        if (editCoordMinisterioDTO.getViceCoordenadorId() != null && !editCoordMinisterioDTO.getViceCoordenadorId()
+                                                                          .equals(ministerio.getViceCoordenadorId())) {
+            ministerio.setViceCoordenadorId(editCoordMinisterioDTO.getViceCoordenadorId());
+            removerMembroMinisterio(membroMinisterioVice.getId());
+            addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getViceCoordenadorId(), ministerio.getId(), null));
+        }
+
+        return ministerio;
+    }
+
+    private Ministerio editCoordsMembroOfMembroMinisterio(
+            Ministerio ministerio,
+            EditCoordMinisterioDTO editCoordMinisterioDTO) {
+
+        // Verificação se o coordenador e vicecoordenador são membros ministerio, caso não forem adicionar eles no ministerio
+        Optional<MembroMinisterio> optionalCoord = membroMinisterioRepository.findByMembroId(ministerio.getCoordenadorId());
+        Optional<MembroMinisterio> optionalVice = membroMinisterioRepository.findByMembroId(ministerio.getViceCoordenadorId());
+
+        MembroMinisterio membroMinisterioCoord;
+        MembroMinisterio membroMinisterioVice;
+
+        membroMinisterioCoord = optionalCoord.orElseGet(() -> addMembroMinisterio(
+                new AddMembroMinisterioDTO(ministerio.getCoordenadorId(), ministerio.getId(), null)));
+        membroMinisterioVice = optionalVice.orElseGet(() -> addMembroMinisterio(
+                new AddMembroMinisterioDTO(ministerio.getViceCoordenadorId(), ministerio.getId(), null)));
+
+
+        // Se houve alteração de coordenador, alterar o id do ministerio e remover o antigo do ministerio
+        if (editCoordMinisterioDTO.getCoordenadorId() != null && !editCoordMinisterioDTO.getCoordenadorId()
+                                                                      .equals(ministerio.getCoordenadorId())) {
+            ministerio.setCoordenadorId(editCoordMinisterioDTO.getCoordenadorId());
+            removerMembroMinisterio(membroMinisterioCoord.getId());
+            addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getCoordenadorId(), ministerio.getId(), null));
+        }
+        // Se houve alteração de vice, alterar o id do ministerio e remover o antigo do ministerio
+        if (editCoordMinisterioDTO.getViceCoordenadorId() != null && !editCoordMinisterioDTO.getViceCoordenadorId()
+                                                                          .equals(ministerio.getViceCoordenadorId())) {
+            ministerio.setViceCoordenadorId(editCoordMinisterioDTO.getViceCoordenadorId());
+            removerMembroMinisterio(membroMinisterioVice.getId());
+            addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getViceCoordenadorId(), ministerio.getId(), null));
+        }
+
+        return ministerio;
+    }
 
     @Override
     public void deleteMinisterio(String idMinisterio) {
@@ -110,9 +185,8 @@ public class MinisterioService implements MinisterioInterface {
             EditCoordMinisterioDTO editCoordMinisterioDTO) {
         log.info("Changing coord and vice-coord in ministerio " + idMinisterio + "...");
         Ministerio ministerio = getMinisterioById(idMinisterio);
-        ministerio.setCoordenadorId(editCoordMinisterioDTO.getCoordenadorId());
-        ministerio.setViceCoordenadorId(editCoordMinisterioDTO.getViceCoordenadorId());
-        Ministerio ministerioUpdated = this.ministerioRepository.save(ministerio);
+        Ministerio ministerioCoordEdited = editCoordsMembroOfMembroMinisterio(ministerio, editCoordMinisterioDTO);
+        Ministerio ministerioUpdated = this.ministerioRepository.save(ministerioCoordEdited);
         log.info("Coord and vice-coord changed in ministerio " + ministerioUpdated.getNome());
         return MinisterioMapper.INSTANCE.toResponse(ministerioUpdated);
     }

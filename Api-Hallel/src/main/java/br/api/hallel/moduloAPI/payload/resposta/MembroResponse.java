@@ -42,6 +42,7 @@ public class MembroResponse {
 
     public MembroResponse toResponse(Membro membro) {
         MembroResponse response = new MembroResponse();
+        response.setId(membro.getId());
         response.setNome(membro.getNome());
         response.setEmail(membro.getEmail());
         response.setRoles(membro.getRoles());

@@ -1,7 +1,11 @@
 package br.api.hallel.moduloAPI.payload.requerimento;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginRequerimento {
 
     @NotBlank

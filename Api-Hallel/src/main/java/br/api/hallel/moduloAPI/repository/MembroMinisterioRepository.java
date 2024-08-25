@@ -39,4 +39,6 @@ public interface MembroMinisterioRepository extends MongoRepository<MembroMinist
     )
     Optional<MembroMinisterioWithInfosResponse> findWithInfosById(
             String idMembroMinisterio);
+
+    Optional<MembroMinisterio> findByMembroId(String membroId);
 }

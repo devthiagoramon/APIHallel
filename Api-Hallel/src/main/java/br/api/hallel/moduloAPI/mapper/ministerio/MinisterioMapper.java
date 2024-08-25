@@ -3,6 +3,7 @@ package br.api.hallel.moduloAPI.mapper.ministerio;
 import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioDTO;
 import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioResponse;
 import br.api.hallel.moduloAPI.model.Ministerio;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -17,9 +18,10 @@ public interface MinisterioMapper {
     MinisterioDTO toDTO(Ministerio ministerio);
     @Mapping(target = ".", source = ".")
     Ministerio toModel(MinisterioDTO ministerioDTO);
-    @Mapping(target = ".", source = ".")
+    @Mapping(target = "id", source = "id")
     MinisterioResponse toResponse(Ministerio ministerio);
-    @Mapping(target = "id",defaultValue = "", ignore = true)
+
+    @BeanMapping( ignoreByDefault = true )
     MinisterioResponse toResponse(MinisterioDTO ministerioDTO);
     @Mapping(target = ".", source = ".")
     List<MinisterioResponse> toListResponse(List<Ministerio> ministerioList);

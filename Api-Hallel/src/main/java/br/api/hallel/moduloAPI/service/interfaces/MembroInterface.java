@@ -36,4 +36,5 @@ public interface MembroInterface {
     List<MembroResponse> listByPage(int pagina);
 
 
+    MembroResponse listMembroByName(String name);
 }

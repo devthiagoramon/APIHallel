@@ -23,39 +23,6 @@ public class EscalaMinisterio {
     private List<String> membrosMinisterioConfimadoIds;
     private List<String> membrosMinisterioNaoConfirmadoIds;
 
-    public EscalaMinisterio(String ministerioId, String eventoId) {
-        this.ministerioId = ministerioId;
-        this.eventoId = eventoId;
-    }
-
-
-    public EscalaMinisterio(String id, String ministerioId,
-                            String eventoId,
-                            List<String> membrosMinisterioConvidadosIds) {
-        this.id = id;
-        this.ministerioId = ministerioId;
-        this.eventoId = eventoId;
-        this.membrosMinisterioConvidadosIds = membrosMinisterioConvidadosIds;
-    }
-
-    public EscalaMinisterio(String ministerioId, String eventoId,
-                            List<String> membrosMinisterioConvidadosIds) {
-        this.ministerioId = ministerioId;
-        this.eventoId = eventoId;
-        this.membrosMinisterioConvidadosIds = membrosMinisterioConvidadosIds;
-    }
-
-    public EscalaMinisterio(String id, String ministerioId,
-                            String eventoId,
-                            List<String> membrosMinisterioConfimadoIds,
-                            List<String> membrosMinisterioNaoConfirmadoIds) {
-        this.id = id;
-        this.ministerioId = ministerioId;
-        this.eventoId = eventoId;
-        this.membrosMinisterioConfimadoIds = membrosMinisterioConfimadoIds;
-        this.membrosMinisterioNaoConfirmadoIds = membrosMinisterioNaoConfirmadoIds;
-    }
-
     public EscalaMinisterio(String id, String ministerioId,
                             String eventoId, Date date) {
         this.id = id;

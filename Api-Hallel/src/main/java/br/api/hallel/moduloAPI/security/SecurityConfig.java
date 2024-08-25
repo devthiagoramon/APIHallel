@@ -58,7 +58,8 @@ public class SecurityConfig {
             };
 
     private final String[] endpointsPermitidasAdm =
-            {"/api/administrador/**"};
+            {"/api/administrador/**",
+             "/api/membros/ministerio/coordenador/**"};
     private final String[] endpointsMembros = {"/api/membros/**",
                                                "/api/eventos/**"};
     private final String[] endpointsAssociado = {"/api/cursos/**",
