@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/api/membros/ministerio")
 @RestController
-@Tag(name = "Ministerio", description = "Endpoints para o ministério")
+@Tag(name = "Membro ministerio", description = "Endpoints para os membros do ministério")
 public class MembroMinisterioController {
 
     @Autowired
@@ -23,8 +23,7 @@ public class MembroMinisterioController {
 
 
     @GetMapping("/token")
-    @Operation(summary = "Valida e gera um token para o coordenador",
-               tags = "Membro")
+    @Operation(summary = "Valida e gera um token para o coordenador")
     public String generateTokenCoordenador(
             @RequestParam(name = "ministerioId") String ministerioId,
             @RequestParam(name = "membroId") String membroId) {

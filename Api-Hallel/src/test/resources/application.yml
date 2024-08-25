@@ -1,3 +1,6 @@
+security:
+  expiration:
+    time-coordenador: 86400000
 server:
   port: 8888
 spring:

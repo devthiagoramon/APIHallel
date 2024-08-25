@@ -13,14 +13,17 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MinisterioIntegrationTest extends BaseIntegrationTest {
+public abstract class MinisterioIntegrationTest
+        extends BaseIntegrationTest {
     public static List<String> dummyMinisterioIds;
 
     @BeforeAll
     public static void setup(
             @Autowired MinisterioService ministerioService) {
+        dummyMinisterioIds = new ArrayList<>();
         mockUpMinisterio(ministerioService);
     }
 
@@ -53,7 +56,10 @@ public class MinisterioIntegrationTest extends BaseIntegrationTest {
                 .addHeader(TestConfig.HEADER_PARAM_CONTENT_TYPE, TestConfig.APPLICATION_JSON)
                 .addHeader(TestConfig.HEADER_PARAM_AUTHORIZATION, membroToken)
                 .setPort(TestConfig.SERVER_PORT)
-                .setBasePath("/api/membros/ministerio/token?ministerioId=" + ministerioId + "&membroId=" + membroId)
+                .setBasePath("/api/membros/ministerio/token")
+                .addParam("ministerioId", ministerioId)
+                .addParam("membroId", membroId)
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
         return RestAssured.given().spec(specification)

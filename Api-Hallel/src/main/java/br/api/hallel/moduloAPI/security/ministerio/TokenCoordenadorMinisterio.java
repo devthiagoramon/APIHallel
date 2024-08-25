@@ -17,15 +17,16 @@ public class TokenCoordenadorMinisterio {
 
 
     private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    @Value("${security.expiration.time-coordenador:default}")
-    private final String expirationTime = "";
+
+    @Value("${security.expiration.time-coordenador}")
+    private Long expirationTime;
 
     public String generateToken(String ministerioId,
                                 String membroId) {
         JwtBuilder builder = Jwts.builder()
                                  .setSubject("Authentication")
                                  .setIssuedAt(new Date())
-                                 .setExpiration(new Date(System.currentTimeMillis() + Long.getLong(expirationTime)))
+                                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                                  .claim("ministerioId", ministerioId)
                                  .claim("membroId", membroId)
                                  .signWith(secretKey);

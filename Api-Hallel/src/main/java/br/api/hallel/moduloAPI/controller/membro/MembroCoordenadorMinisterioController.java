@@ -14,15 +14,20 @@ import java.util.List;
 
 @RequestMapping("/api/membros/ministerio/coordenador")
 @RestController
-@Tag(name = "Ministerio", description = "Endpoints para o ministério")
+@Tag(name = "Coordenador ministerio", description = "Endpoints para os coordenadores de um ministério")
 public class MembroCoordenadorMinisterioController {
 
     @Autowired
     private MinisterioService ministerioService;
 
 
-    @Operation(summary = "Adicionar função ministerio",
-               tags = {"Coordenador", "Função"})
+
+    /**
+     *  Parte de funções de um ministerio
+     * @return FuncaoMinisterio
+     */
+
+    @Operation(summary = "Adicionar função ministerio")
     @PostMapping("/funcao")
     public ResponseEntity<FuncaoMinisterio> createFuncaoMinisterio(
             @RequestBody
@@ -31,8 +36,7 @@ public class MembroCoordenadorMinisterioController {
                              .body(this.ministerioService.createFuncaoMinisterio(funcaoMinisterioDTO));
     }
 
-    @Operation(summary = "Listar funções de um ministerio",
-               tags = {"Coordenador", "Função"})
+    @Operation(summary = "Listar funções de um ministerio")
     @GetMapping("/funcao/ministerio/{idMinisterio}")
     public ResponseEntity<List<FuncaoMinisterio>> listFuncoesMinisterioByIdMinisterio(
             @PathVariable("idMinisterio") String ministerioId) {
@@ -40,8 +44,7 @@ public class MembroCoordenadorMinisterioController {
                              .body(this.ministerioService.listFuncaoOfMinisterio(ministerioId));
     }
 
-    @Operation(summary = "Listar uma função ministerio pelo id",
-               tags = {"Coordenador", "Função"})
+    @Operation(summary = "Listar uma função ministerio pelo id")
     @GetMapping("/funcao/{idFuncaoMinisterio}")
     public ResponseEntity<FuncaoMinisterio> lsitFuncaoById(
             @PathVariable("idFuncaoMinisterio")

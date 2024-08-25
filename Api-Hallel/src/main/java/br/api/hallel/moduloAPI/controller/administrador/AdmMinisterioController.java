@@ -15,15 +15,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/administrador/v1/ministerio")
-@Tag(name = "Ministerio", description = "Endpoints para o ministério")
+@Tag(name = "Administrador ministerio",
+     description = "Endpoints para o administrador em relação a ministério")
 public class AdmMinisterioController {
 
     @Autowired
     public MinisterioService ministerioService;
 
     @PostMapping
-    @Operation(summary = "Criar ministerio para a comunidade",
-               tags = "Administrador")
+    @Operation(summary = "Criar ministerio para a comunidade")
     public ResponseEntity<MinisterioResponse> createMinisterio(
             @RequestBody MinisterioDTO ministerioDTO) {
         return ResponseEntity.ok()
@@ -31,22 +31,20 @@ public class AdmMinisterioController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar os ministerios da comunidade",
-               tags = "Administrador")
+    @Operation(summary = "Listar os ministerios da comunidade")
     public ResponseEntity<List<MinisterioWithCoordsResponse>> listMinisterio() {
         return ResponseEntity.ok(ministerioService.listMinisteriosWithCoords());
     }
 
     @GetMapping("/{idMinisterio}")
-    @Operation(summary = "Listar um ministerio pelo seu id",
-               tags = "Administrador")
+    @Operation(summary = "Listar um ministerio pelo seu id")
     public ResponseEntity<MinisterioResponse> listMinisterioById(
             @PathVariable("idMinisterio") String idMinisterio) {
         return ResponseEntity.ok(ministerioService.listMinisterioById(idMinisterio));
     }
 
     @PutMapping("/{idMinisterio}/edit")
-    @Operation(summary = "Editar ministerio", tags = "Administrador")
+    @Operation(summary = "Editar ministerio")
     public ResponseEntity<MinisterioResponse> updateMinisterio(
             @PathVariable("idMinisterio") String idMinisterio,
             @RequestBody MinisterioDTO ministerioDTO) {
@@ -55,7 +53,7 @@ public class AdmMinisterioController {
     }
 
     @DeleteMapping("/{idMinisterio}")
-    @Operation(summary = "Deletar ministerio", tags = "Administrador")
+    @Operation(summary = "Deletar ministerio")
     public ResponseEntity<?> deleteMinisterio(
             @PathVariable("idMinisterio") String idMinisterio) {
         ministerioService.deleteMinisterio(idMinisterio);
@@ -63,8 +61,7 @@ public class AdmMinisterioController {
     }
 
     @PatchMapping("/{idMinisterio}/edit/coordenadores")
-    @Operation(summary = "Alterar os coordenadores do ministerio",
-               tags = "Administrador")
+    @Operation(summary = "Alterar os coordenadores do ministerio")
     public ResponseEntity<MinisterioResponse> alterarCoordenadoresDoMinisterios(
             @PathVariable("idMinisterio") String idMinisterio,
             @RequestBody
