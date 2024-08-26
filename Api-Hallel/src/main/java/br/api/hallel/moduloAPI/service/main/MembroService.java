@@ -1,5 +1,6 @@
 package br.api.hallel.moduloAPI.service.main;
 
+import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.ContribuicaoEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
@@ -7,6 +8,7 @@ import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
+import br.api.hallel.moduloAPI.repository.AssociadoRepository;
 import br.api.hallel.moduloAPI.repository.ContribuicaoEventoRepository;
 import br.api.hallel.moduloAPI.repository.EventosRepository;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
@@ -34,6 +36,9 @@ public class MembroService implements MembroInterface {
     private EventosRepository eventosRepository;
     @Autowired
     private ContribuicaoEventoRepository contRepository;
+
+    @Autowired
+    private AssociadoRepository associadoRepository;
 
     //Método para criptografar senha
     public BCryptPasswordEncoder passwordEncoder() {
@@ -151,10 +156,12 @@ public class MembroService implements MembroInterface {
 
         //FAZ A BUSCA DO MEMBRO PELO BD, UTILIZANDO SEU ID
         Optional<Membro> optional = this.repository.findById(id);
+        Optional<Associado> optionalAssociado = associadoRepository.findById(id);
+        PerfilResponse perfil = new PerfilResponse();
         if (optional.isPresent()) {
 
             //SE EXISTE, EXIBE AS INFORMAÇÕES DO PERFIL
-            PerfilResponse perfil = new PerfilResponse();
+
             perfil.setNome(optional.get().getNome());
             perfil.setEmail(optional.get().getEmail());
             perfil.setStatus(optional.get().getStatusMembro());
@@ -164,7 +171,25 @@ public class MembroService implements MembroInterface {
             perfil.setCpf(optional.get().getCpf());
             perfil.setTelefone(optional.get().getTelefone());
             return perfil;
+        }if(optionalAssociado.isPresent()){
+
+
+            perfil.setNome(optionalAssociado.get().getNome());
+            perfil.setEmail(optionalAssociado.get().getEmail());
+            perfil.setStatus(optionalAssociado.get().getStatusMembro());
+            perfil.setIdade(optionalAssociado.get().getIdade());
+            perfil.setDataAniversario(optionalAssociado.get().getDataNascimento());
+            perfil.setImage(optionalAssociado.get().getImage());
+            perfil.setCpf(optionalAssociado.get().getCpf());
+            perfil.setTelefone(optionalAssociado.get().getTelefone());
+            return perfil;
+
+
+
         }
+
+
+
         throw new IllegalAccessException("Usuario não encontrado para carregar o perfil");
     }
 

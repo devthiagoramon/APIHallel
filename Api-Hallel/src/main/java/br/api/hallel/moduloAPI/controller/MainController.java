@@ -48,7 +48,7 @@ public class MainController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> logar(@Valid @RequestBody LoginRequerimento loginRequerimento) {
 
-
+        System.out.println(loginRequerimento.toString());
 
         try {
 

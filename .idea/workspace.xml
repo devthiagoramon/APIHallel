@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="teste">
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="conserto de bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -370,7 +372,13 @@
       <workItem from="1724012406961" duration="300000" />
       <workItem from="1724012847996" duration="710000" />
       <workItem from="1724013669996" duration="7053000" />
-      <workItem from="1724192435806" duration="3769000" />
+      <workItem from="1724192435806" duration="4427000" />
+      <workItem from="1724242977431" duration="609000" />
+      <workItem from="1724274664860" duration="3531000" />
+      <workItem from="1724356581789" duration="3782000" />
+      <workItem from="1724447282952" duration="2345000" />
+      <workItem from="1724451399264" duration="150000" />
+      <workItem from="1724710187868" duration="1270000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -628,7 +636,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724008439549</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="conserto de bugs">
+      <option name="closed" value="true" />
+      <created>1724201106736</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1724201106736</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -646,7 +662,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adição da rota de listagem de voluntarios do eventos" />
     <MESSAGE value="arrumei a rota dos destacados" />
     <MESSAGE value="arrumei a inscrição do menbro em um evento" />
     <MESSAGE value="adição dos metodos de doar pra eventos, metodos de listar as doações e adição do metodo de listagem dos detalhes da doção de eveto." />
@@ -671,7 +686,8 @@
     <MESSAGE value="alterações para fazer o git voltar a funcionar" />
     <MESSAGE value="rotas de vizualiação de doações do usuario em eventos" />
     <MESSAGE value="teste" />
-    <option name="LAST_COMMIT_MESSAGE" value="teste" />
+    <MESSAGE value="conserto de bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="conserto de bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

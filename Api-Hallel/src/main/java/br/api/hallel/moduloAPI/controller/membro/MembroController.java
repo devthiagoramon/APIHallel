@@ -32,6 +32,9 @@ public class MembroController {
 
     @GetMapping("/perfil/{id}")
     public ResponseEntity<PerfilResponse> visualizarPerfil(@PathVariable String id) throws IllegalAccessException {
+
+        System.out.println("oi");
+        System.out.println(id);
         PerfilResponse perfil = this.service.visualizarPerfil(id);
         return ResponseEntity.status(200).body(perfil);
     }
