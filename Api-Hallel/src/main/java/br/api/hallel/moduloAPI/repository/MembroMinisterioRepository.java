@@ -10,34 +10,39 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MembroMinisterioRepository extends MongoRepository<MembroMinisterio, String> {
+public interface MembroMinisterioRepository
+        extends MongoRepository<MembroMinisterio, String> {
     List<MembroMinisterio> findByMinisterioId(String ministerioId);
-
-    @Aggregation(
-            pipeline = {
-                "{$addFields: {idMinisterioOID: {$toObjectId: '$ministerioId'},idMembroOID: {$toObjectId: '$membroId'},idsFuncaoMinisterio:{$map: {input: '$funcaoMinisterioIds',as: 'stringId',in: {$toObjectId: '$$stringId'}}}}}",
-                "{$lookup: {from: 'membro',localField: 'idMembroOID',foreignField: '_id',as: 'membro'}}",
-                "{$lookup: {from: 'ministerio',localField: 'idMinisterioOID',foreignField: '_id',as: 'ministerio'}}",
-                "{$lookup: {from: 'funcaoMinisterio',localField: 'funcaoMinisterioIds',foreignField: '_id',as: 'funcaoMinisterio'}}",
-                "{$unwind: '$membro'}",
-                "{$unwind: '$ministerio'}"
-            }
-    )
-    List<MembroMinisterioWithInfosResponse> findWithInfosByMinisterioId(String ministerioId);
-    Optional<MembroMinisterio> findByMinisterioIdAndMembroId(String idMinisterio, String idMembro);
 
     @Aggregation(
             pipeline = {
                     "{$addFields: {idMinisterioOID: {$toObjectId: '$ministerioId'},idMembroOID: {$toObjectId: '$membroId'},idsFuncaoMinisterio:{$map: {input: '$funcaoMinisterioIds',as: 'stringId',in: {$toObjectId: '$$stringId'}}}}}",
                     "{$lookup: {from: 'membro',localField: 'idMembroOID',foreignField: '_id',as: 'membro'}}",
                     "{$lookup: {from: 'ministerio',localField: 'idMinisterioOID',foreignField: '_id',as: 'ministerio'}}",
-                    "{$lookup: {from: 'funcaoMinisterio',localField: 'funcaoMinisterioIds',foreignField: '_id',as: 'funcaoMinisterio'}}",
+                    "{$lookup: {from: 'funcaoMinisterio',localField: 'idsFuncaoMinisterio',foreignField: '_id',as: 'funcaoMinisterio'}}",
+                    "{$match:  {'ministerioId': ?0}}",
                     "{$unwind: '$membro'}",
-                    "{$unwind: '$ministerio'}",
-                    "{$match: {'_id':  ?0}}"
+                    "{$unwind: '$ministerio'}"
             }
     )
-    Optional<MembroMinisterioWithInfosResponse> findWithInfosById(
+    List<MembroMinisterioWithInfosResponse> findWithInfosByMinisterioId(
+            String ministerioId);
+
+    Optional<MembroMinisterio> findByMinisterioIdAndMembroId(
+            String idMinisterio, String idMembro);
+
+    @Aggregation(
+            pipeline = {
+                    "{$addFields: {idMinisterioOID: {$toObjectId: '$ministerioId'},idMembroOID: {$toObjectId: '$membroId'},idsFuncaoMinisterio:{$map: {input: '$funcaoMinisterioIds',as: 'stringId',in: {$toObjectId: '$$stringId'}}}}}",
+                    "{$lookup: {from: 'membro',localField: 'idMembroOID',foreignField: '_id',as: 'membro'}}",
+                    "{$lookup: {from: 'ministerio',localField: 'idMinisterioOID',foreignField: '_id',as: 'ministerio'}}",
+                    "{$lookup: {from: 'funcaoMinisterio',localField: 'idsFuncaoMinisterio',foreignField: '_id',as: 'funcaoMinisterio'}}",
+                    "{$match: {'_id':  ?0}}",
+                    "{$unwind: '$membro'}",
+                    "{$unwind: '$ministerio'}",
+            }
+    )
+    Optional<MembroMinisterioWithInfosResponse> findWithInfosId(
             String idMembroMinisterio);
 
     Optional<MembroMinisterio> findByMembroId(String membroId);

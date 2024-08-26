@@ -1,6 +1,8 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
+import br.api.hallel.moduloAPI.dto.v1.ministerio.DefineFunctionsDTO;
 import br.api.hallel.moduloAPI.dto.v1.ministerio.FuncaoMinisterioDTO;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MembroMinisterioWithInfosResponse;
 import br.api.hallel.moduloAPI.model.FuncaoMinisterio;
 import br.api.hallel.moduloAPI.service.ministerio.MinisterioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,16 +16,17 @@ import java.util.List;
 
 @RequestMapping("/api/membros/ministerio/coordenador")
 @RestController
-@Tag(name = "Coordenador ministerio", description = "Endpoints para os coordenadores de um ministério")
+@Tag(name = "Coordenador ministerio",
+     description = "Endpoints para os coordenadores de um ministério")
 public class MembroCoordenadorMinisterioController {
 
     @Autowired
     private MinisterioService ministerioService;
 
 
-
     /**
-     *  Parte de funções de um ministerio
+     * Parte de funções de um ministerio
+     *
      * @return FuncaoMinisterio
      */
 
@@ -65,8 +68,23 @@ public class MembroCoordenadorMinisterioController {
 
     @Operation(summary = "Deletar uma função ministerio")
     @DeleteMapping("/funcao/{idFuncaoMinisterio}")
-    public ResponseEntity<?> deleteFuncaoMinisterio(@PathVariable("idFuncaoMinisterio") String idFuncaoMinisterio) {
+    public ResponseEntity<?> deleteFuncaoMinisterio(
+            @PathVariable("idFuncaoMinisterio")
+            String idFuncaoMinisterio) {
         this.ministerioService.deleteFuncaoMinisterio(idFuncaoMinisterio);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @Operation(
+            summary = "Definir uma função a um membro do ministerio",
+            description = "Rota para definir um função do ministerio a um membro ministerio")
+    @PatchMapping("/funcao/membroMinisterio")
+    public ResponseEntity<MembroMinisterioWithInfosResponse> defineFuncaoMinisterioToMembroMinisterio(
+            @RequestBody
+            DefineFunctionsDTO defineFunctionsDTO) {
+        return ResponseEntity.ok()
+                             .body(this.ministerioService.defineFunctionsToMembroMinisterio(defineFunctionsDTO));
+    }
+
+
 }

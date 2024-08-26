@@ -56,14 +56,14 @@ public class MinisterioService implements MinisterioInterface {
 
     @Override
     public MinisterioResponse createMinisterio(
-            MinisterioDTO editCoordMinisterioDTO) {
+            MinisterioDTO coordMinisterioDTO) {
         log.info("Creating ministerio...");
-        Ministerio ministerio = this.ministerioRepository.insert(MinisterioMapper.INSTANCE.toModel(editCoordMinisterioDTO));
-        if (editCoordMinisterioDTO.getCoordenadorId() != null) {
-            addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getCoordenadorId(), ministerio.getId(), null));
+        Ministerio ministerio = this.ministerioRepository.insert(MinisterioMapper.INSTANCE.toModel(coordMinisterioDTO));
+        if (coordMinisterioDTO.getCoordenadorId() != null) {
+            addMembroMinisterio(new AddMembroMinisterioDTO(coordMinisterioDTO.getCoordenadorId(), ministerio.getId(), null));
         }
-        if (editCoordMinisterioDTO.getViceCoordenadorId() != null) {
-            addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getViceCoordenadorId(), ministerio.getId(), null));
+        if (coordMinisterioDTO.getViceCoordenadorId() != null) {
+            addMembroMinisterio(new AddMembroMinisterioDTO(coordMinisterioDTO.getViceCoordenadorId(), ministerio.getId(), null));
         }
         log.info("Ministerio id " + ministerio.getId() + " created!");
         return MinisterioMapper.INSTANCE.toResponse(ministerio);
@@ -101,14 +101,14 @@ public class MinisterioService implements MinisterioInterface {
 
         // Se houve alteração de coordenador, alterar o id do ministerio e remover o antigo do ministerio
         if (editCoordMinisterioDTO.getCoordenadorId() != null && !editCoordMinisterioDTO.getCoordenadorId()
-                                                                      .equals(ministerio.getCoordenadorId())) {
+                                                                                        .equals(ministerio.getCoordenadorId())) {
             ministerio.setCoordenadorId(editCoordMinisterioDTO.getCoordenadorId());
             removerMembroMinisterio(membroMinisterioCoord.getId());
             addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getCoordenadorId(), ministerio.getId(), null));
         }
         // Se houve alteração de vice, alterar o id do ministerio e remover o antigo do ministerio
         if (editCoordMinisterioDTO.getViceCoordenadorId() != null && !editCoordMinisterioDTO.getViceCoordenadorId()
-                                                                          .equals(ministerio.getViceCoordenadorId())) {
+                                                                                            .equals(ministerio.getViceCoordenadorId())) {
             ministerio.setViceCoordenadorId(editCoordMinisterioDTO.getViceCoordenadorId());
             removerMembroMinisterio(membroMinisterioVice.getId());
             addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getViceCoordenadorId(), ministerio.getId(), null));
@@ -136,14 +136,14 @@ public class MinisterioService implements MinisterioInterface {
 
         // Se houve alteração de coordenador, alterar o id do ministerio e remover o antigo do ministerio
         if (editCoordMinisterioDTO.getCoordenadorId() != null && !editCoordMinisterioDTO.getCoordenadorId()
-                                                                      .equals(ministerio.getCoordenadorId())) {
+                                                                                        .equals(ministerio.getCoordenadorId())) {
             ministerio.setCoordenadorId(editCoordMinisterioDTO.getCoordenadorId());
             removerMembroMinisterio(membroMinisterioCoord.getId());
             addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getCoordenadorId(), ministerio.getId(), null));
         }
         // Se houve alteração de vice, alterar o id do ministerio e remover o antigo do ministerio
         if (editCoordMinisterioDTO.getViceCoordenadorId() != null && !editCoordMinisterioDTO.getViceCoordenadorId()
-                                                                          .equals(ministerio.getViceCoordenadorId())) {
+                                                                                            .equals(ministerio.getViceCoordenadorId())) {
             ministerio.setViceCoordenadorId(editCoordMinisterioDTO.getViceCoordenadorId());
             removerMembroMinisterio(membroMinisterioVice.getId());
             addMembroMinisterio(new AddMembroMinisterioDTO(editCoordMinisterioDTO.getViceCoordenadorId(), ministerio.getId(), null));
@@ -260,24 +260,28 @@ public class MinisterioService implements MinisterioInterface {
         if (membroMinisterio.getFuncaoMinisterioIds() == null) {
             membroMinisterio.setFuncaoMinisterioIds(new ArrayList<>());
         }
-        defineFunctionsDTO.getIdsFuncaoMinisterioAdd()
-                          .forEach(idAdds -> {
-                              if (!membroMinisterio.getFuncaoMinisterioIds()
-                                                   .contains(idAdds)) {
-                                  membroMinisterio.getFuncaoMinisterioIds()
-                                                  .add(idAdds);
-                              }
-                          });
-        defineFunctionsDTO.getIdsFuncaoMinisterioRemove()
-                          .forEach(idRemove -> {
-                              if (membroMinisterio.getFuncaoMinisterioIds()
-                                                  .contains(idRemove)) {
-                                  membroMinisterio.getFuncaoMinisterioIds()
-                                                  .removeIf(item -> item.equals(idRemove));
-                              }
-                          });
+        if (defineFunctionsDTO.getIdsFuncaoMinisterioAdd() != null) {
+            defineFunctionsDTO.getIdsFuncaoMinisterioAdd()
+                              .forEach(idAdds -> {
+                                  if (!membroMinisterio.getFuncaoMinisterioIds()
+                                                       .contains(idAdds)) {
+                                      membroMinisterio.getFuncaoMinisterioIds()
+                                                      .add(idAdds);
+                                  }
+                              });
+        }
+        if (defineFunctionsDTO.getIdsFuncaoMinisterioRemove() != null) {
+            defineFunctionsDTO.getIdsFuncaoMinisterioRemove()
+                              .forEach(idRemove -> {
+                                  if (membroMinisterio.getFuncaoMinisterioIds()
+                                                      .contains(idRemove)) {
+                                      membroMinisterio.getFuncaoMinisterioIds()
+                                                      .removeIf(item -> item.equals(idRemove));
+                                  }
+                              });
+        }
         membroMinisterioRepository.save(membroMinisterio);
-        return listMembroMinisterioById(membroMinisterio.getId());
+        return listMembroMinisterioById(idMembroMinisterio);
     }
 
     @NotNull
@@ -306,7 +310,7 @@ public class MinisterioService implements MinisterioInterface {
     @Override
     public MembroMinisterioWithInfosResponse listMembroMinisterioById(
             String idMembroMinisterio) {
-        Optional<MembroMinisterioWithInfosResponse> membroMinisterioWithInfosResponse = membroMinisterioRepository.findWithInfosById(idMembroMinisterio);
+        Optional<MembroMinisterioWithInfosResponse> membroMinisterioWithInfosResponse = membroMinisterioRepository.findWithInfosId(idMembroMinisterio);
         if (membroMinisterioWithInfosResponse.isEmpty()) {
             throw new RuntimeException("Can't find user ministerio by this id");
         }

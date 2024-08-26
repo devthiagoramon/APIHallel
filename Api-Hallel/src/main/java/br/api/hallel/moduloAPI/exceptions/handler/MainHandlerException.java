@@ -71,4 +71,12 @@ public class MainHandlerException {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiError> handleValidationExceptions(RuntimeException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ApiError error = new ApiError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), new Date());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
 }

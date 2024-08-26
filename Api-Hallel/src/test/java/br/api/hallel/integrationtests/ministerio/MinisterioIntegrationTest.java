@@ -45,8 +45,7 @@ public abstract class MinisterioIntegrationTest
 
         dummyMinisterioIds.add(ministerioResponse1.getId());
         dummyMinisterioIds.add(ministerioResponse2.getId());
-
-
+        
     }
 
     public static String generateCoordToken(String membroToken,

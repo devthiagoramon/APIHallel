@@ -3,7 +3,10 @@ package br.api.hallel.integrationtests.ministerio.controller;
 import br.api.hallel.integrationtests.config.TestConfig;
 import br.api.hallel.integrationtests.ministerio.MinisterioIntegrationTest;
 import br.api.hallel.integrationtests.ministerio.dto.FuncaoMinisterioDTO;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.DefineFunctionsDTO;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MembroMinisterioWithInfosResponse;
 import br.api.hallel.moduloAPI.model.FuncaoMinisterio;
+import br.api.hallel.moduloAPI.service.ministerio.MinisterioService;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -11,9 +14,11 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -22,6 +27,9 @@ class FuncaoMinisterioControllerTest
 
     private static FuncaoMinisterioDTO dto;
     private static String funcaoministerio1Id;
+
+    @Autowired
+    private MinisterioService ministerioService;
 
     @BeforeAll
     public static void setUp() {
@@ -217,7 +225,74 @@ class FuncaoMinisterioControllerTest
 
     }
 
+    @Test
     @Order(5)
+    void defineFunctionToMembroMinisterio() throws IOException {
+        String coordMinisterio1Token = generateCoordToken(membrosTest.get(0)
+                                                                     .getToken(), dummyMinisterioIds.get(0), membrosTest.get(0)
+                                                                                                                        .getId());
+        specification = new RequestSpecBuilder()
+                .addHeader(TestConfig.HEADER_PARAM_CONTENT_TYPE, TestConfig.APPLICATION_JSON)
+                .addHeader(TestConfig.HEADER_PARAM_AUTHORIZATION, membrosTest.get(0)
+                                                                             .getToken())
+                .addHeader(TestConfig.HEADER_PARAM_COORDENADOR_TOKEN, coordMinisterio1Token)
+                .setPort(TestConfig.SERVER_PORT)
+                .setBasePath("/api/membros/ministerio/coordenador/funcao/membroMinisterio")
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
+                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+                .build();
+
+        DefineFunctionsDTO defineFunctionsDTO = new DefineFunctionsDTO();
+        var membros = ministerioService.listMembrosFromMinisterio(dummyMinisterioIds.get(0));
+
+        defineFunctionsDTO.setIdMinisterioMembro(membros.get(0)
+                                                        .getId());
+        ArrayList<String> idAdd = new ArrayList<>();
+        idAdd.add(funcaoministerio1Id);
+        defineFunctionsDTO.setIdsFuncaoMinisterioAdd(idAdd);
+        var contentAdd = RestAssured.
+                given().spec(specification)
+                .body(defineFunctionsDTO)
+                .patch().then().statusCode(200)
+                .extract().body().asString();
+
+        MembroMinisterioWithInfosResponse responseAdd = mapper
+                .readValue(contentAdd, MembroMinisterioWithInfosResponse.class);
+
+        assertThat(responseAdd.getId()).isNotNull();
+        assertThat(responseAdd.getId()).isEqualTo(membros.get(0)
+                                                         .getId());
+        assertThat(responseAdd.getFuncaoMinisterio()).isNotEmpty();
+        assertThat(responseAdd.getFuncaoMinisterio()).hasSize(1);
+        assertThat(responseAdd.getFuncaoMinisterio()
+                              .get(0)).isNotNull();
+        assertThat(responseAdd.getFuncaoMinisterio().get(0)
+                              .getId()).isEqualTo(funcaoministerio1Id);
+        assertThat(responseAdd.getFuncaoMinisterio().get(0)
+                              .getNome()).isEqualTo("Cantor");
+
+        defineFunctionsDTO.setIdMinisterioMembro(membros.get(0)
+                                                        .getId());
+        ArrayList<String> idDelete = new ArrayList<>();
+        idDelete.add(funcaoministerio1Id);
+        defineFunctionsDTO.setIdsFuncaoMinisterioRemove(idDelete);
+        defineFunctionsDTO.setIdsFuncaoMinisterioAdd(null);
+        var contentRemove = RestAssured.
+                given().spec(specification)
+                .body(defineFunctionsDTO)
+                .patch().then().statusCode(200)
+                .extract().body().asString();
+
+        MembroMinisterioWithInfosResponse responseRemove = mapper
+                .readValue(contentRemove, MembroMinisterioWithInfosResponse.class);
+
+        assertThat(responseRemove.getId()).isNotNull();
+        assertThat(responseRemove.getId()).isEqualTo(membros.get(0)
+                                                            .getId());
+        assertThat(responseRemove.getFuncaoMinisterio()).isEmpty();
+    }
+
+    @Order(6)
     @Test
     void deleteFuncao() throws IOException {
         String coordMinisterio1Token = generateCoordToken(membrosTest.get(0)
