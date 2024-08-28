@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,4 +20,7 @@ public class MinisterioDTO {
     private String nome;
     private String coordenadorId;
     private String viceCoordenadorId;
+    private String descricao;
+    private String imagem;
+    private List<String> objetivos;
 }

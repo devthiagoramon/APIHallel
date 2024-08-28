@@ -11,6 +11,6 @@ public interface MembroMinisterioMapper {
 
     public MembroMinisterioMapper INSTANCE = Mappers.getMapper(MembroMinisterioMapper.class);
 
-    @Mapping(target = "membroId", source = "membroId")
+    @Mapping(target = ".", source = ".")
     MembroMinisterio toModel(AddMembroMinisterioDTO dto);
 }

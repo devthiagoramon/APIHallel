@@ -2,6 +2,8 @@ package br.api.hallel.moduloAPI.dto.v1.ministerio;
 
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -12,5 +14,7 @@ public class MinisterioResponse {
     private String nome;
     private String coordenadorId;
     private String viceCoordenadorId;
-
+    private String descricao;
+    private String imagem;
+    private List<String> objetivos;
 }

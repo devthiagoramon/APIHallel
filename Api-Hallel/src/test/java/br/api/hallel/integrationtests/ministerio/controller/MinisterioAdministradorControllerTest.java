@@ -29,7 +29,12 @@ public class MinisterioAdministradorControllerTest extends
         MinisterioDTO ministerioDTO1 = new MinisterioDTO();
         ministerioDTO1.setNome("Dança");
         ministerioDTO1.setCoordenadorId(membrosTest.get(0).getId());
-        ministerioDTO1.setViceCoordenadorId(membrosTest.get(1).getId());
+        ministerioDTO1.setViceCoordenadorId(membrosTest.get(1)
+                                                       .getId());
+        ministerioDTO1.setImagem("...");
+        ministerioDTO1.setDescricao("Ministerio de dança da comunidade!");
+        ministerioDTO1.setObjetivos(List.of("Animar a comunidade", "Divertir a comunidade"));
+
         specification = new RequestSpecBuilder()
                 .setBasePath("/api/administrador/v1/ministerio")
                 .setPort(TestConfig.SERVER_PORT)
@@ -51,9 +56,18 @@ public class MinisterioAdministradorControllerTest extends
         assertThat(ministerio.getNome()).isNotEmpty();
         assertThat(ministerio.getNome()).isEqualTo("Dança");
         assertThat(ministerio.getCoordenadorId()).isNotEmpty();
-        assertThat(ministerio.getCoordenadorId()).isEqualTo(membrosTest.get(0).getId());
+        assertThat(ministerio.getCoordenadorId()).isEqualTo(membrosTest.get(0)
+                                                                       .getId());
         assertThat(ministerio.getViceCoordenadorId()).isNotEmpty();
-        assertThat(ministerio.getViceCoordenadorId()).isEqualTo(membrosTest.get(1).getId());
+        assertThat(ministerio.getViceCoordenadorId()).isEqualTo(membrosTest.get(1)
+                                                                           .getId());
+        assertThat(ministerio.getImagem()).isNotEmpty();
+        assertThat(ministerio.getDescricao()).isNotEmpty();
+        assertThat(ministerio.getObjetivos()).isNotEmpty();
+        assertThat(ministerio.getImagem()).isEqualTo("...");
+        assertThat(ministerio.getDescricao()).isEqualTo("Ministerio de dança da comunidade!");
+        assertThat(ministerio.getObjetivos()).hasSize(2);
+        assertThat(ministerio.getObjetivos()).contains("Animar a comunidade", "Divertir a comunidade");
         id_ministerio1 = ministerio.getId();
     }
 
@@ -78,7 +92,7 @@ public class MinisterioAdministradorControllerTest extends
         var ministerioCoords = mapper.readValue(content, List.class);
 
         assertThat(ministerioCoords).isNotNull();
-        assertThat(ministerioCoords.size()).isEqualTo(3);
+        assertThat(ministerioCoords.size()).isEqualTo(2);
         assertThat(ministerioCoords.get(0)).isNotNull();
 
     }
@@ -109,9 +123,11 @@ public class MinisterioAdministradorControllerTest extends
         assertThat(ministerioResponse.getNome()).isEqualTo("Dança");
         assertThat(ministerioResponse.getId()).isEqualTo(id_ministerio1);
         assertThat(ministerioResponse.getCoordenadorId()).isNotEmpty();
-        assertThat(ministerioResponse.getCoordenadorId()).isEqualTo(membrosTest.get(0).getId());
+        assertThat(ministerioResponse.getCoordenadorId()).isEqualTo(membrosTest.get(0)
+                                                                               .getId());
         assertThat(ministerioResponse.getViceCoordenadorId()).isNotEmpty();
-        assertThat(ministerioResponse.getViceCoordenadorId()).isEqualTo(membrosTest.get(1).getId());
+        assertThat(ministerioResponse.getViceCoordenadorId()).isEqualTo(membrosTest.get(1)
+                                                                                   .getId());
 
     }
 
@@ -129,8 +145,14 @@ public class MinisterioAdministradorControllerTest extends
 
         MinisterioDTO ministerioDTOEdit = new MinisterioDTO();
         ministerioDTOEdit.setNome("Ministerio da Dança");
-        ministerioDTOEdit.setCoordenadorId(membrosTest.get(0).getId());
-        ministerioDTOEdit.setViceCoordenadorId(membrosTest.get(1).getId());
+        ministerioDTOEdit.setCoordenadorId(membrosTest.get(0)
+                                                      .getId());
+        ministerioDTOEdit.setViceCoordenadorId(membrosTest.get(1)
+                                                          .getId());
+
+        ministerioDTOEdit.setImagem("...");
+        ministerioDTOEdit.setDescricao("Ministerio de dança da comunidade!");
+        ministerioDTOEdit.setObjetivos(List.of("Animar a comunidade", "Divertir a comunidade"));
 
         var content = RestAssured.given()
                                  .spec(specification)
@@ -146,9 +168,18 @@ public class MinisterioAdministradorControllerTest extends
         assertThat(ministerioResponse.getNome()).isNotEmpty();
         assertThat(ministerioResponse.getNome()).isEqualTo("Ministerio da Dança");
         assertThat(ministerioResponse.getCoordenadorId()).isNotEmpty();
-        assertThat(ministerioResponse.getCoordenadorId()).isEqualTo(membrosTest.get(0).getId());
+        assertThat(ministerioResponse.getCoordenadorId()).isEqualTo(membrosTest.get(0)
+                                                                               .getId());
         assertThat(ministerioResponse.getViceCoordenadorId()).isNotEmpty();
-        assertThat(ministerioResponse.getViceCoordenadorId()).isEqualTo(membrosTest.get(1).getId());
+        assertThat(ministerioResponse.getViceCoordenadorId()).isEqualTo(membrosTest.get(1)
+                                                                                   .getId());
+        assertThat(ministerioResponse.getImagem()).isNotEmpty();
+        assertThat(ministerioResponse.getDescricao()).isNotEmpty();
+        assertThat(ministerioResponse.getObjetivos()).isNotEmpty();
+        assertThat(ministerioResponse.getImagem()).isEqualTo("...");
+        assertThat(ministerioResponse.getDescricao()).isEqualTo("Ministerio de dança da comunidade!");
+        assertThat(ministerioResponse.getObjetivos()).hasSize(2);
+        assertThat(ministerioResponse.getObjetivos()).contains("Animar a comunidade", "Divertir a comunidade");
 
     }
 
@@ -157,8 +188,10 @@ public class MinisterioAdministradorControllerTest extends
     void alterarCoordenadores() throws IOException {
 
         EditCoordMinisterioDTO editCoordMinisterioDTO = new EditCoordMinisterioDTO();
-        editCoordMinisterioDTO.setCoordenadorId(membrosTest.get(1).getId());
-        editCoordMinisterioDTO.setViceCoordenadorId(membrosTest.get(2).getId());
+        editCoordMinisterioDTO.setCoordenadorId(membrosTest.get(1)
+                                                           .getId());
+        editCoordMinisterioDTO.setViceCoordenadorId(membrosTest.get(2)
+                                                               .getId());
 
         specification = new RequestSpecBuilder()
                 .setBasePath("/api/administrador/v1/ministerio/" + id_ministerio1 + "/edit/coordenadores")
@@ -181,9 +214,11 @@ public class MinisterioAdministradorControllerTest extends
         assertThat(ministerioResponse.getNome()).isNotEmpty();
         assertThat(ministerioResponse.getNome()).isEqualTo("Ministerio da Dança");
         assertThat(ministerioResponse.getCoordenadorId()).isNotEmpty();
-        assertThat(ministerioResponse.getCoordenadorId()).isEqualTo(membrosTest.get(1).getId());
+        assertThat(ministerioResponse.getCoordenadorId()).isEqualTo(membrosTest.get(1)
+                                                                               .getId());
         assertThat(ministerioResponse.getViceCoordenadorId()).isNotEmpty();
-        assertThat(ministerioResponse.getViceCoordenadorId()).isEqualTo(membrosTest.get(2).getId());
+        assertThat(ministerioResponse.getViceCoordenadorId()).isEqualTo(membrosTest.get(2)
+                                                                                   .getId());
     }
 
     @Order(6)
