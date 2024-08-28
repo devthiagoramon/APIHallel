@@ -464,12 +464,13 @@ public class MinisterioService implements MinisterioInterface {
         NaoConfirmadoEscalaMinisterio naoConfirmadoEscalaMinisterio =
                 listNaoConfirmadoEscalaMinisterioById(idNaoConfirmadoEscalaMinisterio);
         this.naoConfirmadoEscalaMinisterioRepository.delete(naoConfirmadoEscalaMinisterio);
-        log.info("Nao confirmado id " + naoConfirmadoEscalaMinisterio.getId() + " deleted");
+        log.info("Nao confirmado id {} deleted", naoConfirmadoEscalaMinisterio.getId());
     }
 
     @Override
-    public EventosShortResponse listEventosThatMinisterioIsIn(
+    public List<EventosShortResponse> listEventosThatMinisterioIsIn(
             String ministerioId) {
+        log.info("List eventos that ministerio {} is participating! ", ministerioId);
         return this.eventosRepository.findAllByMinisteriosAssociadosContains(ministerioId);
     }
 
@@ -577,6 +578,12 @@ public class MinisterioService implements MinisterioInterface {
     public List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDate(
             Date start, Date end) {
         return this.escalaMinisterioRepository.findAllWithEventosInfosRangeDate(start, end);
+    }
+
+    @Override
+    public List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDateByMinisterioId(
+            String idMinisterio, Date start, Date end) {
+        return this.escalaMinisterioRepository.findAllWithEventosInfosRangeDateByMinisterioId(idMinisterio, start, end);
     }
 
     @Override

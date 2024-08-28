@@ -1,9 +1,6 @@
 package br.api.hallel.moduloAPI.controller.administrador;
 
-import br.api.hallel.moduloAPI.dto.v1.ministerio.EditCoordMinisterioDTO;
-import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioDTO;
-import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioResponse;
-import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioWithCoordsResponse;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.*;
 import br.api.hallel.moduloAPI.service.ministerio.MinisterioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -68,6 +66,22 @@ public class AdmMinisterioController {
             EditCoordMinisterioDTO editCoordMinisterioDTO) {
         return ResponseEntity.ok()
                              .body(this.ministerioService.alterarCoordenadoresInMinisterio(idMinisterio, editCoordMinisterioDTO));
+    }
+
+    @GetMapping("/escala")
+    @Operation(summary = "Listar as escalas dos ministerios")
+    public ResponseEntity<List<EscalaMinisterioWithEventoInfoResponse>> listarEscalasDosMinisterios() {
+        return ResponseEntity.ok(this.ministerioService.listEscalaMinisterio());
+    }
+
+    @GetMapping("/escala/date")
+    @Operation(
+            summary = "Listar as escalas dos ministerios em um intervalo de tempo")
+    public ResponseEntity<List<EscalaMinisterioWithEventoInfoResponse>> listarEscalasDosMinisteriosRangeDate(
+            @RequestParam(name = "dateStart")
+            Date dateStart,
+            @RequestParam(name = "dateEnd") Date dateEnd) {
+        return ResponseEntity.ok(this.ministerioService.listEscalaMinisterioRangeDate(dateStart, dateEnd));
     }
 
 }

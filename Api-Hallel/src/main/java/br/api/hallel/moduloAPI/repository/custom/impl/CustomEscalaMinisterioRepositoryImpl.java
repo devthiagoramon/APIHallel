@@ -185,4 +185,35 @@ public class CustomEscalaMinisterioRepositoryImpl
         return mongoTemplate.aggregate(aggregation, "escalaMinisterio", EscalaMinisterioWithEventoInfoResponse.class)
                             .getMappedResults();
     }
+
+    @Override
+    public List<EscalaMinisterioWithEventoInfoResponse> findAllWithEventosInfosRangeDateByMinisterioId(
+            String idMinisterio, Date start, Date end) {
+        AddFieldsOperation addFieldsOperation = AddFieldsOperation.addField("eventoIdOID")
+                                                                  .withValue(ConvertOperators.ToObjectId.toObjectId("$eventoId"))
+                                                                  .build();
+
+        LookupOperation lookupEvento = LookupOperation.newLookup()
+                                                      .from("eventos")
+                                                      .localField("eventoIdOID")
+                                                      .foreignField("_id")
+                                                      .as("evento");
+
+        MatchOperation matchOperation = Aggregation.match(Criteria.where("$ministerioId")
+                                                                  .is(idMinisterio));
+
+        MatchOperation matchDateOperation = Aggregation.match(Criteria.where("date")
+                                                                      .gte(start)
+                                                                      .lt(end));
+
+        UnwindOperation unwindOperation = UnwindOperation.newUnwind()
+                                                         .path("$evento")
+                                                         .noArrayIndex()
+                                                         .skipNullAndEmptyArrays();
+
+        Aggregation aggregation = Aggregation.newAggregation(addFieldsOperation, lookupEvento, matchOperation, matchDateOperation, unwindOperation);
+
+        return mongoTemplate.aggregate(aggregation, "escalaMinisterio", EscalaMinisterioWithEventoInfoResponse.class)
+                            .getMappedResults();
+    }
 }

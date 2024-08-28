@@ -16,5 +16,5 @@ public interface EventosRepository extends MongoRepository<Eventos, String> {
 
     List<Eventos> findAllByOrderByDateAsc();
 
-    EventosShortResponse findAllByMinisteriosAssociadosContains(String idMinisterio);
+    List<EventosShortResponse> findAllByMinisteriosAssociadosContains(String idMinisterio);
 }

@@ -87,11 +87,12 @@ interface MinisterioInterface {
     void deleteNaoConfirmadoEscalaMinisterio(
             String idNaoConfirmadoEscalaMinisterio);
 
-    EventosShortResponse listEventosThatMinisterioIsIn(String ministerioId);
+    List<EventosShortResponse> listEventosThatMinisterioIsIn(String ministerioId);
 
     EscalaMinisterioResponse createEscalaMinisterio(
             Eventos evento, String ministerioId);
 
+    //
     EscalaMinisterioResponse alterarEscalaConfirmandoMembroMinisterio(
             String idEscala, List<String> idsMembrosMinisterio);
 
@@ -109,6 +110,8 @@ interface MinisterioInterface {
 
     List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDate(
             Date start, Date end);
+
+    List<EscalaMinisterioWithEventoInfoResponse> listEscalaMinisterioRangeDateByMinisterioId(String idMinisterio, Date start, Date end);
 
     EscalaMinisterioResponseWithInfos listEscalaMinisterioByIdWithInfos(
             String idEscalaMinisterio);

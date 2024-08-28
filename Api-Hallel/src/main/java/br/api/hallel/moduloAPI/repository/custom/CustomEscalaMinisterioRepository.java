@@ -22,4 +22,9 @@ public interface CustomEscalaMinisterioRepository {
             String membroId,
             Date start,
             Date end);
+
+    List<EscalaMinisterioWithEventoInfoResponse> findAllWithEventosInfosRangeDateByMinisterioId(
+            String idMinisterio,
+            Date start,
+            Date end);
 }
