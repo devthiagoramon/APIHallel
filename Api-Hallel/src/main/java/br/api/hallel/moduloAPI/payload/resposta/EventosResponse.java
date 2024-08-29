@@ -88,7 +88,9 @@ public class EventosResponse {
                 getDespesas(),
                 getPalestrantes(),
                 getPagamentoEntradaEventos(),
-                getValorDoEvento()
+                getValorDoEvento(),
+                getValorDescontoMembro(),
+                getValorDescontoAssociado()
                 );
     }
 }

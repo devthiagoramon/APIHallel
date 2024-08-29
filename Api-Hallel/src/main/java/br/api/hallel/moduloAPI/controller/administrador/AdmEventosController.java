@@ -107,7 +107,7 @@ public class AdmEventosController {
 
         request.setDate(data2);
 
-        System.out.println(request.toString());
+
         return this.eventosService.updateEventoById(id, request);
     }
 

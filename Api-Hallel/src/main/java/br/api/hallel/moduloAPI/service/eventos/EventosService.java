@@ -337,6 +337,9 @@ public class EventosService implements EventosInterface {
         eventoOld.setHorario(request.getHorario());
         eventoOld.setLocalEvento(optional.get());
         eventoOld.setDestaque(request.getDestaque());
+        eventoOld.setValorDoEvento(request.getValorDoEvento());
+        eventoOld.setValorDescontoMembro(request.getValorDescontoMembro());
+        eventoOld.setValorDescontoAssociado(request.getValorDescontoAssociado());
 
         if (request.getPalestrantes() != null) {
             eventoOld.setPalestrantes(request.getPalestrantes());
@@ -344,6 +347,7 @@ public class EventosService implements EventosInterface {
 
         Eventos eventosResponse = this.repository.save(eventoOld.toEvento());
 
+        log.info(eventoOld.toString());
         log.info("Evento Atualizado!");
 
         return new EventosResponse().toEventosResponse(eventosResponse);
