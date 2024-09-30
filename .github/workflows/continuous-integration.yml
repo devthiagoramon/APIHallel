@@ -3,9 +3,9 @@ name: Continuous Integration with Github Actions
 
 on:
   push:
-    branches: ["production"]
+    branches: ["main"]
   pull_request:
-    branches: ["production"]
+    branches: ["main"]
 
 jobs:
   build:
