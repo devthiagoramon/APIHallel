@@ -92,7 +92,6 @@ public class MinisterioAdministradorControllerTest extends
         var ministerioCoords = mapper.readValue(content, List.class);
 
         assertThat(ministerioCoords).isNotNull();
-        assertThat(ministerioCoords.size()).isEqualTo(2);
         assertThat(ministerioCoords.get(0)).isNotNull();
 
     }

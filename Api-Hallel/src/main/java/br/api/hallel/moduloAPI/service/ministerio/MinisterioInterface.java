@@ -62,6 +62,8 @@ interface MinisterioInterface {
 
     void removerMembroMinisterio(String idMembroMinisterio);
 
+    void removerMembroMinisterio(MembroMinisterio membroMinisterio);
+
     StatusParticipacaoEscalaMinisterio getStatusParticipacaoEscala(
             String idMembroMinisterio, String idEscalaMinisterio);
 

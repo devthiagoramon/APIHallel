@@ -3,10 +3,13 @@ package br.api.hallel.integrationtests;
 import br.api.hallel.integrationtests.config.TestConfig;
 import br.api.hallel.integrationtests.ministerio.dto.MembroTestDTO;
 import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioDTO;
+import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.ERole;
+import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.model.Role;
 import br.api.hallel.moduloAPI.payload.requerimento.AdministradorLoginRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.CadAdministradorRequerimento;
+import br.api.hallel.moduloAPI.payload.requerimento.LoginRequerimento;
 import br.api.hallel.moduloAPI.payload.requerimento.SolicitarCadastroRequerimento;
 import br.api.hallel.moduloAPI.payload.resposta.AuthenticationResponse;
 import br.api.hallel.moduloAPI.repository.MembroRepository;
@@ -49,7 +52,8 @@ public abstract class BaseIntegrationTest {
                              @Autowired MembroService membroService,
                              @Autowired
                              MainService mainService, @Autowired
-                             MinisterioService ministerioService) {
+                             MinisterioService ministerioService) throws
+            AssociadoNotFoundException {
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8888;
 
@@ -71,11 +75,19 @@ public abstract class BaseIntegrationTest {
 
     public static void mockMembros(MainService mainService,
                                    MembroService membroService,
-                                   int quantidade) {
+                                   int quantidade) throws
+            AssociadoNotFoundException {
         for (int i = 0; i < quantidade; i++) {
             String nome = "membro" + (i + 1);
             String senha = "membro" + (i + 1);
             String email = "membro" + (i + 1);
+            Membro membroByEmail = membroService.findByEmail(email);
+            if (membroByEmail != null){
+                var response = mainService.logar(new LoginRequerimento(membroByEmail.getEmail(), senha));
+                var membro = membroService.listMembroByName(nome);
+                membrosTest.add(new MembroTestDTO(response.getToken(), membro.getId()));
+                continue;
+            }
             var response = mainService.solicitarCadastro(
                     new SolicitarCadastroRequerimento(nome, senha, email));
             var membro = membroService.listMembroByName(nome);

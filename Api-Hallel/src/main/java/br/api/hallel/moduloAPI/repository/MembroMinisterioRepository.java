@@ -45,5 +45,5 @@ public interface MembroMinisterioRepository
     Optional<MembroMinisterioWithInfosResponse> findWithInfosId(
             String idMembroMinisterio);
 
-    Optional<MembroMinisterio> findByMembroId(String membroId);
+    List<MembroMinisterio> findByMembroId(String membroId);
 }

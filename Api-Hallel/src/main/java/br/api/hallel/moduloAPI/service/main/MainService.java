@@ -32,6 +32,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -64,7 +66,7 @@ public class MainService implements MainInterface {
         ELE PODE LOGAR COMO MEMBRO OU COMO ADMISTRADOR
     * */
 
-    public void atualizarTokenMembro(Membro membro, String token){
+    public void atualizarTokenMembro(Membro membro, String token) {
         membro.setToken(token);
         membroRepository.save(membro);
     }
@@ -209,10 +211,13 @@ public class MainService implements MainInterface {
             EmailJaCadastradoException {
         //ADICIONA A ROLE (FUNÇÃO) QUE O USUÁRIO É, NO CASO, DE MEMBRO.
         HashSet<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByName(
-                ERole.ROLE_USER).isPresent() ?
-                roleRepository.findByName(
-                        ERole.ROLE_USER).get() : null);
+        List<Role> rolesBD = roleRepository.findAll();
+
+        rolesBD.forEach(role -> {
+            if (role.getName() == ERole.ROLE_USER) {
+                roles.add(role);
+            }
+        });
 
         var membro = new Membro();
         membro.setNome(solicitarCadastroRequerimento.getNome());

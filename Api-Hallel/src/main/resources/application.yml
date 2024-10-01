@@ -25,3 +25,5 @@ springdoc:
   swagger-ui:
     path: "/api-docs-ui"
     operations-sorter: method
+server:
+  port: 80
