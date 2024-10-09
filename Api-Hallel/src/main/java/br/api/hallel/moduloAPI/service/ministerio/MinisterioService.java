@@ -446,6 +446,12 @@ public class MinisterioService implements MinisterioInterface {
     }
 
     @Override
+    public List<MinisterioResponse> listMinisterioThatMembroParticipateByMembroId(
+            String idMembro) {
+        return this.membroMinisterioRepository.findMinisterioByMembroId(idMembro);
+    }
+
+    @Override
     public NaoConfirmadoEscalaMinisterio createNaoConfirmadoEscalaMinisterio(
             NaoConfirmarEscalaDTO naoConfirmarEscalaDTO) {
         log.info("Creating nao confirmado escala... ");

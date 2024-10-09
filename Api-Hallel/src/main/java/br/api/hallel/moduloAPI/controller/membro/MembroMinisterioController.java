@@ -1,6 +1,7 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
 import br.api.hallel.moduloAPI.dto.v1.ministerio.EscalaMinisterioWithEventoInfoResponse;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioResponse;
 import br.api.hallel.moduloAPI.dto.v1.ministerio.NaoConfirmarEscalaDTO;
 import br.api.hallel.moduloAPI.dto.v1.ministerio.StatusParticipacaoEscalaMinisterio;
 import br.api.hallel.moduloAPI.model.NaoConfirmadoEscalaMinisterio;
@@ -121,5 +122,14 @@ public class MembroMinisterioController {
             Date dateStart,
             @RequestParam(name = "dateEnd") Date dateEnd) {
         return ResponseEntity.ok(this.ministerioService.listEscalaMinisterioConfirmedMembro(idMembroMinisterio, dateStart, dateEnd));
+    }
+
+    @GetMapping("/ministerios/membroParticipate/{idMembro}")
+    @Operation(
+            summary = "Listar os ministerios que um membro participa pelo seu id"
+    )
+    public ResponseEntity<List<MinisterioResponse>> listarMinisterioPeloMembroId(
+            @PathVariable("idMembro") String idMembro) {
+        return ResponseEntity.ok(this.ministerioService.listMinisterioThatMembroParticipateByMembroId(idMembro));
     }
 }

@@ -73,6 +73,8 @@ interface MinisterioInterface {
     Boolean recusarParticipacaoEscala(
             NaoConfirmarEscalaDTO naoConfirmarEscalaDTO);
 
+    List<MinisterioResponse> listMinisterioThatMembroParticipateByMembroId(String idMembro);
+
     NaoConfirmadoEscalaMinisterio createNaoConfirmadoEscalaMinisterio(
             NaoConfirmarEscalaDTO naoConfirmarEscalaDTO);
 

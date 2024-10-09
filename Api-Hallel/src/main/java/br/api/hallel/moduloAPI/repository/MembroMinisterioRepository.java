@@ -1,6 +1,7 @@
 package br.api.hallel.moduloAPI.repository;
 
 import br.api.hallel.moduloAPI.dto.v1.ministerio.MembroMinisterioWithInfosResponse;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioResponse;
 import br.api.hallel.moduloAPI.model.MembroMinisterio;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -46,4 +47,24 @@ public interface MembroMinisterioRepository
             String idMembroMinisterio);
 
     List<MembroMinisterio> findByMembroId(String membroId);
+
+    @Aggregation(
+            pipeline = {
+                    "{$match: {'membroId':  ?0}}",
+                    "{$addFields: {idMinisterioOID: {$toObjectId: '$ministerioId'}}}",
+                    "{$lookup: {from: 'ministerios', localField: 'idMinisterioOID', foreignField: '_id', as: 'ministerio'}}",
+                    "{$project: {"
+                            + "'_id': 0,"
+                            + "'membroId': 0,"
+                            + "'ministerio.nome': 1,"
+                            + "'ministerio.coordenadorId': 1,"
+                            + "'ministerio.viceCoordenadorId': 1,"
+                            + "'ministerio.descricao': 1,"
+                            + "'ministerio.imagem': 1,"
+                            + "'ministerio.objetivos': 1"
+                            + "}}"
+            }
+    )
+    List<MinisterioResponse> findMinisterioByMembroId(
+            String idMembro);
 }
