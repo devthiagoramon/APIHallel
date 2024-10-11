@@ -74,5 +74,14 @@ public class MinisterioMapper {
         return MAPPER.map(escalaMinisterio, EscalaMinisterioResponse.class);
     }
 
+    public static MinisterioPublicResponse toMinisterioPublicResponse(Ministerio ministerio){
+        return MAPPER.map(ministerio, MinisterioPublicResponse.class);
+    }
 
+    public static List<MinisterioPublicResponse> toMinisterioPublicResponseList(
+            List<Ministerio> all) {
+        List<MinisterioPublicResponse> response = new ArrayList<>();
+        all.forEach(m -> response.add(toMinisterioPublicResponse(m)));
+        return response;
+    }
 }

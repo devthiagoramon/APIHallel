@@ -124,7 +124,7 @@ public class MembroMinisterioController {
         return ResponseEntity.ok(this.ministerioService.listEscalaMinisterioConfirmedMembro(idMembroMinisterio, dateStart, dateEnd));
     }
 
-    @GetMapping("/ministerios/membroParticipate/{idMembro}")
+    @GetMapping("/membroParticipate/{idMembro}")
     @Operation(
             summary = "Listar os ministerios que um membro participa pelo seu id"
     )

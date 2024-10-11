@@ -8,7 +8,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MinisterioRepository extends MongoRepository<Ministerio, String> {
+public interface MinisterioRepository
+        extends MongoRepository<Ministerio, String> {
 
     @Aggregation(pipeline = {
             "{$addFields: {coordIdOID:  {$toObjectId: '$coordenadorId'}, viceCoordIdOID:  {$toObjectId: '$viceCoordenadorId'}}}",
@@ -17,4 +18,16 @@ public interface MinisterioRepository extends MongoRepository<Ministerio, String
             "{$unwind: '$coordenador'}",
             "{$unwind: '$viceCoordenador'}"})
     AggregationResults<MinisterioWithCoordsResponse> findAllWithCoords();
+
+    @Aggregation(pipeline = {
+            "{$match: {_id: ?0}}",
+            "{$addFields: {coordIdOID:  {$toObjectId: '$coordenadorId'}, viceCoordIdOID:  {$toObjectId: '$viceCoordenadorId'}}}",
+            "{$lookup: {from: 'membro', localField: 'coordIdOID', foreignField: '_id', as: 'coordenador'}}",
+            "{$lookup: {from: 'membro', localField: 'viceCoordIdOID', foreignField:'_id', as: 'viceCoordenador'}}",
+            "{$unwind: '$coordenador'}",
+            "{$unwind: '$viceCoordenador'}",
+            "{$limit:  1}",
+    })
+    MinisterioWithCoordsResponse findAllWithCoordsById(
+            String idMinisterio);
 }

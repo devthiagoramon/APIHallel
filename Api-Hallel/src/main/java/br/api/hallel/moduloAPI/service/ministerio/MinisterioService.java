@@ -192,6 +192,17 @@ public class MinisterioService implements MinisterioInterface {
     }
 
     @Override
+    public List<MinisterioPublicResponse> listMinisterioPublic() {
+        return MinisterioMapper.toMinisterioPublicResponseList(this.ministerioRepository.findAll());
+    }
+
+    @Override
+    public MinisterioWithCoordsResponse listMinisterioWithCoordById(
+            String idMinisterio) {
+        return this.ministerioRepository.findAllWithCoordsById(idMinisterio);
+    }
+
+    @Override
     public List<MinisterioWithCoordsResponse> listMinisteriosWithCoords() {
         return this.ministerioRepository.findAllWithCoords()
                                         .getMappedResults();

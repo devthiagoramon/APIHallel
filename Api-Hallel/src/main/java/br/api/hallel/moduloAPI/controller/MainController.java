@@ -1,11 +1,14 @@
 package br.api.hallel.moduloAPI.controller;
 
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioPublicResponse;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioWithCoordsResponse;
 import br.api.hallel.moduloAPI.exceptions.ApiError;
 import br.api.hallel.moduloAPI.exceptions.SolicitarCadastroException;
 import br.api.hallel.moduloAPI.exceptions.SolicitarLoginException;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.exceptions.handler.EmailJaCadastradoException;
 import br.api.hallel.moduloAPI.model.Curso;
+import br.api.hallel.moduloAPI.model.Ministerio;
 import br.api.hallel.moduloAPI.model.Quiz;
 import br.api.hallel.moduloAPI.payload.requerimento.*;
 import br.api.hallel.moduloAPI.payload.resposta.*;
@@ -14,6 +17,7 @@ import br.api.hallel.moduloAPI.service.cursos.CursoService;
 import br.api.hallel.moduloAPI.service.eventos.EventosService;
 import br.api.hallel.moduloAPI.service.eventos.VoluntarioService;
 import br.api.hallel.moduloAPI.service.main.MainService;
+import br.api.hallel.moduloAPI.service.ministerio.MinisterioService;
 import br.api.hallel.moduloAPI.service.quiz.QuizService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,6 +52,8 @@ public class MainController {
     private EventosService eventosService;
     @Autowired
     private VoluntarioService voluntarioService;
+    @Autowired
+    private MinisterioService ministerioService;
 
     @Autowired
     private QuizService quizService;
@@ -206,5 +212,14 @@ public class MainController {
         return quizService.ListQuizesDoDia();
     }
 
+    @GetMapping("/ministerio")
+    public ResponseEntity<List<MinisterioPublicResponse>> listMinisteriosPublic(){
+        return ResponseEntity.ok(this.ministerioService.listMinisterioPublic());
+    }
+
+    @GetMapping("/ministerio/id/{idMinisterio}")
+    public ResponseEntity<MinisterioWithCoordsResponse> listMinisteriosPublicById(@PathVariable("idMinisterio") String idMinisterio){
+        return ResponseEntity.ok(this.ministerioService.listMinisterioWithCoordById(idMinisterio));
+    }
 
 }

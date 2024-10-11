@@ -19,6 +19,9 @@ interface MinisterioInterface {
 
     List<MinisterioResponse> listMinisterios();
 
+    List<MinisterioPublicResponse> listMinisterioPublic();
+    MinisterioWithCoordsResponse listMinisterioWithCoordById(String idMinisterio);
+
     List<MinisterioWithCoordsResponse> listMinisteriosWithCoords();
 
     MinisterioResponse listMinisterioById(String idMinisterio);
