@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -114,11 +115,15 @@ public class AdmEventosController {
 
 
     @GetMapping("/{id}/delete")
-    public void deleteEvento(@PathVariable(value = "id") String id) {
-
-
-        System.out.println("evento deletado");
-        this.eventosService.deleteEventoById(id);
+    public boolean deleteEvento(@PathVariable(value = "id") String id) {
+        try {
+            this.eventosService.deleteEventoById(id);
+            System.out.println("evento deletado");
+            return true;  // Retorna true se o evento for deletado com sucesso
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;  // Retorna false em caso de falha
+        }
     }
 
     @GetMapping("/{idEvento}/list")
@@ -128,16 +133,21 @@ public class AdmEventosController {
 
 
     @GetMapping("/{idEvento}/arquivar")
-    public void arquivarEvento(@PathVariable(value = "idEvento") String id) {
+    public ResponseEntity<String> arquivarEvento(@PathVariable(value = "idEvento") String id) {
         this.eventoArquivadoService.addEventoArquivado(id);
+        return ResponseEntity.ok("{\"success\": true}");
     }
 
     @GetMapping("/{idEvento}/desarquivar")
-    public void desarquivarEvento(@PathVariable(value = "idEvento") String idEvento) {
-        System.out.println("evento desarquivados");
+    public ResponseEntity<Boolean> desarquivarEvento(@PathVariable(value = "idEvento") String idEvento) {
+        System.out.println("Evento desarquivado");
 
-        this.eventoArquivadoService.retirarEventoArquivado(idEvento);
+       this.eventoArquivadoService.retirarEventoArquivado(idEvento);
+
+        // Retorne uma resposta com status 200 (OK) e o resultado da operação como boolean
+        return ResponseEntity.ok(true);
     }
+
 
     @GetMapping("/arquivados")
     public ResponseEntity<?> eventosArquivados() {
@@ -290,6 +300,22 @@ public class AdmEventosController {
     public ResponseEntity<List<SeVoluntariarEventoResponse>> listAllVoluntarios(@PathVariable(value = "id") String idEvento){
         return ResponseEntity.ok().body(voluntarioService.listAllVoluntarios(idEvento));
     }
+
+    @GetMapping("{id}/listVoluntariosByEmail")
+    public ResponseEntity<Optional<SeVoluntariarEventoResponse>> listVoluntarioByEmail(@PathVariable(value = "id") String idEvento,
+                                                                                       @RequestParam(value = "email") String emailParticipante) {
+        Optional<SeVoluntariarEventoResponse> voluntario = voluntarioService.findVoluntarioByEmail(idEvento, emailParticipante);
+
+        if(voluntario.isPresent()){
+
+        return ResponseEntity.ok().body(voluntario);
+        }else {
+            voluntario = null;
+            return ResponseEntity.ok().body(voluntario);
+        }
+
+    }
+
 
     @PostMapping("{id}/AlteraRecebimentoObjeto")
     public ResponseEntity<Boolean> AlteraRecebimentoObjeto(@PathVariable(value = "id") String idEvento, @RequestBody AlteraRecebimentoRequest request) {

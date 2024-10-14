@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="refatoração na listagens das  informações do perfil">
+    <list default="true" id="9329f70c-eaf9-4f70-9d9f-27076c62b07f" name="Changes" comment="refatoração de algumas rotas">
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/requerimento/EditPerfilRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EditPerfilResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Eventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/model/Eventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EventosResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/EventosResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/EventosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/membro/MembroController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/PerfilResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/payload/resposta/PerfilResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/VoluntarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/eventos/VoluntarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/service/main/MembroService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -381,7 +384,41 @@
       <workItem from="1724451399264" duration="150000" />
       <workItem from="1724710187868" duration="1556000" />
       <workItem from="1724879980929" duration="2336000" />
-      <workItem from="1724882360253" duration="6066000" />
+      <workItem from="1724882360253" duration="6368000" />
+      <workItem from="1724968638106" duration="4270000" />
+      <workItem from="1725231776405" duration="1290000" />
+      <workItem from="1725316644471" duration="378000" />
+      <workItem from="1725317325414" duration="630000" />
+      <workItem from="1725843330131" duration="610000" />
+      <workItem from="1725919533112" duration="1439000" />
+      <workItem from="1725996339580" duration="2942000" />
+      <workItem from="1726087935727" duration="2889000" />
+      <workItem from="1726102780403" duration="13000" />
+      <workItem from="1726177920241" duration="2195000" />
+      <workItem from="1726191498058" duration="128000" />
+      <workItem from="1726523026996" duration="4805000" />
+      <workItem from="1726580788683" duration="31000" />
+      <workItem from="1726609067673" duration="2238000" />
+      <workItem from="1726661524875" duration="598000" />
+      <workItem from="1726696630307" duration="598000" />
+      <workItem from="1727141202785" duration="40000" />
+      <workItem from="1727295218459" duration="391000" />
+      <workItem from="1727379816366" duration="53000" />
+      <workItem from="1727379964195" duration="81000" />
+      <workItem from="1727734584812" duration="2107000" />
+      <workItem from="1727814015481" duration="2408000" />
+      <workItem from="1727823338854" duration="4434000" />
+      <workItem from="1727893277905" duration="1418000" />
+      <workItem from="1728079916350" duration="1176000" />
+      <workItem from="1728169635127" duration="827000" />
+      <workItem from="1728217089253" duration="1721000" />
+      <workItem from="1728349442844" duration="398000" />
+      <workItem from="1728389493955" duration="775000" />
+      <workItem from="1728424377757" duration="3317000" />
+      <workItem from="1728596553418" duration="5731000" />
+      <workItem from="1728679117103" duration="3475000" />
+      <workItem from="1728688317215" duration="619000" />
+      <workItem from="1728942305007" duration="663000" />
     </task>
     <task id="LOCAL-00001" summary="Projeto sem o Moodle">
       <option name="closed" value="true" />
@@ -655,7 +692,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724714554024</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="refatoração na criação de eventos e da edição de eventos">
+      <option name="closed" value="true" />
+      <created>1724890916344</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1724890916344</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -673,8 +718,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="arrumei a inscrição do menbro em um evento" />
-    <MESSAGE value="adição dos metodos de doar pra eventos, metodos de listar as doações e adição do metodo de listagem dos detalhes da doção de eveto." />
     <MESSAGE value="adição listagem dos detalhes da doção de todos evetos." />
     <MESSAGE value="resolução de alguns bugs" />
     <MESSAGE value="refatoração no cadastro de membro em eventos para resolver bug do financeiro" />
@@ -698,7 +741,9 @@
     <MESSAGE value="teste" />
     <MESSAGE value="conserto de bugs" />
     <MESSAGE value="refatoração na listagens das  informações do perfil" />
-    <option name="LAST_COMMIT_MESSAGE" value="refatoração na listagens das  informações do perfil" />
+    <MESSAGE value="refatoração na criação de eventos e da edição de eventos" />
+    <MESSAGE value="refatoração de algumas rotas" />
+    <option name="LAST_COMMIT_MESSAGE" value="refatoração de algumas rotas" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -715,7 +760,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Api-Hallel/src/main/java/br/api/hallel/moduloAPI/controller/administrador/AdmEventosController.java</url>
-          <line>56</line>
+          <line>57</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">

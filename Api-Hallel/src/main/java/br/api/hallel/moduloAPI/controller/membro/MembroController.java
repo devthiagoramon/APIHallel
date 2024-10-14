@@ -3,9 +3,11 @@ package br.api.hallel.moduloAPI.controller.membro;
 import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.payload.requerimento.BuscarIdAssociadoReq;
+import br.api.hallel.moduloAPI.payload.requerimento.EditPerfilRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.VirarAssociadoRequest;
 import br.api.hallel.moduloAPI.payload.resposta.AssociadoResponse;
 import br.api.hallel.moduloAPI.payload.resposta.DoacaoDinheiroEventoResponse;
+import br.api.hallel.moduloAPI.payload.resposta.EditPerfilResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
 import br.api.hallel.moduloAPI.service.financeiro.AssociadoService;
 import br.api.hallel.moduloAPI.service.main.MembroService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping(value = "/api/membros")
@@ -29,6 +32,18 @@ public class MembroController {
 
     @Autowired
     private AssociadoService associadoService;
+
+
+    // Método para editar o perfil
+    @PutMapping("/perfil/editar/{id}")
+    public ResponseEntity<EditPerfilResponse> editarPerfil(@PathVariable String id, @RequestBody EditPerfilRequest editPerfilRequest) {
+        try {
+            EditPerfilResponse perfilAtualizado = service.editarPerfil(id, editPerfilRequest);
+            return ResponseEntity.ok(perfilAtualizado);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @GetMapping("/perfil/{id}")
     public ResponseEntity<PerfilResponse> visualizarPerfil(@PathVariable String id) throws IllegalAccessException {

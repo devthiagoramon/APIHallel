@@ -54,6 +54,15 @@ public class VoluntarioService implements VoluntarioEventonterface {
     }
 
 
+    public Optional<SeVoluntariarEventoResponse> findVoluntarioByEmail(String idEvento, String emailParticipante) {
+        List<SeVoluntariarEventoResponse> voluntarios = this.listAllVoluntarios(idEvento);
+
+        return voluntarios.stream()
+                .filter(voluntario -> emailParticipante.equalsIgnoreCase(voluntario.getEmail()))
+                .findFirst();
+    }
+
+
     @Override
     public List<SeVoluntariarEventoResponse> listVoluntariosById(String id) {
         // Implemente a lógica para retornar voluntários por ID

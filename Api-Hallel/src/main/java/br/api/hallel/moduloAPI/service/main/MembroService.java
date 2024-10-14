@@ -1,11 +1,14 @@
 package br.api.hallel.moduloAPI.service.main;
 
+import br.api.hallel.moduloAPI.exceptions.associado.AssociadoNotFoundException;
 import br.api.hallel.moduloAPI.model.Associado;
 import br.api.hallel.moduloAPI.model.ContribuicaoEvento;
 import br.api.hallel.moduloAPI.model.Eventos;
 import br.api.hallel.moduloAPI.model.Membro;
 import br.api.hallel.moduloAPI.payload.requerimento.ContribuicaoEventoReq;
+import br.api.hallel.moduloAPI.payload.requerimento.EditPerfilRequest;
 import br.api.hallel.moduloAPI.payload.requerimento.EventosRequest;
+import br.api.hallel.moduloAPI.payload.resposta.EditPerfilResponse;
 import br.api.hallel.moduloAPI.payload.resposta.MembroResponse;
 import br.api.hallel.moduloAPI.payload.resposta.PerfilResponse;
 import br.api.hallel.moduloAPI.repository.AssociadoRepository;
@@ -24,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -192,6 +196,61 @@ public class MembroService implements MembroInterface {
 
         throw new IllegalAccessException("Usuario não encontrado para carregar o perfil");
     }
+
+
+    public EditPerfilResponse editarPerfil(String id, EditPerfilRequest editPerfilRequest) throws NoSuchElementException {
+        Optional<Membro> optionalMembro = this.repository.findById(id);
+        Optional<Associado> optionalAssociado = associadoRepository.findById(id);
+
+        if (optionalMembro.isPresent()) {
+            // SE O MEMBRO EXISTE, FAZ AS ATUALIZAÇÕES
+            Membro membro = optionalMembro.get();
+            membro.setNome(editPerfilRequest.getNome());
+            membro.setEmail(editPerfilRequest.getEmail());
+            membro.setCpf(editPerfilRequest.getCpf());
+            membro.setTelefone(editPerfilRequest.getTelefone());
+            membro.setImage(editPerfilRequest.getImage());
+
+            // SALVA O MEMBRO ATUALIZADO NO BANCO DE DADOS
+            this.repository.save(membro);
+
+            // RETORNA A RESPOSTA COM O PERFIL ATUALIZADO
+            return new EditPerfilResponse(
+                    membro.getNome(),
+                    membro.getEmail(),
+                    membro.getCpf(),
+                    membro.getTelefone(),
+                    membro.getImage()
+            );
+        } else if (optionalAssociado.isPresent()) {
+
+            // SE O ASSOCIADO EXISTE, FAZ AS ATUALIZAÇÕES
+            Associado associado = optionalAssociado.get();
+            associado.setNome(editPerfilRequest.getNome());
+            associado.setEmail(editPerfilRequest.getEmail());
+            associado.setCpf(editPerfilRequest.getCpf());
+            associado.setTelefone(editPerfilRequest.getTelefone());
+            associado.setImage(editPerfilRequest.getImage());
+
+            // SALVA O ASSOCIADO ATUALIZADO NO BANCO DE DADOS
+            associadoRepository.save(associado);
+
+            // RETORNA A RESPOSTA COM O PERFIL ATUALIZADO
+            return new EditPerfilResponse(
+                    associado.getNome(),
+                    associado.getEmail(),
+                    associado.getCpf(),
+                    associado.getTelefone(),
+                    associado.getImage()
+            );
+        }
+
+        // CASO NENHUM MEMBRO OU ASSOCIADO SEJA ENCONTRADO
+        throw new NoSuchElementException("Perfil não encontrado para editar");
+    }
+
+
+
 
     @Override
     public List<MembroResponse> listByPage(int pagina) {
