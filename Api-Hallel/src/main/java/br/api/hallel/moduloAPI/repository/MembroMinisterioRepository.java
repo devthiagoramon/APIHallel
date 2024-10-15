@@ -52,17 +52,18 @@ public interface MembroMinisterioRepository
             pipeline = {
                     "{$match: {'membroId':  ?0}}",
                     "{$addFields: {idMinisterioOID: {$toObjectId: '$ministerioId'}}}",
-                    "{$lookup: {from: 'ministerios', localField: 'idMinisterioOID', foreignField: '_id', as: 'ministerio'}}",
-                    "{$project: {"
-                            + "'_id': 0,"
-                            + "'membroId': 0,"
-                            + "'ministerio.nome': 1,"
-                            + "'ministerio.coordenadorId': 1,"
-                            + "'ministerio.viceCoordenadorId': 1,"
-                            + "'ministerio.descricao': 1,"
-                            + "'ministerio.imagem': 1,"
-                            + "'ministerio.objetivos': 1"
-                            + "}}"
+                    "{$lookup: {from: 'ministerio', localField: 'idMinisterioOID', foreignField: '_id', as: 'ministerios'}}",
+                    "{ $unwind: '$ministerios'}",
+                    "{$project: {" +
+                            "      \"id\": \"$ministerios._id\"," +
+                            "      \"nome\": \"$ministerios.nome\"," +
+                            "      \"coordenadorId\": \"$ministerios.coordenadorId\"," +
+                            "      \"viceCoordenadorId\": \"$ministerios.viceCoordenadorId\"," +
+                            "      \"descricao\": \"$ministerios.descricao\"," +
+                            "      \"imagem\": \"$ministerios.imagem\"," +
+                            "      \"objetivos\": \"$ministerios.objetivos\"" +
+                            "    }}",
+
             }
     )
     List<MinisterioResponse> findMinisterioByMembroId(
