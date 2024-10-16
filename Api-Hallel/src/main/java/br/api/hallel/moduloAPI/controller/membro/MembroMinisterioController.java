@@ -1,14 +1,15 @@
 package br.api.hallel.moduloAPI.controller.membro;
 
-import br.api.hallel.moduloAPI.dto.v1.ministerio.EscalaMinisterioWithEventoInfoResponse;
-import br.api.hallel.moduloAPI.dto.v1.ministerio.MinisterioResponse;
-import br.api.hallel.moduloAPI.dto.v1.ministerio.NaoConfirmarEscalaDTO;
-import br.api.hallel.moduloAPI.dto.v1.ministerio.StatusParticipacaoEscalaMinisterio;
+import br.api.hallel.moduloAPI.dto.v1.ministerio.*;
 import br.api.hallel.moduloAPI.model.NaoConfirmadoEscalaMinisterio;
 import br.api.hallel.moduloAPI.security.ministerio.TokenCoordenadorMinisterio;
 import br.api.hallel.moduloAPI.service.ministerio.MinisterioService;
 import com.nimbusds.oauth2.sdk.Response;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,8 @@ public class MembroMinisterioController {
         return tokenCoordenadorMinisterio.generateToken(ministerioId, membroId);
     }
 
-    @GetMapping("/status/{idMembroMinisterio}/{idEscalaMinisterio}")
+    @GetMapping(
+            "/escalas/status/{idMembroMinisterio}/{idEscalaMinisterio}")
     @Operation(summary = "Pegar o status do membro em uma escala")
     public ResponseEntity<StatusParticipacaoEscalaMinisterio>
     statusParticipacaoEscalaMinisterio
@@ -131,5 +133,29 @@ public class MembroMinisterioController {
     public ResponseEntity<List<MinisterioResponse>> listarMinisterioPeloMembroId(
             @PathVariable("idMembro") String idMembro) {
         return ResponseEntity.ok(this.ministerioService.listMinisterioThatMembroParticipateByMembroId(idMembro));
+    }
+
+    @GetMapping("/status/{idMinisterio}/{idMembro}")
+    @Operation(
+            summary = "Pegar o status do membro em um ministerio",
+            responses = {
+                    @ApiResponse(responseCode = "200",
+                                 description = "Status do membro de um ministerio retornado com sucesso",
+                                 content = @Content(schema = @Schema(
+                                         implementation = StatusMembroMinisterio.class),
+                                                    examples = {
+                                                            @ExampleObject(
+                                                                    "COORDENADOR"),
+                                                            @ExampleObject(
+                                                                    "VICE_COORDENADOR"),
+                                                            @ExampleObject(
+                                                                    "MEMBRO")})),
+            }
+    )
+
+    public ResponseEntity<StatusMembroMinisterio> getStatusMembroMinisterio(
+            @PathVariable("idMinisterio") String idMinisterio,
+            @PathVariable("idMembro") String idMembro) {
+        return ResponseEntity.ok(this.ministerioService.listStatusMembroMinisterioByMinisterioIdAndMembroId(idMinisterio, idMembro));
     }
 }

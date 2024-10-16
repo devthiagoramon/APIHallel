@@ -459,7 +459,26 @@ public class MinisterioService implements MinisterioInterface {
     @Override
     public List<MinisterioResponse> listMinisterioThatMembroParticipateByMembroId(
             String idMembro) {
+        log.info("List ministerios that membro " + idMembro + " participate");
         return this.membroMinisterioRepository.findMinisterioByMembroId(idMembro);
+    }
+
+    @Override
+    public StatusMembroMinisterio listStatusMembroMinisterioByMinisterioIdAndMembroId(
+            String idMinisterio, String membroId) {
+        Optional<Ministerio> optional = this.ministerioRepository.findById(idMinisterio);
+        if (optional.isEmpty()) {
+            throw new RuntimeException("Ministerio " + idMinisterio + " not found");
+        }
+        Ministerio ministerio = optional.get();
+        if (ministerio.getCoordenadorId().equals(membroId)) {
+            return StatusMembroMinisterio.COORDENADOR;
+        } else if (ministerio.getViceCoordenadorId()
+                             .equals(membroId)) {
+            return StatusMembroMinisterio.VICE_COORDENADOR;
+        } else {
+            return StatusMembroMinisterio.MEMBRO;
+        }
     }
 
     @Override

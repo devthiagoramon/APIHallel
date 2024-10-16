@@ -77,6 +77,7 @@ interface MinisterioInterface {
             NaoConfirmarEscalaDTO naoConfirmarEscalaDTO);
 
     List<MinisterioResponse> listMinisterioThatMembroParticipateByMembroId(String idMembro);
+    StatusMembroMinisterio listStatusMembroMinisterioByMinisterioIdAndMembroId(String idMinisterio, String membroId);
 
     NaoConfirmadoEscalaMinisterio createNaoConfirmadoEscalaMinisterio(
             NaoConfirmarEscalaDTO naoConfirmarEscalaDTO);
