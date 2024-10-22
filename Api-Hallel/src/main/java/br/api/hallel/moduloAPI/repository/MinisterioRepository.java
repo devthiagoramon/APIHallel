@@ -20,7 +20,7 @@ public interface MinisterioRepository
     AggregationResults<MinisterioWithCoordsResponse> findAllWithCoords();
 
     @Aggregation(pipeline = {
-            "{$match: {_id: {$toObjectId:  ?0}}}",
+            "{$match: {_id: ?0}}",
             "{$addFields: {coordIdOID:  {$toObjectId: '$coordenadorId'}, viceCoordIdOID:  {$toObjectId: '$viceCoordenadorId'}}}",
             "{$lookup: {from: 'membro', localField: 'coordIdOID', foreignField: '_id', as: 'coordenador'}}",
             "{$lookup: {from: 'membro', localField: 'viceCoordIdOID', foreignField:'_id', as: 'viceCoordenador'}}",
